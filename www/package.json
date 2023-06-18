@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "preview": true,
   "scripts": {
-    "doc": "kkt build",
+    "build": "kkt build",
     "start": "kkt start",
     "map": "source-map-explorer build/static/js/*.js --html build/website-result.html"
   },
