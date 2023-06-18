@@ -1,6 +1,9 @@
 react-json-view
 ===
 
+[![CI](https://github.com/uiwjs/react-json-view/actions/workflows/ci.yml/badge.svg)](https://github.com/uiwjs/react-json-view/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@uiw/react-json-view.svg)](https://www.npmjs.com/package/@uiw/react-json-view)
+
 A React component for displaying and editing javascript arrays and JSON objects.
 
 ## Features
