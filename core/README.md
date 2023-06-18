@@ -19,7 +19,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 ## Features
 
 📚 Use Typescript to write, better code hints.  
-🎨 Support theme customization  
+🎨 Support theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme) theme  
 🌒 Support dark/light mode  
 
 ## Quick Start
@@ -130,6 +130,8 @@ export default function Demo() {
   )
 }
 ```
+
+## Online Editing Theme
 
 Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
 
