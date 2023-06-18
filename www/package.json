@@ -14,7 +14,7 @@
     "@uiw/react-markdown-preview": "^4.1.0",
     "@uiw/react-json-view": "^0.0.1",
     "styled-components": "^6.0.0-rc.3",
-    "react-code-preview-layout": "^2.0.4",
+    "react-code-preview-layout": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
