@@ -45,9 +45,12 @@
     "react-dom": ">=18.0.0"
   },
   "files": [
+    "dark.d.ts",
+    "light.d.ts",
+    "triangle-arrow.d.ts",
+    "triangle-solid-arrow.d.ts",
     "cjs",
-    "esm",
-    "src"
+    "esm"
   ],
   "keywords": [
     "monaco-editor",
