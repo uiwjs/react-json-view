@@ -131,6 +131,88 @@ export default function Demo() {
 }
 ```
 
+Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
+
+```tsx mdx:preview
+import React, { useState, useRef } from 'react';
+import Colorful from '@uiw/react-color-colorful';
+import JsonView from '@uiw/react-json-view';
+
+const object = {
+  avatar: 'https://i.imgur.com/MK3eW3As.jpg',
+  string: 'Lorem ipsum dolor sit amet',
+  integer: 42,
+  float: 114.514,
+  bigint: 10086n,
+  null: null,
+  undefined,
+  timer: 0,
+  date: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
+  array: [19, 100.86, 'test', NaN, Infinity],
+  nestedArray: [
+    [1, 2],
+    [3, 4],
+  ],
+  object: {
+    'first-child': true,
+    'second-child': false,
+    'last-child': null,
+  },
+  string_number: '1234',
+}
+const customTheme = {
+  '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-background-color': '#1e1e1e',
+  '--w-rjv-border-left': '1px solid #323232',
+  '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-info-color': '#656565',
+
+  '--w-rjv-curlybraces-color': '#d4d4d4',
+  '--w-rjv-brackets-color': '#d4d4d4',
+
+  '--w-rjv-type-string-color': '#ce9178',
+  '--w-rjv-type-int-color': '#268bd2',
+  '--w-rjv-type-float-color': '#859900',
+  '--w-rjv-type-bigint-color': '#268bd2',
+  '--w-rjv-type-boolean-color': '#559bd4',
+  '--w-rjv-type-date-color': '#586e75',
+  '--w-rjv-type-null-color': '#d33682',
+  '--w-rjv-type-nan-color': '#859900',
+  '--w-rjv-type-undefined-color': '#586e75',
+};
+
+export default function Demo() {
+  const [cssvar, setCssvar] = useState('--w-rjv-background-color');
+  const [hex, setHex] = useState("#1e1e1e");
+  const [theme, setTheme] = useState(customTheme);
+  const onChange = ({ hexa }) => {
+    const value = cssvar === '--w-rjv-border-left' ? `1px solid ${hexa}` : hexa;
+    setHex(hexa);
+    setTheme({ ...theme, [cssvar]: value });
+  };
+  return (
+    <React.Fragment>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <JsonView value={object} keyName="root" style={{ flex: 1, ...theme }} />
+        <div>
+          <Colorful color={hex} onChange={onChange} />
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            {Object.keys(customTheme).map((varname, idx) => {
+              const click = () => setCssvar(varname);
+              const active = cssvar === varname ? '#a8a8a8' : '';
+              return <button key={idx} style={{ background: active }} onClick={click}>{varname}</button>
+            })}
+          </div>
+        </div>
+      </div>
+      Copy the theme configuration below into your project.
+      <pre>
+        {JSON.stringify(theme, null, 2)}
+      </pre>
+    </React.Fragment>
+  )
+}
+```
 ## Render
 
 ```tsx mdx:preview
