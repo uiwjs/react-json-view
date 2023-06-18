@@ -19,6 +19,7 @@ export default (conf: WebpackConfiguration, env: 'production' | 'development', o
       VERSION: JSON.stringify(pkg.version),
     }),
   );
+  conf.module!.exprContextCritical = false;
   if (env === 'production') {
     conf.output = { ...conf.output, publicPath: './' };
     conf.optimization = {
