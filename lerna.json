@@ -1,0 +1,4 @@
+{
+  "version": "1.0.14",
+  "packages": ["core", "www"]
+}

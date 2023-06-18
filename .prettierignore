@@ -1,0 +1,12 @@
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.yml
+package.json
+node_modules
+dist
+build
+lib
+cjs
+esm
+test

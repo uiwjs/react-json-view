@@ -1,0 +1,65 @@
+{
+  "name": "@uiw/react-json-view",
+  "version": "0.0.1",
+  "description": "JSON viewer for react.",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "homepage": "https://uiwjs.github.io/react-json-view",
+  "exports": {
+    "./README.md": "./README.md",
+    ".": {
+      "import": "./esm/index.js",
+      "types": "./cjs/index.d.ts",
+      "require": "./cjs/index.js"
+    },
+    "./light": {
+      "import": "./esm/theme/light.js",
+      "types": "./cjs/theme/light.d.ts",
+      "require": "./cjs/theme/light.js"
+    },
+    "./dark": {
+      "import": "./esm/theme/dark.js",
+      "types": "./cjs/theme/dark.d.ts",
+      "require": "./cjs/theme/dark.js"
+    },
+    "./triangle-arrow": {
+      "import": "./esm/arrow/TriangleArrow.js",
+      "types": "./cjs/arrow/TriangleArrow.d.ts",
+      "require": "./cjs/arrow/TriangleArrow.js"
+    },
+    "./triangle-solid-arrow": {
+      "import": "./esm/arrow/TriangleSolidArrow.js",
+      "types": "./cjs/arrow/TriangleSolidArrow.d.ts",
+      "require": "./cjs/arrow/TriangleSolidArrow.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uiwjs/react-json-view.git"
+  },
+  "author": "Kenny Wang<wowohoo@qq.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@babel/runtime": ">=7.10.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "files": [
+    "cjs",
+    "esm",
+    "src"
+  ],
+  "keywords": [
+    "monaco-editor",
+    "monaco-nginx",
+    "nginx",
+    "monaco",
+    "editor",
+    "editor-nginx",
+    "monaco-editor-nginx"
+  ],
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

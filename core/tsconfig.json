@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig",
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
+  "compilerOptions": {
+    "outDir": "../cjs",
+    "baseUrl": ".",
+    "noEmit": false,
+    "paths": {
+      "*": ["*", "types/*"]
+    }
+  }
+}
