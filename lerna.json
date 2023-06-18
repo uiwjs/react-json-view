@@ -1,4 +1,7 @@
 {
-  "version": "1.0.14",
-  "packages": ["core", "www"]
+  "version": "0.1.0",
+  "packages": [
+    "core",
+    "www"
+  ]
 }
