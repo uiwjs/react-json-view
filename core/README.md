@@ -138,7 +138,7 @@ export default function Demo() {
 
 Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
 
-```tsx mdx:preview
+```tsx mdx:preview:&title=Online Editing Theme
 import React, { useState, useRef } from 'react';
 import Colorful from '@uiw/react-color-colorful';
 import JsonView from '@uiw/react-json-view';

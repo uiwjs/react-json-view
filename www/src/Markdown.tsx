@@ -1,5 +1,5 @@
 import CodeLayout from 'react-code-preview-layout';
-import { getMetaId, isMeta } from 'markdown-react-code-preview-loader';
+import { getMetaId, isMeta, getURLParameters } from 'markdown-react-code-preview-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import styled from 'styled-components';
 import rehypeIgnore from 'rehype-ignore';
@@ -31,12 +31,13 @@ const CodePreview: CodeComponent | ReactMarkdownNames = ({ inline, node, ...prop
   const Child = data.components[`${metaId}`];
   if (metaId && typeof Child === 'function') {
     const code = data.data[metaId].value || '';
+    const { title } = getURLParameters(meta);
     return (
       <CodeLayout>
         <Preview>
           <Child />
         </Preview>
-        <Toolbar text={code}>Code Example</Toolbar>
+        <Toolbar text={code}>{title || 'Code Example'}</Toolbar>
         <Code>
           <code {...rest} />
         </Code>
