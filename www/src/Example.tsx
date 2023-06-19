@@ -27,6 +27,7 @@ const example = {
   timer: 0,
   date: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
   array: [19, 100.86, 'test', NaN, Infinity],
+  emptyArray: [],
   nestedArray: [
     [1, 2],
     [3, 4],
@@ -56,6 +57,7 @@ export function Example() {
   const [theme, setTheme] = useState<React.CSSProperties>(lightTheme as React.CSSProperties);
   const [displayDataTypes, setDisplayDataTypes] = useState(true);
   const [displayObjectSize, setDisplayObjectSize] = useState(true);
+  const [clipboard, setClipboard] = useState(true);
   return (
     <Fragment>
       <JsonView
@@ -63,6 +65,7 @@ export function Example() {
         indentWidth={indentWidth}
         displayObjectSize={displayObjectSize}
         displayDataTypes={displayDataTypes}
+        enableClipboard={clipboard}
         style={theme}
       />
       <Label>
@@ -77,6 +80,10 @@ export function Example() {
       <Label>
         <span>Indent:</span>
         <input type="number" value={indentWidth} onChange={(evn) => setIndentWidth(Number(evn.target.value))} />
+      </Label>
+      <Label>
+        <span>Enable Clipboard:</span>
+        <input type="checkbox" checked={clipboard} onChange={(evn) => setClipboard(evn.target.checked)} />
       </Label>
       <Label>
         <span>Display Data Types:</span>

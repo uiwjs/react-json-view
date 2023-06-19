@@ -2,9 +2,11 @@ export const lightTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#002b36',
   '--w-rjv-background-color': '#ffffff',
-  '--w-rjv-border-left': '1px solid #ebebeb',
+  '--w-rjv-line-color': '#ebebeb',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#0000004d',
+  '--w-rjv-copied-color': '#002b36',
+  '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#236a7c',
   '--w-rjv-brackets-color': '#236a7c',

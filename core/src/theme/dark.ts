@@ -2,9 +2,11 @@ export const darkTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#0184a6',
   '--w-rjv-background-color': '#202020',
-  '--w-rjv-border-left': '1px solid #323232',
+  '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
+  '--w-rjv-copied-color': '#0184a6',
+  '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#1896b6',
   '--w-rjv-brackets-color': '#1896b6',

@@ -3,6 +3,7 @@ react-json-view
 
 [![CI](https://github.com/uiwjs/react-json-view/actions/workflows/ci.yml/badge.svg)](https://github.com/uiwjs/react-json-view/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@uiw/react-json-view.svg)](https://www.npmjs.com/package/@uiw/react-json-view)
+[![react@^18](https://shields.io/badge/react-^18-green?style=flat&logo=react)](https://github.com/facebook/react/releases)
 
 A React component for displaying and editing javascript arrays and JSON objects.
 
@@ -106,9 +107,11 @@ const customTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
-  '--w-rjv-border-left': '1px solid #323232',
+  '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
+  '--w-rjv-copied-color': '#9cdcfe',
+  '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
@@ -165,9 +168,11 @@ const object = {
 const customTheme = {
   '--w-rjv-color': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
-  '--w-rjv-border-left': '1px solid #323232',
-  '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-line-color': '#323232',
+  '--w-rjv-arrow-color': '#9cdcfe',
   '--w-rjv-info-color': '#656565',
+  '--w-rjv-copied-color': '#0184a6',
+  '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
@@ -188,9 +193,8 @@ export default function Demo() {
   const [hex, setHex] = useState("#1e1e1e");
   const [theme, setTheme] = useState(customTheme);
   const onChange = ({ hexa }) => {
-    const value = cssvar === '--w-rjv-border-left' ? `1px solid ${hexa}` : hexa;
     setHex(hexa);
-    setTheme({ ...theme, [cssvar]: value });
+    setTheme({ ...theme, [cssvar]: hexa });
   };
   return (
     <React.Fragment>
@@ -200,7 +204,10 @@ export default function Demo() {
           <Colorful color={hex} onChange={onChange} />
           <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
             {Object.keys(customTheme).map((varname, idx) => {
-              const click = () => setCssvar(varname);
+              const click = () => {
+                setCssvar(varname);
+                setHex(customTheme[varname]);
+              };
               const active = cssvar === varname ? '#a8a8a8' : '';
               return <button key={idx} style={{ background: active }} onClick={click}>{varname}</button>
             })}
@@ -375,14 +382,17 @@ import { MetaProps, SemicolonProps, EllipsisProps, ValueViewProps } from '@uiw/r
 export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
   value?: T;
-  /** Set the indent-width for nested objects @default `15`*/
+  /** Set the indent-width for nested objects @default 15 */
   indentWidth?: number;
-  /** When set to `true`, data type labels prefix values @default `true` */
+  /** When set to `true`, data type labels prefix values @default true */
   displayDataTypes?: boolean;
-  /** When set to `true`, `objects` and `arrays` are labeled with size @default `true` */
+  /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
-  /** Define the root node name. @default `undefined` */
+  /** Define the root node name. @default undefined */
   keyName?: string | number;
+  /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
+  enableClipboard?: boolean;
+  /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];
     ellipsis?: EllipsisProps['render'];

@@ -9,14 +9,17 @@ export interface JsonViewProps<T>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
   value?: T;
-  /** Set the indent-width for nested objects @default `15`*/
+  /** Set the indent-width for nested objects @default 15 */
   indentWidth?: number;
-  /** When set to `true`, data type labels prefix values @default `true` */
+  /** When set to `true`, data type labels prefix values @default true */
   displayDataTypes?: boolean;
-  /** When set to `true`, `objects` and `arrays` are labeled with size @default `true` */
+  /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
-  /** Define the root node name. @default `undefined` */
+  /** Define the root node name. @default undefined */
   keyName?: string | number;
+  /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
+  enableClipboard?: boolean;
+  /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];
     ellipsis?: EllipsisProps['render'];

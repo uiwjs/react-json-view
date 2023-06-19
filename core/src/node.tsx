@@ -1,8 +1,9 @@
-import { FC, Fragment, PropsWithChildren, useId, cloneElement } from 'react';
-import { ValueView, ValueViewProps, Colon, Label, LabelProps, typeMap } from './value';
+import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState } from 'react';
+import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
+import { Copied } from './copied';
 
 export interface MetaProps extends LabelProps {
   isArray?: boolean;
@@ -29,8 +30,6 @@ export function Meta(props: MetaProps) {
     </Label>
   );
 }
-
-export const Line: FC<PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>> = (props) => <div {...props} />;
 
 export interface EllipsisProps extends React.HTMLAttributes<HTMLSpanElement> {
   render?: (props: EllipsisProps) => JSX.Element;
@@ -88,6 +87,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayDataTypes = true,
     components = {},
     displayObjectSize = true,
+    enableClipboard = true,
     indentWidth = 15,
     keyid = 'root',
     ...reset
@@ -110,6 +110,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   };
   const valueViewProps = {
     displayDataTypes,
+    displayObjectSize,
+    enableClipboard,
+    indentWidth,
     renderValue: components.value,
   } as ValueViewProps<T>;
 
@@ -118,8 +121,12 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   ) : (
     <TriangleArrow style={arrowStyle} />
   );
+  const [showTools, setShowTools] = useState(false);
+  const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
+  const mouseEnter = () => setShowTools(true);
+  const mouseLeave = () => setShowTools(false);
   return (
-    <div {...reset}>
+    <div {...reset} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
         {arrowView}
         {(typeof keyName === 'string' || typeof keyName === 'number') && (
@@ -139,20 +146,13 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {!expand && <Ellipsis render={components.ellipsis} />}
         {!expand && <Meta isArray={isArray} render={components.braces} />}
         {displayObjectSize && <CountInfo>{nameKeys.length} items</CountInfo>}
+        {tools}
       </Line>
       {expand && (
-        <Line style={{ borderLeft: 'var(--w-rjv-border-left, 1px solid #ebebeb)', marginLeft: 6 }}>
+        <Line style={{ borderLeft: '1px solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
           {nameKeys.length > 0 &&
             nameKeys.map((key, idx) => {
               const item = value[key];
-              if (Array.isArray(item)) {
-                const label = isArray ? idx : key;
-                return (
-                  <Line key={label + idx}>
-                    <RooNode value={item} keyid={keyid + subkeyid + label} keyName={label} {...subNodeProps} />
-                  </Line>
-                );
-              }
               const renderKey = (
                 <Semicolon
                   value={item}
@@ -163,17 +163,16 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                   {key}
                 </Semicolon>
               );
-              if (typeof item === 'object' && item && !((item as any) instanceof Date)) {
-                if (Object.keys(item).length === 0) {
-                  return (
-                    <Line key={key + idx} style={{ paddingLeft: indentWidth }}>
-                      <ValueView {...valueViewProps} renderKey={renderKey} keyName={key} value={item} />
-                      <Meta render={components.braces} start isArray={isArray} />
-                      <Meta render={components.braces} isArray={isArray} />
-                      {displayObjectSize && <CountInfo>{Object.keys(item).length} items</CountInfo>}
-                    </Line>
-                  );
-                }
+              const isEmpty = (Array.isArray(item) && (item as []).length === 0) || (typeof item === 'object' && item && !((item as any) instanceof Date) && Object.keys(item).length === 0);
+              if (Array.isArray(item) && !isEmpty) {
+                const label = isArray ? idx : key;
+                return (
+                  <Line key={label + idx}>
+                    <RooNode value={item} keyid={keyid + subkeyid + label} keyName={label} {...subNodeProps} />
+                  </Line>
+                );
+              }
+              if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
                 return (
                   <Line key={key + idx}>
                     <RooNode keyid={keyid + subkeyid + key} value={item} keyName={key} {...subNodeProps} />
@@ -184,9 +183,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                 return;
               }
               return (
-                <Line key={idx} style={{ paddingLeft: indentWidth }}>
-                  <ValueView {...valueViewProps} renderKey={renderKey} keyName={key} value={item} />
-                </Line>
+                <ValueView key={idx} {...valueViewProps} renderBraces={components.braces} renderKey={renderKey} keyName={key} value={item} />
               );
             })}
         </Line>

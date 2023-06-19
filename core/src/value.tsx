@@ -1,5 +1,8 @@
-import { FC, Fragment, PropsWithChildren } from 'react';
+import { FC, Fragment, PropsWithChildren, useState } from 'react';
+import { Meta, MetaProps, CountInfo } from './node';
+import { Copied } from './copied';
 
+export const Line: FC<PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>> = (props) => <div {...props} />;
 const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
 export const typeMap = {
   string: {
@@ -53,14 +56,18 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
 export interface ValueViewProps<T>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   keyName?: string;
-  value: T;
+  value?: T;
   displayDataTypes: boolean;
+  displayObjectSize: boolean;
+  enableClipboard: boolean;
+  indentWidth: number;
   renderKey?: JSX.Element;
+  renderBraces?: MetaProps['render'];
   renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type'] }) => JSX.Element;
 }
 
-export function ValueView<T>(props: ValueViewProps<T>) {
-  const { value, keyName, renderKey, renderValue, displayDataTypes, ...reset } = props;
+export function ValueView<T = object>(props: ValueViewProps<T>) {
+  const { value, keyName, indentWidth, renderKey, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
 
   let type = typeof value as TypeProps['type'];
   let content = '';
@@ -102,6 +109,12 @@ export function ValueView<T>(props: ValueViewProps<T>) {
     typeView = <Fragment />;
   }
   color = typeMap[type]?.color || '';
+
+  const [showTools, setShowTools] = useState(false);
+  const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
+  const mouseEnter = () => setShowTools(true);
+  const mouseLeave = () => setShowTools(false);
+
   if (content && typeof content === 'string') {
     const valueView = renderValue ? (
       renderValue({
@@ -116,20 +129,35 @@ export function ValueView<T>(props: ValueViewProps<T>) {
       </Label>
     );
     return (
+      <Line style={{ paddingLeft: indentWidth }} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+        <Label {...reset}>
+          {renderKey}
+          <Colon />
+          {typeView}
+          {valueView}
+          {tools}
+        </Label>
+      </Line>
+    );
+  }
+  const length = Array.isArray(value) ? value.length : Object.keys(value as object).length;
+  const empty = (
+    <Fragment>
+      <Meta render={renderBraces} start isArray={Array.isArray(value)} />
+      <Meta render={renderBraces} isArray={Array.isArray(value)} />
+      {displayObjectSize && <CountInfo>{length} items</CountInfo>}
+    </Fragment>
+  )
+  return (
+    <Line style={{ paddingLeft: indentWidth }} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       <Label {...reset}>
         {renderKey}
         <Colon />
         {typeView}
-        {valueView}
+        {empty}
+        {tools}
       </Label>
-    );
-  }
-  return (
-    <Label {...reset}>
-      {renderKey}
-      <Colon />
-      {typeView}
-    </Label>
+    </Line>
   );
 }
 
