@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.479365c2.css",
-    "main.js": "/static/js/main.3f0a0bc0.js",
+    "main.js": "/static/js/main.c1b8be69.js",
     "refractor-prismjs-vendor.0abbb2f3.js": "/static/js/refractor-prismjs-vendor.0abbb2f3.67628658.js",
     "react-vendor.js": "/static/js/react-vendor.b3fdfee2.js",
     "refractor-prismjs-vendor.3665b250.js": "/static/js/refractor-prismjs-vendor.3665b250.337d9a5f.js",
     "refractor-prismjs-vendor.a81a7d65.js": "/static/js/refractor-prismjs-vendor.a81a7d65.7c762566.js",
     "index.html": "/index.html",
     "main.479365c2.css.map": "/static/css/main.479365c2.css.map",
-    "main.3f0a0bc0.js.map": "/static/js/main.3f0a0bc0.js.map",
+    "main.c1b8be69.js.map": "/static/js/main.c1b8be69.js.map",
     "refractor-prismjs-vendor.0abbb2f3.67628658.js.map": "/static/js/refractor-prismjs-vendor.0abbb2f3.67628658.js.map",
     "react-vendor.b3fdfee2.js.map": "/static/js/react-vendor.b3fdfee2.js.map",
     "refractor-prismjs-vendor.3665b250.337d9a5f.js.map": "/static/js/refractor-prismjs-vendor.3665b250.337d9a5f.js.map",
@@ -20,6 +20,6 @@
     "static/js/refractor-prismjs-vendor.0abbb2f3.67628658.js",
     "static/js/react-vendor.b3fdfee2.js",
     "static/css/main.479365c2.css",
-    "static/js/main.3f0a0bc0.js"
+    "static/js/main.c1b8be69.js"
   ]
 }
