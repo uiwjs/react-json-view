@@ -2,10 +2,11 @@ import React, { useId } from 'react';
 import { forwardRef } from 'react';
 import { RooNode, MetaProps, SemicolonProps, EllipsisProps } from './node';
 import { ValueViewProps } from './value';
+import { CopiedProps } from './copied';
 
 export * from './node';
 export * from './value';
-export interface JsonViewProps<T>
+export interface JsonViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
   value?: T;
@@ -28,6 +29,7 @@ export interface JsonViewProps<T>
     arrow?: JSX.Element;
     objectKey?: SemicolonProps['render'];
     value?: ValueViewProps<T>['renderValue'];
+    copied?: CopiedProps<T>['render'];
   };
 }
 

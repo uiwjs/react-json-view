@@ -78,7 +78,7 @@ export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   </Label>
 );
 
-export interface RooNodeProps<T> extends JsonViewProps<T> {
+export interface RooNodeProps<T extends object> extends JsonViewProps<T> {
   keyName?: string | number;
   keyid?: string;
 }
@@ -127,7 +127,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     <TriangleArrow style={arrowStyle} />
   );
   const [showTools, setShowTools] = useState(false);
-  const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
+  const tools = enableClipboard ? <Copied show={showTools} text={value as T} render={components.copied} /> : undefined;
   const mouseEnter = () => setShowTools(true);
   const mouseLeave = () => setShowTools(false);
   return (

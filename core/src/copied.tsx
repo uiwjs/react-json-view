@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface CopiedProps<T = object> extends React.SVGProps<SVGSVGElement> {
   show?: boolean;
   text?: T;
+  render?: (props: Omit<CopiedProps<T>, 'render'>) => JSX.Element;
 }
 
 export function Copied<T>(props: CopiedProps<T>) {
-  const { children, style, text = '', show, ...reset } = props;
+  const { children, style, text = '', render, show, ...reset } = props;
   if (!show) return null;
   const [copied, setCopied] = useState(false);
   const click = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -32,14 +33,15 @@ export function Copied<T>(props: CopiedProps<T>) {
   };
   const defalutStyle = { ...style, cursor: 'pointer', marginLeft: 5 } as React.CSSProperties;
   const svgProps: React.SVGProps<SVGSVGElement> = {
-    height: "1em", 
-    width: "1em",
-    fill: "var(--w-rjv-copied-color, currentColor)",
+    height: '1em', 
+    width: '1em',
+    fill: 'var(--w-rjv-copied-color, currentColor)',
     onClick: click,
     style: defalutStyle,
     className: 'w-rjv-copied',
     ...reset,
   }
+  if (render) return render({ ...props, ...svgProps });
   if (copied)  {
     return (
       <svg viewBox="0 0 38 38" {...svgProps} fill="var(--w-rjv-copied-success-color, #28a745)">
