@@ -81,6 +81,7 @@ export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
 export interface RooNodeProps<T extends object> extends JsonViewProps<T> {
   keyName?: string | number;
   keyid?: string;
+  level?: number;
 }
 export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const {
@@ -91,6 +92,8 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize = true,
     enableClipboard = true,
     indentWidth = 15,
+    collapsed,
+    level = 1,
     keyid = 'root',
     quotes = '"',
     onExpand,
@@ -100,7 +103,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const nameKeys = (isArray ? Object.keys(value).map(m => Number(m)) : Object.keys(value)) as (keyof typeof value)[];
   const subkeyid = useId();
   const expands = useExpandsStatus();
-  const expand = expands[keyid] ?? true;
+  const expand = expands[keyid] ?? (typeof collapsed === 'boolean' ? collapsed : (typeof collapsed === 'number' ? level <= collapsed : true));
   const arrowStyle = { transform: `rotate(${expand ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
   const handle = () => {
     onExpand && typeof onExpand === 'function' && onExpand({ expand: !expand, keyid, keyName, value: value as T })
@@ -113,7 +116,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize,
     enableClipboard,
     onExpand,
+    collapsed,
     quotes,
+    level: level + 1,
     style: { paddingLeft: indentWidth },
   };
   const valueViewProps = {
@@ -131,10 +136,13 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   );
   const [showTools, setShowTools] = useState(false);
   const tools = enableClipboard ? <Copied show={showTools} text={value as T} render={components.copied} /> : undefined;
-  const mouseEnter = () => setShowTools(true);
-  const mouseLeave = () => setShowTools(false);
+  const eventProps: React.HTMLAttributes<HTMLDivElement> = {};
+  if (enableClipboard) {
+    eventProps.onMouseEnter = () => setShowTools(true);
+    eventProps.onMouseLeave = () => setShowTools(false);
+  }
   return (
-    <div {...reset} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+    <div {...reset} {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
         {arrowView}
         {(typeof keyName === 'string' || typeof keyName === 'number') && (

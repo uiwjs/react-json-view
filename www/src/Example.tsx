@@ -52,6 +52,11 @@ const Label = styled.label`
   }
 `;
 
+const Options = styled.div`
+  display: grid;
+  grid-template-columns: 50% 60%;
+`;
+
 export function Example() {
   const [indentWidth, setIndentWidth] = useState(15);
   const [theme, setTheme] = useState<React.CSSProperties>(lightTheme as React.CSSProperties);
@@ -59,6 +64,7 @@ export function Example() {
   const [displayObjectSize, setDisplayObjectSize] = useState(true);
   const [clipboard, setClipboard] = useState(true);
   const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
+  const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
   return (
     <Fragment>
       <JsonView
@@ -69,47 +75,65 @@ export function Example() {
         quotes={quotes}
         enableClipboard={clipboard}
         style={theme}
+        collapsed={collapsed}
       />
-      <Label>
-        <span>Theme:</span>
-        <select
-          onChange={(evn) => setTheme(themesData[evn.target.value as keyof typeof themesData] as React.CSSProperties)}
-        >
-          <option value="light">light</option>
-          <option value="dark">dark</option>
-        </select>
-      </Label>
-      <Label>
-        <span>Quotes:</span>
-        <select
-          value={quotes?.toString()}
-          onChange={(evn) => setQuotes(evn.target.value as JsonViewProps<object>['quotes'])}
-        >
-          <option value="">enable quotes</option>
-          <option value={`"`}>" double quotes</option>
-          <option value={`'`}>' single quotes</option>
-        </select>
-      </Label>
-      <Label>
-        <span>Indent:</span>
-        <input type="number" value={indentWidth} onChange={(evn) => setIndentWidth(Number(evn.target.value))} />
-      </Label>
-      <Label>
-        <span>Enable Clipboard:</span>
-        <input type="checkbox" checked={clipboard} onChange={(evn) => setClipboard(evn.target.checked)} />
-      </Label>
-      <Label>
-        <span>Display Data Types:</span>
-        <input type="checkbox" checked={displayDataTypes} onChange={(evn) => setDisplayDataTypes(evn.target.checked)} />
-      </Label>
-      <Label>
-        <span>Display Object Size:</span>
-        <input
-          type="checkbox"
-          checked={displayObjectSize}
-          onChange={(evn) => setDisplayObjectSize(evn.target.checked)}
-        />
-      </Label>
+      <Options>
+        <Label>
+          <span>Theme:</span>
+          <select
+            onChange={(evn) => setTheme(themesData[evn.target.value as keyof typeof themesData] as React.CSSProperties)}
+          >
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+          </select>
+        </Label>
+        <Label>
+          <span>Collapsed:</span>
+          <select
+            value={collapsed?.toString()}
+            onChange={({ target: { value }}) => {
+              const val = value === 'false' ? false : value === 'true' ? true : Number(value);
+              setCollapsed(val);
+            }}
+          >
+            <option value="false">false</option>
+            <option value="true">true</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </Label>
+        <Label>
+          <span>Quotes:</span>
+          <select
+            value={quotes?.toString()}
+            onChange={(evn) => setQuotes(evn.target.value as JsonViewProps<object>['quotes'])}
+          >
+            <option value="">enable quotes</option>
+            <option value={`"`}>" double quotes</option>
+            <option value={`'`}>' single quotes</option>
+          </select>
+        </Label>
+        <Label>
+          <span>Indent:</span>
+          <input type="number" value={indentWidth} onChange={(evn) => setIndentWidth(Number(evn.target.value))} />
+        </Label>
+        <Label>
+          <span>Enable Clipboard:</span>
+          <input type="checkbox" checked={clipboard} onChange={(evn) => setClipboard(evn.target.checked)} />
+        </Label>
+        <Label>
+          <span>Display Data Types:</span>
+          <input type="checkbox" checked={displayDataTypes} onChange={(evn) => setDisplayDataTypes(evn.target.checked)} />
+        </Label>
+        <Label>
+          <span>Display Object Size:</span>
+          <input
+            type="checkbox"
+            checked={displayObjectSize}
+            onChange={(evn) => setDisplayObjectSize(evn.target.checked)}
+          />
+        </Label>
+      </Options>
     </Fragment>
   );
 }

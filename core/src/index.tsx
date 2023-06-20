@@ -22,6 +22,8 @@ export interface JsonViewProps<T extends object>
   enableClipboard?: boolean;
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
+  /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
+  collapsed?: boolean | number;
   /** Callback function for when a treeNode is expanded or collapsed */
   onExpand?: (props: { expand: boolean; value: T; keyid: string; keyName?: string | number; }) => void;
   /** Redefine interface elements to re-render. */
