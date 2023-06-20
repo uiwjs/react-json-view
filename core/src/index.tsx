@@ -22,6 +22,8 @@ export interface JsonViewProps<T extends object>
   enableClipboard?: boolean;
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
+  /** Callback function for when a treeNode is expanded or collapsed */
+  onExpand?: (props: { expand: boolean; value: T; keyid: string; keyName?: string | number; }) => void;
   /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];

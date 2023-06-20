@@ -93,6 +93,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     indentWidth = 15,
     keyid = 'root',
     quotes = '"',
+    onExpand,
     ...reset
   } = props;
   const isArray = Array.isArray(value);
@@ -102,6 +103,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const expand = expands[keyid] ?? true;
   const arrowStyle = { transform: `rotate(${expand ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
   const handle = () => {
+    onExpand && typeof onExpand === 'function' && onExpand({ expand: !expand, keyid, keyName, value: value as T })
     !expand ? store.expand(keyid) : store.collapse(keyid);
   };
   const subNodeProps: RooNodeProps<T> = {
@@ -110,6 +112,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayDataTypes,
     displayObjectSize,
     enableClipboard,
+    onExpand,
     quotes,
     style: { paddingLeft: indentWidth },
   };
