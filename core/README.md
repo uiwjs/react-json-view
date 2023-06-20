@@ -22,6 +22,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 📚 Use Typescript to write, better code hints.  
 🎨 Support theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme) theme  
 🌒 Support dark/light mode  
+📦 Zero dependencies
 
 ## Quick Start
 
@@ -243,6 +244,7 @@ export default function Demo() {
     <JsonView
       value={object}
       keyName="root"
+      quotes=""
       displayObjectSize={false}
       displayDataTypes={false}
       style={{
@@ -392,6 +394,8 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
+  /** Display for quotes in object-key @default " */
+  quotes?: "'" | '"' | '';
   /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];
@@ -404,6 +408,22 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
 declare const JsonView: React.ForwardRefExoticComponent<Omit<JsonViewProps<object>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 export default JsonView;
 ```
+
+## Size and dependencies
+
+Here is the size benchmark (using [bundlephobia.com](https://bundlephobia.com)) against similar React libraries (found by https://www.npmjs.com/search?q=react%20json&ranking=popularity):
+
+| Library | Bundle size | Bundle size (gzip) | Deps | Last commit |
+| ------- | ------- | ------- | ------- | ------- |
+| **@uiw/react-json-view** | [![](https://img.shields.io/bundlephobia/min/@uiw/react-json-view?color=6ead0a&label=)](https://bundlephobia.com/result?p=@uiw/react-json-view)  | [![](https://img.shields.io/bundlephobia/minzip/@uiw/react-json-view?color=6ead0a&label=)](https://bundlephobia.com/result?p=@uiw/react-json-view)  | [![](https://badgen.net/bundlephobia/dependency-count/%40uiw%2Freact-json-view?color=6ead0a&label=)](https://bundlephobia.com/result?p=@uiw/react-json-view)  | [![GitHub last commit](https://img.shields.io/github/last-commit/uiwjs/react-json-view?style=flat&label=last)](https://github.com/uiwjs/react-json-view/commits) |
+| react-json-view-lite | [![](https://img.shields.io/bundlephobia/min/react-json-view-lite?color=red&label=)](https://bundlephobia.com/result?p=react-json-view-lite)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-view-lite?color=red&label=)](https://bundlephobia.com/result?p=react-json-view-lite)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-view-lite?color=red&label=)](https://bundlephobia.com/result?p=react-json-view-lite)  | [![GitHub last commit](https://img.shields.io/github/last-commit/AnyRoad/react-json-view-lite?style=flat&label=last)](https://github.com/AnyRoad/react-json-view-lite/commits) |
+| react-json-pretty | [![](https://img.shields.io/bundlephobia/min/react-json-pretty?color=red&label=)](https://bundlephobia.com/result?p=react-json-pretty)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-pretty?color=red&label=)](https://bundlephobia.com/result?p=react-json-pretty)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-pretty?color=red&label=)](https://bundlephobia.com/result?p=react-json-pretty)  | [![GitHub last commit](https://img.shields.io/github/last-commit/chenckang/react-json-pretty?style=flat&label=last)](https://github.com/chenckang/react-json-pretty/commits) |
+| react-json-inspector | [![](https://img.shields.io/bundlephobia/min/react-json-inspector?color=red&label=)](https://bundlephobia.com/result?p=react-json-inspector)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-inspector?color=red&label=)](https://bundlephobia.com/result?p=react-json-inspector)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-inspector?color=red&label=)](https://bundlephobia.com/result?p=react-json-inspector)  | [![GitHub last commit](https://img.shields.io/github/last-commit/Lapple/react-json-inspector?style=flat&label=last)](https://github.com/Lapple/react-json-inspector/commits) |
+| react-json-tree | [![](https://img.shields.io/bundlephobia/min/react-json-tree?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-tree?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-tree?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree)  | [![GitHub last commit](https://img.shields.io/github/last-commit/reduxjs/redux-devtools?style=flat&label=last)](https://github.com/reduxjs/redux-devtools/commits) |
+| react-json-view | [![](https://img.shields.io/bundlephobia/min/react-json-view?color=red&label=)](https://bundlephobia.com/result?p=react-json-view)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-view?color=red&label=)](https://bundlephobia.com/result?p=react-json-view)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-view?color=red&label=)](https://bundlephobia.com/result?p=react-json-view)  | [![GitHub last commit](https://img.shields.io/github/last-commit/mac-s-g/react-json-view?style=flat&label=last)](https://github.com/mac-s-g/react-json-view/commits) |
+| react-json-tree-viewer | [![](https://img.shields.io/bundlephobia/min/react-json-tree-viewer?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree-viewer)  | [![](https://img.shields.io/bundlephobia/minzip/react-json-tree-viewer?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree-viewer)  | [![](https://badgen.net/bundlephobia/dependency-count/react-json-tree-viewer?color=red&label=)](https://bundlephobia.com/result?p=react-json-tree-viewer)  | [![GitHub last commit](https://img.shields.io/github/last-commit/nsisodiya/react-json-viewer?style=flat&label=last)](https://github.com/nsisodiya/react-json-viewer/commits) |
+| react-domify | [![](https://img.shields.io/bundlephobia/min/react-domify?color=red&label=)](https://bundlephobia.com/result?p=react-domify)  | [![](https://img.shields.io/bundlephobia/minzip/react-domify?color=red&label=)](https://bundlephobia.com/result?p=react-domify)  | [![](https://badgen.net/bundlephobia/dependency-count/react-domify?color=red&label=)](https://bundlephobia.com/result?p=react-domify)  | [![GitHub last commit](https://img.shields.io/github/last-commit/JedWatson/react-domify?style=flat&label=last)](https://github.com/JedWatson/react-domify/commits) |
+| react18-json-view | [![](https://img.shields.io/bundlephobia/min/react18-json-view?color=red&label=)](https://bundlephobia.com/result?p=react18-json-view)  | [![](https://img.shields.io/bundlephobia/minzip/react18-json-view?color=red&label=)](https://bundlephobia.com/result?p=react18-json-view)  | [![](https://badgen.net/bundlephobia/dependency-count/react18-json-view?color=red&label=)](https://bundlephobia.com/result?p=react18-json-view)  | [![GitHub last commit](https://img.shields.io/github/last-commit/YYsuni/react18-json-view?style=flat&label=last)](https://github.com/YYsuni/react18-json-view/commits) |
 
 ## Development
 

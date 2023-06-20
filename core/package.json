@@ -53,13 +53,25 @@
     "esm"
   ],
   "keywords": [
-    "monaco-editor",
-    "monaco-nginx",
-    "nginx",
-    "monaco",
-    "editor",
-    "editor-nginx",
-    "monaco-editor-nginx"
+    "array-viewer",
+    "component",
+    "interactive",
+    "interactive-json",
+    "json",
+    "json-component",
+    "json-display",
+    "json-tree",
+    "json-view",
+    "json-viewer",
+    "json-inspector",
+    "json-tree",
+    "react",
+    "react-component",
+    "react-json",
+    "theme",
+    "tree",
+    "tree-view",
+    "treeview"
   ],
   "devDependencies": {
     "react": "^18.2.0",

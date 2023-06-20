@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { styled } from 'styled-components';
-import JsonView from '@uiw/react-json-view';
+import JsonView, { JsonViewProps } from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { darkTheme } from '@uiw/react-json-view/dark';
 
@@ -58,6 +58,7 @@ export function Example() {
   const [displayDataTypes, setDisplayDataTypes] = useState(true);
   const [displayObjectSize, setDisplayObjectSize] = useState(true);
   const [clipboard, setClipboard] = useState(true);
+  const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
   return (
     <Fragment>
       <JsonView
@@ -65,6 +66,7 @@ export function Example() {
         indentWidth={indentWidth}
         displayObjectSize={displayObjectSize}
         displayDataTypes={displayDataTypes}
+        quotes={quotes}
         enableClipboard={clipboard}
         style={theme}
       />
@@ -75,6 +77,17 @@ export function Example() {
         >
           <option value="light">light</option>
           <option value="dark">dark</option>
+        </select>
+      </Label>
+      <Label>
+        <span>Quotes:</span>
+        <select
+          value={quotes?.toString()}
+          onChange={(evn) => setQuotes(evn.target.value as JsonViewProps<object>['quotes'])}
+        >
+          <option value="">enable quotes</option>
+          <option value={`"`}>" double quotes</option>
+          <option value={`'`}>' single quotes</option>
         </select>
       </Label>
       <Label>

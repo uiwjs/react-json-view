@@ -46,6 +46,7 @@ export const Ellipsis: FC<PropsWithChildren<EllipsisProps>> = ({ style, render, 
 };
 export interface SemicolonProps extends LabelProps {
   show?: boolean;
+  quotes?: JsonViewProps<object>['quotes'];
   value?: object;
   render?: (props: Omit<SemicolonProps, 'show'> & {}) => JSX.Element;
 }
@@ -56,9 +57,10 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
   value,
   className = 'w-rjv-object-key',
   show,
+  quotes,
   ...props
 }) => {
-  const content = show ? `"${children}"` : children;
+  const content = show ? `${quotes}${children}${quotes}` : children;
   if (render) return render({ className, ...props, value, style: { color }, children: content });
   return (
     <Label className={className} color={color} {...props}>
@@ -90,6 +92,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     enableClipboard = true,
     indentWidth = 15,
     keyid = 'root',
+    quotes = '"',
     ...reset
   } = props;
   const isArray = Array.isArray(value);
@@ -106,6 +109,8 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     indentWidth,
     displayDataTypes,
     displayObjectSize,
+    enableClipboard,
+    quotes,
     style: { paddingLeft: indentWidth },
   };
   const valueViewProps = {
@@ -133,6 +138,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
           <Fragment>
             <Semicolon
               value={value}
+              quotes={quotes}
               render={components.objectKey}
               color={typeof keyName === 'number' ? typeMap['number'].color : ''}
               show={typeof keyName === 'string'}
@@ -156,6 +162,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               const renderKey = (
                 <Semicolon
                   value={item}
+                  quotes={quotes}
                   render={components.objectKey}
                   color={typeof key === 'number' ? typeMap['number'].color : ''}
                   show={typeof key === 'string'}

@@ -19,6 +19,8 @@ export interface JsonViewProps<T>
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
+  /** Display for quotes in object-key @default " */
+  quotes?: "'" | '"' | '';
   /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];
