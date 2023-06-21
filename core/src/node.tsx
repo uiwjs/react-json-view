@@ -166,7 +166,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {tools}
       </Line>
       {expand && (
-        <Line style={{ borderLeft: '1px solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
+        <Line style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
           {nameKeys.length > 0 &&
             nameKeys.map((key, idx) => {
               const item = value[key];

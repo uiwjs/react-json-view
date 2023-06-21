@@ -119,14 +119,14 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
   }
 
   if (content && typeof content === 'string') {
-    const valueView = renderValue ? (
-      renderValue({
-        className: 'w-rjv-value',
-        style: { color, ...style },
-        type,
-        children: content,
-      })
-    ) : (
+    const reView = renderValue && renderValue({
+      className: 'w-rjv-value',
+      style: { color, ...style },
+      type,
+      content,
+      children: (value as string),
+    });
+    const valueView = reView ? reView : (
       <Label color={color} style={style} className="w-rjv-value">
         {content}
       </Label>
