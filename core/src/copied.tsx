@@ -3,6 +3,7 @@ import { useState } from 'react';
 export interface CopiedProps<T = object> extends React.SVGProps<SVGSVGElement> {
   show?: boolean;
   text?: T;
+  onCopied?: (text: string, obj: T) => void;
   render?: (props: Omit<CopiedProps<T>, 'render'>) => JSX.Element;
 }
 

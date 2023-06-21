@@ -26,6 +26,8 @@ export interface JsonViewProps<T extends object>
   collapsed?: boolean | number;
   /** Callback function for when a treeNode is expanded or collapsed */
   onExpand?: (props: { expand: boolean; value: T; keyid: string; keyName?: string | number; }) => void;
+  /** Fires event when you copy */
+  onCopied?: CopiedProps<T>['onCopied'];
   /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];

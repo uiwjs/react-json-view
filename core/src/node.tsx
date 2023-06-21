@@ -96,6 +96,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     level = 1,
     keyid = 'root',
     quotes = '"',
+    onCopied,
     onExpand,
     ...reset
   } = props;
@@ -115,6 +116,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayDataTypes,
     displayObjectSize,
     enableClipboard,
+    onCopied,
     onExpand,
     collapsed,
     quotes,
@@ -126,6 +128,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize,
     enableClipboard,
     indentWidth,
+    renderBraces: components.braces,
     renderValue: components.value,
   } as ValueViewProps<T>;
 
@@ -135,7 +138,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     <TriangleArrow style={arrowStyle} className="w-rjv-arrow" />
   );
   const [showTools, setShowTools] = useState(false);
-  const tools = enableClipboard ? <Copied show={showTools} text={value as T} render={components.copied} /> : undefined;
+  const tools = enableClipboard ? <Copied show={showTools} text={value as T} onCopied={onCopied} render={components.copied} /> : undefined;
   const eventProps: React.HTMLAttributes<HTMLDivElement> = {};
   if (enableClipboard) {
     eventProps.onMouseEnter = () => setShowTools(true);
@@ -201,7 +204,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                 return;
               }
               return (
-                <ValueView key={idx} {...valueViewProps} renderBraces={components.braces} renderKey={renderKey} keyName={key} value={item} />
+                <ValueView key={idx} {...valueViewProps} renderKey={renderKey} keyName={key} value={item} />
               );
             })}
         </Line>

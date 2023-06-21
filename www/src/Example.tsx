@@ -74,7 +74,7 @@ export function Example() {
         displayDataTypes={displayDataTypes}
         quotes={quotes}
         enableClipboard={clipboard}
-        style={theme}
+        style={{ ...theme, padding: 6, borderRadius: 6 }}
         collapsed={collapsed}
       />
       <Options>
