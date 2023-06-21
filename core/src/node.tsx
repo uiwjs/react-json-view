@@ -72,7 +72,7 @@ export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   <Label
     style={{ paddingLeft: 4, fontStyle: 'italic' }}
     color="var(--w-rjv-info-color, #0000004d)"
-    className="object-size"
+    className="w-rjv-object-size"
   >
     {children}
   </Label>
@@ -130,9 +130,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   } as ValueViewProps<T>;
 
   const arrowView = components.arrow ? (
-    cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand })
+    cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: "w-rjv-arrow" })
   ) : (
-    <TriangleArrow style={arrowStyle} />
+    <TriangleArrow style={arrowStyle} className="w-rjv-arrow" />
   );
   const [showTools, setShowTools] = useState(false);
   const tools = enableClipboard ? <Copied show={showTools} text={value as T} render={components.copied} /> : undefined;
@@ -142,7 +142,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     eventProps.onMouseLeave = () => setShowTools(false);
   }
   return (
-    <div {...reset} {...eventProps}>
+    <div {...reset} className="w-rjv-inner" {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
         {arrowView}
         {(typeof keyName === 'string' || typeof keyName === 'number') && (
@@ -166,7 +166,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {tools}
       </Line>
       {expand && (
-        <Line style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
+        <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
           {nameKeys.length > 0 &&
             nameKeys.map((key, idx) => {
               const item = value[key];
@@ -185,14 +185,14 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               if (Array.isArray(item) && !isEmpty) {
                 const label = isArray ? idx : key;
                 return (
-                  <Line key={label + idx}>
+                  <Line key={label + idx} className="w-rjv-wrap">
                     <RooNode value={item} keyid={keyid + subkeyid + label} keyName={label} {...subNodeProps} />
                   </Line>
                 );
               }
               if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
                 return (
-                  <Line key={key + idx}>
+                  <Line key={key + idx} className="w-rjv-wrap">
                     <RooNode keyid={keyid + subkeyid + key} value={item} keyName={key} {...subNodeProps} />
                   </Line>
                 );

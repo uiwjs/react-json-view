@@ -112,7 +112,10 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
 
   const [showTools, setShowTools] = useState(false);
   const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
-  const eventProps: React.HTMLAttributes<HTMLDivElement> = {};
+  const eventProps: React.HTMLAttributes<HTMLDivElement> = {
+    className: 'w-rjv-line',
+    style: { paddingLeft: indentWidth },
+  };
   if (enableClipboard) {
     eventProps.onMouseEnter = () => setShowTools(true);
     eventProps.onMouseLeave = () => setShowTools(false);
@@ -132,7 +135,7 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
       </Label>
     );
     return (
-      <Line style={{ paddingLeft: indentWidth }} {...eventProps}>
+      <Line {...eventProps}>
         <Label {...reset}>
           {renderKey}
           <Colon />
@@ -152,7 +155,7 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
     </Fragment>
   )
   return (
-    <Line style={{ paddingLeft: indentWidth }} {...eventProps}>
+    <Line {...eventProps}>
       <Label {...reset}>
         {renderKey}
         <Colon />
