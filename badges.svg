@@ -1,0 +1,14 @@
+<svg width="114.3" height="20" viewBox="0 0 1143 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="coverage: 75.29%">
+  <title>coverage: 75.29%</title>
+  <g>
+    <rect fill="#555" width="603" height="200"/>
+    <rect fill="#cba317" x="603" width="540" height="200"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>
+    <text x="50" y="138" textLength="503">coverage</text>
+    <text x="658" y="148" textLength="440" fill="#000" opacity="0.1">75.29%</text>
+    <text x="648" y="138" textLength="440">75.29%</text>
+  </g>
+  
+</svg>
