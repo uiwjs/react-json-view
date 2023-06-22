@@ -1,9 +1,11 @@
+coverage
 cjs
 esm
 build
 node_modules
 npm-debug.log*
 package-lock.json
+__snapshots__
 
 .eslintcache
 .DS_Store

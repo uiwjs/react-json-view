@@ -5,6 +5,8 @@
     "build": "lerna exec --scope @uiw/react-json-view -- tsbb build \"src/*.{ts,tsx}\" --use-babel --cjs cjs",
     "start": "lerna exec --scope website -- npm run start",
     "doc": "lerna exec --scope website -- npm run build",
+    "test": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom",
+    "coverage": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom --coverage --bail",
     "prepare": "husky install",
     "publish": "lerna publish from-package --yes --no-verify-access",
     "version": "lerna version --exact --force-publish --no-push --no-git-tag-version",

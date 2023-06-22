@@ -87,6 +87,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const {
     value = {},
     keyName,
+    className,
     displayDataTypes = true,
     components = {},
     displayObjectSize = true,
@@ -145,7 +146,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     eventProps.onMouseLeave = () => setShowTools(false);
   }
   return (
-    <div {...reset} className="w-rjv-inner" {...eventProps}>
+    <div {...reset} className={`${className} w-rjv-inner`} {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
         {arrowView}
         {(typeof keyName === 'string' || typeof keyName === 'number') && (
