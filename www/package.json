@@ -17,7 +17,7 @@
     "react": "^18.2.0",
     "react-code-preview-layout": "^3.0.1",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.0-rc.3"
+    "styled-components": "^6.0.0-rc.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
