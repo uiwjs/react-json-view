@@ -17,8 +17,8 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run coverage
-      - run: npm run build
-        working-directory: ./www
+      - run: npm run doc
+        # working-directory: ./www
 
       - name: Create Coverage Badges
         uses: jaywcjlove/coverage-badges-cli@main
