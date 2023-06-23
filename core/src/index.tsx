@@ -20,6 +20,8 @@ export interface JsonViewProps<T extends object>
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
+  /** Whether to highlight updates. @default true */
+  highlightUpdates?: boolean;
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */

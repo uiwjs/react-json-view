@@ -23,7 +23,8 @@ A React component for displaying and editing javascript arrays and JSON objects.
 📚 Use Typescript to write, better code hints.  
 🎨 Support theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme) theme  
 🌒 Support dark/light mode  
-📦 Zero dependencies
+📦 Zero dependencies  
+♻️ Whether to highlight updates.
 
 ## Quick Start
 
@@ -306,6 +307,50 @@ export default function Demo() {
 }
 ```
 
+## Highlight Updates
+
+```tsx mdx:preview
+import React, { useState, useEffect } from 'react';
+import JsonView from '@uiw/react-json-view';
+import { TriangleArrow } from '@uiw/react-json-view/triangle-arrow';
+import { TriangleSolidArrow } from '@uiw/react-json-view/triangle-solid-arrow';
+
+const object = {
+  string: 'Lorem ipsum dolor sit amet',
+  integer: 42,
+  timer: 0,
+  object: { 'first-child': true, 'second-child': false, 'last-child': null },
+}
+export default function Demo() {
+  const [src, setSrc] = useState({ ...object })
+  useEffect(() => {
+    const loop = () => {
+      setSrc(src => ({
+        ...src,
+        timer: src.timer + 1
+      }))
+    }
+    const id = setInterval(loop, 1000)
+    return () => clearInterval(id)
+  }, []);
+
+  return (
+    <JsonView
+      value={src}
+      keyName="root"
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+        '--w-rjv-border-left': '1px dashed #ebebeb',
+        // ✅ Change default update background color ✅
+        '--w-rjv-update-color': '#ff6ffd',
+      }}
+    />
+  )
+}
+```
+
+This feature can be disabled with `highlightUpdates={false}`, and the default color can be changed with `--w-rjv-update-color`.
+
 ## Modify Icon Style
 
 Use built-in default icons.
@@ -425,6 +470,8 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
+  /** Whether to highlight updates. @default true */
+  highlightUpdates?: boolean;
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */

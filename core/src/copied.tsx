@@ -3,17 +3,17 @@ import { useState } from 'react';
 export interface CopiedProps<T = object> extends React.SVGProps<SVGSVGElement> {
   show?: boolean;
   text?: T;
-  onCopied?: (text: string, obj: T) => void;
+  onCopied?: (text: string, obj: T | '') => void;
   render?: (props: Omit<CopiedProps<T>, 'render'>) => JSX.Element;
 }
 
 export function Copied<T>(props: CopiedProps<T>) {
-  const { children, style, text = '', render, show, ...reset } = props;
+  const { children, style, text = '', onCopied, render, show, ...reset } = props;
   if (!show) return null;
   const [copied, setCopied] = useState(false);
   const click = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
-    let copyText = JSON.stringify(text, (key, value) => {
+    let copyText = JSON.stringify(text || '', (key, value) => {
       if (typeof value === 'bigint') {
         return value.toString()
       }
@@ -24,6 +24,7 @@ export function Copied<T>(props: CopiedProps<T>) {
 
     navigator.clipboard.writeText(copyText)
       .then(() => {
+        onCopied && onCopied(copyText, text);
         setCopied(true);
         const timer = setTimeout(() => {
           setCopied(false);

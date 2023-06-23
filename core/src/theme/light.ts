@@ -5,6 +5,7 @@ export const lightTheme = {
   '--w-rjv-line-color': '#ebebeb',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#0000004d',
+  '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#002b36',
   '--w-rjv-copied-success-color': '#28a745',
 

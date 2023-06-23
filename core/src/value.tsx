@@ -1,4 +1,4 @@
-import { FC, Fragment, PropsWithChildren, useState } from 'react';
+import { FC, Fragment, PropsWithChildren, PropsWithRef, forwardRef, useState } from 'react';
 import { Meta, MetaProps, CountInfo } from './node';
 import { Copied } from './copied';
 
@@ -136,7 +136,7 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
     );
     return (
       <Line {...eventProps}>
-        <Label {...reset}>
+        <Label {...reset} ref={null}>
           {renderKey}
           <Colon />
           {typeView}
@@ -156,7 +156,7 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
   )
   return (
     <Line {...eventProps}>
-      <Label {...reset}>
+      <Label {...reset} ref={null}>
         {renderKey}
         <Colon />
         {typeView}
@@ -174,7 +174,7 @@ export interface LabelProps extends React.HTMLAttributes<HTMLSpanElement> {
   paddingRight?: number;
 }
 
-export const Label: FC<PropsWithChildren<LabelProps>> = ({
+export const Label = forwardRef<HTMLSpanElement, LabelProps>(({
   children,
   color,
   fontSize,
@@ -182,11 +182,11 @@ export const Label: FC<PropsWithChildren<LabelProps>> = ({
   paddingRight,
   style,
   ...reset
-}) => (
-  <span style={{ color, fontSize, opacity, paddingRight, ...style }} {...reset}>
+}, ref) => (
+  <span style={{ color, fontSize, opacity, paddingRight, ...style }} {...reset} ref={ref}>
     {children}
   </span>
-);
+));
 
 export interface TypeProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   type: keyof typeof typeMap;
