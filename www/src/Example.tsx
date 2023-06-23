@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import JsonView, { JsonViewProps } from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
@@ -31,6 +31,7 @@ const example = {
   nestedArray: [
     [1, 2],
     [3, 4],
+    { a: 1}
   ],
   object3: {},
   object2: {
@@ -62,16 +63,32 @@ export function Example() {
   const [theme, setTheme] = useState<React.CSSProperties>(lightTheme as React.CSSProperties);
   const [displayDataTypes, setDisplayDataTypes] = useState(true);
   const [displayObjectSize, setDisplayObjectSize] = useState(true);
+  const [highlightUpdates, setHighlightUpdates] = useState(true);
   const [clipboard, setClipboard] = useState(true);
   const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
   const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
+
+
+  const [src, setSrc] = useState({ ...example })
+  useEffect(() => {
+    const loop = () => {
+      setSrc(src => ({
+        ...src,
+        timer: src.timer + 1
+      }))
+    }
+    const id = setInterval(loop, 1000)
+    return () => clearInterval(id)
+  }, []);
+
   return (
     <Fragment>
       <JsonView
-        value={example}
+        value={src}
         indentWidth={indentWidth}
         displayObjectSize={displayObjectSize}
         displayDataTypes={displayDataTypes}
+        highlightUpdates={highlightUpdates}
         quotes={quotes}
         enableClipboard={clipboard}
         style={{ ...theme, padding: 6, borderRadius: 6 }}
@@ -131,6 +148,14 @@ export function Example() {
             type="checkbox"
             checked={displayObjectSize}
             onChange={(evn) => setDisplayObjectSize(evn.target.checked)}
+          />
+        </Label>
+        <Label>
+          <span>Highlight Updates:</span>
+          <input
+            type="checkbox"
+            checked={highlightUpdates}
+            onChange={(evn) => setHighlightUpdates(evn.target.checked)}
           />
         </Label>
       </Options>

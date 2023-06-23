@@ -113,6 +113,7 @@ const customTheme = {
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
+  '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#9cdcfe',
   '--w-rjv-copied-success-color': '#28a745',
 
@@ -142,7 +143,7 @@ export default function Demo() {
 Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
 
 ```tsx mdx:preview:&title=Online Editing Theme
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Colorful from '@uiw/react-color-colorful';
 import JsonView from '@uiw/react-json-view';
 
@@ -174,6 +175,7 @@ const customTheme = {
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': '#9cdcfe',
   '--w-rjv-info-color': '#656565',
+  '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#0184a6',
   '--w-rjv-copied-success-color': '#28a745',
 
@@ -199,10 +201,23 @@ export default function Demo() {
     setHex(hexa);
     setTheme({ ...theme, [cssvar]: hexa });
   };
+
+  const [src, setSrc] = useState({ ...object })
+  useEffect(() => {
+    const loop = () => {
+      setSrc(src => ({
+        ...src,
+        timer: src.timer + 1
+      }))
+    }
+    const id = setInterval(loop, 1000)
+    return () => clearInterval(id)
+  }, []);
+
   return (
     <React.Fragment>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <JsonView value={object} keyName="root" style={{ flex: 1, ...theme }} />
+        <JsonView value={src} keyName="root" style={{ flex: 1, ...theme }} />
         <div>
           <Colorful color={hex} onChange={onChange} />
           <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
