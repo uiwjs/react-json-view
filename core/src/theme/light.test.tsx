@@ -8,6 +8,7 @@ it('lightTheme test case', () => {
     '--w-rjv-line-color',
     '--w-rjv-arrow-color',
     '--w-rjv-info-color',
+    '--w-rjv-update-color',
     '--w-rjv-copied-color',
     '--w-rjv-copied-success-color',
     '--w-rjv-curlybraces-color',

@@ -5,8 +5,8 @@ export const darkTheme = {
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
-  '--w-rjv-copied-color': '#0184a6',
   '--w-rjv-update-color': '#ebcb8b',
+  '--w-rjv-copied-color': '#0184a6',
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#1896b6',
