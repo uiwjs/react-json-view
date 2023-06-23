@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useId, cloneElement, useState, useMemo, useRef, useEffect } from 'react';
+import { FC, PropsWithChildren, useMemo, useRef, useEffect } from 'react';
 import { Label, LabelProps } from './value';
 import { JsonViewProps } from './';
 
@@ -26,6 +26,7 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
   show,
   highlightUpdates,
   quotes,
+  style,
   ...props
 }) => {
   const prevValue = usePrevious(value);
@@ -75,7 +76,7 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
   }, [isHighlight, value]);
 
   const content = show ? `${quotes}${children}${quotes}` : children;
-  if (render) return render({ className, ...props, value, style: { color }, children: content });
+  if (render) return render({ className, ...props, value, style: { ...style, color }, children: content });
   return (
     <Label className={className} color={color} {...props} ref={highlightContainer}>
       {content}
