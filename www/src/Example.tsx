@@ -64,6 +64,7 @@ export function Example() {
   const [displayDataTypes, setDisplayDataTypes] = useState(true);
   const [displayObjectSize, setDisplayObjectSize] = useState(true);
   const [highlightUpdates, setHighlightUpdates] = useState(true);
+  const [objectSortKeys, setObjectSortKeys] = useState(false);
   const [clipboard, setClipboard] = useState(true);
   const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
   const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
@@ -90,6 +91,7 @@ export function Example() {
         displayDataTypes={displayDataTypes}
         highlightUpdates={highlightUpdates}
         quotes={quotes}
+        objectSortKeys={objectSortKeys}
         enableClipboard={clipboard}
         style={{ ...theme, padding: 6, borderRadius: 6 }}
         collapsed={collapsed}
@@ -156,6 +158,14 @@ export function Example() {
             type="checkbox"
             checked={highlightUpdates}
             onChange={(evn) => setHighlightUpdates(evn.target.checked)}
+          />
+        </Label>
+        <Label>
+          <span>Sort Keys Through:</span>
+          <input
+            type="checkbox"
+            checked={objectSortKeys}
+            onChange={(evn) => setObjectSortKeys(evn.target.checked)}
           />
         </Label>
       </Options>

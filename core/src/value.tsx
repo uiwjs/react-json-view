@@ -55,7 +55,7 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
 
 export interface ValueViewProps<T>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
-  keyName?: string;
+  keyName?: string | number;
   value?: T;
   displayDataTypes: boolean;
   displayObjectSize: boolean;

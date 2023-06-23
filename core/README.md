@@ -487,6 +487,8 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
   enableClipboard?: boolean;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
+  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
+  objectSortKeys?: boolean | ((a: string, b: string) => number);
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
@@ -498,6 +500,8 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
     keyid: string;
     keyName?: string | number;
   }) => void;
+  /** Fires event when you copy */
+  onCopied?: CopiedProps<T>['onCopied'];
   /** Redefine interface elements to re-render. */
   components?: {
     braces?: MetaProps['render'];
@@ -505,6 +509,7 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
     arrow?: JSX.Element;
     objectKey?: SemicolonProps['render'];
     value?: ValueViewProps<T>['renderValue'];
+    copied?: CopiedProps<T>['render'];
   };
 }
 declare const JsonView: React.ForwardRefExoticComponent<Omit<JsonViewProps<object>, "ref"> & React.RefAttributes<HTMLDivElement>>;

@@ -1,22 +1,15 @@
-import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useMemo, useRef, useEffect } from 'react';
+import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState } from 'react';
 import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
 import { Copied } from './copied';
+import { Semicolon } from './semicolon';
 
 export interface MetaProps extends LabelProps {
   isArray?: boolean;
   start?: boolean;
   render?: (props: Pick<MetaProps, 'start' | 'isArray' | 'className' | 'children'>) => JSX.Element;
-}
-
-export function usePrevious<T>(value: T) {
-  const ref = useRef<T>();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
 }
 
 export function Meta(props: MetaProps) {
@@ -52,78 +45,7 @@ export const Ellipsis: FC<PropsWithChildren<EllipsisProps>> = ({ style, render, 
     </span>
   );
 };
-export interface SemicolonProps extends LabelProps {
-  show?: boolean;
-  highlightUpdates?: boolean;
-  quotes?: JsonViewProps<object>['quotes'];
-  value?: object;
-  render?: (props: Omit<SemicolonProps, 'show'> & {}) => JSX.Element;
-}
-export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
-  children,
-  render,
-  color,
-  value,
-  className = 'w-rjv-object-key',
-  show,
-  highlightUpdates,
-  quotes,
-  ...props
-}) => {
-  const prevValue = usePrevious(value);
-  const highlightContainer = useRef<HTMLSpanElement>(null)
-  const isHighlight = useMemo(() => {
-    if (!highlightUpdates || prevValue === undefined) return false
-    // highlight if value type changed
-    if (typeof value !== typeof prevValue) {
-      return true
-    }
-    if (typeof value === 'number') {
-      // notice: NaN !== NaN
-      if (isNaN(value) && isNaN(prevValue as unknown as number)) return false
-      return value !== prevValue
-    }
-    // highlight if isArray changed
-    if (Array.isArray(value) !== Array.isArray(prevValue)) {
-      return true
-    }
-    // not highlight object/function
-    // deep compare they will be slow
-    if (typeof value === 'object' || typeof value === 'function') {
-      return false
-    }
 
-    // highlight if not equal
-    if (value !== prevValue) {
-      return true
-    }
-
-    return false
-  }, [highlightUpdates, value]);
-
-  useEffect(() => {
-    if (highlightContainer.current && isHighlight && 'animate' in highlightContainer.current) {
-      highlightContainer.current.animate(
-        [
-          { backgroundColor: 'var(--w-rjv-update-color, #ebcb8b)' },
-          { backgroundColor: '' }
-        ],
-        {
-          duration: 1000,
-          easing: 'ease-in'
-        }
-      )
-    }
-  }, [isHighlight, value]);
-
-  const content = show ? `${quotes}${children}${quotes}` : children;
-  if (render) return render({ className, ...props, value, style: { color }, children: content });
-  return (
-    <Label className={className} color={color} {...props} ref={highlightContainer}>
-      {content}
-    </Label>
-  );
-};
 export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   <Label
     style={{ paddingLeft: 4, fontStyle: 'italic' }}
@@ -149,6 +71,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize = true,
     enableClipboard = true,
     highlightUpdates = true,
+    objectSortKeys = false,
     indentWidth = 15,
     collapsed,
     level = 1,
@@ -159,7 +82,6 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     ...reset
   } = props;
   const isArray = Array.isArray(value);
-  const nameKeys = (isArray ? Object.keys(value).map(m => Number(m)) : Object.keys(value)) as (keyof typeof value)[];
   const subkeyid = useId();
   const expands = useExpandsStatus();
   const expand = expands[keyid] ?? (typeof collapsed === 'boolean' ? collapsed : (typeof collapsed === 'number' ? level <= collapsed : true));
@@ -203,6 +125,15 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     eventProps.onMouseEnter = () => setShowTools(true);
     eventProps.onMouseLeave = () => setShowTools(false);
   }
+  const nameKeys = (isArray ? Object.keys(value).map(m => Number(m)) : Object.keys(value)) as (keyof typeof value)[];
+
+  // object
+  let entries: [key: string | number, value: unknown][] = isArray ? Object.entries(value).map(m => [Number(m[0]), m[1]]) : Object.entries(value);
+  if (objectSortKeys) {
+    entries = objectSortKeys === true
+      ? entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0)
+      : entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0)
+  }
   return (
     <div {...reset} className={`${className} w-rjv-inner`} {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
@@ -229,9 +160,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
       </Line>
       {expand && (
         <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
-          {nameKeys.length > 0 &&
-            nameKeys.map((key, idx) => {
-              const item = value[key];
+          {entries.length > 0 &&
+            entries.map(([key, itemVal], idx) => {
+              const item = itemVal as T;
               const renderKey = (
                 <Semicolon
                   value={item}
@@ -246,7 +177,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               );
               const isEmpty = (Array.isArray(item) && (item as []).length === 0) || (typeof item === 'object' && item && !((item as any) instanceof Date) && Object.keys(item).length === 0);
               if (Array.isArray(item) && !isEmpty) {
-                const label = isArray ? idx : key;
+                const label = (isArray ? idx : key) as string;
                 return (
                   <Line key={label + idx} className="w-rjv-wrap">
                     <RooNode value={item} keyid={keyid + subkeyid + label} keyName={label} {...subNodeProps} />
@@ -255,7 +186,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               }
               if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
                 return (
-                  <Line key={key + idx} className="w-rjv-wrap">
+                  <Line key={key + '' + idx} className="w-rjv-wrap">
                     <RooNode keyid={keyid + subkeyid + key} value={item} keyName={key} {...subNodeProps} />
                   </Line>
                 );

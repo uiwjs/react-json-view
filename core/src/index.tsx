@@ -1,6 +1,7 @@
 import React, { useId } from 'react';
 import { forwardRef } from 'react';
-import { RooNode, MetaProps, SemicolonProps, EllipsisProps } from './node';
+import { RooNode, MetaProps, EllipsisProps } from './node';
+import { SemicolonProps } from './semicolon';
 import { ValueViewProps } from './value';
 import { CopiedProps } from './copied';
 
@@ -22,6 +23,8 @@ export interface JsonViewProps<T extends object>
   enableClipboard?: boolean;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
+  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
+  objectSortKeys?: boolean | ((a: string, b: string) => number);
   /** Display for quotes in object-key @default " */
   quotes?: "'" | '"' | '';
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
