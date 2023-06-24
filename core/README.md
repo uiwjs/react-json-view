@@ -322,6 +322,62 @@ export default function Demo() {
 }
 ```
 
+**Support for the URL(opens in a new tab) API.**
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+
+export default function Demo() {
+  return (
+    <JsonView
+      value={{
+        url: new URL('https://example.com?t=12'),
+        urlStr: "https://example.com",
+        github: "https://example.com",
+      }}
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+    />
+  )
+}
+```
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+
+function value({ type, children, value, ...props }) {
+  if (value instanceof URL) {
+    return (
+      <span {...props}>
+        <a href={value.href} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+        &nbsp;Open URL
+      </span>
+    );
+  }
+}
+
+export default function Demo() {
+  return (
+    <JsonView
+      value={{
+        url: new URL('https://example.com?t=12'),
+        urlStr: "https://example.com",
+        github: "https://example.com",
+      }}
+      components={{ value }}
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+    />
+  )
+}
+```
+
 ## Highlight Updates
 
 ```tsx mdx:preview

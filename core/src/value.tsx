@@ -63,7 +63,7 @@ export interface ValueViewProps<T>
   indentWidth: number;
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
-  renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type'] }) => JSX.Element;
+  renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type']; value?: T; }) => JSX.Element;
 }
 
 export function ValueView<T = object>(props: ValueViewProps<T>) {
@@ -101,6 +101,11 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
     type = 'bigint';
     content = `${value}n`;
   }
+  const isURL = value instanceof URL;
+  if (isURL)  {
+    type = 'string';
+    content = `"${value.href}"`;
+  }
   if (typeof value === 'string') {
     content = `"${value}"`;
   }
@@ -126,12 +131,13 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
       className: 'w-rjv-value',
       style: { color, ...style },
       type,
+      value,
       content,
-      children: (value as string),
+      children: content,
     });
     const valueView = reView ? reView : (
       <Label color={color} style={style} className="w-rjv-value">
-        {content}
+        {isURL ? <a href={value.href} target="_blank" rel="noopener noreferrer">{content}</a> : content}
       </Label>
     );
     return (
