@@ -12,6 +12,7 @@ export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
   const { className, value, keyName, parentName, quotes, label, onEdit, highlightUpdates = true, render, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const [curentLabel, setCurentLabel] = useState(label);
+  useEffect(() => setCurentLabel(label), [label]);
   const $edit = useRef<HTMLSpanElement>(null);
   useHighlight({ value, highlightUpdates: highlightUpdates, highlightContainer: $edit });
   const click = (evn: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {

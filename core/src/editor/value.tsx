@@ -1,4 +1,4 @@
-import { FC, Fragment, PropsWithChildren, useRef, useState } from 'react';
+import { FC, Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import type { TypeProps } from '../value';
 import { getValueString, isFloat, Type, typeMap } from '../value';
 import { EditIcon } from './icon/edit';
@@ -25,6 +25,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
   const $edit = useRef<HTMLSpanElement>(null);
   const [curentType, setCurentType] = useState(type);
   const [curentChild, setCurentChild] = useState(value);
+  useEffect(() => setCurentChild(value), [value]);
   const click = (evn: React.MouseEvent<SVGElement, MouseEvent>) => {
     evn.stopPropagation();
     if ($edit.current) {
