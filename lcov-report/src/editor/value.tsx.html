@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/63</span>
+                <span class='fraction'>0/69</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/60</span>
+                <span class='fraction'>0/67</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/61</span>
+                <span class='fraction'>0/64</span>
             </div>
         
             
@@ -176,7 +176,11 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,6 +202,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -218,8 +224,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -307,11 +315,12 @@ export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttribut
   type: TypeProps['type'];
   value?: unknown;
   visible?: boolean;
+  editableValue?: boolean;
   displayDataTypes?: boolean;
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >ReValue&lt;</span>T extends object&gt;(props: ReValueProps&lt;T&gt;) {
-  const { type, value, keyName, visible, quotes, style, content, children, displayDataTypes, onEdit, ...reset } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const { type, value, keyName, visible, quotes, style, content, children, displayDataTypes, editableValue, onEdit, ...reset } = <span class="cstat-no" title="statement not covered" >props;</span>
   const [editable, setEditable] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const $edit = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLSpanElement&gt;(null);</span>
   const [curentType, setCurentType] = <span class="cstat-no" title="statement not covered" >useState(type);</span>
@@ -319,6 +328,7 @@ export function <span class="fstat-no" title="function not covered" >ReValue&lt;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setCurentChild(value),</span> [value]);</span>
   const click = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vn: React.MouseEvent&lt;SVGElement, MouseEvent&gt;) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    evn.stopPropagation();</span>
+<span class="cstat-no" title="statement not covered" >    if (!editableValue) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    if ($edit.current) {</span>
 <span class="cstat-no" title="statement not covered" >      setEditable(true);</span>
 <span class="cstat-no" title="statement not covered" >      $edit.current!.contentEditable = 'true';</span>
@@ -326,6 +336,7 @@ export function <span class="fstat-no" title="function not covered" >ReValue&lt;
     }
   }
   const keyDown = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vn: React.KeyboardEvent&lt;HTMLSpanElement&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!editableValue) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    if (evn.key === 'Enter') {</span>
 <span class="cstat-no" title="statement not covered" >      evn.stopPropagation();</span>
 <span class="cstat-no" title="statement not covered" >      evn.preventDefault();</span>
@@ -334,6 +345,7 @@ export function <span class="fstat-no" title="function not covered" >ReValue&lt;
     }
   }
   const blur = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!editableValue) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    setEditable(false);</span>
 <span class="cstat-no" title="statement not covered" >    if ($edit.current) {</span>
 <span class="cstat-no" title="statement not covered" >      $edit.current.contentEditable = 'false';</span>
@@ -398,7 +410,7 @@ export function <span class="fstat-no" title="function not covered" >ReValue&lt;
         &lt;span {...spanProps} ref={$edit} data-value={content}&gt;{typeof curentChild === 'string' ? curentChild :  childStr}&lt;/span&gt;
         &lt;Quotes style={style} quotes={quotes} show={typeStr === 'string'} /&gt;
       &lt;/Fragment&gt;
-      {visible &amp;&amp; &lt;EditIcon onClick={click} /&gt;}
+      {visible &amp;&amp; editableValue &amp;&amp; &lt;EditIcon onClick={click} /&gt;}
     &lt;/Fragment&gt;
   );
 &nbsp;
@@ -409,7 +421,7 @@ export function <span class="fstat-no" title="function not covered" >ReValue&lt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-26T07:59:57.591Z
+                at 2023-06-26T10:21:44.009Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
