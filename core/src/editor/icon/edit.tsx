@@ -6,7 +6,6 @@ export const EditIcon = (props: EditIconProps) => {
   const defaultStyle: CSSProperties = {
     verticalAlign: 'middle',
     display: 'inline-block',
-    color: 'var(--w-rjv-edit-color, currentColor)',
     cursor: 'pointer',
     marginLeft: 5,
     height: '1em',
@@ -15,7 +14,7 @@ export const EditIcon = (props: EditIconProps) => {
   return (
     <svg
       viewBox="0 0 26 26"
-      fill="currentColor"
+      fill="var(--w-rjv-edit-color, currentColor)"
       {...props}
       style={{ ...style, ...defaultStyle}}
     >

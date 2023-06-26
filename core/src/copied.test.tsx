@@ -22,11 +22,11 @@ it('renders <Copied /> `show` test case', () => {
   expect(tree).toHaveProperty('props');
   expect(tree).toHaveProperty('children');
   expect(tree).toHaveProperty('type', 'svg');
-  expect(tree).toHaveProperty('props.viewBox', '0 0 38 38');
+  expect(tree).toHaveProperty('props.viewBox', '0 0 32 36');
   expect(tree).toHaveProperty('props.height', '1em');
   expect(tree).toHaveProperty('props.width', '1em');
   expect(tree).toHaveProperty('props.fill', 'var(--w-rjv-copied-color, currentColor)');
-  expect(tree).toHaveProperty('props.style', { cursor: 'pointer', marginLeft: 5 });
+  expect(tree).toHaveProperty('props.style', { cursor: 'pointer', marginLeft: 5, verticalAlign: 'middle' });
   expect(tree).toHaveProperty('props.className', 'w-rjv-copied');
   expect(tree).toHaveProperty('props.onClick');
 });
@@ -38,6 +38,7 @@ it('renders <Copied /> `show` test case', () => {
       cursor: 'pointer',
       height: '1em',
       width: '1em',
+      verticalAlign: 'middle',
       ...style,
     };
     return (
@@ -59,7 +60,7 @@ it('renders <Copied /> `show` test case', () => {
   expect(tree).toHaveProperty('props.height', '1em');
   expect(tree).toHaveProperty('props.width', '1em');
   expect(tree).toHaveProperty('props.fill', 'var(--w-rjv-copied-color, currentColor)');
-  expect(tree).toHaveProperty('props.style', { cursor: 'pointer', marginLeft: 5, height: '1em', width: '1em' });
+  expect(tree).toHaveProperty('props.style', { cursor: 'pointer', marginLeft: 5, height: '1em', width: '1em', verticalAlign: 'middle' });
   expect(tree).toHaveProperty('props.className', 'w-rjv-copied');
   expect(tree).toHaveProperty('props.onClick');
 });

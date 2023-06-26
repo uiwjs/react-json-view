@@ -19,6 +19,7 @@ it('lightTheme test case', () => {
     '--w-rjv-type-bigint-color',
     '--w-rjv-type-boolean-color',
     '--w-rjv-type-date-color',
+    '--w-rjv-type-url-color',
     '--w-rjv-type-null-color',
     '--w-rjv-type-nan-color',
     '--w-rjv-type-undefined-color',
