@@ -5,9 +5,12 @@ import '@wcj/dark-mode';
 import App from './App';
 
 export const GlobalStyle = createGlobalStyle<any>`
-  [data-color-mode*='dark'], [data-color-mode*='dark'] body {}
+  [data-color-mode*='dark'], [data-color-mode*='dark'] body {
+    --tabs-bg: #5f5f5f;
+  }
   [data-color-mode*='light'], [data-color-mode*='light'] body {
     background-color: #f2f2f2;
+    --tabs-bg: #bce0ff;
   }
   * {
     box-sizing: border-box;

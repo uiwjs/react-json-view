@@ -3,48 +3,10 @@ import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } fr
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
-import { Copied } from './copied';
 import { Semicolon } from './semicolon';
-
-export interface MetaProps extends LabelProps {
-  isArray?: boolean;
-  start?: boolean;
-  render?: (props: Pick<MetaProps, 'start' | 'isArray' | 'className' | 'children'>) => JSX.Element;
-}
-
-export function Meta(props: MetaProps) {
-  const { isArray = false, start = false, className, render, ...reset } = props;
-  const mark = isArray ? '[]' : '{}';
-  const cls = `w-rjv-${isArray ? 'brackets' : 'curlybraces'}-${start ? 'start' : 'end'} ${className || ''}`;
-  const color = `var(--w-rjv-${isArray ? 'brackets' : 'curlybraces'}-color, #236a7c)`;
-  if (render)
-    return render({
-      isArray,
-      className: cls,
-      style: { color },
-      children: start ? mark.charAt(0) : mark.charAt(1),
-      ...reset,
-    });
-  return (
-    <Label color={color} className={cls} {...reset}>
-      {start ? mark.charAt(0) : mark.charAt(1)}
-    </Label>
-  );
-}
-
-export interface EllipsisProps extends React.HTMLAttributes<HTMLSpanElement> {
-  render?: (props: EllipsisProps) => JSX.Element;
-}
-export const Ellipsis: FC<PropsWithChildren<EllipsisProps>> = ({ style, render, ...props }) => {
-  const styl = { cursor: 'pointer', ...style };
-  const className = `w-rjv-ellipsis ${props.className || ''}`;
-  if (render) return render({ style: styl, ...props, className });
-  return (
-    <span className={className} style={styl} {...props}>
-      ...
-    </span>
-  );
-};
+import { Tools } from './tools';
+import { Ellipsis } from './comps/ellipsis';
+import { Meta } from './comps/meta';
 
 export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   <Label
@@ -109,17 +71,16 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize,
     enableClipboard,
     indentWidth,
+    quotes,
     renderBraces: components.braces,
     renderValue: components.value,
   } as ValueViewProps<T>;
-
   const arrowView = components.arrow ? (
     cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: "w-rjv-arrow" })
   ) : (
     <TriangleArrow style={arrowStyle} className="w-rjv-arrow" />
   );
   const [showTools, setShowTools] = useState(false);
-  const tools = enableClipboard ? <Copied show={showTools} text={value as T} onCopied={onCopied} render={components.copied} /> : undefined;
   const eventProps: React.HTMLAttributes<HTMLDivElement> = {};
   if (enableClipboard) {
     eventProps.onMouseEnter = () => setShowTools(true);
@@ -143,9 +104,11 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
             <Semicolon
               value={value}
               quotes={quotes}
+              data-keys={keyid}
               render={components.objectKey}
+              keyName={keyName}
+              parentName={keyName}
               color={typeof keyName === 'number' ? typeMap['number'].color : ''}
-              show={typeof keyName === 'string'}
             >
               {keyName}
             </Semicolon>
@@ -156,21 +119,29 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {!expand && <Ellipsis render={components.ellipsis} />}
         {!expand && <Meta isArray={isArray} render={components.braces} />}
         {displayObjectSize && <CountInfo>{nameKeys.length} items</CountInfo>}
-        {tools}
+        <Tools
+          value={value}
+          enableClipboard={enableClipboard}
+          onCopied={onCopied}
+          components={components}
+          showTools={showTools}
+        />
       </Line>
       {expand && (
-        <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) solid var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
+        <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
           {entries.length > 0 &&
             entries.map(([key, itemVal], idx) => {
               const item = itemVal as T;
               const renderKey = (
                 <Semicolon
                   value={item}
+                  data-keys={keyid}
                   quotes={quotes}
+                  parentName={keyName}
                   highlightUpdates={highlightUpdates}
                   render={components.objectKey}
                   color={typeof key === 'number' ? typeMap['number'].color : ''}
-                  show={typeof key === 'string'}
+                  keyName={key}
                 >
                   {key}
                 </Semicolon>
@@ -180,14 +151,14 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                 const label = (isArray ? idx : key) as string;
                 return (
                   <Line key={label + idx} className="w-rjv-wrap">
-                    <RooNode value={item} keyid={keyid + subkeyid + label} keyName={label} {...subNodeProps} />
+                    <RooNode value={item} keyName={label} keyid={keyid + subkeyid + label} {...subNodeProps} />
                   </Line>
                 );
               }
               if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
                 return (
                   <Line key={key + '' + idx} className="w-rjv-wrap">
-                    <RooNode keyid={keyid + subkeyid + key} value={item} keyName={key} {...subNodeProps} />
+                    <RooNode value={item} keyName={key} keyid={keyid + subkeyid + key} {...subNodeProps} />
                   </Line>
                 );
               }

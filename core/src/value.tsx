@@ -1,9 +1,11 @@
-import { FC, Fragment, PropsWithChildren, PropsWithRef, forwardRef, useState } from 'react';
-import { Meta, MetaProps, CountInfo } from './node';
+import { FC, Fragment, PropsWithChildren, forwardRef, useState } from 'react';
+import { CountInfo } from './node';
+import { Meta, MetaProps } from './comps/meta';
 import { Copied } from './copied';
+import { JsonViewProps } from './';
 
 export const Line: FC<PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>> = (props) => <div {...props} />;
-const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
+export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
 export const typeMap = {
   string: {
     color: 'var(--w-rjv-type-string-color, #cb4b16)',
@@ -29,6 +31,10 @@ export const typeMap = {
     color: 'var(--w-rjv-type-date-color, #586e75)',
     label: 'date',
   },
+  url: {
+    color: 'var(--w-rjv-type-url-color, #0969da)',
+    label: 'URL',
+  },
   null: {
     color: 'var(--w-rjv-type-null-color, #d33682)',
     label: 'null',
@@ -53,26 +59,23 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
   </span>
 );
 
-export interface ValueViewProps<T>
+export interface ValueViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   keyName?: string | number;
-  value?: T;
+  value?: unknown;
   displayDataTypes: boolean;
   displayObjectSize: boolean;
   enableClipboard: boolean;
   indentWidth: number;
+  quotes?: JsonViewProps<T>['quotes'];
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
-  renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type']; value?: T; }) => JSX.Element;
+  renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type']; value?: unknown; visible?: boolean; quotes?: JsonViewProps<T>['quotes']; keyName?: ValueViewProps<T>['keyName']; }) => JSX.Element;
 }
 
-export function ValueView<T = object>(props: ValueViewProps<T>) {
-  const { value, keyName, indentWidth, renderKey, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
-
+export function getValueString<T>(value: T) {
   let type = typeof value as TypeProps['type'];
   let content = '';
-  let color = '';
-  let style = {} as React.CSSProperties;
   if (typeof value === 'number') {
     type = isFloat(value) ? 'float' : 'number';
     content = value.toString();
@@ -85,17 +88,13 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
     type = 'date';
     content = value.toString();
   }
-  let typeView = <Type type={type} />;
   if (value === null) {
     type = 'null';
     content = `${value}`.toLocaleUpperCase();
-    typeView = <Fragment />;
-    style = { fontWeight: 'bold' };
   }
   if (value === undefined) {
     type = 'undefined';
     content = String(value);
-    typeView = <Fragment />;
   }
   if (typeof value === 'bigint') {
     type = 'bigint';
@@ -103,12 +102,32 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
   }
   const isURL = value instanceof URL;
   if (isURL)  {
-    type = 'string';
+    type = 'url';
     content = `"${value.href}"`;
   }
   if (typeof value === 'string') {
     content = `"${value}"`;
   }
+  return { type, content };
+}
+
+export function ValueView<T extends object>(props: ValueViewProps<T>) {
+  const { value, keyName, indentWidth, renderKey, quotes, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
+
+  let color = '';
+  let style = {} as React.CSSProperties;
+
+  let { type, content } = getValueString(value);
+
+  let typeView = <Type type={type} />;
+  if (value === null) {
+    typeView = <Fragment />;
+    style = { fontWeight: 'bold' };
+  }
+  if (value === undefined) {
+    typeView = <Fragment />;
+  }
+  const isURL = value instanceof URL;
 
   if (!displayDataTypes) {
     typeView = <Fragment />;
@@ -132,12 +151,15 @@ export function ValueView<T = object>(props: ValueViewProps<T>) {
       style: { color, ...style },
       type,
       value,
+      quotes,
+      keyName,
+      visible: showTools,
       content,
       children: content,
     });
     const valueView = reView ? reView : (
       <Label color={color} style={style} className="w-rjv-value">
-        {isURL ? <a href={value.href} target="_blank" rel="noopener noreferrer">{content}</a> : content}
+        {isURL ? <a href={value.href} style={{ color }} target="_blank" rel="noopener noreferrer">{content}</a> : content}
       </Label>
     );
     return (

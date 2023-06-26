@@ -18,6 +18,7 @@ export const lightTheme = {
   '--w-rjv-type-bigint-color': '#268bd2',
   '--w-rjv-type-boolean-color': '#2aa198',
   '--w-rjv-type-date-color': '#586e75',
+  '--w-rjv-type-url-color': '#0969da',
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',

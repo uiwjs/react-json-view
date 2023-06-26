@@ -126,6 +126,7 @@ const customTheme = {
   '--w-rjv-type-bigint-color': '#268bd2',
   '--w-rjv-type-boolean-color': '#559bd4',
   '--w-rjv-type-date-color': '#586e75',
+  '--w-rjv-type-url-color': '#649bd8',
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
@@ -156,6 +157,7 @@ const object = {
   null: null,
   undefined,
   timer: 0,
+  url: new URL('https://example.com'),
   date: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
   array: [19, 100.86, 'test', NaN, Infinity],
   nestedArray: [
@@ -188,6 +190,7 @@ const customTheme = {
   '--w-rjv-type-bigint-color': '#268bd2',
   '--w-rjv-type-boolean-color': '#559bd4',
   '--w-rjv-type-date-color': '#586e75',
+  '--w-rjv-type-url-color': '#0969da',
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
@@ -240,6 +243,7 @@ export default function Demo() {
   )
 }
 ```
+
 ## Render
 
 ```tsx mdx:preview
@@ -269,13 +273,13 @@ export default function Demo() {
         '--w-rjv-border-left-width': '0',
       }}
       components={{
-        braces: () =>  <span />,
-        ellipsis: () =>  <React.Fragment />,
-        objectKey: ({ value, ...props}) => {
-          if (props.children === '"integer"' && value > 40) {
+        braces: () => <span />,
+        ellipsis: () => <React.Fragment />,
+        objectKey: ({ value, keyName, parentName, ...props}) => {
+          if (keyName === 'integer' && typeof value === 'number' && value > 40) {
             return <del {...props} />
           }
-          return <span {...props} />
+          return <span {...props}  />
         }
       }}
     />
@@ -295,7 +299,7 @@ const object = {
   integer: 42,
 }
 
-function value({ type, children, ...props }) {
+function value({ type, children, keyName, visible, ...props }) {
   if (type === 'string' && /\.(jpg)$/.test(children)) {
     return (
       <span {...props}>
@@ -348,7 +352,7 @@ export default function Demo() {
 import React from 'react';
 import JsonView from '@uiw/react-json-view';
 
-function value({ type, children, value, ...props }) {
+function value({ type, children, visible, keyName, value, ...props }) {
   if (value instanceof URL) {
     return (
       <span {...props}>
@@ -356,6 +360,7 @@ function value({ type, children, value, ...props }) {
           {children}
         </a>
         &nbsp;Open URL
+        {visible && <del>Button</del>}
       </span>
     );
   }
@@ -378,13 +383,60 @@ export default function Demo() {
 }
 ```
 
+## Editor JSON
+
+```tsx mdx:preview
+import React from 'react';
+import JsonViewEditor from '@uiw/react-json-view/editor';
+
+const object = {
+  string: 'Lorem ipsum dolor sit amet',
+  integer: 42,
+  float: 114.514,
+  object: {
+    'first-child': true,
+    'second-child': false,
+    'last-child': null,
+    'child': {
+      'first': true,
+      'second': false,
+      'last': null,
+    },
+  },
+  nestedArray: [ [1, 2], [3, 4], { a: 1} ],
+}
+
+const ObjectKey = ({ value, keyName, parentName, ...reset }) => {
+  if (keyName === 'integer' && typeof value === 'number' && value > 40) {
+    return <del {...reset} />
+  }
+  return <span {...reset} />
+};
+
+export default function Demo() {
+  return (
+    <JsonViewEditor
+      value={object}
+      keyName="root"
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+      onEdit={(opts) => {
+        console.log('opts:', opts)
+      }}
+      components={{
+        objectKey: ObjectKey
+      }}
+    />
+  );
+}
+```
+
 ## Highlight Updates
 
 ```tsx mdx:preview
 import React, { useState, useEffect } from 'react';
 import JsonView from '@uiw/react-json-view';
-import { TriangleArrow } from '@uiw/react-json-view/triangle-arrow';
-import { TriangleSolidArrow } from '@uiw/react-json-view/triangle-solid-arrow';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',

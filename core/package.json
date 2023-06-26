@@ -12,6 +12,11 @@
       "types": "./cjs/index.d.ts",
       "require": "./cjs/index.js"
     },
+    "./editor": {
+      "import": "./esm/editor/index.js",
+      "types": "./cjs/editor/index.d.ts",
+      "require": "./cjs/editor/index.js"
+    },
     "./light": {
       "import": "./esm/theme/light.js",
       "types": "./cjs/theme/light.d.ts",
@@ -45,6 +50,7 @@
     "react-dom": ">=18.0.0"
   },
   "files": [
+    "editor.d.ts",
     "dark.d.ts",
     "light.d.ts",
     "triangle-arrow.d.ts",

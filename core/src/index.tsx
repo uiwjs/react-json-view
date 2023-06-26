@@ -1,9 +1,11 @@
 import React, { useId } from 'react';
 import { forwardRef } from 'react';
-import { RooNode, MetaProps, EllipsisProps } from './node';
+import { RooNode } from './node';
 import { SemicolonProps } from './semicolon';
 import { ValueViewProps } from './value';
 import { CopiedProps } from './copied';
+import { EllipsisProps } from './comps/ellipsis'
+import { MetaProps } from './comps/meta'
 
 export * from './node';
 export * from './value';

@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import GitHubCorners from '@uiw/react-github-corners';
-import styled from 'styled-components';
-import { Example } from './Example';
+import styled, { css } from 'styled-components';
+import { Example } from './example/default';
 import MarkdownPreview from './Markdown';
+import { ExampleEditor } from './example/editor';
 
 const Header = styled.header`
   padding: 2rem 0;
@@ -31,7 +33,22 @@ const Wrappper = styled.div`
   padding-bottom: 5rem;
 `;
 
+const TabItem = styled.div`
+  padding-bottom: 10px;
+`;
+
+const Button = styled.button<{ $active: boolean; }>`
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  ${({ $active }) => $active && css`
+    background-color: var(--tabs-bg, #bce0ff);
+  `}
+`;
+
 export default function App() {
+  const [tabs, setTabs] = useState<'preview' | 'editor'>('preview');
   return (
     <Wrappper>
       <GitHubCorners fixed target="__blank" zIndex={10} href="https://github.com/uiwjs/react-json-view" />
@@ -41,7 +58,12 @@ export default function App() {
         </h1>
       </Header>
       <ExampleWrapper>
-        <Example />
+        <TabItem>
+          <Button $active={tabs === 'preview'} onClick={() => setTabs('preview')}>Preview</Button>
+          <Button $active={tabs === 'editor'} onClick={() => setTabs('editor')}>Editor</Button>
+        </TabItem>
+        {tabs === 'preview' && <Example />}
+        {tabs === 'editor' && <ExampleEditor />}
       </ExampleWrapper>
       <MarkdownPreview />
     </Wrappper>

@@ -10,27 +10,14 @@ export function usePrevious<T>(value: T) {
   return ref.current;
 }
 
-export interface SemicolonProps extends LabelProps {
-  show?: boolean;
+interface UseHighlight {
+  value: any;
   highlightUpdates?: boolean;
-  quotes?: JsonViewProps<object>['quotes'];
-  value?: object;
-  render?: (props: Omit<SemicolonProps, 'show'> & {}) => JSX.Element;
+  highlightContainer: React.MutableRefObject<HTMLSpanElement | null>;
 }
-export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
-  children,
-  render,
-  color,
-  value,
-  className = 'w-rjv-object-key',
-  show,
-  highlightUpdates,
-  quotes,
-  style,
-  ...props
-}) => {
+
+export function useHighlight({ value, highlightUpdates, highlightContainer }: UseHighlight) {
   const prevValue = usePrevious(value);
-  const highlightContainer = useRef<HTMLSpanElement>(null)
   const isHighlight = useMemo(() => {
     if (!highlightUpdates || prevValue === undefined) return false
     // highlight if value type changed
@@ -61,7 +48,7 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
   }, [highlightUpdates, value]);
 
   useEffect(() => {
-    if (highlightContainer.current && isHighlight && 'animate' in highlightContainer.current) {
+    if (highlightContainer && highlightContainer.current && isHighlight && 'animate' in highlightContainer.current) {
       highlightContainer.current.animate(
         [
           { backgroundColor: 'var(--w-rjv-update-color, #ebcb8b)' },
@@ -73,10 +60,38 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
         }
       )
     }
-  }, [isHighlight, value]);
+  }, [isHighlight, value, highlightContainer]);
+}
 
-  const content = show ? `${quotes}${children}${quotes}` : children;
-  if (render) return render({ className, ...props, value, style: { ...style, color }, children: content });
+export interface SemicolonProps extends LabelProps {
+  highlightUpdates?: boolean;
+  keyName?: string | number;
+  parentName?: string | number;
+  quotes?: JsonViewProps<object>['quotes'];
+  value?: object;
+  label?: string;
+  render?: (props: SemicolonProps) => React.ReactNode;
+}
+
+export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
+  children,
+  render,
+  color,
+  value,
+  className = 'w-rjv-object-key',
+  keyName,
+  highlightUpdates,
+  quotes,
+  style,
+  parentName,
+  ...props
+}) => {
+  const highlightContainer = useRef<HTMLSpanElement>(null);
+  const content = typeof keyName === 'string' ? `${quotes}${children}${quotes}` : children;
+  if (render) {
+    return render({ className, ...props, value, style: { ...style, color }, parentName, keyName, quotes, label: children as string, children: content });
+  };
+  useHighlight({ value, highlightUpdates, highlightContainer });
   return (
     <Label className={className} color={color} {...props} ref={highlightContainer}>
       {content}

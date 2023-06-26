@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
-import { styled } from 'styled-components';
 import JsonView, { JsonViewProps } from '@uiw/react-json-view';
+import { styled } from 'styled-components';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { darkTheme } from '@uiw/react-json-view/dark';
 
@@ -68,7 +68,6 @@ export function Example() {
   const [clipboard, setClipboard] = useState(true);
   const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
   const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
-
 
   const [src, setSrc] = useState({ ...example })
   useEffect(() => {
