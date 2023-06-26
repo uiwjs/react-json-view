@@ -9,7 +9,7 @@ it('renders <Semicolon /> test case', () => {
   expect(tree).toHaveProperty('type');
   expect(tree).toHaveProperty('props');
   expect(tree).toHaveProperty('children');
-  expect(tree).toHaveProperty('children', ['name']);
+  expect(tree).toHaveProperty('children', null);
   expect(tree).toHaveProperty('type', 'span');
   expect(tree).toHaveProperty('props.className', 'w-rjv-object-key');
   expect(tree).toHaveProperty('props.style', {
@@ -28,7 +28,7 @@ it('renders <Semicolon /> `render` test case', () => {
   expect(tree).toHaveProperty('type');
   expect(tree).toHaveProperty('props');
   expect(tree).toHaveProperty('children');
-  expect(tree).toHaveProperty('children', ['name']);
+  expect(tree).toHaveProperty('children', null);
   expect(tree).toHaveProperty('type', 'del');
   expect(tree).toHaveProperty('props.className', 'w-rjv-object-key');
   expect(tree).toHaveProperty('props.style', {

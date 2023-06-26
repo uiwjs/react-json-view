@@ -7,6 +7,7 @@ it('darkTheme test case', () => {
     '--w-rjv-background-color',
     '--w-rjv-line-color',
     '--w-rjv-arrow-color',
+    '--w-rjv-edit-color',
     '--w-rjv-info-color',
     '--w-rjv-update-color',
     '--w-rjv-copied-color',
