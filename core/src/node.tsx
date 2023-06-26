@@ -109,9 +109,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               keyName={keyName}
               parentName={keyName}
               color={typeof keyName === 'number' ? typeMap['number'].color : ''}
-            >
-              {keyName}
-            </Semicolon>
+            />
             <Colon />
           </Fragment>
         )}
@@ -142,9 +140,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                   render={components.objectKey}
                   color={typeof key === 'number' ? typeMap['number'].color : ''}
                   keyName={key}
-                >
-                  {key}
-                </Semicolon>
+                />
               );
               const isEmpty = (Array.isArray(item) && (item as []).length === 0) || (typeof item === 'object' && item && !((item as any) instanceof Date) && Object.keys(item).length === 0);
               if (Array.isArray(item) && !isEmpty) {

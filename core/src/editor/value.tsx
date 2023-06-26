@@ -16,11 +16,12 @@ export interface ReValueProps<T extends object> extends React.HTMLAttributes<HTM
   type: TypeProps['type'];
   value?: unknown;
   visible?: boolean;
+  editableValue?: boolean;
   displayDataTypes?: boolean;
 }
 
 export function ReValue<T extends object>(props: ReValueProps<T>) {
-  const { type, value, keyName, visible, quotes, style, content, children, displayDataTypes, onEdit, ...reset } = props;
+  const { type, value, keyName, visible, quotes, style, content, children, displayDataTypes, editableValue, onEdit, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const $edit = useRef<HTMLSpanElement>(null);
   const [curentType, setCurentType] = useState(type);
@@ -28,6 +29,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
   useEffect(() => setCurentChild(value), [value]);
   const click = (evn: React.MouseEvent<SVGElement, MouseEvent>) => {
     evn.stopPropagation();
+    if (!editableValue) return;
     if ($edit.current) {
       setEditable(true);
       $edit.current!.contentEditable = 'true';
@@ -35,6 +37,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     }
   }
   const keyDown = (evn: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (!editableValue) return;
     if (evn.key === 'Enter') {
       evn.stopPropagation();
       evn.preventDefault();
@@ -43,6 +46,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     }
   }
   const blur = () => {
+    if (!editableValue) return;
     setEditable(false);
     if ($edit.current) {
       $edit.current.contentEditable = 'false';
@@ -107,7 +111,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
         <span {...spanProps} ref={$edit} data-value={content}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
         <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
       </Fragment>
-      {visible && <EditIcon onClick={click} />}
+      {visible && editableValue && <EditIcon onClick={click} />}
     </Fragment>
   );
 

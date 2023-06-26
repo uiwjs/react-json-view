@@ -112,6 +112,7 @@ const customTheme = {
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-edit-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#9cdcfe',
@@ -144,9 +145,9 @@ export default function Demo() {
 Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
 
 ```tsx mdx:preview:&title=Online Editing Theme
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Colorful from '@uiw/react-color-colorful';
-import JsonView from '@uiw/react-json-view';
+import JsonView from '@uiw/react-json-view/editor';
 
 const object = {
   avatar: 'https://i.imgur.com/MK3eW3As.jpg',
@@ -176,6 +177,7 @@ const customTheme = {
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': '#9cdcfe',
+  '--w-rjv-edit-color': '#9cdcfe',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#0184a6',
@@ -199,6 +201,7 @@ const customTheme = {
 export default function Demo() {
   const [cssvar, setCssvar] = useState('--w-rjv-background-color');
   const [hex, setHex] = useState("#1e1e1e");
+  const [editable, setEditable] = useState(false);
   const [theme, setTheme] = useState(customTheme);
   const onChange = ({ hexa }) => {
     setHex(hexa);
@@ -217,13 +220,17 @@ export default function Demo() {
     return () => clearInterval(id)
   }, []);
 
+  const changeEditable = (evn) => setEditable(evn.target.checked);
   return (
     <React.Fragment>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <JsonView value={src} keyName="root" style={{ flex: 1, ...theme }} />
+      <label>
+        <input type="checkbox" checked={editable} onChange={changeEditable} /> Editable
+      </label>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+        <JsonView editable={editable} value={src} keyName="root" style={{ flex: 1, overflow: 'auto', ...theme }} />
         <div>
           <Colorful color={hex} onChange={onChange} />
-          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column' }}>
             {Object.keys(customTheme).map((varname, idx) => {
               const click = () => {
                 setCssvar(varname);
@@ -577,6 +584,8 @@ export default function Demo() {
 
 ## Props
 
+### JsonView Props
+
 ```ts
 import React from 'react';
 import { MetaProps, SemicolonProps, EllipsisProps, ValueViewProps } from '@uiw/react-json-view';
@@ -622,6 +631,26 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
 }
 declare const JsonView: React.ForwardRefExoticComponent<Omit<JsonViewProps<object>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 export default JsonView;
+```
+
+### JsonView Editor Props
+
+```ts
+import { JsonViewProps } from '@uiw/react-json-view';
+export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> {
+  /** Callback when value edit functionality */
+  onEdit?: (option: {
+    value: unknown;
+    oldValue: unknown;
+    keyName?: string | number;
+    parentName?: string | number;
+    type?: 'value' | 'key';
+  }) => void;
+  /** Whether enable edit feature. @default true */
+  editable?: boolean;
+}
+declare const JsonViewEditor: import("react").ForwardRefExoticComponent<Omit<JsonViewEditorProps<object>, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
+export default JsonViewEditor;
 ```
 
 ## Size and dependencies

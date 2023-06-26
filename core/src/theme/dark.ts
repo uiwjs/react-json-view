@@ -4,6 +4,7 @@ export const darkTheme = {
   '--w-rjv-background-color': '#202020',
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-edit-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#0184a6',

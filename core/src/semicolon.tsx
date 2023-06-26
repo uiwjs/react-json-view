@@ -87,9 +87,9 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
   ...props
 }) => {
   const highlightContainer = useRef<HTMLSpanElement>(null);
-  const content = typeof keyName === 'string' ? `${quotes}${children}${quotes}` : children;
+  const content = typeof keyName === 'string' ? `${quotes}${keyName}${quotes}` : keyName;
   if (render) {
-    return render({ className, ...props, value, style: { ...style, color }, parentName, keyName, quotes, label: children as string, children: content });
+    return render({ className, ...props, value, style: { ...style, color }, parentName, keyName, quotes, label: keyName as string, children: content });
   };
   useHighlight({ value, highlightUpdates, highlightContainer });
   return (

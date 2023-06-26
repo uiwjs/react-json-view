@@ -6,10 +6,11 @@ import { JsonViewEditorProps } from './';
 export interface ObjectKeyProps<T extends object> extends SemicolonProps {
   onEdit?: JsonViewEditorProps<T>['onEdit'];
   render?: (props: SemicolonProps & { ref?: React.RefObject<HTMLElement> }) => React.ReactNode;
+  editableValue?: boolean;
 }
 
 export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
-  const { className, value, keyName, parentName, quotes, label, onEdit, highlightUpdates = true, render, ...reset } = props;
+  const { className, value, keyName, parentName, quotes, label, editableValue, onEdit, highlightUpdates = true, render, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const [curentLabel, setCurentLabel] = useState(label);
   useEffect(() => setCurentLabel(label), [label]);
@@ -17,6 +18,7 @@ export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
   useHighlight({ value, highlightUpdates: highlightUpdates, highlightContainer: $edit });
   const click = (evn: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     evn.stopPropagation();
+    if (!editableValue) return;
     if (typeof keyName !== 'string') return;
     if (editable) return;
     setEditable(true);

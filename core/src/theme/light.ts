@@ -4,6 +4,7 @@ export const lightTheme = {
   '--w-rjv-background-color': '#ffffff',
   '--w-rjv-line-color': '#ebebeb',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-edit-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#0000004d',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#002b36',
