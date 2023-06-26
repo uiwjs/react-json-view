@@ -1,0 +1,154 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/editor/icon/edit.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/editor/icon</a> edit.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CSSProperties } from 'react';
+&nbsp;
+export interface EditIconProps extends React.SVGAttributes&lt;SVGElement&gt; {}
+export const EditIcon = (props: EditIconProps) =&gt; {
+  const { style } = props
+  const defaultStyle: CSSProperties = {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    cursor: 'pointer',
+    marginLeft: 5,
+    height: '1em',
+    width: '1em',
+  }
+  return (
+    &lt;svg
+      viewBox="0 0 26 26"
+      fill="var(--w-rjv-edit-color, currentColor)"
+      {...props}
+      style={{ ...style, ...defaultStyle}}
+    &gt;
+      &lt;path d="M18,0 L7.74666667,0 C2.89333333,0 0,2.89333333 0,7.74666667 L0,17.9066667 C0,22.7733333 2.89333333,26 7.74666667,26 L18,26 C22.8533333,26 26.0001422,22.7733333 26.0001422,17.92 L26.0001422,7.74666667 C26.0133333,2.89333333 22.8533333,0 18,0 Z M11.9333333,20.68 C11.5466667,21.0666667 10.8133333,21.44 10.28,21.52 L7,21.9866667 C6.88,22 6.76,22.0133333 6.64,22.0133333 C6.09333333,22.0133333 5.58666667,21.8266667 5.22666667,21.4666667 C4.78666667,21.0266667 4.6,20.3866667 4.70666667,19.68 L5.17333333,16.4 C5.25333333,15.8533333 5.61333333,15.1333333 6.01333333,14.7466667 L11.96,8.8 C12.1719034,9.3972484 12.4397602,9.97314063 12.76,10.52 C12.8933333,10.7466667 13.04,10.96 13.16,11.12 C13.3066667,11.3466667 13.48,11.56 13.5866667,11.68 C13.6533333,11.7733333 13.7066667,11.84 13.7333333,11.8666667 C14.0666667,12.2666667 14.4533333,12.64 14.7866667,12.92 C14.88,13.0133333 14.9333333,13.0666667 14.96,13.08 C15.16,13.24 15.36,13.4 15.5333333,13.52 C15.7466667,13.68 15.96,13.8266667 16.1866667,13.9466667 C16.4533333,14.1066667 16.7466667,14.2533333 17.04,14.4 C17.3466667,14.5333333 17.6266667,14.6533333 17.9066667,14.7466667 L11.9333333,20.68 L11.9333333,20.68 Z M20.4933333,12.12 L19.2666667,13.36 C19.1887174,13.4373865 19.0831716,13.4805643 18.9733333,13.4800055 C18.9333333,13.4800055 18.88,13.4800055 18.8533333,13.4666667 C16.1309823,12.6775025 14.0024975,10.5490177 13.2133333,7.82666667 C13.1733333,7.68 13.2133333,7.52 13.32,7.42666667 L14.56,6.18666667 C16.5866667,4.16 18.52,4.2 20.5066667,6.18666667 C21.52,7.2 22.0133333,8.17333333 22.0133333,9.18666667 C22,10.1466667 21.5066667,11.1066667 20.4933333,12.12 L20.4933333,12.12 Z" /&gt;
+    &lt;/svg&gt;
+  )
+}</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-06-26T07:54:20.382Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    
