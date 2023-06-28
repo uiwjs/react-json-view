@@ -3,7 +3,7 @@ import { Ellipsis } from './ellipsis';
 
 it('renders <Ellipsis /> test case', () => {
   const component = renderer.create(
-    <Ellipsis />,
+    <Ellipsis count={1} level={1} />,
   );
   let tree = component.toJSON();
   expect(tree).toHaveProperty('type');
@@ -21,7 +21,7 @@ it('renders <Ellipsis /> test case', () => {
 
 it('renders <Ellipsis /> render props test case', () => {
   const component = renderer.create(
-    <Ellipsis render={(props) => <del {...props}>xxx</del>} />,
+    <Ellipsis count={1} level={1} render={(props) => <del {...props}>xxx</del>} />,
   );
   let tree = component.toJSON();
   expect(tree).toHaveProperty('type');
@@ -30,6 +30,8 @@ it('renders <Ellipsis /> render props test case', () => {
   expect(tree).toHaveProperty('type', 'del');
   expect(tree).toHaveProperty('props', {
     className: 'w-rjv-ellipsis ',
+    count: 1,
+    level: 1,
     style: {
       cursor: 'pointer',
     }

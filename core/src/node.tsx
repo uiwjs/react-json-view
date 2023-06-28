@@ -95,6 +95,10 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
       ? entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0)
       : entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0)
   }
+  let countInfo = <CountInfo>{nameKeys.length} items</CountInfo>;
+  if (components.countInfo) {
+    countInfo = components.countInfo({ count: nameKeys.length, level, visible: expand }) || countInfo;
+  }
   return (
     <div {...reset} className={`${className} w-rjv-inner`} {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
@@ -113,10 +117,10 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
             <Colon />
           </Fragment>
         )}
-        <Meta start isArray={isArray} render={components.braces} />
-        {!expand && <Ellipsis render={components.ellipsis} />}
-        {!expand && <Meta isArray={isArray} render={components.braces} />}
-        {displayObjectSize && <CountInfo>{nameKeys.length} items</CountInfo>}
+        <Meta start isArray={isArray} level={level} render={components.braces} />
+        {!expand && <Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} />}
+        {!expand && <Meta isArray={isArray} level={level} render={components.braces} />}
+        {displayObjectSize && countInfo}
         <Tools
           value={value}
           enableClipboard={enableClipboard}
@@ -169,7 +173,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
       )}
       {expand && (
         <Line style={{ paddingLeft: 2 }}>
-          <Meta render={components.braces} isArray={isArray} style={{ paddingLeft: 2, display: 'inline-block' }} />
+          <Meta render={components.braces} isArray={isArray} level={level} style={{ paddingLeft: 2, display: 'inline-block' }} />
         </Line>
       )}
     </div>

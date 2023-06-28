@@ -67,6 +67,7 @@ export interface ValueViewProps<T extends object>
   displayObjectSize: boolean;
   enableClipboard: boolean;
   indentWidth: number;
+  level?: number;
   quotes?: JsonViewProps<T>['quotes'];
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
@@ -112,7 +113,7 @@ export function getValueString<T>(value: T) {
 }
 
 export function ValueView<T extends object>(props: ValueViewProps<T>) {
-  const { value, keyName, indentWidth, renderKey, quotes, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
+  const { value, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
 
   let color = '';
   let style = {} as React.CSSProperties;

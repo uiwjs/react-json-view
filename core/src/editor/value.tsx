@@ -21,7 +21,7 @@ export interface ReValueProps<T extends object> extends React.HTMLAttributes<HTM
 }
 
 export function ReValue<T extends object>(props: ReValueProps<T>) {
-  const { type, value, keyName, visible, quotes, style, content, children, displayDataTypes, editableValue, onEdit, ...reset } = props;
+  const { type, value, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onEdit, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const $edit = useRef<HTMLSpanElement>(null);
   const [curentType, setCurentType] = useState(type);
@@ -108,7 +108,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
       {displayDataTypes && typeView}
       <Fragment>
         <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
-        <span {...spanProps} ref={$edit} data-value={content}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
+        <span {...spanProps} ref={$edit} data-value={childStr}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
         <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
       </Fragment>
       {visible && editableValue && <EditIcon onClick={click} />}

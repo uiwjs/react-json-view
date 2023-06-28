@@ -82,7 +82,7 @@ export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
     return render({ className, ...reset, ...spanProps, parentName, label: curentLabel as string, children: editable ? curentLabel : content, ref: $edit });
   }
 
-  return <Label className={className} {...reset} autoFocus={editable}  {...spanProps} ref={$edit} />;
+  return <Label className={className} {...reset} autoFocus={editable} {...spanProps} ref={$edit} />;
 }
 
 

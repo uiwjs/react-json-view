@@ -43,6 +43,7 @@ export interface JsonViewProps<T extends object>
     objectKey?: SemicolonProps['render'];
     value?: ValueViewProps<T>['renderValue'];
     copied?: CopiedProps<T>['render'];
+    countInfo?: (props: { count: number; level: number; visible: boolean }) => JSX.Element;
   };
 }
 
@@ -50,7 +51,7 @@ const JsonView = forwardRef<HTMLDivElement, JsonViewProps<object>>((props, ref) 
   const { value, style, className, ...reset } = props;
   const defaultStyle = {
     lineHeight: 1.4,
-    fontFamily: 'monospace',
+    fontFamily: 'var(--w-rjv-font-family, Menlo, monospace)',
     color: 'var(--w-rjv-color, #002b36)',
     backgroundColor: 'var(--w-rjv-background-color, #00000000)',
     ...style,

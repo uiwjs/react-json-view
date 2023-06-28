@@ -150,71 +150,6 @@ export default function Demo() {
 }
 ```
 
-Inspector
-
-```tsx mdx:preview
-import React from 'react';
-import JsonView from '@uiw/react-json-view';
-
-const object = [
-  {
-    "_id": "56dcf573b09c217d39fd7621",
-    "name": "Howard Christensen",
-    "email": "howardchristensen@isotronic.com",
-    "phone": "+1 (830) 529-3176",
-    "address": "511 Royce Street, Hilltop, Tennessee, 9712"
-  },
-  {
-    "_id": "56dcf57323630b06251e93cd",
-    "name": "Eleanor Lynn",
-    "email": "eleanorlynn@isotronic.com",
-    "phone": "+1 (911) 576-2345",
-    "address": "547 Dearborn Court, Trona, California, 8629"
-  },
-  {
-    "_id": "56dcf5738279cac6b081e512",
-    "name": "Baxter Mooney",
-    "email": "baxtermooney@isotronic.com",
-    "phone": "+1 (954) 456-3456",
-    "address": "349 Cumberland Walk, Washington, Alaska, 3154"
-  },
-  {
-    "_id": "56dcf57303accabd43740957",
-    "name": "Calhoun Tyson",
-    "email": "calhountyson@isotronic.com",
-    "phone": "+1 (818) 456-2529",
-    "address": "367 Lyme Avenue, Ladera, Louisiana, 6292"
-  },
-  {
-    "_id": "56dcf57391ea6a9d1f60df0c",
-    "name": "Judith Jimenez",
-    "email": "judithjimenez@isotronic.com",
-    "phone": "+1 (950) 587-3415",
-    "address": "269 Bogart Street, Sultana, Vermont, 7833"
-  },
-  {
-    "_id": "56dcf5735a7a0718a61f294d",
-    "name": "Newman Lawson",
-    "email": "newmanlawson@isotronic.com",
-    "phone": "+1 (814) 484-2827",
-    "address": "969 Conduit Boulevard, Lowell, Oregon, 4118"
-  }
-]
-
-const customTheme = {
-  '--w-rjv-background-color': '#fff',
-  '--w-rjv-border-left-width': 0,
-  '--w-rjv-color': '#881391',
-  '--w-rjv-type-int-color': '#881391',
-};
-
-export default function Demo() {
-  return (
-    <JsonView value={object} style={customTheme} quotes="" displayDataTypes={false} enableClipboard={false} />
-  )
-}
-```
-
 ## Online Editing Theme
 
 Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
@@ -462,6 +397,79 @@ export default function Demo() {
       }}
     />
   )
+}
+```
+
+Inspector
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+
+const object = [
+  {
+    "_id": "56dcf573b09c217d39fd7621",
+    "name": "Howard Christensen",
+    "email": "howardchristensen@gmail.com",
+    "phone": "+1 (830) 529-3176",
+    "address": "511 Royce Street, Hilltop, Tennessee, 9712"
+  },
+  {
+    "_id": "56dcf57323630b06251e93cd",
+    "name": "Eleanor Lynn",
+    "email": "eleanorlynn@gmail.com",
+    "phone": "+1 (911) 576-2345",
+    "address": "547 Dearborn Court, Trona, California, 8629"
+  },
+  {
+    "_id": "56dcf5738279cac6b081e512",
+    "name": "Baxter Mooney",
+    "email": "baxtermooney@gmail.com",
+    "phone": "+1 (954) 456-3456",
+    "address": "349 Cumberland Walk, Washington, Alaska, 3154"
+  },
+  {
+    "_id": "56dcf57303accabd43740957",
+    "name": "Calhoun Tyson",
+    "email": "calhountyson@gmail.com",
+    "phone": "+1 (818) 456-2529",
+    "address": "367 Lyme Avenue, Ladera, Louisiana, 6292"
+  },
+]
+
+const customTheme = {
+  '--w-rjv-background-color': '#fff',
+  '--w-rjv-border-left-width': 0,
+  '--w-rjv-color': '#881391',
+  '--w-rjv-type-int-color': '#881391',
+};
+
+export default function Demo() {
+  return (
+    <JsonView
+      value={object}
+      style={customTheme}
+      quotes=""
+      enableClipboard={false}
+      displayDataTypes={false}
+      components={{
+        braces: ({ level }) => level !== 1 && <span />,
+        countInfo: ({ level, count, visible }) => {
+          if (level === 1) {
+            return <span />;
+            //return visible ? <span>{Array.from({ length: 3 }, () => 'Object').join(', ')}</span> : <span />
+          }
+          return <span style={{ color: '#222' }}>Object</span>;
+        },
+        ellipsis: ({ level, count }) => {
+          if (level === 1) {
+            return <span>{Array.from({ length: 3 }, () => 'Object').join(', ')}</span>;
+          }
+          return <span />;
+        },
+      }}
+    />
+  );
 }
 ```
 

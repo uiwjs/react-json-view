@@ -43,7 +43,7 @@ it('renders <JsonView /> test case', () => {
   expect(tree).toHaveProperty('props.style.backgroundColor', 'var(--w-rjv-background-color, #00000000)');
   expect(tree).toHaveProperty('props.style', {
     lineHeight: 1.4,
-    fontFamily: 'monospace',
+    fontFamily: 'var(--w-rjv-font-family, Menlo, monospace)',
     color: 'var(--w-rjv-color, #002b36)',
     backgroundColor: 'var(--w-rjv-background-color, #00000000)'
   });
