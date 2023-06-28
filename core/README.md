@@ -35,6 +35,15 @@ npm install @uiw/react-json-view
 
 ```jsx
 import JsonView from '@uiw/react-json-view';
+import JsonViewEditor from '@uiw/react-json-view/editor';
+import { lightTheme } from '@uiw/react-json-view/light';
+import { darkTheme } from '@uiw/react-json-view/dark';
+import { TriangleArrow } from '@uiw/react-json-view/triangle-arrow';
+import { TriangleSolidArrow } from '@uiw/react-json-view/triangle-solid-arrow';
+```
+
+```jsx
+import JsonView from '@uiw/react-json-view';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
 const longArray = new Array(1000).fill(1);
