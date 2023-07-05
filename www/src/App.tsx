@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import GitHubCorners from '@uiw/react-github-corners';
 import styled, { css } from 'styled-components';
+import BackToUp from '@uiw/react-back-to-top';
 import { Example } from './example/default';
 import MarkdownPreview from './Markdown';
 import { ExampleEditor } from './example/editor';
@@ -66,6 +67,7 @@ export default function App() {
         {tabs === 'editor' && <ExampleEditor />}
       </ExampleWrapper>
       <MarkdownPreview />
+      <BackToUp>Top</BackToUp>
     </Wrappper>
   );
 }
