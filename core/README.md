@@ -316,11 +316,11 @@ const object = {
   integer: 42,
 }
 
-function value({ type, children, keyName, visible, ...props }) {
-  if (type === 'string' && /\.(jpg)$/.test(children)) {
+function value({ type, children, value, keyName, visible, ...props }) {
+  if (type === 'string' && /\.(jpg)$/.test(value)) {
     return (
       <span {...props}>
-        <img src={children} height="36" />
+        <img src={value} height="36" />
       </span>
     );
   }
