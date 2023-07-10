@@ -81,6 +81,13 @@ export function ExampleEditor() {
         onEdit={(opts) => {
           console.log('opts:', opts)
         }}
+        onAdd={(keyOrValue, newValue, value, isAdd) => {
+          console.log('keyOrValue:', keyOrValue)
+          console.log('newValue:', newValue)
+          console.log('value:', value)
+          console.log('isAdd:', isAdd)
+          return isAdd;
+        }}
         style={{ ...theme, padding: 6, borderRadius: 6 }}
         components={{
           objectKey: ({ value, keyName, parentName, ...props}) => {

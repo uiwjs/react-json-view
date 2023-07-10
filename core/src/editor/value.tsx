@@ -1,8 +1,9 @@
-import { FC, Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import type { TypeProps } from '../value';
 import { getValueString, isFloat, Type, typeMap } from '../value';
 import { EditIcon } from './icon/edit';
-import { JsonViewEditorProps } from './';
+import type { JsonViewEditorProps } from './';
 
 const Quotes: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement> & { quotes?: JsonViewEditorProps<object>['quotes']; show?: boolean; }>> = ({ show, style, quotes }) => {
   if (!quotes || !show) return;

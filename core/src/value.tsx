@@ -1,8 +1,10 @@
-import { FC, Fragment, PropsWithChildren, forwardRef, useState } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import { Fragment, forwardRef, useState } from 'react';
 import { CountInfo } from './node';
-import { Meta, MetaProps } from './comps/meta';
+import { Meta } from './comps/meta';
+import type { MetaProps } from './comps/meta';
 import { Copied } from './copied';
-import { JsonViewProps } from './';
+import type { JsonViewProps } from './';
 
 export const Line: FC<PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>> = (props) => <div {...props} />;
 export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);

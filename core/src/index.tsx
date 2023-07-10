@@ -1,14 +1,22 @@
 import React, { useId } from 'react';
 import { forwardRef } from 'react';
 import { RooNode } from './node';
-import { SemicolonProps } from './semicolon';
-import { ValueViewProps } from './value';
-import { CopiedProps } from './copied';
-import { EllipsisProps } from './comps/ellipsis'
-import { MetaProps } from './comps/meta'
+import type { SemicolonProps } from './semicolon';
+import type { ValueViewProps } from './value';
+import type { CopiedProps } from './copied';
+import type { EllipsisProps } from './comps/ellipsis';
+import type { MetaProps } from './comps/meta';
+import type { CountInfoExtraProps } from './editor/countInfoExtra';
 
 export * from './node';
 export * from './value';
+
+export interface CountInfoProps {
+  count: number;
+  level: number;
+  visible: boolean;
+}
+
 export interface JsonViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
@@ -43,7 +51,8 @@ export interface JsonViewProps<T extends object>
     objectKey?: SemicolonProps['render'];
     value?: ValueViewProps<T>['renderValue'];
     copied?: CopiedProps<T>['render'];
-    countInfo?: (props: { count: number; level: number; visible: boolean }) => JSX.Element;
+    countInfo?: (props: CountInfoProps) => JSX.Element;
+    countInfoExtra?: (props: Omit<CountInfoExtraProps<T>, 'editable'>) => JSX.Element;
   };
 }
 

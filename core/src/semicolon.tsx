@@ -1,6 +1,8 @@
-import { FC, PropsWithChildren, useMemo, useRef, useEffect } from 'react';
-import { Label, LabelProps } from './value';
-import { JsonViewProps } from './';
+import type { FC, PropsWithChildren } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
+import { Label } from './value';
+import type { LabelProps } from './value';
+import type { JsonViewProps } from './';
 
 export function usePrevious<T>(value: T) {
   const ref = useRef<T>();

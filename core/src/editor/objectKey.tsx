@@ -1,7 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { SemicolonProps, useHighlight } from '../semicolon';
+import { useHighlight } from '../semicolon';
+import type { SemicolonProps } from '../semicolon';
 import { Label } from '../value';
-import { JsonViewEditorProps } from './';
+import type { JsonViewEditorProps } from './';
 
 export interface ObjectKeyProps<T extends object> extends SemicolonProps {
   onEdit?: JsonViewEditorProps<T>['onEdit'];

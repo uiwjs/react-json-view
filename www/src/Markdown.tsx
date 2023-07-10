@@ -15,7 +15,7 @@ const MarkdownStyle = styled(MarkdownPreview)`
   box-shadow: rgb(8 15 41 / 8%) 0.5rem 0.5rem 2rem 0px, rgb(8 15 41 / 8%) 0px 0px 1px 0px;
   border: 1px solid var(--color-border-muted);
   text-align: left;
-  max-width: 54rem;
+  max-width: 56rem;
   overflow: auto;
   padding: 2.3rem 3rem;
   border-radius: 5px;

@@ -1,10 +1,10 @@
-import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState } from 'react';
+import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useEffect } from 'react';
 import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
 import { Semicolon } from './semicolon';
-import { Tools } from './tools';
+import { Copied } from './copied';
 import { Ellipsis } from './comps/ellipsis';
 import { Meta } from './comps/meta';
 
@@ -86,10 +86,14 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     eventProps.onMouseEnter = () => setShowTools(true);
     eventProps.onMouseLeave = () => setShowTools(false);
   }
-  const nameKeys = (isArray ? Object.keys(value).map(m => Number(m)) : Object.keys(value)) as (keyof typeof value)[];
+  const [valueData, setValueData] = useState<T>(value as T);
+
+  useEffect(() => setValueData(value as T), [value]);
+
+  const nameKeys = (isArray ? Object.keys(valueData).map(m => Number(m)) : Object.keys(valueData)) as (keyof typeof valueData)[];
 
   // object
-  let entries: [key: string | number, value: unknown][] = isArray ? Object.entries(value).map(m => [Number(m[0]), m[1]]) : Object.entries(value);
+  let entries: [key: string | number, value: unknown][] = isArray ? Object.entries(valueData).map(m => [Number(m[0]), m[1]]) : Object.entries(valueData);
   if (objectSortKeys) {
     entries = objectSortKeys === true
       ? entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0)
@@ -106,7 +110,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {(typeof keyName === 'string' || typeof keyName === 'number') && (
           <Fragment>
             <Semicolon
-              value={value}
+              value={valueData}
               quotes={quotes}
               data-keys={keyid}
               render={components.objectKey}
@@ -121,13 +125,15 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {!expand && <Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} />}
         {!expand && <Meta isArray={isArray} level={level} render={components.braces} />}
         {displayObjectSize && countInfo}
-        <Tools
-          value={value}
-          enableClipboard={enableClipboard}
-          onCopied={onCopied}
-          components={components}
-          showTools={showTools}
-        />
+        {components.countInfoExtra && components.countInfoExtra({
+          count: nameKeys.length,
+          level,
+          showTools,
+          visible: expand,
+          value: valueData,
+          setValue: setValueData,
+        })}
+        {enableClipboard && <Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} />}
       </Line>
       {expand && (
         <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
