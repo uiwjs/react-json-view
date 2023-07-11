@@ -262,7 +262,7 @@ export default function Demo() {
                 setHex(customTheme[varname]);
               };
               const active = cssvar === varname ? '#a8a8a8' : '';
-              return <button key={idx} style={{ background: active, border: 0,boxShadow: 'inset 0px 0px 1px #000' }} onClick={click}>{varname}</button>
+              return <button key={idx} style={{ background: active, border: 0,boxShadow: 'inset 0px 0px 1px #000', textAlign: 'left' }} onClick={click}>{varname}</button>
             })}
           </div>
         </div>
