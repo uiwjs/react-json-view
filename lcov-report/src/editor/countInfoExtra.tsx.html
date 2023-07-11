@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">47.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/15</span>
+                <span class='fraction'>8/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/12</span>
+                <span class='fraction'>8/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/14</span>
+                <span class='fraction'>6/15</span>
             </div>
         
             
@@ -101,7 +101,8 @@
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,36 +118,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AddIcon } from './icon/add';
 import type { CountInfoProps } from '../';
 &nbsp;
-export interface CountInfoExtraProps&lt;T&gt; extends CountInfoProps {
+export interface CountInfoExtraProps&lt;T&gt; extends Partial&lt;CountInfoProps&gt; {
   editable: boolean;
   showTools: boolean;
   value: T;
-  setValue: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;
+  setValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;
   /**
    * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.
@@ -155,9 +157,9 @@ export interface CountInfoExtraProps&lt;T&gt; extends CountInfoProps {
 }
 &nbsp;
 export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProps&lt;T&gt;) {
-  const { visible, showTools, value, setValue, onAdd } = props;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (!visible || !showTools) return null;
-  const click = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {</span>
+  const { visible, showTools, editable, value, setValue, onAdd } = props;
+  if (!visible || !showTools) return null;
+  const click = <span class="fstat-no" title="function not covered" >as</span>ync (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
 <span class="cstat-no" title="statement not covered" >    event.stopPropagation();</span>
     const keyOrValue = <span class="cstat-no" title="statement not covered" >'AddKeyOrValue';</span>
     const isArray = <span class="cstat-no" title="statement not covered" >Array.isArray(value);</span>
@@ -166,14 +168,15 @@ export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProp
 <span class="cstat-no" title="statement not covered" >    if (onAdd) {</span>
       const maybeAdd = <span class="cstat-no" title="statement not covered" >await onAdd(keyOrValue, result as T, props.value, isAdd);</span>
 <span class="cstat-no" title="statement not covered" >      if (maybeAdd) {</span>
-<span class="cstat-no" title="statement not covered" >        setValue(result as T);</span>
+<span class="cstat-no" title="statement not covered" >        setValue!(result as T);</span>
       }
     }
   }
-  const svgProps: React.SVGProps&lt;SVGSVGElement&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  const svgProps: React.SVGProps&lt;SVGSVGElement&gt; = {
     onClick: click,
   }
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  if (!editable || !onAdd) return;
+  return (
     &lt;AddIcon {...svgProps} /&gt;
   );
 }
@@ -184,7 +187,7 @@ export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-10T18:10:42.267Z
+                at 2023-07-11T09:54:17.909Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
