@@ -7,14 +7,17 @@ import { CountInfoExtra } from './countInfoExtra';
 import type { CountInfoExtraProps } from './countInfoExtra';
 
 export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> {
-  /** Callback when value edit functionality */
+  /**
+   * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed. 
+   * @returns {boolean}  Returning false from onEdit will prevent the change from being made.
+   */
   onEdit?: (option: {
     value: unknown;
     oldValue: unknown;
     keyName?: string | number;
     parentName?: string | number;
     type?: 'value' | 'key';
-  }) => void;
+  }) => boolean;
   /**
    * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.

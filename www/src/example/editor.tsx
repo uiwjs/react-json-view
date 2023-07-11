@@ -80,6 +80,7 @@ export function ExampleEditor() {
         value={src}
         onEdit={(opts) => {
           console.log('opts:', opts)
+          return true;
         }}
         onAdd={(keyOrValue, newValue, value, isAdd) => {
           console.log('keyOrValue:', keyOrValue)

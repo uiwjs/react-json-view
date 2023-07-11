@@ -123,6 +123,7 @@ const customTheme = {
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-edit-color': 'var(--w-rjv-color)',
+  '--w-rjv-add-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#9cdcfe',
@@ -187,7 +188,8 @@ const customTheme = {
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': '#9cdcfe',
-  '--w-rjv-edit-color': '#9cdcfe',
+  '--w-rjv-edit-color': '#0184a6',
+  '--w-rjv-add-color': '#0184a6',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#0184a6',
@@ -237,7 +239,18 @@ export default function Demo() {
         <input type="checkbox" checked={editable} onChange={changeEditable} /> Editable
       </label>
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-        <JsonView editable={editable} value={src} keyName="root" style={{ flex: 1, overflow: 'auto', ...theme }} />
+        <JsonView
+          editable={editable}
+          value={src}
+          keyName="root"
+          onAdd={(keyOrValue, newValue, value, isAdd) => {
+            return isAdd;
+          }}
+          onEdit={(opts) => {
+            return true;
+          }}
+          style={{ flex: 1, overflow: 'auto', ...theme }}
+        />
         <div>
           <Colorful color={hex} onChange={onChange} />
           <div style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column' }}>
@@ -247,7 +260,7 @@ export default function Demo() {
                 setHex(customTheme[varname]);
               };
               const active = cssvar === varname ? '#a8a8a8' : '';
-              return <button key={idx} style={{ background: active }} onClick={click}>{varname}</button>
+              return <button key={idx} style={{ background: active, border: 0,boxShadow: 'inset 0px 0px 1px #000' }} onClick={click}>{varname}</button>
             })}
           </div>
         </div>
@@ -730,14 +743,17 @@ export interface CountInfoProps {
 import { JsonViewProps } from '@uiw/react-json-view';
 import type { CountInfoExtraProps } from '@uiw/react-json-view/cjs/editor/countInfoExtra';
 export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> {
-  /** Callback when value edit functionality */
+  /**
+   * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed.
+   * @returns {boolean}  Returning false from onEdit will prevent the change from being made.
+   */
   onEdit?: (option: {
     value: unknown;
     oldValue: unknown;
     keyName?: string | number;
     parentName?: string | number;
     type?: 'value' | 'key';
-  }) => void;
+  }) => boolean;
   /**
    * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.

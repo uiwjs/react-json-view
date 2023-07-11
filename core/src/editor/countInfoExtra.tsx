@@ -1,11 +1,11 @@
 import { AddIcon } from './icon/add';
 import type { CountInfoProps } from '../';
 
-export interface CountInfoExtraProps<T> extends CountInfoProps {
+export interface CountInfoExtraProps<T> extends Partial<CountInfoProps> {
   editable: boolean;
   showTools: boolean;
   value: T;
-  setValue: React.Dispatch<React.SetStateAction<T>>
+  setValue?: React.Dispatch<React.SetStateAction<T>>
   /**
    * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.
@@ -14,7 +14,7 @@ export interface CountInfoExtraProps<T> extends CountInfoProps {
 }
 
 export function CountInfoExtra<T extends object>(props: CountInfoExtraProps<T>) {
-  const { visible, showTools, value, setValue, onAdd } = props;
+  const { visible, showTools, editable, value, setValue, onAdd } = props;
   if (!visible || !showTools) return null;
   const click = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
@@ -25,13 +25,14 @@ export function CountInfoExtra<T extends object>(props: CountInfoExtraProps<T>) 
     if (onAdd) {
       const maybeAdd = await onAdd(keyOrValue, result as T, props.value, isAdd);
       if (maybeAdd) {
-        setValue(result as T);
+        setValue!(result as T);
       }
     }
   }
   const svgProps: React.SVGProps<SVGSVGElement> = {
     onClick: click,
   }
+  if (!editable || !onAdd) return;
   return (
     <AddIcon {...svgProps} />
   );

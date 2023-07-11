@@ -46,48 +46,55 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
       $edit.current!.contentEditable = 'false';
     }
   }
-  const blur = () => {
+  const blur = async () => {
     if (!editableValue) return;
     setEditable(false);
     if ($edit.current) {
       $edit.current.contentEditable = 'false';
       let text: unknown = $edit.current.innerText as string;
+      let typeStr = curentType;
       if (curentType === 'number' || curentType === 'float') {
         text = Number(text);
-        setCurentType(isFloat(text as number) ? 'float' : 'number');
+        typeStr = isFloat(text as number) ? 'float' : 'number';
       }
       if (curentType === 'url' && typeof text === 'string') {
         text = new URL(text);
+        typeStr = 'url';
       }
       if (Number.isNaN(text)) {
-        setCurentType('number');
+        typeStr = 'number';
       }
       if (typeof text === 'string' && /^(true|false)$/ig.test(text)) {
         text = /^(true)$/ig.test(text) ? true : false;
-        setCurentType('boolean');
+        typeStr = 'boolean';
       } else if (typeof text === 'string' && /^[\d]+n$/ig.test(text)) {
         text = BigInt(text.replace(/n$/ig, ''));
-        setCurentType('bigint');
+        typeStr = 'bigint';
       } else if (typeof text === 'string' && /^(null)$/ig.test(text)) {
-        text = null
-        setCurentType('null');
+        text = null;
+        typeStr = 'null';
       } else if (typeof text === 'string' && /^(undefined)$/ig.test(text)) {
         text = undefined;
-        setCurentType('undefined');
+        typeStr = 'undefined';
       } else if (typeof text === 'string') {
         try {
-          const dt = new Date(text)
-          if (dt.toString() !== 'Invalid Date') {
+          if(text && text.length > 10 && !isNaN(Date.parse(text))){
+            const dt = new Date(text);
             text = dt;
-            setCurentType('date');
+            typeStr = 'date';
           }
-
-        } catch (error) {
-          
+        } catch (error) {}
+      }
+      if (onEdit) {
+        const result = await onEdit({ type: 'value', value: text, oldValue: curentChild });
+        if (result) {
+          setCurentType(typeStr);
+          setCurentChild(text);
+        } else {
+          const { content: oldChildStr } = getValueString(curentChild);
+          $edit.current.innerHTML = String(oldChildStr);
         }
       }
-      setCurentChild(text);
-      onEdit && onEdit({ type: 'value', value: text, oldValue: curentChild })
     }
   }
   const defaultStyle = { minWidth: 34, minHeight: 18, paddingInline: 3, display: 'inline-block' } as React.CSSProperties;
@@ -107,12 +114,10 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
   return (
     <Fragment>
       {displayDataTypes && typeView}
-      <Fragment>
-        <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
-        <span {...spanProps} ref={$edit} data-value={childStr}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
-        <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
-      </Fragment>
-      {visible && editableValue && <EditIcon onClick={click} />}
+      <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
+      <span {...spanProps} ref={$edit} data-value={childStr}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
+      <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
+      {visible && editableValue && onEdit && <EditIcon onClick={click} />}
     </Fragment>
   );
 
