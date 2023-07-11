@@ -25,6 +25,8 @@ A React component for displaying and editing javascript arrays and JSON objects.
 🎨 Support theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme) theme  
 🌒 Support dark/light mode  
 📦 Zero dependencies  
+📋 Copy to Clipboard  
+✏️ Support editing and adding features
 ♻️ Whether to highlight updates.
 
 ## Quick Start
