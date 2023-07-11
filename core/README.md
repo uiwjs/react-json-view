@@ -26,7 +26,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 🌒 Support dark/light mode  
 📦 Zero dependencies  
 📋 Copy to Clipboard  
-✏️ Support editing and adding features
+✏️ Support editing and adding features  
 ♻️ Whether to highlight updates.
 
 ## Quick Start
