@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/25</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.71% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/35</span>
+                <span class='fraction'>30/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.83% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -152,37 +152,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,30 +217,30 @@ export interface CountInfoExtraProps&lt;T&gt; extends Partial&lt;CountInfoProps&
 export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProps&lt;T&gt;) {
   const { visible, showTools, editable, keyName, value, parentValue, setValue, setParentValue, onAdd, onDelete } = props;
   if (!visible || !showTools) return null;
-  const click = <span class="fstat-no" title="function not covered" >as</span>ync (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >    event.stopPropagation();</span>
-    const keyOrValue = <span class="cstat-no" title="statement not covered" >'AddKeyOrValue';</span>
-    const isArray = <span class="cstat-no" title="statement not covered" >Array.isArray(value);</span>
-    const isAdd = <span class="cstat-no" title="statement not covered" >isArray ? true : !(keyOrValue in value);</span>
-    const result = <span class="cstat-no" title="statement not covered" >isArray ? [...value, keyOrValue] : { ...value, [keyOrValue]: undefined };</span>
-<span class="cstat-no" title="statement not covered" >    if (onAdd &amp;&amp; setValue) {</span>
-      const maybeAdd = <span class="cstat-no" title="statement not covered" >await onAdd(keyOrValue, result as T, props.value, isAdd);</span>
-<span class="cstat-no" title="statement not covered" >      if (maybeAdd) {</span>
-<span class="cstat-no" title="statement not covered" >        setValue!(result as T);</span>
+  const click = async (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
+    event.stopPropagation();
+    const keyOrValue = 'AddKeyOrValue';
+    const isArray = Array.isArray(value);
+    const isAdd = isArray ? true : !(keyOrValue in value);
+    const result = isArray ? [...value, keyOrValue] : { ...value, [keyOrValue]: undefined };
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (onAdd &amp;&amp; setValue) {
+      const maybeAdd = await onAdd(keyOrValue, result as T, props.value, isAdd);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (maybeAdd) {
+        setValue!(result as T);
       }
     }
   }
-  const deleteHandle = <span class="fstat-no" title="function not covered" >as</span>ync (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >    event.stopPropagation();</span>
-<span class="cstat-no" title="statement not covered" >    if (onDelete &amp;&amp; (keyName || typeof keyName === 'number') &amp;&amp; parentValue) {</span>
-      const maybeDelete = <span class="cstat-no" title="statement not covered" >await onDelete(keyName, value, parentValue as T);</span>
-<span class="cstat-no" title="statement not covered" >      if (maybeDelete &amp;&amp; setParentValue) {</span>
-<span class="cstat-no" title="statement not covered" >        if (Array.isArray(parentValue)) {</span>
-<span class="cstat-no" title="statement not covered" >          parentValue.splice(keyName as number, 1);</span>
-<span class="cstat-no" title="statement not covered" >          setParentValue([...parentValue] as T);</span>
-        } else <span class="cstat-no" title="statement not covered" >if (keyName in parentValue) {</span>
-<span class="cstat-no" title="statement not covered" >          delete (parentValue as Record&lt;string, any&gt;)[keyName as string];</span>
-<span class="cstat-no" title="statement not covered" >          setParentValue({...parentValue} as T);</span>
+  const deleteHandle = async (event: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
+    event.stopPropagation();
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (onDelete &amp;&amp; (keyName || typeof keyName === 'number') &amp;&amp; parentValue) {
+      const maybeDelete = await onDelete(keyName, value, parentValue as T);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (maybeDelete &amp;&amp; setParentValue) {
+        if (Array.isArray(parentValue)) {
+          parentValue.splice(keyName as number, 1);
+          setParentValue([...parentValue] as T);
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (keyName in parentValue) {
+          delete (parentValue as Record&lt;string, any&gt;)[keyName as string];
+          setParentValue({...parentValue} as T);
         }
       }
     }
@@ -248,7 +248,7 @@ export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProp
   return (
     &lt;Fragment&gt;
       {editable &amp;&amp; onAdd &amp;&amp; &lt;AddIcon onClick={click}/&gt;}
-      {editable &amp;&amp; onDelete &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >parentValue </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >&lt;DeleteIcon onClick={deleteHandle} /&gt;}</span>
+      {editable &amp;&amp; onDelete &amp;&amp; parentValue &amp;&amp; &lt;DeleteIcon onClick={deleteHandle} /&gt;}
     &lt;/Fragment&gt;
   );
 }
@@ -259,7 +259,7 @@ export function CountInfoExtra&lt;T extends object&gt;(props: CountInfoExtraProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-12T06:00:27.270Z
+                at 2023-07-12T09:20:17.812Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
