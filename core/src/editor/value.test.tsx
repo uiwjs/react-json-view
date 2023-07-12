@@ -1,4 +1,6 @@
 import renderer from 'react-test-renderer';
+import { cleanup, screen, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ReValue } from './value';
 
 it('renders <ReValue /> type="string" test case', () => {
@@ -144,4 +146,88 @@ it('renders <ReValue /> onDelete test case', () => {
     expect(child1).toHaveProperty('props.fill', 'var(--w-rjv-delete-color, #dc3545)');
     expect(child1).toHaveProperty('props.viewBox', '0 0 40 40');
   }
+});
+
+it('renders <ReValue /> `onEdit` test case', async () => {
+  const user = userEvent.setup();
+  const { container } = render(
+    <ReValue
+      type="string"
+      displayDataTypes
+      quotes="'"
+      value="test"
+      visible={true}
+      editableValue={true}
+      onEdit={() => true}
+    />
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  expect(container.firstElementChild).toHaveProperty('style');
+  expect(container.firstElementChild).toHaveProperty('style.opacity', '0.8');
+  expect(container.firstElementChild).toHaveProperty('style.padding-right', '4px');
+  expect(container.firstElementChild).toHaveProperty('style.font-size', '11px');
+  expect(container.firstElementChild?.nextElementSibling).toHaveProperty('children');
+  expect(screen.getAllByText("'")[0]).toBeInstanceOf(Element);
+  const $contentEditable = container.firstElementChild?.nextElementSibling?.nextElementSibling;
+  expect($contentEditable?.getAttribute('contentEditable')).toBeNull();
+  await user.click(container.lastElementChild!);
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('true');
+  expect($contentEditable?.getAttribute('spellcheck')).toEqual('false');
+  expect($contentEditable?.getAttribute('style')).toEqual('min-width: 34px; min-height: 18px; padding-inline: 3px; display: inline-block;');
+  await user.keyboard('{Enter}');
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('false');
+  await user.click(container.lastElementChild!);
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('true');
+  await user.tab() // blur
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('false');
+  // screen.debug();
+});
+
+it('renders <ReValue /> `type=boolean` test case', async () => {
+  const user = userEvent.setup();
+  const { container } = render(
+    <ReValue
+      type="boolean"
+      displayDataTypes
+      quotes="'"
+      value="false"
+      visible={true}
+      editableValue={true}
+      onEdit={() => true}
+    />
+  );
+  expect(screen.getAllByText("'")[0]).toBeInstanceOf(Element);
+  const $contentEditable = container.firstElementChild?.nextElementSibling?.nextElementSibling;
+  expect($contentEditable?.getAttribute('contentEditable')).toBeNull();
+  await user.click(container.lastElementChild!);
+  await user.type($contentEditable!, '123{Enter}');
+  expect(screen.getByText('false123')).toBeInstanceOf(Element);
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('false');
+  await user.tab() // blur
+  expect(screen.getByText('false123')).toBeInstanceOf(Element);
+});
+
+it('renders <ReValue /> `onEdit={() => false}` test case', async () => {
+  const user = userEvent.setup();
+  const { container } = render(
+    <ReValue
+      type="boolean"
+      displayDataTypes
+      quotes="'"
+      value="false"
+      visible={true}
+      editableValue={true}
+      onEdit={() => false}
+    />
+  );
+  expect(screen.getAllByText("'")[0]).toBeInstanceOf(Element);
+  const $contentEditable = container.firstElementChild?.nextElementSibling?.nextElementSibling;
+  expect($contentEditable?.getAttribute('contentEditable')).toBeNull();
+  await user.click(container.lastElementChild!);
+  await user.type($contentEditable!, '123{Enter}');
+  expect(screen.getByText('false123')).toBeInstanceOf(Element);
+  expect($contentEditable?.getAttribute('contentEditable')).toEqual('false');
+  await user.tab() // blur
+  expect(screen.getByText('"false"')).toBeInstanceOf(Element);
+  // screen.debug();
 });

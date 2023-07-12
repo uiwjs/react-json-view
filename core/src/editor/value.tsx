@@ -37,7 +37,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     if (!editableValue) return;
     if ($edit.current) {
       setEditable(true);
-      $edit.current!.contentEditable = 'true';
+      $edit.current.setAttribute('contentEditable', 'true');
       $edit.current?.focus();
     }
   }
@@ -47,15 +47,17 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
       evn.stopPropagation();
       evn.preventDefault();
       setEditable(false);
-      $edit.current!.contentEditable = 'false';
+      if ($edit.current) {
+        $edit.current.setAttribute('contentEditable', 'false');
+      }
     }
   }
   const blur = async () => {
     if (!editableValue) return;
     setEditable(false);
     if ($edit.current) {
-      $edit.current.contentEditable = 'false';
-      let text: unknown = $edit.current.innerText as string;
+      $edit.current.setAttribute('contentEditable', 'false');
+      let text: unknown = $edit.current.innerHTML as string;
       let typeStr = curentType;
       if (curentType === 'number' || curentType === 'float') {
         text = Number(text);
