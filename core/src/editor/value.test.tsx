@@ -119,3 +119,29 @@ it('renders <ReValue /> quotes test case', () => {
     expect(tree[2]).toHaveProperty('props.data-value', '"test"');
   }
 });
+
+
+it('renders <ReValue /> onDelete test case', () => {
+  const component = renderer.create(
+    <ReValue type="string" displayDataTypes quotes="'" value="test" visible={true} editableValue={true}  onDelete={() => true} />,
+  );
+  const tree = component.toJSON();
+  expect(Array.isArray(tree)).toBe(true);
+  if (Array.isArray(tree)) {
+    expect(tree).toHaveLength(5);
+    const child1 = tree[4];
+    expect(child1).toHaveProperty('props');
+    expect(child1).toHaveProperty('type', 'svg');
+    expect(child1).toHaveProperty('props.style', {
+      verticalAlign: 'middle',
+      display: 'inline-block',
+      cursor: 'pointer',
+      marginLeft: 5,
+      height: '1em',
+      width: '1em'
+    });
+    expect(child1).toHaveProperty('props.onClick');
+    expect(child1).toHaveProperty('props.fill', 'var(--w-rjv-delete-color, #dc3545)');
+    expect(child1).toHaveProperty('props.viewBox', '0 0 40 40');
+  }
+});

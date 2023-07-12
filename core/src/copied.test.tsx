@@ -1,8 +1,6 @@
 import renderer from 'react-test-renderer';
-import {cleanup, screen, fireEvent, render} from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import ReactDOM from 'react-dom/client';
-import userEvent from '@testing-library/user-event'
+import { cleanup, screen, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Copied } from './copied';
 
 it('renders <Copied /> test case', () => {
@@ -29,6 +27,21 @@ it('renders <Copied /> `show` test case', () => {
   expect(tree).toHaveProperty('props.style', { cursor: 'pointer', marginLeft: 5, verticalAlign: 'middle' });
   expect(tree).toHaveProperty('props.className', 'w-rjv-copied');
   expect(tree).toHaveProperty('props.onClick');
+});
+
+it('renders <Copied /> `click` test case', async () => {
+  const user = userEvent.setup();
+  render(<Copied text={{ a: 1 }} show data-testid="demo2" />);
+  const elm = screen.getByTestId('demo2');
+  await user.click(elm);
+  expect(elm).toBeInstanceOf(SVGSVGElement);
+  const elme = screen.getByTestId('demo2');
+  expect(typeof elme).toEqual('object');
+  expect(elm.style).toHaveProperty('cursor', 'pointer');
+  expect(elm.style).toHaveProperty('vertical-align', 'middle');
+  expect(elm.style).toHaveProperty('margin-left', '5px');
+  expect(elm.getAttribute('fill')).toEqual('var(--w-rjv-copied-success-color, #28a745)');
+  // screen.debug();
 });
 
 it('renders <Copied /> `show` test case', () => {
