@@ -300,7 +300,21 @@
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,6 +373,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1028x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -452,6 +478,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-yes">1022x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -574,7 +602,7 @@ export const typeMap = {
   },
   url: {
     color: 'var(--w-rjv-type-url-color, #0969da)',
-    label: 'URL',
+    label: 'url',
   },
   null: {
     color: 'var(--w-rjv-type-null-color, #d33682)',
@@ -600,10 +628,21 @@ export const Colon: FC&lt;PropsWithChildren&lt;React.HTMLAttributes&lt;HTMLSpanE
   &lt;/span&gt;
 );
 &nbsp;
+interface RenderValueProps&lt;T extends object&gt; extends React.HTMLAttributes&lt;HTMLSpanElement&gt; {
+  type: TypeProps['type'];
+  value?: unknown;
+  data?: T;
+  visible?: boolean;
+  quotes?: JsonViewProps&lt;T&gt;['quotes'];
+  setValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
+  keyName?: ValueViewProps&lt;T&gt;['keyName'];
+}
+&nbsp;
 export interface ValueViewProps&lt;T extends object&gt;
   extends React.DetailedHTMLProps&lt;React.HTMLAttributes&lt;HTMLSpanElement&gt;, HTMLSpanElement&gt; {
   keyName?: string | number;
   value?: unknown;
+  data?: T;
   displayDataTypes: boolean;
   displayObjectSize: boolean;
   enableClipboard: boolean;
@@ -612,7 +651,8 @@ export interface ValueViewProps&lt;T extends object&gt;
   quotes?: JsonViewProps&lt;T&gt;['quotes'];
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
-  renderValue?: (props: React.HTMLAttributes&lt;HTMLSpanElement&gt; &amp; { type: TypeProps['type']; value?: unknown; visible?: boolean; quotes?: JsonViewProps&lt;T&gt;['quotes']; keyName?: ValueViewProps&lt;T&gt;['keyName']; }) =&gt; JSX.Element;
+  setValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
+  renderValue?: (props: RenderValueProps&lt;T&gt;) =&gt; JSX.Element;
 }
 &nbsp;
 export function getValueString&lt;T&gt;(value: T) {
@@ -654,7 +694,7 @@ export function getValueString&lt;T&gt;(value: T) {
 }
 &nbsp;
 export function ValueView&lt;T extends object&gt;(props: ValueViewProps&lt;T&gt;) {
-  const { value, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
+  const { value, setValue, data, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
 &nbsp;
   let color = '';
   let style = {} as React.CSSProperties;
@@ -693,6 +733,8 @@ export function ValueView&lt;T extends object&gt;(props: ValueViewProps&lt;T&gt;
       style: { color, ...style },
       type,
       value,
+      setValue,
+      data,
       quotes,
       keyName,
       visible: showTools,
@@ -781,7 +823,7 @@ export const Type: FC&lt;PropsWithChildren&lt;TypeProps&gt;&gt; = (props) =&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-11T16:33:54.823Z
+                at 2023-07-12T05:56:04.385Z
             </div>
         <script src="../prettify.js"></script>
         <script>

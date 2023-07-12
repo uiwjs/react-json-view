@@ -250,7 +250,18 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,6 +305,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -305,6 +320,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +345,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,7 +358,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -356,6 +375,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -461,6 +483,8 @@ export interface RooNodeProps&lt;T extends object&gt; extends JsonViewProps&lt;T
   keyName?: string | number;
   keyid?: string;
   level?: number;
+  parentValue?: T;
+  setParentValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
 }
 export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
   const {
@@ -480,6 +504,8 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
     quotes = '"',
     onCopied,
     onExpand,
+    parentValue,
+    setParentValue,
     ...reset
   } = props;
   const isArray = Array.isArray(value);
@@ -491,6 +517,7 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
 <span class="cstat-no" title="statement not covered" >    onExpand &amp;&amp; typeof onExpand === 'function' &amp;&amp; onExpand({ expand: !expand, keyid, keyName, value: value as T })</span>
 <span class="cstat-no" title="statement not covered" >    !expand ? store.expand(keyid) : store.collapse(keyid);</span>
   };
+  const [valueData, setValueData] = useState&lt;T&gt;(value as T);
   const subNodeProps: RooNodeProps&lt;T&gt; = {
     components,
     indentWidth,
@@ -501,6 +528,8 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
     onCopied,
     onExpand,
     collapsed,
+    parentValue: value as T,
+    setParentValue: setValueData,
     quotes,
     level: level + 1,
     style: { paddingLeft: indentWidth },
@@ -510,7 +539,9 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
     displayObjectSize,
     enableClipboard,
     indentWidth,
+    data: valueData,
     quotes,
+    setValue: setValueData,
     renderBraces: components.braces,
     renderValue: components.value,
   } as ValueViewProps&lt;T&gt;;
@@ -525,7 +556,6 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
     eventProps.onMouseEnter = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(true);</span>
     eventProps.onMouseLeave = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(false);</span>
   }
-  const [valueData, setValueData] = useState&lt;T&gt;(value as T);
 &nbsp;
   useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setValueData(value as T),</span> [value]);
 &nbsp;
@@ -568,8 +598,11 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
           count: nameKeys.length,
           level,
           showTools,
+          keyName,
           visible: expand,
           value: valueData,
+          parentValue,
+          setParentValue,
           setValue: setValueData,
         })}
         {enableClipboard &amp;&amp; &lt;Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} /&gt;}
@@ -577,7 +610,7 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
       {expand &amp;&amp; (
         &lt;Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}&gt;
           {entries.length &gt; 0 &amp;&amp;
-            entries.map(([key, itemVal], idx) =&gt; {
+            [...entries].map(([key, itemVal], idx) =&gt; {
               const item = itemVal as T;
               const renderKey = (
                 &lt;Semicolon
@@ -631,7 +664,7 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-11T16:33:54.823Z
+                at 2023-07-12T05:56:04.385Z
             </div>
         <script src="../prettify.js"></script>
         <script>

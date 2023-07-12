@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.94% </span>
+                <span class="strong">28.39% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/76</span>
+                <span class='fraction'>23/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.65% </span>
+                <span class="strong">25.3% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/73</span>
+                <span class='fraction'>21/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>3/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.16% </span>
+                <span class="strong">27.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/71</span>
+                <span class='fraction'>21/76</span>
             </div>
         
             
@@ -186,7 +186,20 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +209,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,6 +316,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,6 +338,7 @@ import { Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import type { TypeProps } from '../value';
 import { getValueString, isFloat, Type, typeMap } from '../value';
 import { EditIcon } from './icon/edit';
+import { DeleteIcon } from './icon/delete';
 import type { JsonViewEditorProps } from './';
 &nbsp;
 const Quotes: FC&lt;PropsWithChildren&lt;React.HTMLAttributes&lt;HTMLSpanElement&gt; &amp; { quotes?: JsonViewEditorProps&lt;object&gt;['quotes']; show?: boolean; }&gt;&gt; = ({ show, style, quotes }) =&gt; {
@@ -327,13 +352,16 @@ export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttribut
   keyName?: JsonViewEditorProps&lt;T&gt;['keyName'];
   type: TypeProps['type'];
   value?: unknown;
+  data?: T;
   visible?: boolean;
   editableValue?: boolean;
   displayDataTypes?: boolean;
+  setValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
+  onDelete?: JsonViewEditorProps&lt;T&gt;['onDelete'];
 }
 &nbsp;
 export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
-  const { type, value, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onEdit, ...reset } = props;
+  const { type, value, setValue, data, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onDelete, onEdit, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const $edit = useRef&lt;HTMLSpanElement&gt;(null);
   const [curentType, setCurentType] = useState(type);
@@ -422,6 +450,13 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
   if (typeStr === 'null' || typeStr === 'undefined') {
     typeView = &lt;Fragment /&gt;;
   }
+  const deleteHandle = <span class="fstat-no" title="function not covered" >as</span>ync (evn: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
+<span class="cstat-no" title="statement not covered" >    evn.stopPropagation();</span>
+<span class="cstat-no" title="statement not covered" >    if (data &amp;&amp; keyName &amp;&amp; keyName in data &amp;&amp; setValue) {</span>
+<span class="cstat-no" title="statement not covered" >      delete (data as Record&lt;string, any&gt;)[keyName as string];</span>
+<span class="cstat-no" title="statement not covered" >      setValue({ ...data } as T);</span>
+    }
+  }
   return (
     &lt;Fragment&gt;
       {displayDataTypes &amp;&amp; typeView}
@@ -429,6 +464,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
       &lt;span {...spanProps} ref={$edit} data-value={childStr}&gt;{typeof curentChild === 'string' ? curentChild :  childStr}&lt;/span&gt;
       &lt;Quotes style={style} quotes={quotes} show={typeStr === 'string'} /&gt;
       {visible &amp;&amp; editableValue &amp;&amp; onEdit &amp;&amp; &lt;EditIcon onClick={click} /&gt;}
+      {visible &amp;&amp; editableValue &amp;&amp; onDelete &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >&lt;DeleteIcon onClick={deleteHandle} /&gt;}</span>
     &lt;/Fragment&gt;
   );
 &nbsp;
@@ -439,7 +475,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-11T16:33:54.823Z
+                at 2023-07-12T05:56:04.385Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
