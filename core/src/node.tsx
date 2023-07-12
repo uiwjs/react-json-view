@@ -22,6 +22,8 @@ export interface RooNodeProps<T extends object> extends JsonViewProps<T> {
   keyName?: string | number;
   keyid?: string;
   level?: number;
+  parentValue?: T;
+  setParentValue?: React.Dispatch<React.SetStateAction<T>>;
 }
 export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const {
@@ -41,6 +43,8 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     quotes = '"',
     onCopied,
     onExpand,
+    parentValue,
+    setParentValue,
     ...reset
   } = props;
   const isArray = Array.isArray(value);
@@ -52,6 +56,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     onExpand && typeof onExpand === 'function' && onExpand({ expand: !expand, keyid, keyName, value: value as T })
     !expand ? store.expand(keyid) : store.collapse(keyid);
   };
+  const [valueData, setValueData] = useState<T>(value as T);
   const subNodeProps: RooNodeProps<T> = {
     components,
     indentWidth,
@@ -62,6 +67,8 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     onCopied,
     onExpand,
     collapsed,
+    parentValue: value as T,
+    setParentValue: setValueData,
     quotes,
     level: level + 1,
     style: { paddingLeft: indentWidth },
@@ -71,7 +78,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayObjectSize,
     enableClipboard,
     indentWidth,
+    data: valueData,
     quotes,
+    setValue: setValueData,
     renderBraces: components.braces,
     renderValue: components.value,
   } as ValueViewProps<T>;
@@ -86,7 +95,6 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     eventProps.onMouseEnter = () => setShowTools(true);
     eventProps.onMouseLeave = () => setShowTools(false);
   }
-  const [valueData, setValueData] = useState<T>(value as T);
 
   useEffect(() => setValueData(value as T), [value]);
 
@@ -129,8 +137,11 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
           count: nameKeys.length,
           level,
           showTools,
+          keyName,
           visible: expand,
           value: valueData,
+          parentValue,
+          setParentValue,
           setValue: setValueData,
         })}
         {enableClipboard && <Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} />}
@@ -138,7 +149,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
       {expand && (
         <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
           {entries.length > 0 &&
-            entries.map(([key, itemVal], idx) => {
+            [...entries].map(([key, itemVal], idx) => {
               const item = itemVal as T;
               const renderKey = (
                 <Semicolon

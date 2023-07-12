@@ -79,7 +79,11 @@ export function ExampleEditor() {
       <JsonViewEditor
         value={src}
         onEdit={(opts) => {
-          console.log('opts:', opts)
+          console.log('onEdit:', opts)
+          return true;
+        }}
+        onDelete={(keyName, value, parentValue) => {
+          console.log('onDelete:', keyName, value, parentValue)
           return true;
         }}
         onAdd={(keyOrValue, newValue, value, isAdd) => {

@@ -1,10 +1,10 @@
 import renderer from 'react-test-renderer';
-import { AddIcon } from './add';
+import { DeleteIcon } from './delete';
 
 
-it('renders <AddIcon /> test case', () => {
+it('renders <DeleteIcon /> test case', () => {
   const component = renderer.create(
-    <AddIcon />,
+    <DeleteIcon />,
   );
   let tree = component.toJSON();
   expect(tree).toHaveProperty('type');
@@ -13,7 +13,7 @@ it('renders <AddIcon /> test case', () => {
   expect(tree).toHaveProperty('type', 'svg');
   expect(tree).toHaveProperty('props', {
     viewBox: '0 0 40 40',
-    fill: 'var(--w-rjv-add-color, currentColor)',
+    fill: 'var(--w-rjv-delete-color, #dc3545)',
     style: {
       verticalAlign: 'middle',
       display: 'inline-block',

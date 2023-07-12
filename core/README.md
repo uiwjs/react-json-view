@@ -126,6 +126,7 @@ const customTheme = {
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
   '--w-rjv-edit-color': 'var(--w-rjv-color)',
   '--w-rjv-add-color': 'var(--w-rjv-color)',
+  '--w-rjv-delete-color': '#dc3545',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#9cdcfe',
@@ -192,6 +193,7 @@ const customTheme = {
   '--w-rjv-arrow-color': '#9cdcfe',
   '--w-rjv-edit-color': '#0184a6',
   '--w-rjv-add-color': '#0184a6',
+  '--w-rjv-delete-color': '#dc3545',
   '--w-rjv-info-color': '#656565',
   '--w-rjv-update-color': '#ebcb8b',
   '--w-rjv-copied-color': '#0184a6',
@@ -331,7 +333,7 @@ const object = {
   integer: 42,
 }
 
-function value({ type, children, value, keyName, visible, ...props }) {
+function value({ type, children, value, setValue, keyName, visible, ...props }) {
   if (type === 'string' && /\.(jpg)$/.test(value)) {
     return (
       <span {...props}>
@@ -384,7 +386,7 @@ export default function Demo() {
 import React from 'react';
 import JsonView from '@uiw/react-json-view';
 
-function value({ type, children, visible, keyName, value, ...props }) {
+function value({ type, children, visible, keyName, value, setValue, ...props }) {
   if (value instanceof URL) {
     return (
       <span {...props}>
@@ -761,6 +763,11 @@ export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> 
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.
    */
   onAdd?: CountInfoExtraProps<T>['onAdd'];
+  /**
+   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed.
+   * @returns Returning false from onDelete will prevent the change from being made.
+   */
+  onDelete?: CountInfoExtraProps<T>['onDelete'];
   /** Whether enable edit feature. @default true */
   editable?: boolean;
 }

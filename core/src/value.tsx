@@ -35,7 +35,7 @@ export const typeMap = {
   },
   url: {
     color: 'var(--w-rjv-type-url-color, #0969da)',
-    label: 'URL',
+    label: 'url',
   },
   null: {
     color: 'var(--w-rjv-type-null-color, #d33682)',
@@ -61,10 +61,21 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
   </span>
 );
 
+interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement> {
+  type: TypeProps['type'];
+  value?: unknown;
+  data?: T;
+  visible?: boolean;
+  quotes?: JsonViewProps<T>['quotes'];
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  keyName?: ValueViewProps<T>['keyName'];
+}
+
 export interface ValueViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   keyName?: string | number;
   value?: unknown;
+  data?: T;
   displayDataTypes: boolean;
   displayObjectSize: boolean;
   enableClipboard: boolean;
@@ -73,7 +84,8 @@ export interface ValueViewProps<T extends object>
   quotes?: JsonViewProps<T>['quotes'];
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
-  renderValue?: (props: React.HTMLAttributes<HTMLSpanElement> & { type: TypeProps['type']; value?: unknown; visible?: boolean; quotes?: JsonViewProps<T>['quotes']; keyName?: ValueViewProps<T>['keyName']; }) => JSX.Element;
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  renderValue?: (props: RenderValueProps<T>) => JSX.Element;
 }
 
 export function getValueString<T>(value: T) {
@@ -115,7 +127,7 @@ export function getValueString<T>(value: T) {
 }
 
 export function ValueView<T extends object>(props: ValueViewProps<T>) {
-  const { value, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
+  const { value, setValue, data, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
 
   let color = '';
   let style = {} as React.CSSProperties;
@@ -154,6 +166,8 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
       style: { color, ...style },
       type,
       value,
+      setValue,
+      data,
       quotes,
       keyName,
       visible: showTools,

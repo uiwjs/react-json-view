@@ -22,7 +22,7 @@ it('renders <CountInfoExtra /> onAdd test case', () => {
   expect(tree).toHaveProperty('children');
   expect(tree).toHaveProperty('type', 'svg');
   expect(tree).toHaveProperty('props.fill', 'var(--w-rjv-add-color, currentColor)')
-  expect(tree).toHaveProperty('props.viewBox', '0 0 20 20')
+  expect(tree).toHaveProperty('props.viewBox', '0 0 40 40')
   expect(tree).toHaveProperty('props.style', {
     verticalAlign: 'middle',
     display: 'inline-block',

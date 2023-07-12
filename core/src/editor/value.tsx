@@ -3,6 +3,7 @@ import { Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import type { TypeProps } from '../value';
 import { getValueString, isFloat, Type, typeMap } from '../value';
 import { EditIcon } from './icon/edit';
+import { DeleteIcon } from './icon/delete';
 import type { JsonViewEditorProps } from './';
 
 const Quotes: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement> & { quotes?: JsonViewEditorProps<object>['quotes']; show?: boolean; }>> = ({ show, style, quotes }) => {
@@ -16,13 +17,16 @@ export interface ReValueProps<T extends object> extends React.HTMLAttributes<HTM
   keyName?: JsonViewEditorProps<T>['keyName'];
   type: TypeProps['type'];
   value?: unknown;
+  data?: T;
   visible?: boolean;
   editableValue?: boolean;
   displayDataTypes?: boolean;
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  onDelete?: JsonViewEditorProps<T>['onDelete'];
 }
 
 export function ReValue<T extends object>(props: ReValueProps<T>) {
-  const { type, value, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onEdit, ...reset } = props;
+  const { type, value, setValue, data, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onDelete, onEdit, ...reset } = props;
   const [editable, setEditable] = useState(false);
   const $edit = useRef<HTMLSpanElement>(null);
   const [curentType, setCurentType] = useState(type);
@@ -111,6 +115,13 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
   if (typeStr === 'null' || typeStr === 'undefined') {
     typeView = <Fragment />;
   }
+  const deleteHandle = async (evn: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    evn.stopPropagation();
+    if (data && keyName && keyName in data && setValue) {
+      delete (data as Record<string, any>)[keyName as string];
+      setValue({ ...data } as T);
+    }
+  }
   return (
     <Fragment>
       {displayDataTypes && typeView}
@@ -118,6 +129,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
       <span {...spanProps} ref={$edit} data-value={childStr}>{typeof curentChild === 'string' ? curentChild :  childStr}</span>
       <Quotes style={style} quotes={quotes} show={typeStr === 'string'} />
       {visible && editableValue && onEdit && <EditIcon onClick={click} />}
+      {visible && editableValue && onDelete && <DeleteIcon onClick={deleteHandle} />}
     </Fragment>
   );
 

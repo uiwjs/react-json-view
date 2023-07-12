@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import JsonView from '../';
 import type { JsonViewProps } from '../';
 import { ObjectKey } from './objectKey';
@@ -23,18 +23,23 @@ export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> 
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.
    */
   onAdd?: CountInfoExtraProps<T>['onAdd'];
+  /**
+   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed. 
+   * @returns Returning false from onDelete will prevent the change from being made. 
+   */
+  onDelete?: CountInfoExtraProps<T>['onDelete'];
   /** Whether enable edit feature. @default true */
   editable?: boolean;
 }
 
 const JsonViewEditor = forwardRef<HTMLDivElement, JsonViewEditorProps<object>>((props, ref) => {
-  const { onEdit, components, editable = true, displayDataTypes = true, onAdd, ...reset } = props;
+  const { onEdit, components, editable = true, displayDataTypes = true, onAdd, onDelete, ...reset } = props;
   const comps: JsonViewEditorProps<object>['components'] = {
     ...components,
-    countInfoExtra: (reprops) => <CountInfoExtra {...reprops} editable={editable} onAdd={onAdd} />,
+    countInfoExtra: (reprops) => <CountInfoExtra {...reprops} editable={editable} onAdd={onAdd} onDelete={onDelete} />,
     objectKey: (reprops) => <ObjectKey {...reprops} editableValue={editable} onEdit={onEdit} render={components?.objectKey} />,
     value: (reprops) => {
-      return <ReValue {...reprops} editableValue={editable} displayDataTypes={displayDataTypes} onEdit={onEdit} />
+      return <ReValue {...reprops} editableValue={editable} displayDataTypes={displayDataTypes} onDelete={onDelete} onEdit={onEdit} />
     }
   }
   return (

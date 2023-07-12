@@ -23,6 +23,11 @@ declare module '@uiw/react-json-view/editor' {
      * @returns {boolean} Returning false from onAdd will prevent the change from being made.
      */
     onAdd?: CountInfoExtraProps<T>['onAdd'];
+    /**
+     * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed. 
+     * @returns Returning false from onDelete will prevent the change from being made. 
+     */
+    onDelete?: CountInfoExtraProps<T>['onDelete'];
     /** Whether enable edit feature. @default true */
     editable?: boolean;
   }
