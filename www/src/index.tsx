@@ -1,10 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createGlobalStyle } from 'styled-components';
-import '@wcj/dark-mode';
+import data from '@uiw/react-json-view/README.md';
+import MarkdownPreviewExample from '@uiw/react-markdown-preview-example';
 import App from './App';
 
-export const GlobalStyle = createGlobalStyle<any>`
+export const GlobalStyle = createGlobalStyle`
   [data-color-mode*='dark'], [data-color-mode*='dark'] body {
     --tabs-bg: #5f5f5f;
   }
@@ -21,17 +22,22 @@ export const GlobalStyle = createGlobalStyle<any>`
   }
 `;
 
+const Github = MarkdownPreviewExample.Github;
+const Example = MarkdownPreviewExample.Example;
+
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  <React.Fragment>
-    <dark-mode
-      permanent
-      dark="Dark"
-      light="Light"
-      style={{ position: 'fixed', top: 8, left: 12, zIndex: 99, fontSize: 32 }}
-    />
-    <GlobalStyle />
-    <App />
-  </React.Fragment>,
+  <MarkdownPreviewExample
+    source={data.source}
+    components={data.components}
+    data={data.data}
+    title="JSON View for React"
+    version={`v${VERSION}`}
+  >
+    <Github href="https://github.com/uiwjs/react-markdown-preview-example" />
+    <Example>
+      <App />
+    </Example>
+  </MarkdownPreviewExample>,
 );
