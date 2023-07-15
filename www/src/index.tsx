@@ -36,7 +36,7 @@ root.render(
     description="A React component for displaying and editing javascript arrays and JSON objects."
     version={`v${VERSION}`}
   >
-    <Github href="https://github.com/uiwjs/react-markdown-preview-example" />
+    <Github href="https://github.com/uiwjs/react-json-view" />
     <Example>
       <App />
     </Example>
