@@ -33,6 +33,7 @@ root.render(
     components={data.components}
     data={data.data}
     title="JSON View for React"
+    description="A React component for displaying and editing javascript arrays and JSON objects."
     version={`v${VERSION}`}
   >
     <Github href="https://github.com/uiwjs/react-markdown-preview-example" />
