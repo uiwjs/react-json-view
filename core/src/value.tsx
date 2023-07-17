@@ -67,6 +67,7 @@ interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSp
   data?: T;
   visible?: boolean;
   quotes?: JsonViewProps<T>['quotes'];
+  namespace?: Array<string | number>;
   setValue?: React.Dispatch<React.SetStateAction<T>>;
   keyName?: ValueViewProps<T>['keyName'];
 }
@@ -81,6 +82,7 @@ export interface ValueViewProps<T extends object>
   enableClipboard: boolean;
   indentWidth: number;
   level?: number;
+  namespace?: Array<string | number>;
   quotes?: JsonViewProps<T>['quotes'];
   renderKey?: JSX.Element;
   renderBraces?: MetaProps['render'];
@@ -116,7 +118,7 @@ export function getValueString<T>(value: T) {
     content = `${value}n`;
   }
   const isURL = value instanceof URL;
-  if (isURL)  {
+  if (isURL) {
     type = 'url';
     content = `"${value.href}"`;
   }
@@ -127,7 +129,23 @@ export function getValueString<T>(value: T) {
 }
 
 export function ValueView<T extends object>(props: ValueViewProps<T>) {
-  const { value, setValue, data, keyName, indentWidth, renderKey, quotes, level, renderValue, renderBraces, enableClipboard, displayObjectSize, displayDataTypes, ...reset } = props;
+  const {
+    value,
+    setValue,
+    data,
+    keyName,
+    indentWidth,
+    namespace,
+    renderKey,
+    quotes,
+    level,
+    renderValue,
+    renderBraces,
+    enableClipboard,
+    displayObjectSize,
+    displayDataTypes,
+    ...reset
+  } = props;
 
   let color = '';
   let style = {} as React.CSSProperties;
@@ -161,22 +179,33 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
   }
 
   if (content && typeof content === 'string') {
-    const reView = renderValue && renderValue({
-      className: 'w-rjv-value',
-      style: { color, ...style },
-      type,
-      value,
-      setValue,
-      data,
-      quotes,
-      keyName,
-      visible: showTools,
-      content,
-      children: content,
-    });
-    const valueView = reView ? reView : (
+    const reView =
+      renderValue &&
+      renderValue({
+        className: 'w-rjv-value',
+        style: { color, ...style },
+        type,
+        value,
+        setValue,
+        data,
+        quotes,
+        keyName,
+        namespace,
+        visible: showTools,
+        content,
+        children: content,
+      });
+    const valueView = reView ? (
+      reView
+    ) : (
       <Label color={color} style={style} className="w-rjv-value">
-        {isURL ? <a href={value.href} style={{ color }} target="_blank" rel="noopener noreferrer">{content}</a> : content}
+        {isURL ? (
+          <a href={value.href} style={{ color }} target="_blank" rel="noopener noreferrer">
+            {content}
+          </a>
+        ) : (
+          content
+        )}
       </Label>
     );
     return (
@@ -198,7 +227,7 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
       <Meta render={renderBraces} isArray={Array.isArray(value)} />
       {displayObjectSize && <CountInfo>{length} items</CountInfo>}
     </Fragment>
-  )
+  );
   return (
     <Line {...eventProps}>
       <Label {...reset} ref={null}>
@@ -219,19 +248,13 @@ export interface LabelProps extends React.HTMLAttributes<HTMLSpanElement> {
   paddingRight?: number;
 }
 
-export const Label = forwardRef<HTMLSpanElement, LabelProps>(({
-  children,
-  color,
-  fontSize,
-  opacity,
-  paddingRight,
-  style,
-  ...reset
-}, ref) => (
-  <span style={{ color, fontSize, opacity, paddingRight, ...style }} {...reset} ref={ref}>
-    {children}
-  </span>
-));
+export const Label = forwardRef<HTMLSpanElement, LabelProps>(
+  ({ children, color, fontSize, opacity, paddingRight, style, ...reset }, ref) => (
+    <span style={{ color, fontSize, opacity, paddingRight, ...style }} {...reset} ref={ref}>
+      {children}
+    </span>
+  ),
+);
 
 export interface TypeProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   type: keyof typeof typeMap;

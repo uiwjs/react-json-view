@@ -10,8 +10,21 @@ export interface ObjectKeyProps<T extends object> extends SemicolonProps {
   editableValue?: boolean;
 }
 
-export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
-  const { className, value, keyName, parentName, quotes, label, editableValue, onEdit, highlightUpdates = true, render, ...reset } = props;
+export const ObjectKey: FC<ObjectKeyProps<object>> = (props) => {
+  const {
+    className,
+    value,
+    keyName,
+    parentName,
+    quotes,
+    label,
+    namespace,
+    editableValue,
+    onEdit,
+    highlightUpdates = true,
+    render,
+    ...reset
+  } = props;
   const [editable, setEditable] = useState(false);
   const [curentLabel, setCurentLabel] = useState(label);
   useEffect(() => setCurentLabel(label), [label]);
@@ -27,37 +40,50 @@ export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
       $edit.current!.contentEditable = 'true';
       $edit.current?.focus();
     }
-  }
+  };
 
-  const blur = () => {
-    setEditable(false);
+  const blur = async () => {
     if ($edit.current) {
+      if (onEdit) {
+        const result = await onEdit({
+          value: $edit.current.innerText,
+          oldValue: curentLabel as string,
+          namespace,
+          keyName,
+          parentName,
+          type: 'key',
+        });
+        if (result) {
+          setCurentLabel($edit.current.innerText);
+        } else {
+          $edit.current.innerText = curentLabel as string;
+        }
+      }
       $edit.current.contentEditable = 'false';
       $edit.current?.focus();
-      setCurentLabel($edit.current.innerText);
-      onEdit && onEdit({ value: $edit.current.innerText, oldValue: curentLabel as string, keyName, parentName, type: 'key' });
     }
-  }
+    setEditable(false);
+  };
   const focus = () => {
     if ($edit.current) {
       $edit.current.contentEditable = 'true';
       $edit.current?.focus();
     }
-  }
+  };
   const keyDown = (evn: React.KeyboardEvent<HTMLSpanElement>) => {
     if (evn.key === 'Enter') {
       evn.stopPropagation();
       evn.preventDefault();
       $edit.current!.contentEditable = 'false';
     }
-  }
+  };
   useEffect(() => {
     if ($edit.current) {
-      $edit.current.addEventListener("paste", (e) => {
+      $edit.current.addEventListener('paste', (e) => {
         e.preventDefault();
         // @ts-ignore
-        const text = e.clipboardData.getData("text/plain");
-        document.execCommand("insertHTML", false, text);
+        const text = e.clipboardData.getData('text/plain');
+        document.execCommand('insertHTML', false, text);
       });
     }
   }, [$edit]);
@@ -75,15 +101,21 @@ export const ObjectKey: FC<ObjectKeyProps<object>>= (props) => {
     autoFocus: editable,
     suppressContentEditableWarning: true,
     children: editable ? curentLabel : content,
-  }
+  };
   if (render) {
     spanProps.value = value;
     spanProps.keyName = keyName;
     spanProps.parentName = parentName;
-    return render({ className, ...reset, ...spanProps, parentName, label: curentLabel as string, children: editable ? curentLabel : content, ref: $edit });
+    return render({
+      className,
+      ...reset,
+      ...spanProps,
+      parentName,
+      label: curentLabel as string,
+      children: editable ? curentLabel : content,
+      ref: $edit,
+    });
   }
 
   return <Label className={className} {...reset} autoFocus={editable} {...spanProps} ref={$edit} />;
-}
-
-
+};

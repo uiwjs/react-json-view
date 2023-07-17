@@ -530,6 +530,11 @@ export default function Demo() {
       }}
       onEdit={(opts) => {
         console.log('opts:', opts)
+        // opts.namespace: ['object', 'child', 'last']
+        // opts.oldValue: null
+        // opts.type: "value"
+        // opts.value: "NULL3"
+        return true;
       }}
       components={{
         objectKey: ObjectKey
@@ -756,6 +761,7 @@ export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> 
     oldValue: unknown;
     keyName?: string | number;
     parentName?: string | number;
+    namespace?: Array<string | number>;
     type?: 'value' | 'key';
   }) => boolean;
   /**

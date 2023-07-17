@@ -23,6 +23,7 @@ export interface RooNodeProps<T extends object> extends JsonViewProps<T> {
   keyid?: string;
   level?: number;
   parentValue?: T;
+  namespace?: Array<string | number>;
   setParentValue?: React.Dispatch<React.SetStateAction<T>>;
 }
 export function RooNode<T extends object>(props: RooNodeProps<T>) {
@@ -41,6 +42,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     level = 1,
     keyid = 'root',
     quotes = '"',
+    namespace = [],
     onCopied,
     onExpand,
     parentValue,
@@ -50,10 +52,11 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   const isArray = Array.isArray(value);
   const subkeyid = useId();
   const expands = useExpandsStatus();
-  const expand = expands[keyid] ?? (typeof collapsed === 'boolean' ? collapsed : (typeof collapsed === 'number' ? level <= collapsed : true));
-  const arrowStyle = { transform: `rotate(${expand ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
+  const expand =
+    expands[keyid] ??
+    (typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level <= collapsed : true);
   const handle = () => {
-    onExpand && typeof onExpand === 'function' && onExpand({ expand: !expand, keyid, keyName, value: value as T })
+    onExpand && typeof onExpand === 'function' && onExpand({ expand: !expand, keyid, keyName, value: value as T });
     !expand ? store.expand(keyid) : store.collapse(keyid);
   };
   const [valueData, setValueData] = useState<T>(value as T);
@@ -84,8 +87,9 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     renderBraces: components.braces,
     renderValue: components.value,
   } as ValueViewProps<T>;
+  const arrowStyle = { transform: `rotate(${expand ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
   const arrowView = components.arrow ? (
-    cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: "w-rjv-arrow" })
+    cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: 'w-rjv-arrow' })
   ) : (
     <TriangleArrow style={arrowStyle} className="w-rjv-arrow" />
   );
@@ -97,15 +101,19 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
   }
 
   useEffect(() => setValueData(value as T), [value]);
-
-  const nameKeys = (isArray ? Object.keys(valueData).map(m => Number(m)) : Object.keys(valueData)) as (keyof typeof valueData)[];
+  const nameKeys = (
+    isArray ? Object.keys(valueData).map((m) => Number(m)) : Object.keys(valueData)
+  ) as (keyof typeof valueData)[];
 
   // object
-  let entries: [key: string | number, value: unknown][] = isArray ? Object.entries(valueData).map(m => [Number(m[0]), m[1]]) : Object.entries(valueData);
+  let entries: [key: string | number, value: unknown][] = isArray
+    ? Object.entries(valueData).map((m) => [Number(m[0]), m[1]])
+    : Object.entries(valueData);
   if (objectSortKeys) {
-    entries = objectSortKeys === true
-      ? entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0)
-      : entries.sort(([a], [b]) => typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0)
+    entries =
+      objectSortKeys === true
+        ? entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0))
+        : entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0));
   }
   let countInfo = <CountInfo>{nameKeys.length} items</CountInfo>;
   if (components.countInfo) {
@@ -121,6 +129,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               value={valueData}
               quotes={quotes}
               data-keys={keyid}
+              namespace={[...namespace]}
               render={components.objectKey}
               keyName={keyName}
               parentName={keyName}
@@ -133,21 +142,31 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         {!expand && <Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} />}
         {!expand && <Meta isArray={isArray} level={level} render={components.braces} />}
         {displayObjectSize && countInfo}
-        {components.countInfoExtra && components.countInfoExtra({
-          count: nameKeys.length,
-          level,
-          showTools,
-          keyName,
-          visible: expand,
-          value: valueData,
-          parentValue,
-          setParentValue,
-          setValue: setValueData,
-        })}
-        {enableClipboard && <Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} />}
+        {components.countInfoExtra &&
+          components.countInfoExtra({
+            count: nameKeys.length,
+            level,
+            showTools,
+            keyName,
+            visible: expand,
+            value: valueData,
+            parentValue,
+            setParentValue,
+            setValue: setValueData,
+          })}
+        {enableClipboard && (
+          <Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} />
+        )}
       </Line>
       {expand && (
-        <Line className="w-rjv-content" style={{ borderLeft: 'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)', marginLeft: 6 }}>
+        <Line
+          className="w-rjv-content"
+          style={{
+            borderLeft:
+              'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)',
+            marginLeft: 6,
+          }}
+        >
           {entries.length > 0 &&
             [...entries].map(([key, itemVal], idx) => {
               const item = itemVal as T;
@@ -156,6 +175,7 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                   value={item}
                   data-keys={keyid}
                   quotes={quotes}
+                  namespace={[...namespace, key]}
                   parentName={keyName}
                   highlightUpdates={highlightUpdates}
                   render={components.objectKey}
@@ -163,19 +183,36 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                   keyName={key}
                 />
               );
-              const isEmpty = (Array.isArray(item) && (item as []).length === 0) || (typeof item === 'object' && item && !((item as any) instanceof Date) && Object.keys(item).length === 0);
+              const isEmpty =
+                (Array.isArray(item) && (item as []).length === 0) ||
+                (typeof item === 'object' &&
+                  item &&
+                  !((item as any) instanceof Date) &&
+                  Object.keys(item).length === 0);
               if (Array.isArray(item) && !isEmpty) {
                 const label = (isArray ? idx : key) as string;
                 return (
                   <Line key={label + idx} className="w-rjv-wrap">
-                    <RooNode value={item} keyName={label} keyid={keyid + subkeyid + label} {...subNodeProps} />
+                    <RooNode
+                      value={item}
+                      namespace={[...namespace, label]}
+                      keyName={label}
+                      keyid={keyid + subkeyid + label}
+                      {...subNodeProps}
+                    />
                   </Line>
                 );
               }
               if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
                 return (
                   <Line key={key + '' + idx} className="w-rjv-wrap">
-                    <RooNode value={item} keyName={key} keyid={keyid + subkeyid + key} {...subNodeProps} />
+                    <RooNode
+                      value={item}
+                      namespace={[...namespace, key]}
+                      keyName={key}
+                      keyid={keyid + subkeyid + key}
+                      {...subNodeProps}
+                    />
                   </Line>
                 );
               }
@@ -183,14 +220,26 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
                 return;
               }
               return (
-                <ValueView key={idx} {...valueViewProps} renderKey={renderKey} keyName={key} value={item} />
+                <ValueView
+                  key={idx}
+                  namespace={[...namespace, key]}
+                  {...valueViewProps}
+                  renderKey={renderKey}
+                  keyName={key}
+                  value={item}
+                />
               );
             })}
         </Line>
       )}
       {expand && (
         <Line style={{ paddingLeft: 2 }}>
-          <Meta render={components.braces} isArray={isArray} level={level} style={{ paddingLeft: 2, display: 'inline-block' }} />
+          <Meta
+            render={components.braces}
+            isArray={isArray}
+            level={level}
+            style={{ paddingLeft: 2, display: 'inline-block' }}
+          />
         </Line>
       )}
     </div>
