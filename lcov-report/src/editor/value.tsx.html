@@ -200,7 +200,39 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,6 +260,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -306,6 +355,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -327,6 +381,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,10 +401,14 @@ import { EditIcon } from './icon/edit';
 import { DeleteIcon } from './icon/delete';
 import type { JsonViewEditorProps } from './';
 &nbsp;
-const Quotes: FC&lt;PropsWithChildren&lt;React.HTMLAttributes&lt;HTMLSpanElement&gt; &amp; { quotes?: JsonViewEditorProps&lt;object&gt;['quotes']; show?: boolean; }&gt;&gt; = ({ show, style, quotes }) =&gt; {
+const Quotes: FC&lt;
+  PropsWithChildren&lt;
+    React.HTMLAttributes&lt;HTMLSpanElement&gt; &amp; { quotes?: JsonViewEditorProps&lt;object&gt;['quotes']; show?: boolean }
+  &gt;
+&gt; = ({ show, style, quotes }) =&gt; {
   if (!quotes || !show) return;
   return &lt;span style={style}&gt;{quotes}&lt;/span&gt;;
-}
+};
 &nbsp;
 export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttributes&lt;HTMLSpanElement&gt; {
   onEdit?: JsonViewEditorProps&lt;T&gt;['onEdit'];
@@ -358,6 +418,7 @@ export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttribut
   value?: unknown;
   data?: T;
   visible?: boolean;
+  namespace?: Array&lt;string | number&gt;;
   editableValue?: boolean;
   displayDataTypes?: boolean;
   setValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
@@ -365,7 +426,23 @@ export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttribut
 }
 &nbsp;
 export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
-  const { type, value, setValue, data, keyName, visible, quotes, style, children, displayDataTypes, editableValue, onDelete, onEdit, ...reset } = props;
+  const {
+    type,
+    value,
+    setValue,
+    data,
+    keyName,
+    visible,
+    quotes,
+    style,
+    children,
+    namespace,
+    displayDataTypes,
+    editableValue,
+    onDelete,
+    onEdit,
+    ...reset
+  } = props;
   const [editable, setEditable] = useState(false);
   const $edit = useRef&lt;HTMLSpanElement&gt;(null);
   const [curentType, setCurentType] = useState(type);
@@ -379,7 +456,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
       $edit.current.setAttribute('contentEditable', 'true');
       $edit.current?.focus();
     }
-  }
+  };
   const keyDown = (evn: React.KeyboardEvent&lt;HTMLSpanElement&gt;) =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!editableValue) <span class="cstat-no" title="statement not covered" >return;</span>
     if (evn.key === 'Enter') {
@@ -390,7 +467,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
         $edit.current.setAttribute('contentEditable', 'false');
       }
     }
-  }
+  };
   const blur = async () =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!editableValue) <span class="cstat-no" title="statement not covered" >return;</span>
     setEditable(false);
@@ -409,21 +486,21 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (Number.isNaN(text)) {
 <span class="cstat-no" title="statement not covered" >        typeStr = 'number';</span>
       }
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(true|false)$/ig.test(text)) {
-<span class="cstat-no" title="statement not covered" >        text = /^(true)$/ig.test(text) ? true : false;</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(true|false)$/gi.test(text)) {
+<span class="cstat-no" title="statement not covered" >        text = /^(true)$/gi.test(text) ? true : false;</span>
 <span class="cstat-no" title="statement not covered" >        typeStr = 'boolean';</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^[\d]+n$/ig.test(text)) {
-<span class="cstat-no" title="statement not covered" >        text = BigInt(text.replace(/n$/ig, ''));</span>
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^[\d]+n$/gi.test(text)) {
+<span class="cstat-no" title="statement not covered" >        text = BigInt(text.replace(/n$/gi, ''));</span>
 <span class="cstat-no" title="statement not covered" >        typeStr = 'bigint';</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(null)$/ig.test(text)) {
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(null)$/gi.test(text)) {
 <span class="cstat-no" title="statement not covered" >        text = null;</span>
 <span class="cstat-no" title="statement not covered" >        typeStr = 'null';</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(undefined)$/ig.test(text)) {
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof text === 'string' &amp;&amp; /^(undefined)$/gi.test(text)) {
 <span class="cstat-no" title="statement not covered" >        text = undefined;</span>
 <span class="cstat-no" title="statement not covered" >        typeStr = 'undefined';</span>
       } else <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof text === 'string') {
         try {
-          <span class="missing-if-branch" title="if path not taken" >I</span>if(text &amp;&amp; text.length &gt; 10 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!isNaN(Date.parse(text)))</span>{
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (text &amp;&amp; text.length &gt; 10 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!isNaN(Date.parse(text)))</span> {
             const dt = <span class="cstat-no" title="statement not covered" >new Date(text);</span>
 <span class="cstat-no" title="statement not covered" >            text = dt;</span>
 <span class="cstat-no" title="statement not covered" >            typeStr = 'date';</span>
@@ -431,7 +508,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
         } catch (error) {}
       }
       <span class="missing-if-branch" title="else path not taken" >E</span>if (onEdit) {
-        const result = await onEdit({ type: 'value', value: text, oldValue: curentChild });
+        const result = await onEdit({ type: 'value', value: text, oldValue: curentChild, namespace });
         if (result) {
           setCurentType(typeStr);
           setCurentChild(text);
@@ -441,8 +518,13 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
         }
       }
     }
-  }
-  const defaultStyle = { minWidth: 34, minHeight: 18, paddingInline: 3, display: 'inline-block' } as React.CSSProperties;
+  };
+  const defaultStyle = {
+    minWidth: 34,
+    minHeight: 18,
+    paddingInline: 3,
+    display: 'inline-block',
+  } as React.CSSProperties;
   const { type: typeStr, content: childStr } = getValueString(curentChild);
   const color = typeMap[typeStr]?.color || <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
   const spanProps: React.HTMLAttributes&lt;HTMLSpanElement&gt; = {
@@ -450,8 +532,8 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
     onBlur: blur,
     onKeyDown: keyDown,
     spellCheck: false,
-    style: editable ? {...style,...defaultStyle, color } : {...style, color},
-  }
+    style: editable ? { ...style, ...defaultStyle, color } : { ...style, color },
+  };
   let typeView = &lt;Type type={typeStr} /&gt;;
   if (typeStr === 'null' || typeStr === 'undefined') {
     typeView = &lt;Fragment /&gt;;
@@ -462,26 +544,28 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
 <span class="cstat-no" title="statement not covered" >      delete (data as Record&lt;string, any&gt;)[keyName as string];</span>
 <span class="cstat-no" title="statement not covered" >      setValue({ ...data } as T);</span>
     }
-  }
+  };
   return (
     &lt;Fragment&gt;
       {displayDataTypes &amp;&amp; typeView}
       &lt;Quotes style={style} quotes={quotes} show={typeStr === 'string'} /&gt;
-      &lt;span {...spanProps} ref={$edit} data-value={childStr}&gt;{typeof curentChild === 'string' ? curentChild :  childStr}&lt;/span&gt;
+      &lt;span {...spanProps} ref={$edit} data-value={childStr}&gt;
+        {typeof curentChild === 'string' ? curentChild : childStr}
+      &lt;/span&gt;
       &lt;Quotes style={style} quotes={quotes} show={typeStr === 'string'} /&gt;
       {visible &amp;&amp; editableValue &amp;&amp; onEdit &amp;&amp; &lt;EditIcon onClick={click} /&gt;}
       {visible &amp;&amp; editableValue &amp;&amp; onDelete &amp;&amp; &lt;DeleteIcon onClick={deleteHandle} /&gt;}
     &lt;/Fragment&gt;
   );
-&nbsp;
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-15T07:34:43.675Z
+                at 2023-07-17T08:54:11.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

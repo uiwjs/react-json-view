@@ -113,7 +113,17 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,14 +162,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,7 +191,7 @@ import type { CountInfoExtraProps } from './countInfoExtra';
 &nbsp;
 export interface JsonViewEditorProps&lt;T extends object&gt; extends JsonViewProps&lt;T&gt; {
   /**
-   * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed. 
+   * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed.
    * @returns {boolean}  Returning false from onEdit will prevent the change from being made.
    */
   onEdit?: (option: {
@@ -181,6 +199,7 @@ export interface JsonViewEditorProps&lt;T extends object&gt; extends JsonViewPro
     oldValue: unknown;
     keyName?: string | number;
     parentName?: string | number;
+    namespace?: Array&lt;string | number&gt;;
     type?: 'value' | 'key';
   }) =&gt; boolean;
   /**
@@ -189,8 +208,8 @@ export interface JsonViewEditorProps&lt;T extends object&gt; extends JsonViewPro
    */
   onAdd?: CountInfoExtraProps&lt;T&gt;['onAdd'];
   /**
-   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed. 
-   * @returns Returning false from onDelete will prevent the change from being made. 
+   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed.
+   * @returns Returning false from onDelete will prevent the change from being made.
    */
   onDelete?: CountInfoExtraProps&lt;T&gt;['onDelete'];
   /** Whether enable edit feature. @default true */
@@ -202,14 +221,22 @@ const JsonViewEditor = forwardRef&lt;HTMLDivElement, JsonViewEditorProps&lt;obje
   const comps: JsonViewEditorProps&lt;object&gt;['components'] = {
     ...components,
     countInfoExtra: (reprops) =&gt; &lt;CountInfoExtra {...reprops} editable={editable} onAdd={onAdd} onDelete={onDelete} /&gt;,
-    objectKey: <span class="fstat-no" title="function not covered" >(r</span>eprops) =&gt; <span class="cstat-no" title="statement not covered" >&lt;ObjectKey {...reprops} editableValue={editable} onEdit={onEdit} render={components?.objectKey} /&gt;,</span>
+    objectKey: <span class="fstat-no" title="function not covered" >(r</span>eprops) =&gt; (
+<span class="cstat-no" title="statement not covered" >      &lt;ObjectKey {...reprops} editableValue={editable} onEdit={onEdit} render={components?.objectKey} /&gt;</span>
+    ),
     value: <span class="fstat-no" title="function not covered" >(r</span>eprops) =&gt; {
-<span class="cstat-no" title="statement not covered" >      return &lt;ReValue {...reprops} editableValue={editable} displayDataTypes={displayDataTypes} onDelete={onDelete} onEdit={onEdit} /&gt;</span>
-    }
-  }
-  return (
-    &lt;JsonView {...reset} displayDataTypes={false} components={comps} ref={ref} /&gt;
-  );
+<span class="cstat-no" title="statement not covered" >      return (</span>
+        &lt;ReValue
+          {...reprops}
+          editableValue={editable}
+          displayDataTypes={displayDataTypes}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        /&gt;
+      );
+    },
+  };
+  return &lt;JsonView {...reset} displayDataTypes={false} components={comps} ref={ref} /&gt;;
 });
 &nbsp;
 export default JsonViewEditor;
@@ -220,7 +247,7 @@ export default JsonViewEditor;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-15T07:34:43.675Z
+                at 2023-07-17T08:54:11.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
