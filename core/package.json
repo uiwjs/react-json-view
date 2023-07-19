@@ -79,6 +79,9 @@
     "tree-view",
     "treeview"
   ],
+  "dependencies": {
+    "@babel/runtime": "^7.22.6"
+  },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@types/react-test-renderer": "^18.0.0",
