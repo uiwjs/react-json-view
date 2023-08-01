@@ -66,16 +66,16 @@ export function Example() {
   const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
 
   const [src, setSrc] = useState({ ...example });
-  // useEffect(() => {
-  //   const loop = () => {
-  //     setSrc(src => ({
-  //       ...src,
-  //       timer: src.timer + 1
-  //     }))
-  //   }
-  //   const id = setInterval(loop, 1000)
-  //   return () => clearInterval(id)
-  // }, []);
+  useEffect(() => {
+    const loop = () => {
+      setSrc((src) => ({
+        ...src,
+        timer: src.timer + 1,
+      }));
+    };
+    const id = setInterval(loop, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <Fragment>
