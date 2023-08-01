@@ -8,13 +8,21 @@ import { Copied } from './copied';
 import { Ellipsis } from './comps/ellipsis';
 import { Meta } from './comps/meta';
 
+function getLength<T extends object>(obj: T) {
+  try {
+    return Object.keys(obj).length;
+  } catch (error) {
+    return -1;
+  }
+}
+
 export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   <Label
     style={{ paddingLeft: 4, fontStyle: 'italic' }}
     color="var(--w-rjv-info-color, #0000004d)"
     className="w-rjv-object-size"
   >
-    {children}
+    {children} items
   </Label>
 );
 
@@ -80,12 +88,12 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
     displayDataTypes,
     displayObjectSize,
     enableClipboard,
+    level: level + 1,
+    parentValue: value as T,
     indentWidth,
     data: valueData,
     quotes,
     setValue: setValueData,
-    renderBraces: components.braces,
-    renderValue: components.value,
   } as ValueViewProps<T>;
   const arrowStyle = { transform: `rotate(${expand ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
   const arrowView = components.arrow ? (
@@ -115,10 +123,25 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         ? entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0))
         : entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0));
   }
-  let countInfo = <CountInfo>{nameKeys.length} items</CountInfo>;
+  let countInfo: JSX.Element | undefined | null = <CountInfo>{nameKeys.length}</CountInfo>;
   if (components.countInfo) {
     countInfo = components.countInfo({ count: nameKeys.length, level, visible: expand }) || countInfo;
   }
+  if (!displayObjectSize) countInfo = null;
+  const countInfoExtra =
+    components.countInfoExtra &&
+    components.countInfoExtra({
+      count: nameKeys.length,
+      level,
+      showTools,
+      keyName,
+      visible: expand,
+      value: valueData,
+      namespace: [...namespace],
+      parentValue,
+      setParentValue,
+      setValue: setValueData,
+    });
   return (
     <div {...reset} className={`${className} w-rjv-inner`} {...eventProps}>
       <Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}>
@@ -141,19 +164,8 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
         <Meta start isArray={isArray} level={level} render={components.braces} />
         {!expand && <Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} />}
         {!expand && <Meta isArray={isArray} level={level} render={components.braces} />}
-        {displayObjectSize && countInfo}
-        {components.countInfoExtra &&
-          components.countInfoExtra({
-            count: nameKeys.length,
-            level,
-            showTools,
-            keyName,
-            visible: expand,
-            value: valueData,
-            parentValue,
-            setParentValue,
-            setValue: setValueData,
-          })}
+        {countInfo}
+        {countInfoExtra}
         {enableClipboard && (
           <Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} />
         )}
@@ -170,19 +182,6 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
           {entries.length > 0 &&
             [...entries].map(([key, itemVal], idx) => {
               const item = itemVal as T;
-              const renderKey = (
-                <Semicolon
-                  value={item}
-                  data-keys={keyid}
-                  quotes={quotes}
-                  namespace={[...namespace, key]}
-                  parentName={keyName}
-                  highlightUpdates={highlightUpdates}
-                  render={components.objectKey}
-                  color={typeof key === 'number' ? typeMap['number'].color : ''}
-                  keyName={key}
-                />
-              );
               const isEmpty =
                 (Array.isArray(item) && (item as []).length === 0) ||
                 (typeof item === 'object' &&
@@ -219,11 +218,51 @@ export function RooNode<T extends object>(props: RooNodeProps<T>) {
               if (typeof item === 'function') {
                 return;
               }
+              const renderKey = (
+                <Semicolon
+                  value={item}
+                  data-keys={keyid}
+                  quotes={quotes}
+                  namespace={[...namespace, key]}
+                  parentName={keyName}
+                  highlightUpdates={highlightUpdates}
+                  render={components.objectKey}
+                  color={typeof key === 'number' ? typeMap['number'].color : ''}
+                  keyName={key}
+                />
+              );
+              const length = Array.isArray(item) ? item.length : getLength(item);
+              countInfo = <CountInfo>{length}</CountInfo>;
+              if (components.countInfo) {
+                countInfo = components.countInfo({ count: length, level, visible: expand }) || countInfo;
+              }
+              // if (length > -1) {
+              //   countInfo = (
+              //     <Fragment>
+              //       {countInfo}
+              //       {components.countInfoExtra &&
+              //         components.countInfoExtra({
+              //           count: length,
+              //           level,
+              //           showTools,
+              //           keyName,
+              //           visible: expand,
+              //           value: valueData,
+              //           namespace: [...namespace],
+              //           parentValue,
+              //           setParentValue,
+              //           setValue: setValueData,
+              //         })}
+              //     </Fragment>
+              //   )
+              // }
               return (
                 <ValueView
                   key={idx}
+                  components={components}
                   namespace={[...namespace, key]}
                   {...valueViewProps}
+                  countInfo={countInfo}
                   renderKey={renderKey}
                   keyName={key}
                   value={item}

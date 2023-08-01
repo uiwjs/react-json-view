@@ -1,6 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import { Fragment, forwardRef, useState } from 'react';
-import { CountInfo } from './node';
+import { Fragment, forwardRef, useMemo, useState } from 'react';
 import { Meta } from './comps/meta';
 import type { MetaProps } from './comps/meta';
 import { Copied } from './copied';
@@ -61,21 +60,11 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
   </span>
 );
 
-interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement> {
-  type: TypeProps['type'];
-  value?: unknown;
-  data?: T;
-  visible?: boolean;
-  quotes?: JsonViewProps<T>['quotes'];
-  namespace?: Array<string | number>;
-  setValue?: React.Dispatch<React.SetStateAction<T>>;
-  keyName?: ValueViewProps<T>['keyName'];
-}
-
 export interface ValueViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   keyName?: string | number;
   value?: unknown;
+  parentValue?: T;
   data?: T;
   displayDataTypes: boolean;
   displayObjectSize: boolean;
@@ -84,10 +73,10 @@ export interface ValueViewProps<T extends object>
   level?: number;
   namespace?: Array<string | number>;
   quotes?: JsonViewProps<T>['quotes'];
+  components?: JsonViewProps<T>['components'];
   renderKey?: JSX.Element;
-  renderBraces?: MetaProps['render'];
+  countInfo?: JSX.Element;
   setValue?: React.Dispatch<React.SetStateAction<T>>;
-  renderValue?: (props: RenderValueProps<T>) => JSX.Element;
 }
 
 export function getValueString<T>(value: T) {
@@ -131,16 +120,17 @@ export function getValueString<T>(value: T) {
 export function ValueView<T extends object>(props: ValueViewProps<T>) {
   const {
     value,
+    parentValue,
     setValue,
+    countInfo,
     data,
     keyName,
     indentWidth,
     namespace,
     renderKey,
+    components = {},
     quotes,
     level,
-    renderValue,
-    renderBraces,
     enableClipboard,
     displayObjectSize,
     displayDataTypes,
@@ -168,7 +158,11 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
   color = typeMap[type]?.color || '';
 
   const [showTools, setShowTools] = useState(false);
-  const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
+  const tools = useMemo(
+    () => enableClipboard && showTools && <Copied show={showTools} text={value} />,
+    [enableClipboard, showTools, value],
+  );
+  // const tools = enableClipboard ? <Copied show={showTools} text={value} /> : undefined;
   const eventProps: React.HTMLAttributes<HTMLDivElement> = {
     className: 'w-rjv-line',
     style: { paddingLeft: indentWidth },
@@ -180,14 +174,15 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
 
   if (content && typeof content === 'string') {
     const reView =
-      renderValue &&
-      renderValue({
+      components.value &&
+      components.value({
         className: 'w-rjv-value',
         style: { color, ...style },
         type,
         value,
         setValue,
         data,
+        parentValue,
         quotes,
         keyName,
         namespace,
@@ -220,12 +215,11 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
       </Line>
     );
   }
-  const length = Array.isArray(value) ? value.length : Object.keys(value as object).length;
   const empty = (
     <Fragment>
-      <Meta render={renderBraces} start isArray={Array.isArray(value)} />
-      <Meta render={renderBraces} isArray={Array.isArray(value)} />
-      {displayObjectSize && <CountInfo>{length} items</CountInfo>}
+      <Meta render={components.braces} start isArray={Array.isArray(value)} />
+      <Meta render={components.braces} isArray={Array.isArray(value)} />
+      {countInfo}
     </Fragment>
   );
   return (

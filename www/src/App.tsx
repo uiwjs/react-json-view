@@ -4,7 +4,7 @@ import { Example } from './example/default';
 import { ExampleEditor } from './example/editor';
 
 const ExampleWrapper = styled.div`
-  max-width: 530px;
+  max-width: 630px;
   margin: 0 auto;
   padding-bottom: 3rem;
 `;

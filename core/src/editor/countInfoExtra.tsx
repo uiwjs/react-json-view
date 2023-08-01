@@ -9,22 +9,40 @@ export interface CountInfoExtraProps<T> extends Partial<CountInfoProps> {
   value: T;
   parentValue?: T;
   keyName?: string | number;
-  setValue?: React.Dispatch<React.SetStateAction<T>>
-  setParentValue?: React.Dispatch<React.SetStateAction<T>>
+  namespace?: Array<string | number>;
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  setParentValue?: React.Dispatch<React.SetStateAction<T>>;
   /**
    * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
    * @returns {boolean} Returning false from onAdd will prevent the change from being made.
    */
   onAdd?: (keyOrValue: string, newValue: T, value: T, isAdd: boolean) => boolean;
   /**
-   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed. 
-   * @returns Returning false from onDelete will prevent the change from being made. 
+   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed.
+   * @returns Returning false from onDelete will prevent the change from being made.
    */
-  onDelete?: (keyName: string | number, value: T, parentValue: T) => boolean;
+  onDelete?: (
+    keyName: string | number,
+    value: T,
+    parentValue: T | null,
+    opt: { namespace?: Array<string | number> },
+  ) => boolean;
 }
 
 export function CountInfoExtra<T extends object>(props: CountInfoExtraProps<T>) {
-  const { visible, showTools, editable, keyName, value, parentValue, setValue, setParentValue, onAdd, onDelete } = props;
+  const {
+    visible,
+    showTools,
+    editable,
+    keyName,
+    value,
+    namespace,
+    parentValue,
+    setValue,
+    setParentValue,
+    onAdd,
+    onDelete,
+  } = props;
   if (!visible || !showTools) return null;
   const click = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
@@ -38,25 +56,25 @@ export function CountInfoExtra<T extends object>(props: CountInfoExtraProps<T>) 
         setValue!(result as T);
       }
     }
-  }
+  };
   const deleteHandle = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
     if (onDelete && (keyName || typeof keyName === 'number') && parentValue) {
-      const maybeDelete = await onDelete(keyName, value, parentValue as T);
+      const maybeDelete = await onDelete(keyName, value, parentValue as T, { namespace });
       if (maybeDelete && setParentValue) {
         if (Array.isArray(parentValue)) {
           parentValue.splice(keyName as number, 1);
           setParentValue([...parentValue] as T);
         } else if (keyName in parentValue) {
           delete (parentValue as Record<string, any>)[keyName as string];
-          setParentValue({...parentValue} as T);
+          setParentValue({ ...parentValue } as T);
         }
       }
     }
-  }
+  };
   return (
     <Fragment>
-      {editable && onAdd && <AddIcon onClick={click}/>}
+      {editable && onAdd && <AddIcon onClick={click} />}
       {editable && onDelete && parentValue && <DeleteIcon onClick={deleteHandle} />}
     </Fragment>
   );

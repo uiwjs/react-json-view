@@ -28,11 +28,7 @@ const example = {
   date: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
   array: [19, 100.86, 'test', NaN, Infinity],
   emptyArray: [],
-  nestedArray: [
-    [1, 2],
-    [3, 4],
-    { a: 1}
-  ],
+  nestedArray: [[1, 2], [3, 4], { a: 1 }],
   object3: {},
   object2: {
     'first-child': true,
@@ -66,20 +62,20 @@ export function Example() {
   const [highlightUpdates, setHighlightUpdates] = useState(true);
   const [objectSortKeys, setObjectSortKeys] = useState(false);
   const [clipboard, setClipboard] = useState(true);
-  const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>("\"");
+  const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>('"');
   const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
 
-  const [src, setSrc] = useState({ ...example })
-  useEffect(() => {
-    const loop = () => {
-      setSrc(src => ({
-        ...src,
-        timer: src.timer + 1
-      }))
-    }
-    const id = setInterval(loop, 1000)
-    return () => clearInterval(id)
-  }, []);
+  const [src, setSrc] = useState({ ...example });
+  // useEffect(() => {
+  //   const loop = () => {
+  //     setSrc(src => ({
+  //       ...src,
+  //       timer: src.timer + 1
+  //     }))
+  //   }
+  //   const id = setInterval(loop, 1000)
+  //   return () => clearInterval(id)
+  // }, []);
 
   return (
     <Fragment>
@@ -109,7 +105,7 @@ export function Example() {
           <span>Collapsed:</span>
           <select
             value={collapsed?.toString()}
-            onChange={({ target: { value }}) => {
+            onChange={({ target: { value } }) => {
               const val = value === 'false' ? false : value === 'true' ? true : Number(value);
               setCollapsed(val);
             }}
@@ -141,7 +137,11 @@ export function Example() {
         </Label>
         <Label>
           <span>Display Data Types:</span>
-          <input type="checkbox" checked={displayDataTypes} onChange={(evn) => setDisplayDataTypes(evn.target.checked)} />
+          <input
+            type="checkbox"
+            checked={displayDataTypes}
+            onChange={(evn) => setDisplayDataTypes(evn.target.checked)}
+          />
         </Label>
         <Label>
           <span>Display Object Size:</span>
@@ -161,11 +161,7 @@ export function Example() {
         </Label>
         <Label>
           <span>Sort Keys Through:</span>
-          <input
-            type="checkbox"
-            checked={objectSortKeys}
-            onChange={(evn) => setObjectSortKeys(evn.target.checked)}
-          />
+          <input type="checkbox" checked={objectSortKeys} onChange={(evn) => setObjectSortKeys(evn.target.checked)} />
         </Label>
       </Options>
     </Fragment>

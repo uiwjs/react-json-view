@@ -280,47 +280,6 @@ export default function Demo() {
 
 ## Render
 
-```tsx mdx:preview
-import React from 'react';
-import JsonView from '@uiw/react-json-view';
-
-const object = {
-  string: 'Lorem ipsum dolor sit amet',
-  integer: 42,
-  float: 114.514,
-  object: {
-    'first-child': true,
-    'second-child': false,
-    'last-child': null,
-  },
-}
-export default function Demo() {
-  return (
-    <JsonView
-      value={object}
-      keyName="root"
-      quotes=""
-      displayObjectSize={false}
-      displayDataTypes={false}
-      style={{
-        '--w-rjv-background-color': '#ffffff',
-        '--w-rjv-border-left-width': '0',
-      }}
-      components={{
-        braces: () => <span />,
-        ellipsis: () => <React.Fragment />,
-        objectKey: ({ value, keyName, parentName, ...props}) => {
-          if (keyName === 'integer' && typeof value === 'number' && value > 40) {
-            return <del {...props} />
-          }
-          return <span {...props}  />
-        }
-      }}
-    />
-  )
-}
-```
-
 **Preview Picture**
 
 ```tsx mdx:preview
@@ -333,7 +292,7 @@ const object = {
   integer: 42,
 }
 
-function value({ type, children, value, setValue, keyName, visible, ...props }) {
+function value({ type, children, value, setValue, keyName, parentValue, visible, ...props }) {
   if (type === 'string' && /\.(jpg)$/.test(value)) {
     return (
       <span {...props}>
@@ -386,7 +345,7 @@ export default function Demo() {
 import React from 'react';
 import JsonView from '@uiw/react-json-view';
 
-function value({ type, children, visible, keyName, value, setValue, ...props }) {
+function value({ type, children, visible, keyName, parentValue, value, setValue, ...props }) {
   if (value instanceof URL) {
     return (
       <span {...props}>
@@ -513,7 +472,7 @@ const object = {
   nestedArray: [ [1, 2], [3, 4], { a: 1} ],
 }
 
-const ObjectKey = ({ value, keyName, parentName, ...reset }) => {
+const ObjectKey = ({ value, keyName, parentName, parentValue, ...reset }) => {
   if (keyName === 'integer' && typeof value === 'number' && value > 40) {
     return <del {...reset} />
   }
@@ -731,11 +690,22 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
     ellipsis?: EllipsisProps['render'];
     arrow?: JSX.Element;
     objectKey?: SemicolonProps['render'];
-    value?: ValueViewProps<T>['renderValue'];
+    value?: (props: RenderValueProps<T>) => JSX.Element;
     copied?: CopiedProps<T>['render'];
     countInfo?: (props: CountInfoProps) => JSX.Element;
     countInfoExtra?: (props: Omit<CountInfoExtraProps<T>, 'editable'>) => JSX.Element;
   };
+}
+interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement> {
+  type: TypeProps['type'];
+  value?: unknown;
+  parentValue?: T;
+  data?: T;
+  visible?: boolean;
+  quotes?: JsonViewProps<T>['quotes'];
+  namespace?: Array<string | number>;
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  keyName?: ValueViewProps<T>['keyName'];
 }
 declare const JsonView: React.ForwardRefExoticComponent<Omit<JsonViewProps<object>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 export default JsonView;

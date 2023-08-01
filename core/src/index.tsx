@@ -2,7 +2,7 @@ import React, { useId } from 'react';
 import { forwardRef } from 'react';
 import { RooNode } from './node';
 import type { SemicolonProps } from './semicolon';
-import type { ValueViewProps } from './value';
+import type { ValueViewProps, TypeProps } from './value';
 import type { CopiedProps } from './copied';
 import type { EllipsisProps } from './comps/ellipsis';
 import type { MetaProps } from './comps/meta';
@@ -15,6 +15,18 @@ export interface CountInfoProps {
   count: number;
   level: number;
   visible: boolean;
+}
+
+interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement> {
+  type: TypeProps['type'];
+  value?: unknown;
+  parentValue?: T;
+  data?: T;
+  visible?: boolean;
+  quotes?: JsonViewProps<T>['quotes'];
+  namespace?: Array<string | number>;
+  setValue?: React.Dispatch<React.SetStateAction<T>>;
+  keyName?: ValueViewProps<T>['keyName'];
 }
 
 export interface JsonViewProps<T extends object>
@@ -40,7 +52,7 @@ export interface JsonViewProps<T extends object>
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
   collapsed?: boolean | number;
   /** Callback function for when a treeNode is expanded or collapsed */
-  onExpand?: (props: { expand: boolean; value: T; keyid: string; keyName?: string | number; }) => void;
+  onExpand?: (props: { expand: boolean; value: T; keyid: string; keyName?: string | number }) => void;
   /** Fires event when you copy */
   onCopied?: CopiedProps<T>['onCopied'];
   /** Redefine interface elements to re-render. */
@@ -49,7 +61,7 @@ export interface JsonViewProps<T extends object>
     ellipsis?: EllipsisProps['render'];
     arrow?: JSX.Element;
     objectKey?: SemicolonProps['render'];
-    value?: ValueViewProps<T>['renderValue'];
+    value?: (props: RenderValueProps<T>) => JSX.Element;
     copied?: CopiedProps<T>['render'];
     countInfo?: (props: CountInfoProps) => JSX.Element;
     countInfoExtra?: (props: Omit<CountInfoExtraProps<T>, 'editable'>) => JSX.Element;

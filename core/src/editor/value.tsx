@@ -21,6 +21,7 @@ export interface ReValueProps<T extends object> extends React.HTMLAttributes<HTM
   keyName?: JsonViewEditorProps<T>['keyName'];
   type: TypeProps['type'];
   value?: unknown;
+  parentValue?: T;
   data?: T;
   visible?: boolean;
   namespace?: Array<string | number>;
@@ -44,6 +45,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     namespace,
     displayDataTypes,
     editableValue,
+    parentValue,
     onDelete,
     onEdit,
     ...reset
@@ -116,7 +118,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
         const result = await onEdit({ type: 'value', value: text, oldValue: curentChild, namespace });
         if (result) {
           setCurentType(typeStr);
-          setCurentChild(text);
+          setCurentChild(text as T);
         } else {
           const { content: oldChildStr } = getValueString(curentChild);
           $edit.current.innerHTML = String(oldChildStr);
@@ -145,9 +147,12 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
   }
   const deleteHandle = async (evn: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     evn.stopPropagation();
-    if (data && keyName && keyName in data && setValue) {
-      delete (data as Record<string, any>)[keyName as string];
-      setValue({ ...data } as T);
+    if (data && keyName && keyName in data && setValue && onDelete) {
+      const maybeDelete = await onDelete(keyName, value as T, parentValue as T, { namespace });
+      if (maybeDelete) {
+        delete (data as Record<string, any>)[keyName as string];
+        setValue({ ...data } as T);
+      }
     }
   };
   return (
