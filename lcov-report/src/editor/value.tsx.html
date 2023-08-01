@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.95% </span>
+                <span class="strong">70.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/82</span>
+                <span class='fraction'>59/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.88% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>56/85</span>
+                <span class='fraction'>56/88</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.02% </span>
+                <span class="strong">72.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/77</span>
+                <span class='fraction'>57/79</span>
             </div>
         
             
@@ -228,7 +228,12 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,6 +282,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -378,6 +385,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
@@ -416,6 +426,7 @@ export interface ReValueProps&lt;T extends object&gt; extends React.HTMLAttribut
   keyName?: JsonViewEditorProps&lt;T&gt;['keyName'];
   type: TypeProps['type'];
   value?: unknown;
+  parentValue?: T;
   data?: T;
   visible?: boolean;
   namespace?: Array&lt;string | number&gt;;
@@ -439,6 +450,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
     namespace,
     displayDataTypes,
     editableValue,
+    parentValue,
     onDelete,
     onEdit,
     ...reset
@@ -511,7 +523,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
         const result = await onEdit({ type: 'value', value: text, oldValue: curentChild, namespace });
         if (result) {
           setCurentType(typeStr);
-          setCurentChild(text);
+          setCurentChild(text as T);
         } else {
           const { content: oldChildStr } = getValueString(curentChild);
           $edit.current.innerHTML = String(oldChildStr);
@@ -540,9 +552,12 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
   }
   const deleteHandle = <span class="fstat-no" title="function not covered" >as</span>ync (evn: React.MouseEvent&lt;SVGSVGElement, MouseEvent&gt;) =&gt; {
 <span class="cstat-no" title="statement not covered" >    evn.stopPropagation();</span>
-<span class="cstat-no" title="statement not covered" >    if (data &amp;&amp; keyName &amp;&amp; keyName in data &amp;&amp; setValue) {</span>
-<span class="cstat-no" title="statement not covered" >      delete (data as Record&lt;string, any&gt;)[keyName as string];</span>
-<span class="cstat-no" title="statement not covered" >      setValue({ ...data } as T);</span>
+<span class="cstat-no" title="statement not covered" >    if (data &amp;&amp; keyName &amp;&amp; keyName in data &amp;&amp; setValue &amp;&amp; onDelete) {</span>
+      const maybeDelete = <span class="cstat-no" title="statement not covered" >await onDelete(keyName, value as T, parentValue as T, { namespace });</span>
+<span class="cstat-no" title="statement not covered" >      if (maybeDelete) {</span>
+<span class="cstat-no" title="statement not covered" >        delete (data as Record&lt;string, any&gt;)[keyName as string];</span>
+<span class="cstat-no" title="statement not covered" >        setValue({ ...data } as T);</span>
+      }
     }
   };
   return (
@@ -565,7 +580,7 @@ export function ReValue&lt;T extends object&gt;(props: ReValueProps&lt;T&gt;) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-19T05:39:53.859Z
+                at 2023-08-01T08:08:58.142Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
