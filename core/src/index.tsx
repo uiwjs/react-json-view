@@ -1,6 +1,6 @@
 import React, { useId } from 'react';
 import { forwardRef } from 'react';
-import { RooNode } from './node';
+import { RootNode } from './node';
 import type { SemicolonProps } from './semicolon';
 import type { ValueViewProps, TypeProps } from './value';
 import type { CopiedProps } from './copied';
@@ -79,7 +79,7 @@ const JsonView = forwardRef<HTMLDivElement, JsonViewProps<object>>((props, ref) 
   } as React.CSSProperties;
   const cls = `w-json-view-container w-rjv ${className || ''}`;
   const keyid = useId();
-  return <RooNode className={cls} value={value} {...reset} ref={ref} keyid={keyid} style={defaultStyle} />;
+  return <RootNode className={cls} value={value} {...reset} ref={ref} keyid={keyid} style={defaultStyle} />;
 });
 
 export default JsonView;
