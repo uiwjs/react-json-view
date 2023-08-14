@@ -1,5 +1,5 @@
 {
   "*.{js,jsx,tsx,ts,less,md,json}": [
-    "pretty-quick --staged"
+    "prettier --write"
   ]
 }
