@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.94% </span>
+                <span class="strong">79.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/57</span>
+                <span class='fraction'>46/58</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.9% </span>
+                <span class="strong">85.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/53</span>
+                <span class='fraction'>46/54</span>
             </div>
         
             
@@ -332,24 +332,7 @@
 <a name='L267'></a><a href='#L267'>267</a>
 <a name='L268'></a><a href='#L268'>268</a>
 <a name='L269'></a><a href='#L269'>269</a>
-<a name='L270'></a><a href='#L270'>270</a>
-<a name='L271'></a><a href='#L271'>271</a>
-<a name='L272'></a><a href='#L272'>272</a>
-<a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a>
-<a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L270'></a><a href='#L270'>270</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,6 +368,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -587,26 +572,6 @@
 <span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -635,7 +600,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useEffect } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useEffect, forwardRef } from 'react';
 import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
@@ -663,7 +629,7 @@ export const CountInfo: FC&lt;PropsWithChildren&lt;LabelProps&gt;&gt; = ({ child
   &lt;/Label&gt;
 );
 &nbsp;
-export interface RooNodeProps&lt;T extends object&gt; extends JsonViewProps&lt;T&gt; {
+export interface RootNodeProps&lt;T extends object&gt; extends JsonViewProps&lt;T&gt; {
   keyName?: string | number;
   keyid?: string;
   level?: number;
@@ -671,256 +637,239 @@ export interface RooNodeProps&lt;T extends object&gt; extends JsonViewProps&lt;T
   namespace?: Array&lt;string | number&gt;;
   setParentValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
 }
-export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
-  const {
-    value = {},
-    keyName,
-    className,
-    displayDataTypes = true,
-    components = {},
-    displayObjectSize = true,
-    enableClipboard = true,
-    highlightUpdates = true,
-    objectSortKeys = false,
-    indentWidth = 15,
-    collapsed,
-    level = 1,
-    keyid = <span class="branch-0 cbranch-no" title="branch not covered" >'root',</span>
-    quotes = '"',
-    namespace = [],
-    onCopied,
-    onExpand,
-    parentValue,
-    setParentValue,
-    ...reset
-  } = props;
-  const isArray = Array.isArray(value);
-  const subkeyid = useId();
-  const expands = useExpandsStatus();
-  const expand =
-    expands[keyid] ??
-    (typeof collapsed === 'boolean' ? <span class="branch-0 cbranch-no" title="branch not covered" >collapsed </span>: typeof collapsed === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >level &lt;= collapsed </span>: true);
-  const handle = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    onExpand &amp;&amp; typeof onExpand === 'function' &amp;&amp; onExpand({ expand: !expand, keyid, keyName, value: value as T });</span>
-<span class="cstat-no" title="statement not covered" >    !expand ? store.expand(keyid) : store.collapse(keyid);</span>
-  };
-  const [valueData, setValueData] = useState&lt;T&gt;(value as T);
-  const subNodeProps: RooNodeProps&lt;T&gt; = {
-    components,
-    indentWidth,
-    displayDataTypes,
-    displayObjectSize,
-    enableClipboard,
-    highlightUpdates,
-    onCopied,
-    onExpand,
-    collapsed,
-    parentValue: value as T,
-    setParentValue: setValueData,
-    quotes,
-    level: level + 1,
-    style: { paddingLeft: indentWidth },
-  };
-  const valueViewProps = {
-    displayDataTypes,
-    displayObjectSize,
-    enableClipboard,
-    level: level + 1,
-    parentValue: value as T,
-    indentWidth,
-    data: valueData,
-    quotes,
-    setValue: setValueData,
-  } as ValueViewProps&lt;T&gt;;
-  const arrowStyle = { transform: `rotate(${expand ? '0' : <span class="branch-1 cbranch-no" title="branch not covered" >'-90'}</span>deg)`, transition: 'all 0.3s' };
-  const arrowView = components.arrow ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >    cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: 'w-rjv-arrow' })</span>
-  ) : (
-    &lt;TriangleArrow style={arrowStyle} className="w-rjv-arrow" /&gt;
-  );
-  const [showTools, setShowTools] = useState(false);
-  const eventProps: React.HTMLAttributes&lt;HTMLDivElement&gt; = {};
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (enableClipboard) {
-    eventProps.onMouseEnter = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(true);</span>
-    eventProps.onMouseLeave = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(false);</span>
-  }
 &nbsp;
-  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setValueData(value as T),</span> [value]);
-  const nameKeys = (
-    isArray ? Object.keys(valueData).map((m) =&gt; Number(m)) : Object.keys(valueData)
-  ) as (keyof typeof valueData)[];
-&nbsp;
-  // object
-  let entries: [key: string | number, value: unknown][] = isArray
-    ? Object.entries(valueData).map((m) =&gt; [Number(m[0]), m[1]])
-    : Object.entries(valueData);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (objectSortKeys) {
-<span class="cstat-no" title="statement not covered" >    entries =</span>
-      objectSortKeys === true
-        ? entries.sort(<span class="fstat-no" title="function not covered" >([</span>a], [b]) =&gt; (<span class="cstat-no" title="statement not covered" >typeof a === 'string' &amp;&amp; typeof b === 'string' ? a.localeCompare(b) : 0)</span>)
-        : entries.sort(<span class="fstat-no" title="function not covered" >([</span>a], [b]) =&gt; (<span class="cstat-no" title="statement not covered" >typeof a === 'string' &amp;&amp; typeof b === 'string' ? objectSortKeys(a, b) : 0)</span>);
-  }
-  let countInfo: JSX.Element | undefined | null = &lt;CountInfo&gt;{nameKeys.length}&lt;/CountInfo&gt;;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (components.countInfo) {
-<span class="cstat-no" title="statement not covered" >    countInfo = components.countInfo({ count: nameKeys.length, level, visible: expand }) || countInfo;</span>
-  }
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!displayObjectSize) <span class="cstat-no" title="statement not covered" >countInfo = null;</span>
-  const countInfoExtra =
-    components.countInfoExtra &amp;&amp;
-    components.countInfoExtra({
-      count: nameKeys.length,
-      level,
-      showTools,
+export const RootNode = forwardRef(
+  &lt;T extends object&gt;(props: RootNodeProps&lt;T&gt;, ref: React.LegacyRef&lt;HTMLDivElement&gt;) =&gt; {
+    const {
+      value = {},
       keyName,
-      visible: expand,
-      value: valueData,
-      namespace: [...namespace],
+      className,
+      displayDataTypes = true,
+      components = {},
+      displayObjectSize = true,
+      enableClipboard = true,
+      highlightUpdates = true,
+      objectSortKeys = false,
+      indentWidth = 15,
+      collapsed,
+      level = 1,
+      keyid = <span class="branch-0 cbranch-no" title="branch not covered" >'root',</span>
+      quotes = '"',
+      namespace = [],
+      onCopied,
+      onExpand,
       parentValue,
       setParentValue,
+      ...reset
+    } = props;
+    const isArray = Array.isArray(value);
+    const subkeyid = useId();
+    const expands = useExpandsStatus();
+    const expand =
+      expands[keyid] ??
+      (typeof collapsed === 'boolean' ? <span class="branch-0 cbranch-no" title="branch not covered" >collapsed </span>: typeof collapsed === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >level &lt;= collapsed </span>: true);
+    const handle = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >      onExpand &amp;&amp; typeof onExpand === 'function' &amp;&amp; onExpand({ expand: !expand, keyid, keyName, value: value as T });</span>
+<span class="cstat-no" title="statement not covered" >      !expand ? store.expand(keyid) : store.collapse(keyid);</span>
+    };
+    const [valueData, setValueData] = useState&lt;T&gt;(value as T);
+    const subNodeProps: Omit&lt;RootNodeProps&lt;T&gt;, 'ref'&gt; = {
+      components,
+      indentWidth,
+      displayDataTypes,
+      displayObjectSize,
+      enableClipboard,
+      highlightUpdates,
+      onCopied,
+      onExpand,
+      collapsed,
+      parentValue: value as T,
+      setParentValue: setValueData,
+      quotes,
+      level: level + 1,
+      style: { paddingLeft: indentWidth },
+    };
+    const valueViewProps = {
+      displayDataTypes,
+      displayObjectSize,
+      enableClipboard,
+      level: level + 1,
+      parentValue: value as T,
+      indentWidth,
+      data: valueData,
+      quotes,
       setValue: setValueData,
-    });
-  return (
-    &lt;div {...reset} className={`${className} w-rjv-inner`} {...eventProps}&gt;
-      &lt;Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}&gt;
-        {arrowView}
-        {(typeof keyName === 'string' || typeof keyName === 'number') &amp;&amp; (
-          &lt;Fragment&gt;
-            &lt;Semicolon
-              value={valueData}
-              quotes={quotes}
-              data-keys={keyid}
-              namespace={[...namespace]}
-              render={components.objectKey}
-              keyName={keyName}
-              parentName={keyName}
-              color={typeof keyName === 'number' ? typeMap['number'].color : ''}
+    } as ValueViewProps&lt;T&gt;;
+    const arrowStyle = { transform: `rotate(${expand ? '0' : <span class="branch-1 cbranch-no" title="branch not covered" >'-90'}</span>deg)`, transition: 'all 0.3s' };
+    const arrowView = components.arrow ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >      cloneElement(components.arrow, { style: arrowStyle, 'data-expand': expand, className: 'w-rjv-arrow' })</span>
+    ) : (
+      &lt;TriangleArrow style={arrowStyle} className="w-rjv-arrow" /&gt;
+    );
+    const [showTools, setShowTools] = useState(false);
+    const eventProps: React.HTMLAttributes&lt;HTMLDivElement&gt; = {};
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (enableClipboard) {
+      eventProps.onMouseEnter = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(true);</span>
+      eventProps.onMouseLeave = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowTools(false);</span>
+    }
+&nbsp;
+    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setValueData(value as T),</span> [value]);
+    const nameKeys = (
+      isArray ? Object.keys(valueData).map((m) =&gt; Number(m)) : Object.keys(valueData)
+    ) as (keyof typeof valueData)[];
+&nbsp;
+    // object
+    let entries: [key: string | number, value: unknown][] = isArray
+      ? Object.entries(valueData).map((m) =&gt; [Number(m[0]), m[1]])
+      : Object.entries(valueData);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (objectSortKeys) {
+<span class="cstat-no" title="statement not covered" >      entries =</span>
+        objectSortKeys === true
+          ? entries.sort(<span class="fstat-no" title="function not covered" >([</span>a], [b]) =&gt; (<span class="cstat-no" title="statement not covered" >typeof a === 'string' &amp;&amp; typeof b === 'string' ? a.localeCompare(b) : 0)</span>)
+          : entries.sort(<span class="fstat-no" title="function not covered" >([</span>a], [b]) =&gt; (<span class="cstat-no" title="statement not covered" >typeof a === 'string' &amp;&amp; typeof b === 'string' ? objectSortKeys(a, b) : 0)</span>);
+    }
+    let countInfo: JSX.Element | undefined | null = &lt;CountInfo&gt;{nameKeys.length}&lt;/CountInfo&gt;;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (components.countInfo) {
+<span class="cstat-no" title="statement not covered" >      countInfo = components.countInfo({ count: nameKeys.length, level, visible: expand }) || countInfo;</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!displayObjectSize) <span class="cstat-no" title="statement not covered" >countInfo = null;</span>
+    const countInfoExtra =
+      components.countInfoExtra &amp;&amp;
+      components.countInfoExtra({
+        count: nameKeys.length,
+        level,
+        showTools,
+        keyName,
+        visible: expand,
+        value: valueData,
+        namespace: [...namespace],
+        parentValue,
+        setParentValue,
+        setValue: setValueData,
+      });
+    return (
+      &lt;div ref={ref} {...reset} className={`${className} w-rjv-inner`} {...eventProps}&gt;
+        &lt;Line style={{ display: 'inline-flex', alignItems: 'center' }} onClick={handle}&gt;
+          {arrowView}
+          {(typeof keyName === 'string' || typeof keyName === 'number') &amp;&amp; (
+            &lt;Fragment&gt;
+              &lt;Semicolon
+                value={valueData}
+                quotes={quotes}
+                data-keys={keyid}
+                namespace={[...namespace]}
+                render={components.objectKey}
+                keyName={keyName}
+                parentName={keyName}
+                color={typeof keyName === 'number' ? typeMap['number'].color : ''}
+              /&gt;
+              &lt;Colon /&gt;
+            &lt;/Fragment&gt;
+          )}
+          &lt;Meta start isArray={isArray} level={level} render={components.braces} /&gt;
+          {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} /&gt;}</span>
+          {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Meta isArray={isArray} level={level} render={components.braces} /&gt;}</span>
+          {countInfo}
+          {countInfoExtra}
+          {enableClipboard &amp;&amp; (
+            &lt;Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} /&gt;
+          )}
+        &lt;/Line&gt;
+        {expand &amp;&amp; (
+          &lt;Line
+            className="w-rjv-content"
+            style={{
+              borderLeft:
+                'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)',
+              marginLeft: 6,
+            }}
+          &gt;
+            {entries.length &gt; 0 &amp;&amp;
+              [...entries].map(([key, itemVal], idx) =&gt; {
+                const item = itemVal as T;
+                const isEmpty =
+                  (Array.isArray(item) &amp;&amp; (item as []).length === 0) ||
+                  (typeof item === 'object' &amp;&amp;
+                    item &amp;&amp;
+                    !((item as any) instanceof Date) &amp;&amp;
+                    Object.keys(item).length === 0);
+                if (Array.isArray(item) &amp;&amp; !isEmpty) {
+                  const label = (isArray ? idx : key) as string;
+                  return (
+                    &lt;Line key={label + idx} className="w-rjv-wrap"&gt;
+                      &lt;RootNode
+                        value={item}
+                        namespace={[...namespace, label]}
+                        keyName={label}
+                        keyid={keyid + subkeyid + label}
+                        {...(subNodeProps as any)}
+                      /&gt;
+                    &lt;/Line&gt;
+                  );
+                }
+                if (typeof item === 'object' &amp;&amp; item &amp;&amp; !((item as any) instanceof Date) &amp;&amp; !isEmpty) {
+                  return (
+                    &lt;Line key={key + '' + idx} className="w-rjv-wrap"&gt;
+                      &lt;RootNode
+                        value={item}
+                        namespace={[...namespace, key]}
+                        keyName={key}
+                        keyid={keyid + subkeyid + key}
+                        {...(subNodeProps as any)}
+                      /&gt;
+                    &lt;/Line&gt;
+                  );
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof item === 'function') {
+<span class="cstat-no" title="statement not covered" >                  return;</span>
+                }
+                const renderKey = (
+                  &lt;Semicolon
+                    value={item}
+                    data-keys={keyid}
+                    quotes={quotes}
+                    namespace={[...namespace, key]}
+                    parentName={keyName}
+                    highlightUpdates={highlightUpdates}
+                    render={components.objectKey}
+                    color={typeof key === 'number' ? typeMap['number'].color : ''}
+                    keyName={key}
+                  /&gt;
+                );
+                const length = Array.isArray(item) ? <span class="branch-0 cbranch-no" title="branch not covered" >item.length </span>: getLength(item);
+                countInfo = &lt;CountInfo&gt;{length}&lt;/CountInfo&gt;;
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (components.countInfo) {
+<span class="cstat-no" title="statement not covered" >                  countInfo = components.countInfo({ count: length, level, visible: expand }) || countInfo;</span>
+                }
+                return (
+                  &lt;ValueView
+                    key={idx}
+                    components={components}
+                    namespace={[...namespace, key]}
+                    {...valueViewProps}
+                    countInfo={countInfo}
+                    renderKey={renderKey}
+                    keyName={key}
+                    value={item}
+                  /&gt;
+                );
+              })}
+          &lt;/Line&gt;
+        )}
+        {expand &amp;&amp; (
+          &lt;Line style={{ paddingLeft: 2 }}&gt;
+            &lt;Meta
+              render={components.braces}
+              isArray={isArray}
+              level={level}
+              style={{ paddingLeft: 2, display: 'inline-block' }}
             /&gt;
-            &lt;Colon /&gt;
-          &lt;/Fragment&gt;
+          &lt;/Line&gt;
         )}
-        &lt;Meta start isArray={isArray} level={level} render={components.braces} /&gt;
-        {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} /&gt;}</span>
-        {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Meta isArray={isArray} level={level} render={components.braces} /&gt;}</span>
-        {countInfo}
-        {countInfoExtra}
-        {enableClipboard &amp;&amp; (
-          &lt;Copied show={showTools} text={valueData as T} onCopied={onCopied} render={components?.copied} /&gt;
-        )}
-      &lt;/Line&gt;
-      {expand &amp;&amp; (
-        &lt;Line
-          className="w-rjv-content"
-          style={{
-            borderLeft:
-              'var(--w-rjv-border-left-width, 1px) var(--w-rjv-line-style, solid) var(--w-rjv-line-color, #ebebeb)',
-            marginLeft: 6,
-          }}
-        &gt;
-          {entries.length &gt; 0 &amp;&amp;
-            [...entries].map(([key, itemVal], idx) =&gt; {
-              const item = itemVal as T;
-              const isEmpty =
-                (Array.isArray(item) &amp;&amp; (item as []).length === 0) ||
-                (typeof item === 'object' &amp;&amp;
-                  item &amp;&amp;
-                  !((item as any) instanceof Date) &amp;&amp;
-                  Object.keys(item).length === 0);
-              if (Array.isArray(item) &amp;&amp; !isEmpty) {
-                const label = (isArray ? idx : key) as string;
-                return (
-                  &lt;Line key={label + idx} className="w-rjv-wrap"&gt;
-                    &lt;RooNode
-                      value={item}
-                      namespace={[...namespace, label]}
-                      keyName={label}
-                      keyid={keyid + subkeyid + label}
-                      {...subNodeProps}
-                    /&gt;
-                  &lt;/Line&gt;
-                );
-              }
-              if (typeof item === 'object' &amp;&amp; item &amp;&amp; !((item as any) instanceof Date) &amp;&amp; !isEmpty) {
-                return (
-                  &lt;Line key={key + '' + idx} className="w-rjv-wrap"&gt;
-                    &lt;RooNode
-                      value={item}
-                      namespace={[...namespace, key]}
-                      keyName={key}
-                      keyid={keyid + subkeyid + key}
-                      {...subNodeProps}
-                    /&gt;
-                  &lt;/Line&gt;
-                );
-              }
-              <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof item === 'function') {
-<span class="cstat-no" title="statement not covered" >                return;</span>
-              }
-              const renderKey = (
-                &lt;Semicolon
-                  value={item}
-                  data-keys={keyid}
-                  quotes={quotes}
-                  namespace={[...namespace, key]}
-                  parentName={keyName}
-                  highlightUpdates={highlightUpdates}
-                  render={components.objectKey}
-                  color={typeof key === 'number' ? typeMap['number'].color : ''}
-                  keyName={key}
-                /&gt;
-              );
-              const length = Array.isArray(item) ? <span class="branch-0 cbranch-no" title="branch not covered" >item.length </span>: getLength(item);
-              countInfo = &lt;CountInfo&gt;{length}&lt;/CountInfo&gt;;
-              <span class="missing-if-branch" title="if path not taken" >I</span>if (components.countInfo) {
-<span class="cstat-no" title="statement not covered" >                countInfo = components.countInfo({ count: length, level, visible: expand }) || countInfo;</span>
-              }
-              // if (length &gt; -1) {
-              //   countInfo = (
-              //     &lt;Fragment&gt;
-              //       {countInfo}
-              //       {components.countInfoExtra &amp;&amp;
-              //         components.countInfoExtra({
-              //           count: length,
-              //           level,
-              //           showTools,
-              //           keyName,
-              //           visible: expand,
-              //           value: valueData,
-              //           namespace: [...namespace],
-              //           parentValue,
-              //           setParentValue,
-              //           setValue: setValueData,
-              //         })}
-              //     &lt;/Fragment&gt;
-              //   )
-              // }
-              return (
-                &lt;ValueView
-                  key={idx}
-                  components={components}
-                  namespace={[...namespace, key]}
-                  {...valueViewProps}
-                  countInfo={countInfo}
-                  renderKey={renderKey}
-                  keyName={key}
-                  value={item}
-                /&gt;
-              );
-            })}
-        &lt;/Line&gt;
-      )}
-      {expand &amp;&amp; (
-        &lt;Line style={{ paddingLeft: 2 }}&gt;
-          &lt;Meta
-            render={components.braces}
-            isArray={isArray}
-            level={level}
-            style={{ paddingLeft: 2, display: 'inline-block' }}
-          /&gt;
-        &lt;/Line&gt;
-      )}
-    &lt;/div&gt;
-  );
-}
+      &lt;/div&gt;
+    );
+  },
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -928,7 +877,7 @@ export function RooNode&lt;T extends object&gt;(props: RooNodeProps&lt;T&gt;) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-01T08:08:58.142Z
+                at 2023-08-14T15:35:08.680Z
             </div>
         <script src="../prettify.js"></script>
         <script>
