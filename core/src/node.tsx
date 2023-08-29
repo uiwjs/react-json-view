@@ -26,6 +26,8 @@ export const CountInfo: FC<PropsWithChildren<LabelProps>> = ({ children }) => (
   </Label>
 );
 
+CountInfo.displayName = 'JVR.CountInfo';
+
 export interface RootNodeProps<T extends object> extends JsonViewProps<T> {
   keyName?: string | number;
   keyid?: string;
@@ -267,3 +269,5 @@ export const RootNode = forwardRef(
     );
   },
 );
+
+RootNode.displayName = 'JVR.RootNode';

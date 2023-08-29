@@ -79,3 +79,5 @@ export function CountInfoExtra<T extends object>(props: CountInfoExtraProps<T>) 
     </Fragment>
   );
 }
+
+CountInfoExtra.displayName = 'JVR.CountInfoExtra';

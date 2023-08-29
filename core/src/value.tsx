@@ -1,11 +1,11 @@
 import type { FC, PropsWithChildren } from 'react';
 import { Fragment, forwardRef, useMemo, useState } from 'react';
 import { Meta } from './comps/meta';
-import type { MetaProps } from './comps/meta';
 import { Copied } from './copied';
 import type { JsonViewProps } from './';
 
 export const Line: FC<PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>> = (props) => <div {...props} />;
+Line.displayName = 'JVR.Line';
 export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
 export const typeMap = {
   string: {
@@ -59,6 +59,8 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
     {children}
   </span>
 );
+
+Colon.displayName = 'JVR.Colon';
 
 export interface ValueViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
@@ -235,6 +237,8 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
   );
 }
 
+ValueView.displayName = 'JVR.ValueView';
+
 export interface LabelProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: string;
   fontSize?: number;
@@ -249,6 +253,8 @@ export const Label = forwardRef<HTMLSpanElement, LabelProps>(
     </span>
   ),
 );
+
+Label.displayName = 'JVR.Label';
 
 export interface TypeProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   type: keyof typeof typeMap;
@@ -266,3 +272,5 @@ export const Type: FC<PropsWithChildren<TypeProps>> = (props) => {
     );
   }
 };
+
+Type.displayName = 'JVR.Type';

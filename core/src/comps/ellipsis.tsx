@@ -15,3 +15,5 @@ export const Ellipsis: FC<PropsWithChildren<EllipsisProps>> = ({ style, render, 
     </span>
   );
 };
+
+Ellipsis.displayName = 'JVR.Ellipsis';

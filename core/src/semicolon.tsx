@@ -110,3 +110,5 @@ export const Semicolon: FC<PropsWithChildren<SemicolonProps>> = ({
     </Label>
   );
 };
+
+Semicolon.displayName = 'JSR.Semicolon';

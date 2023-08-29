@@ -15,3 +15,5 @@ export function TriangleSolidArrow(props: TriangleSolidArrowProps) {
     </svg>
   );
 }
+
+TriangleSolidArrow.displayName = 'JVR.TriangleSolidArrow';

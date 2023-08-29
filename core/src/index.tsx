@@ -82,4 +82,6 @@ const JsonView = forwardRef<HTMLDivElement, JsonViewProps<object>>((props, ref) 
   return <RootNode className={cls} value={value} {...reset} ref={ref} keyid={keyid} style={defaultStyle} />;
 });
 
+JsonView.displayName = 'JVR.JsonView';
+
 export default JsonView;

@@ -119,3 +119,5 @@ export const ObjectKey: FC<ObjectKeyProps<object>> = (props) => {
 
   return <Label className={className} {...reset} autoFocus={editable} {...spanProps} ref={$edit} />;
 };
+
+ObjectKey.displayName = 'JVR.ObjectKey';

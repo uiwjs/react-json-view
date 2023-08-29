@@ -31,3 +31,5 @@ export function Meta(props: MetaProps) {
     </Label>
   );
 }
+
+Meta.displayName = 'JVR.Meta';

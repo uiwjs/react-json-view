@@ -168,3 +168,5 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     </Fragment>
   );
 }
+
+ReValue.displayName = 'JVR.ReValue';

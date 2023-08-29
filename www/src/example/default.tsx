@@ -90,6 +90,14 @@ export function Example() {
         enableClipboard={clipboard}
         style={{ ...theme, padding: 6, borderRadius: 6 }}
         collapsed={collapsed}
+        components={{
+          objectKey: ({ value, keyName, parentName, ...props }) => {
+            if (keyName === 'integer' && typeof value === 'number' && value > 40) {
+              return <del {...props} />;
+            }
+            return <span {...props} />;
+          },
+        }}
       />
       <Options>
         <Label>
