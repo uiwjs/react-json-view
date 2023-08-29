@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.14% </span>
+                <span class="strong">90.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/71</span>
+                <span class='fraction'>69/76</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.53% </span>
+                <span class="strong">93.05% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/67</span>
+                <span class='fraction'>67/72</span>
             </div>
         
             
@@ -331,14 +331,22 @@
 <a name='L266'></a><a href='#L266'>266</a>
 <a name='L267'></a><a href='#L267'>267</a>
 <a name='L268'></a><a href='#L268'>268</a>
-<a name='L269'></a><a href='#L269'>269</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1052x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1011x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -392,6 +400,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -568,6 +578,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -583,6 +595,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -599,14 +613,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { FC, PropsWithChildren } from 'react';
 import { Fragment, forwardRef, useMemo, useState } from 'react';
 import { Meta } from './comps/meta';
-import type { MetaProps } from './comps/meta';
 import { Copied } from './copied';
 import type { JsonViewProps } from './';
 &nbsp;
 export const Line: FC&lt;PropsWithChildren&lt;React.HTMLAttributes&lt;HTMLDivElement&gt;&gt;&gt; = (props) =&gt; &lt;div {...props} /&gt;;
+Line.displayName = 'JVR.Line';
 export const isFloat = (n: number) =&gt; (Number(n) === n &amp;&amp; n % 1 !== 0) || isNaN(n);
 export const typeMap = {
   string: {
@@ -660,6 +676,8 @@ export const Colon: FC&lt;PropsWithChildren&lt;React.HTMLAttributes&lt;HTMLSpanE
     {children}
   &lt;/span&gt;
 );
+&nbsp;
+Colon.displayName = 'JVR.Colon';
 &nbsp;
 export interface ValueViewProps&lt;T extends object&gt;
   extends React.DetailedHTMLProps&lt;React.HTMLAttributes&lt;HTMLSpanElement&gt;, HTMLSpanElement&gt; {
@@ -836,6 +854,8 @@ export function ValueView&lt;T extends object&gt;(props: ValueViewProps&lt;T&gt;
   );
 }
 &nbsp;
+ValueView.displayName = 'JVR.ValueView';
+&nbsp;
 export interface LabelProps extends React.HTMLAttributes&lt;HTMLSpanElement&gt; {
   color?: string;
   fontSize?: number;
@@ -850,6 +870,8 @@ export const Label = forwardRef&lt;HTMLSpanElement, LabelProps&gt;(
     &lt;/span&gt;
   ),
 );
+&nbsp;
+Label.displayName = 'JVR.Label';
 &nbsp;
 export interface TypeProps extends React.DetailedHTMLProps&lt;React.HTMLAttributes&lt;HTMLSpanElement&gt;, HTMLSpanElement&gt; {
   type: keyof typeof typeMap;
@@ -867,6 +889,8 @@ export const Type: FC&lt;PropsWithChildren&lt;TypeProps&gt;&gt; = (props) =&gt; 
     );
   }
 };
+&nbsp;
+Type.displayName = 'JVR.Type';
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -874,7 +898,7 @@ export const Type: FC&lt;PropsWithChildren&lt;TypeProps&gt;&gt; = (props) =&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-14T15:39:24.101Z
+                at 2023-08-29T07:22:43.357Z
             </div>
         <script src="../prettify.js"></script>
         <script>
