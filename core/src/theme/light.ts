@@ -11,6 +11,7 @@ export const lightTheme = {
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#236a7c',
+  '--w-rjv-colon-color': '#002b36',
   '--w-rjv-brackets-color': '#236a7c',
 
   '--w-rjv-type-string-color': '#cb4b16',
@@ -23,4 +24,4 @@ export const lightTheme = {
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
-};
+} as React.CSSProperties;

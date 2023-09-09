@@ -23,4 +23,4 @@ export const darkTheme = {
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
-};
+} as React.CSSProperties;

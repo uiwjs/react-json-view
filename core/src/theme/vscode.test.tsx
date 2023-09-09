@@ -1,8 +1,8 @@
-import { lightTheme } from './light';
+import { vscodeTheme } from './vscode';
 
-it('lightTheme test case', () => {
-  expect(lightTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
-  expect(Object.keys(lightTheme)).toMatchObject([
+it('vscodeTheme test case', () => {
+  expect(vscodeTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
+  expect(Object.keys(vscodeTheme)).toMatchObject([
     '--w-rjv-font-family',
     '--w-rjv-color',
     '--w-rjv-background-color',

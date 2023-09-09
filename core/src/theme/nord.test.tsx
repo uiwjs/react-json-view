@@ -1,8 +1,8 @@
-import { lightTheme } from './light';
+import { nordTheme } from './nord';
 
-it('lightTheme test case', () => {
-  expect(lightTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
-  expect(Object.keys(lightTheme)).toMatchObject([
+it('nordTheme test case', () => {
+  expect(nordTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
+  expect(Object.keys(nordTheme)).toMatchObject([
     '--w-rjv-font-family',
     '--w-rjv-color',
     '--w-rjv-background-color',

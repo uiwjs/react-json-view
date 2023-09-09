@@ -1,8 +1,8 @@
-import { lightTheme } from './light';
+import { githubLightTheme } from './github.light';
 
-it('lightTheme test case', () => {
-  expect(lightTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
-  expect(Object.keys(lightTheme)).toMatchObject([
+it('githubLightTheme test case', () => {
+  expect(githubLightTheme).toHaveProperty('--w-rjv-font-family', 'monospace');
+  expect(Object.keys(githubLightTheme)).toMatchObject([
     '--w-rjv-font-family',
     '--w-rjv-color',
     '--w-rjv-background-color',

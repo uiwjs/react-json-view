@@ -85,20 +85,31 @@ import React from 'react';
 import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { darkTheme } from '@uiw/react-json-view/dark';
+import { nordTheme } from '@uiw/react-json-view/nord';
+import { githubLightTheme } from '@uiw/react-json-view/githubLight';
+import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
+import { vscodeTheme } from '@uiw/react-json-view/vscode';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
   integer: 42,
   float: 114.514,
+  boolean: true,
+  null: null,
+  url: new URL('https://example.com'),
 }
 
 export default function Demo() {
   return (
-    <React.Fragment>
+    <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }}>
       <JsonView value={object} style={darkTheme} />
       <JsonView value={object} style={lightTheme} />
-    </React.Fragment>
-  )
+      <JsonView value={object} style={nordTheme} />
+      <JsonView value={object} style={githubLightTheme} />
+      <JsonView value={object} style={githubDarkTheme} />
+      <JsonView value={object} style={vscodeTheme} />
+    </div>
+  );
 }
 ```
 

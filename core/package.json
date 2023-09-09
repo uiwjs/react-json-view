@@ -27,6 +27,26 @@
       "types": "./cjs/theme/dark.d.ts",
       "require": "./cjs/theme/dark.js"
     },
+    "./nord": {
+      "import": "./esm/theme/nord.js",
+      "types": "./cjs/theme/nord.d.ts",
+      "require": "./cjs/theme/nord.js"
+    },
+    "./vscode": {
+      "import": "./esm/theme/vscode.js",
+      "types": "./cjs/theme/vscode.d.ts",
+      "require": "./cjs/theme/vscode.js"
+    },
+    "./githubLight": {
+      "import": "./esm/theme/github.light.js",
+      "types": "./cjs/theme/github.light.d.ts",
+      "require": "./cjs/theme/github.light.js"
+    },
+    "./githubDark": {
+      "import": "./esm/theme/github.dark.js",
+      "types": "./cjs/theme/github.dark.d.ts",
+      "require": "./cjs/theme/github.dark.js"
+    },
     "./triangle-arrow": {
       "import": "./esm/arrow/TriangleArrow.js",
       "types": "./cjs/arrow/TriangleArrow.d.ts",

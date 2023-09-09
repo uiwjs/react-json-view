@@ -55,7 +55,11 @@ export const Colon: FC<PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>>>
   style,
   ...props
 }) => (
-  <span className="w-rjv-colon" style={{ paddingRight: 3, ...style }} {...props}>
+  <span
+    className="w-rjv-colon"
+    style={{ paddingRight: 3, ...style, color: 'var(--w-rjv-colon-color, var(--w-rjv-color))' }}
+    {...props}
+  >
     {children}
   </span>
 );

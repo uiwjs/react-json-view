@@ -1,13 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import JsonViewEditor from '@uiw/react-json-view/editor';
-import { lightTheme } from '@uiw/react-json-view/light';
-import { darkTheme } from '@uiw/react-json-view/dark';
-
-const themesData = {
-  dark: darkTheme,
-  light: lightTheme,
-};
+import { themesData } from './default';
 
 const avatar = 'https://i.imgur.com/1bX5QH6.jpg';
 // const longArray = new Array(1000).fill(1);
@@ -56,7 +50,8 @@ const Options = styled.div`
 `;
 
 export function ExampleEditor() {
-  const [theme, setTheme] = useState<React.CSSProperties>(lightTheme as React.CSSProperties);
+  const themeKeys = Object.keys(themesData) as Array<keyof typeof themesData>;
+  const [theme, setTheme] = useState<React.CSSProperties>(themesData[themeKeys[0]]);
   const [src, setSrc] = useState({ ...example });
 
   useEffect(() => {
@@ -110,8 +105,11 @@ export function ExampleEditor() {
           <select
             onChange={(evn) => setTheme(themesData[evn.target.value as keyof typeof themesData] as React.CSSProperties)}
           >
-            <option value="light">light</option>
-            <option value="dark">dark</option>
+            {themeKeys.map((key) => (
+              <option value={key} key={key}>
+                {key}
+              </option>
+            ))}
           </select>
         </Label>
       </Options>
