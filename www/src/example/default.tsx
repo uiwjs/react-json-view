@@ -7,8 +7,10 @@ import { nordTheme } from '@uiw/react-json-view/nord';
 import { githubLightTheme } from '@uiw/react-json-view/githubLight';
 import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
+import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
 
 export const themesData = {
+  gruvbox: gruvboxTheme,
   light: lightTheme,
   dark: darkTheme,
   nord: nordTheme,

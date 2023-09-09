@@ -2,7 +2,7 @@ export const githubDarkTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#79c0ff',
   '--w-rjv-background-color': '#0d1117',
-  '--w-rjv-line-color': '#36334280',
+  '--w-rjv-line-color': '#94949480',
   '--w-rjv-arrow-color': '#ccc',
   '--w-rjv-edit-color': 'var(--w-rjv-color)',
   '--w-rjv-info-color': '#7b7b7b',

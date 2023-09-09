@@ -89,6 +89,7 @@ import { nordTheme } from '@uiw/react-json-view/nord';
 import { githubLightTheme } from '@uiw/react-json-view/githubLight';
 import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
+import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -96,17 +97,21 @@ const object = {
   float: 114.514,
   boolean: true,
   null: null,
+  nan: NaN,
   url: new URL('https://example.com'),
 }
 
+const style = { display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' };
+
 export default function Demo() {
   return (
-    <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }}>
+    <div style={style}>
       <JsonView value={object} style={darkTheme} />
       <JsonView value={object} style={lightTheme} />
       <JsonView value={object} style={nordTheme} />
       <JsonView value={object} style={githubLightTheme} />
       <JsonView value={object} style={githubDarkTheme} />
+      <JsonView value={object} style={gruvboxTheme} />
       <JsonView value={object} style={vscodeTheme} />
     </div>
   );

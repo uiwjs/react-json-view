@@ -92,6 +92,10 @@ export function getValueString<T>(value: T) {
   if (typeof value === 'number') {
     type = isFloat(value) ? 'float' : 'number';
     content = value.toString();
+    if (isNaN(value)) {
+      type = 'NaN';
+      content = 'NaN';
+    }
   }
   if (typeof value === 'boolean') {
     type = 'boolean';
@@ -207,7 +211,7 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
     typeView = <Fragment />;
     style = { fontWeight: 'bold' };
   }
-  if (value === undefined) {
+  if (value === undefined || type === 'NaN') {
     typeView = <Fragment />;
   }
   const isURL = value instanceof URL;

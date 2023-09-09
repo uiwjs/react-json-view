@@ -37,6 +37,11 @@
       "types": "./cjs/theme/vscode.d.ts",
       "require": "./cjs/theme/vscode.js"
     },
+    "./gruvbox": {
+      "import": "./esm/theme/gruvbox.js",
+      "types": "./cjs/theme/gruvbox.d.ts",
+      "require": "./cjs/theme/gruvbox.js"
+    },
     "./githubLight": {
       "import": "./esm/theme/github.light.js",
       "types": "./cjs/theme/github.light.d.ts",
