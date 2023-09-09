@@ -37,6 +37,11 @@
       "types": "./cjs/theme/vscode.d.ts",
       "require": "./cjs/theme/vscode.js"
     },
+    "./basic": {
+      "import": "./esm/theme/basic.js",
+      "types": "./cjs/theme/basic.d.ts",
+      "require": "./cjs/theme/basic.js"
+    },
     "./monokai": {
       "import": "./esm/theme/monokai.js",
       "types": "./cjs/theme/monokai.d.ts",

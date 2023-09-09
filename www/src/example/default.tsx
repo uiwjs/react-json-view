@@ -9,8 +9,10 @@ import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
 import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
 import { monokaiTheme } from '@uiw/react-json-view/monokai';
+import { basicTheme } from '@uiw/react-json-view/basic';
 
 export const themesData = {
+  basic: basicTheme,
   light: lightTheme,
   dark: darkTheme,
   nord: nordTheme,

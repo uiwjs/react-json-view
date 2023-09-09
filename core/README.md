@@ -11,10 +11,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 
 <!--rehype:ignore:start-->
 <a href="https://uiwjs.github.io/react-json-view/" target="_blank">
-  <img width="360" alt="react-json-view" src="https://github.com/uiwjs/react-json-view/assets/1680273/b8b8300b-2a43-4173-878b-73e50cfac19c" />
-</a>
-<a href="https://uiwjs.github.io/react-json-view/" target="_blank">
-  <img width="360" alt="react-json-view" src="https://github.com/uiwjs/react-code-preview-layout/assets/1680273/da8e8499-6de3-4d4f-8316-8b2a3b616170" />
+  <img width="650" alt="react-json-view" src="https://github.com/uiwjs/react-json-view/assets/1680273/1c19bd72-f2ad-4d21-8708-cb30f3059cfd" />
 </a>
 
 <!--rehype:ignore:end-->
@@ -91,6 +88,7 @@ import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
 import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
 import { monokaiTheme } from '@uiw/react-json-view/monokai';
+import { basicTheme } from '@uiw/react-json-view/basic';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -115,6 +113,7 @@ export default function Demo() {
       <JsonView value={object} style={gruvboxTheme} />
       <JsonView value={object} style={vscodeTheme} />
       <JsonView value={object} style={monokaiTheme} />
+      <JsonView value={object} style={basicTheme} />
     </div>
   );
 }
@@ -151,6 +150,7 @@ const customTheme = {
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
+  '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
 
   '--w-rjv-type-string-color': '#ce9178',
