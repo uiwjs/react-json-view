@@ -78,6 +78,7 @@ const JsonView = forwardRef<HTMLDivElement, JsonViewProps<object>>((props, ref) 
     fontFamily: 'var(--w-rjv-font-family, Menlo, monospace)',
     color: 'var(--w-rjv-color, #002b36)',
     backgroundColor: 'var(--w-rjv-background-color, #00000000)',
+    fontSize: 13,
     ...style,
   } as React.CSSProperties;
   const cls = `w-json-view-container w-rjv ${className || ''}`;

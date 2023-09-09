@@ -190,6 +190,7 @@ const object = {
   null: null,
   undefined,
   timer: 0,
+  nan: NaN,
   url: new URL('https://example.com'),
   date: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
   array: [19, 100.86, 'test', NaN, Infinity],

@@ -12,10 +12,10 @@ import { monokaiTheme } from '@uiw/react-json-view/monokai';
 import { basicTheme } from '@uiw/react-json-view/basic';
 
 export const themesData = {
-  basic: basicTheme,
+  nord: nordTheme,
   light: lightTheme,
   dark: darkTheme,
-  nord: nordTheme,
+  basic: basicTheme,
   vscode: vscodeTheme,
   githubLight: githubLightTheme,
   githubDark: githubDarkTheme,
@@ -28,13 +28,14 @@ const avatar = 'https://i.imgur.com/1bX5QH6.jpg';
 function aPlusB(a: number, b: number) {
   return a + b;
 }
-const example = {
+export const example = {
   avatar,
   string: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
   integer: 42,
   float: 114.514,
   // @ts-ignore
   bigint: 10086n,
+  nan: NaN,
   null: null,
   undefined,
   boolean: true,

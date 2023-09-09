@@ -211,14 +211,10 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
     typeView = <Fragment />;
     style = { fontWeight: 'bold' };
   }
-  if (value === undefined || type === 'NaN') {
+  if (value === undefined || type.toLocaleLowerCase() === 'nan' || !displayDataTypes) {
     typeView = <Fragment />;
   }
   const isURL = value instanceof URL;
-
-  if (!displayDataTypes) {
-    typeView = <Fragment />;
-  }
   color = typeMap[type]?.color || '';
 
   const [showTools, setShowTools] = useState(false);

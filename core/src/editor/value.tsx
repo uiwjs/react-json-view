@@ -102,6 +102,9 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
       } else if (typeof text === 'string' && /^(null)$/gi.test(text)) {
         text = null;
         typeStr = 'null';
+      } else if (typeof text === 'string' && /^(NaN)$/gi.test(text)) {
+        text = NaN;
+        typeStr = 'NaN';
       } else if (typeof text === 'string' && /^(undefined)$/gi.test(text)) {
         text = undefined;
         typeStr = 'undefined';
@@ -142,7 +145,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
     style: editable ? { ...style, ...defaultStyle, color } : { ...style, color },
   };
   let typeView = <Type type={typeStr} />;
-  if (typeStr === 'null' || typeStr === 'undefined') {
+  if (typeStr === 'null' || typeStr === 'undefined' || type.toLocaleLowerCase() === 'nan') {
     typeView = <Fragment />;
   }
   const deleteHandle = async (evn: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
