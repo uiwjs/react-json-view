@@ -8,15 +8,17 @@ import { githubLightTheme } from '@uiw/react-json-view/githubLight';
 import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
 import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
+import { monokaiTheme } from '@uiw/react-json-view/monokai';
 
 export const themesData = {
-  gruvbox: gruvboxTheme,
   light: lightTheme,
   dark: darkTheme,
   nord: nordTheme,
   vscode: vscodeTheme,
   githubLight: githubLightTheme,
   githubDark: githubDarkTheme,
+  gruvbox: gruvboxTheme,
+  monokai: monokaiTheme,
 };
 
 const avatar = 'https://i.imgur.com/1bX5QH6.jpg';

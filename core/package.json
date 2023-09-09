@@ -37,6 +37,11 @@
       "types": "./cjs/theme/vscode.d.ts",
       "require": "./cjs/theme/vscode.js"
     },
+    "./monokai": {
+      "import": "./esm/theme/monokai.js",
+      "types": "./cjs/theme/monokai.d.ts",
+      "require": "./cjs/theme/monokai.js"
+    },
     "./gruvbox": {
       "import": "./esm/theme/gruvbox.js",
       "types": "./cjs/theme/gruvbox.d.ts",

@@ -90,6 +90,7 @@ import { githubLightTheme } from '@uiw/react-json-view/githubLight';
 import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { vscodeTheme } from '@uiw/react-json-view/vscode';
 import { gruvboxTheme } from '@uiw/react-json-view/gruvbox';
+import { monokaiTheme } from '@uiw/react-json-view/monokai';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -113,6 +114,7 @@ export default function Demo() {
       <JsonView value={object} style={githubDarkTheme} />
       <JsonView value={object} style={gruvboxTheme} />
       <JsonView value={object} style={vscodeTheme} />
+      <JsonView value={object} style={monokaiTheme} />
     </div>
   );
 }
