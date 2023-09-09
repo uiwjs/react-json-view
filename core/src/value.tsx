@@ -73,6 +73,7 @@ export interface ValueViewProps<T extends object>
   enableClipboard: boolean;
   indentWidth: number;
   level?: number;
+  shortenTextAfterLength?: JsonViewProps<T>['shortenTextAfterLength'];
   namespace?: Array<string | number>;
   quotes?: JsonViewProps<T>['quotes'];
   components?: JsonViewProps<T>['components'];
@@ -119,6 +120,58 @@ export function getValueString<T>(value: T) {
   return { type, content };
 }
 
+interface RenderStringValueProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  color?: string;
+  href?: string;
+  style?: React.CSSProperties;
+  isURL?: boolean;
+  length?: number;
+}
+
+const RenderShortenTextValue: FC<PropsWithChildren<RenderStringValueProps>> = ({
+  children,
+  length,
+  style,
+  ...rest
+}) => {
+  const childrenStr = children as string;
+  const [shorten, setShorten] = useState(length && childrenStr.length >= length);
+  const click = () => {
+    console.log(shorten);
+    if (length && childrenStr.length <= length) return setShorten(false);
+    setShorten(!shorten);
+  };
+  const text = shorten ? `${childrenStr.slice(0, length)}...` : childrenStr;
+  return (
+    <RenderStringValue {...rest} style={{ ...style, cursor: 'pointer' }} onClick={click}>
+      {text}
+    </RenderStringValue>
+  );
+};
+RenderShortenTextValue.displayName = 'JVR.RenderShortenTextValue';
+
+const RenderStringValue: FC<PropsWithChildren<RenderStringValueProps>> = ({
+  color,
+  style,
+  isURL,
+  href,
+  children,
+  ...rest
+}) => {
+  return (
+    <Label color={color} style={style} {...rest} className="w-rjv-value">
+      {isURL && (
+        <a href={href} style={{ color }} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      )}
+      {!isURL && children}
+    </Label>
+  );
+};
+
+RenderStringValue.displayName = 'JVR.RenderStringValue';
+
 export function ValueView<T extends object>(props: ValueViewProps<T>) {
   const {
     value,
@@ -136,6 +189,7 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
     enableClipboard,
     displayObjectSize,
     displayDataTypes,
+    shortenTextAfterLength,
     ...reset
   } = props;
 
@@ -192,26 +246,30 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
         content,
         children: content,
       });
-    const valueView = reView ? (
-      reView
-    ) : (
-      <Label color={color} style={style} className="w-rjv-value">
-        {isURL ? (
-          <a href={value.href} style={{ color }} target="_blank" rel="noopener noreferrer">
-            {content}
-          </a>
-        ) : (
-          content
-        )}
-      </Label>
-    );
+
+    const valueView =
+      shortenTextAfterLength && type === 'string' ? (
+        <RenderShortenTextValue
+          color={color}
+          href={isURL ? value.href : ''}
+          style={style}
+          isURL={isURL}
+          length={shortenTextAfterLength}
+        >
+          {content}
+        </RenderShortenTextValue>
+      ) : (
+        <RenderStringValue color={color} href={isURL ? value.href : ''} style={style} isURL={isURL}>
+          {content}
+        </RenderStringValue>
+      );
     return (
       <Line {...eventProps}>
         <Label {...reset} ref={null}>
           {renderKey}
           <Colon />
           {typeView}
-          {valueView}
+          {reView ? reView : valueView}
           {tools}
         </Label>
       </Line>

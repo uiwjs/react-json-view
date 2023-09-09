@@ -6,7 +6,7 @@ import { ReValue } from './value';
 import { CountInfoExtra } from './countInfoExtra';
 import type { CountInfoExtraProps } from './countInfoExtra';
 
-export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> {
+export interface JsonViewEditorProps<T extends object> extends Omit<JsonViewProps<T>, 'shortenTextAfterLength'> {
   /**
    * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed.
    * @returns {boolean}  Returning false from onEdit will prevent the change from being made.

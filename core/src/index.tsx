@@ -40,6 +40,8 @@ export interface JsonViewProps<T extends object>
   displayDataTypes?: boolean;
   /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
+  /** Shorten long JSON strings, Set to `0` to disable this feature @default 20 */
+  shortenTextAfterLength?: number;
   /** Define the root node name. @default undefined */
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */

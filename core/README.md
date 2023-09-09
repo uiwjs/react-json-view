@@ -666,6 +666,8 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
   displayDataTypes?: boolean;
   /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
+  /** Shorten long JSON strings, Set to `0` to disable this feature @default 20 */
+  shortenTextAfterLength?: number;
   /** Define the root node name. @default undefined */
   keyName?: string | number;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
@@ -724,7 +726,7 @@ export interface CountInfoProps {
 ```ts
 import { JsonViewProps } from '@uiw/react-json-view';
 import type { CountInfoExtraProps } from '@uiw/react-json-view/cjs/editor/countInfoExtra';
-export interface JsonViewEditorProps<T extends object> extends JsonViewProps<T> {
+export interface JsonViewEditorProps<T extends object> extends Omit<JsonViewProps<T>, 'shortenTextAfterLength'> {
   /**
    * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed.
    * @returns {boolean}  Returning false from onEdit will prevent the change from being made.
