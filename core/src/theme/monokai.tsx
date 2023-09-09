@@ -20,7 +20,7 @@ export const monokaiTheme = {
   '--w-rjv-type-bigint-color': '#AE81FF',
   '--w-rjv-type-boolean-color': '#AE81FF',
   '--w-rjv-type-date-color': '#fd9720c7',
-  '--w-rjv-type-url-color': '#0969da',
+  '--w-rjv-type-url-color': '#55a3ff',
   '--w-rjv-type-null-color': '#FA2672',
   '--w-rjv-type-nan-color': '#FD971F',
   '--w-rjv-type-undefined-color': '#FD971F',

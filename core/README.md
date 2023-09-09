@@ -218,6 +218,7 @@ const customTheme = {
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
+  '--w-rjv-colon-color': '#f8f8f2',
   '--w-rjv-brackets-color': '#d4d4d4',
 
   '--w-rjv-type-string-color': '#ce9178',
