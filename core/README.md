@@ -452,8 +452,9 @@ export default function Demo() {
 ## Editor JSON
 
 ```tsx mdx:preview
-import React from 'react';
+import React, { useRef } from 'react';
 import JsonViewEditor from '@uiw/react-json-view/editor';
+import { type SemicolonProps, useHighlight } from '@uiw/react-json-view';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -472,12 +473,14 @@ const object = {
   nestedArray: [ [1, 2], [3, 4], { a: 1} ],
 }
 
-const ObjectKey = ({ value, keyName, parentName, parentValue, ...reset }) => {
+const ObjectKey: SemicolonProps['render'] = ({ value, keyName, parentName, ...props }) => {
+  const $edit = useRef<HTMLSpanElement & HTMLModElement>(null);
+  useHighlight({ value, highlightUpdates: true, highlightContainer: $edit });
   if (keyName === 'integer' && typeof value === 'number' && value > 40) {
-    return <del {...reset} />
+    return <del {...props} ref={$edit} />;
   }
-  return <span {...reset} />
-};
+  return <span {...props} ref={$edit} />;
+}
 
 export default function Demo() {
   return (

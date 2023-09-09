@@ -1,5 +1,5 @@
-import { Fragment, useState, useEffect } from 'react';
-import JsonView, { JsonViewProps } from '@uiw/react-json-view';
+import { Fragment, useState, useEffect, useRef } from 'react';
+import JsonView, { JsonViewProps, useHighlight, SemicolonProps } from '@uiw/react-json-view';
 import { styled } from 'styled-components';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { darkTheme } from '@uiw/react-json-view/dark';
@@ -16,7 +16,7 @@ function aPlusB(a: number, b: number) {
 }
 const example = {
   avatar,
-  string: 'Lorem ipsum dolor sit amet',
+  string: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
   integer: 42,
   float: 114.514,
   // @ts-ignore
@@ -53,6 +53,15 @@ const Options = styled.div`
   display: grid;
   grid-template-columns: 50% 60%;
 `;
+
+const ObjectKey: SemicolonProps['render'] = ({ value, keyName, parentName, ...props }) => {
+  const $edit = useRef<HTMLSpanElement & HTMLModElement>(null);
+  useHighlight({ value, highlightUpdates: true, highlightContainer: $edit });
+  if (keyName === 'integer' && typeof value === 'number' && value > 40) {
+    return <del {...props} ref={$edit} />;
+  }
+  return <span {...props} ref={$edit} />;
+};
 
 export function Example() {
   const [indentWidth, setIndentWidth] = useState(15);
@@ -91,12 +100,7 @@ export function Example() {
         style={{ ...theme, padding: 6, borderRadius: 6 }}
         collapsed={collapsed}
         components={{
-          objectKey: ({ value, keyName, parentName, ...props }) => {
-            if (keyName === 'integer' && typeof value === 'number' && value > 40) {
-              return <del {...props} />;
-            }
-            return <span {...props} />;
-          },
+          objectKey: ObjectKey,
         }}
       />
       <Options>

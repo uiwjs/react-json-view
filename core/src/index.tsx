@@ -10,6 +10,7 @@ import type { CountInfoExtraProps } from './editor/countInfoExtra';
 
 export * from './node';
 export * from './value';
+export * from './semicolon';
 
 export interface CountInfoProps {
   count: number;
