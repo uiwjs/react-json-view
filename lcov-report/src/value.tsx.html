@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.01% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>81/91</span>
+                <span class='fraction'>81/90</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.86% </span>
+                <span class="strong">92.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/86</span>
+                <span class='fraction'>79/85</span>
             </div>
         
             
@@ -401,7 +401,15 @@
 <a name='L336'></a><a href='#L336'>336</a>
 <a name='L337'></a><a href='#L337'>337</a>
 <a name='L338'></a><a href='#L338'>338</a>
-<a name='L339'></a><a href='#L339'>339</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,6 +419,14 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1011x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -468,6 +484,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -550,7 +567,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -602,8 +618,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-yes">1022x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -781,6 +797,14 @@ export const typeMap = {
     color: 'var(--w-rjv-type-null-color, #d33682)',
     label: 'null',
   },
+  Set: {
+    color: 'var(--w-rjv-type-set-color, #268bd2)',
+    label: 'Set',
+  },
+  Map: {
+    color: 'var(--w-rjv-type-map-color, #268bd2)',
+    label: 'Map',
+  },
   NaN: {
     color: 'var(--w-rjv-type-nan-color, #859900)',
     label: 'NaN',
@@ -816,6 +840,7 @@ export interface ValueViewProps&lt;T extends object&gt;
   displayDataTypes: boolean;
   displayObjectSize: boolean;
   enableClipboard: boolean;
+  isSet: boolean;
   indentWidth: number;
   level?: number;
   shortenTextAfterLength?: JsonViewProps&lt;T&gt;['shortenTextAfterLength'];
@@ -886,7 +911,6 @@ const RenderShortenTextValue: FC&lt;PropsWithChildren&lt;RenderStringValueProps&
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length &amp;&amp; childrenStr.length &gt;= length);
   const click = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    console.log(shorten);</span>
 <span class="cstat-no" title="statement not covered" >    if (length &amp;&amp; childrenStr.length &lt;= length) <span class="cstat-no" title="statement not covered" >return setShorten(false);</span></span>
 <span class="cstat-no" title="statement not covered" >    setShorten(!shorten);</span>
   };
@@ -930,6 +954,7 @@ export function ValueView&lt;T extends object&gt;(props: ValueViewProps&lt;T&gt;
     data,
     keyName,
     indentWidth,
+    isSet,
     namespace,
     renderKey,
     components = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span>
@@ -941,7 +966,6 @@ export function ValueView&lt;T extends object&gt;(props: ValueViewProps&lt;T&gt;
     shortenTextAfterLength,
     ...reset
   } = props;
-&nbsp;
   let color = '';
   let style = {} as React.CSSProperties;
 &nbsp;
@@ -1084,7 +1108,7 @@ Type.displayName = 'JVR.Type';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-09T08:39:12.291Z
+                at 2023-09-12T04:08:11.046Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">80.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/60</span>
+                <span class='fraction'>51/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/99</span>
+                <span class='fraction'>74/111</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">86.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/56</span>
+                <span class='fraction'>51/59</span>
             </div>
         
             
@@ -338,7 +338,19 @@
 <a name='L273'></a><a href='#L273'>273</a>
 <a name='L274'></a><a href='#L274'>274</a>
 <a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,6 +389,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -401,6 +415,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -527,6 +543,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1028x</span>
+<span class="cline-any cline-yes">1028x</span>
+<span class="cline-any cline-yes">1028x</span>
 <span class="cline-any cline-yes">1028x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1028x</span>
@@ -537,6 +558,8 @@
 <span class="cline-any cline-yes">1028x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -612,9 +635,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useEffect, forwardRef } from 'react';
-import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
+import { ValueView, Type, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
@@ -648,6 +672,8 @@ export interface RootNodeProps&lt;T extends object&gt; extends JsonViewProps&lt;
   keyid?: string;
   level?: number;
   parentValue?: T;
+  isSet?: boolean;
+  isMap?: boolean;
   namespace?: Array&lt;string | number&gt;;
   setParentValue?: React.Dispatch&lt;React.SetStateAction&lt;T&gt;&gt;;
 }
@@ -671,6 +697,8 @@ export const RootNode = forwardRef(
       keyid = <span class="branch-0 cbranch-no" title="branch not covered" >'root',</span>
       quotes = '"',
       namespace = [],
+      isSet = false,
+      isMap = false,
       onCopied,
       onExpand,
       parentValue,
@@ -782,6 +810,8 @@ export const RootNode = forwardRef(
               &lt;Colon /&gt;
             &lt;/Fragment&gt;
           )}
+          {isSet &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Type type="Set" /&gt;}</span>
+          {isMap &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Type type="Map" /&gt;}</span>
           &lt;Meta start isArray={isArray} level={level} render={components.braces} /&gt;
           {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} /&gt;}</span>
           {!expand &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Meta isArray={isArray} level={level} render={components.braces} /&gt;}</span>
@@ -803,18 +833,23 @@ export const RootNode = forwardRef(
             {entries.length &gt; 0 &amp;&amp;
               [...entries].map(([key, itemVal], idx) =&gt; {
                 const item = itemVal as T;
+                const isMySet = item instanceof Set;
+                const isMyMap = item instanceof Map;
+                let myValue = isMySet ? <span class="branch-0 cbranch-no" title="branch not covered" >Array.from(item as Set&lt;any&gt;) </span>: isMyMap ? <span class="branch-0 cbranch-no" title="branch not covered" >Object.fromEntries(item) </span>: item;
                 const isEmpty =
-                  (Array.isArray(item) &amp;&amp; (item as []).length === 0) ||
-                  (typeof item === 'object' &amp;&amp;
-                    item &amp;&amp;
-                    !((item as any) instanceof Date) &amp;&amp;
-                    Object.keys(item).length === 0);
-                if (Array.isArray(item) &amp;&amp; !isEmpty) {
+                  (Array.isArray(myValue) &amp;&amp; (myValue as []).length === 0) ||
+                  (typeof myValue === 'object' &amp;&amp;
+                    myValue &amp;&amp;
+                    !((myValue as any) instanceof Date) &amp;&amp;
+                    Object.keys(myValue).length === 0);
+                if ((Array.isArray(myValue) || isMySet || isMyMap) &amp;&amp; !isEmpty) {
                   const label = (isArray ? idx : key) as string;
                   return (
                     &lt;Line key={label + idx} className="w-rjv-wrap"&gt;
                       &lt;RootNode
-                        value={item}
+                        value={myValue}
+                        isSet={isMySet}
+                        isMap={isMyMap}
                         namespace={[...namespace, label]}
                         keyName={label}
                         keyid={keyid + subkeyid + label}
@@ -823,11 +858,11 @@ export const RootNode = forwardRef(
                     &lt;/Line&gt;
                   );
                 }
-                if (typeof item === 'object' &amp;&amp; item &amp;&amp; !((item as any) instanceof Date) &amp;&amp; !isEmpty) {
+                if (typeof myValue === 'object' &amp;&amp; myValue &amp;&amp; !((myValue as any) instanceof Date) &amp;&amp; !isEmpty) {
                   return (
                     &lt;Line key={key + '' + idx} className="w-rjv-wrap"&gt;
                       &lt;RootNode
-                        value={item}
+                        value={myValue}
                         namespace={[...namespace, key]}
                         keyName={key}
                         keyid={keyid + subkeyid + key}
@@ -836,12 +871,12 @@ export const RootNode = forwardRef(
                     &lt;/Line&gt;
                   );
                 }
-                <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof item === 'function') {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof myValue === 'function') {
 <span class="cstat-no" title="statement not covered" >                  return;</span>
                 }
                 const renderKey = (
                   &lt;Semicolon
-                    value={item}
+                    value={myValue}
                     data-keys={keyid}
                     quotes={quotes}
                     namespace={[...namespace, key]}
@@ -852,7 +887,7 @@ export const RootNode = forwardRef(
                     keyName={key}
                   /&gt;
                 );
-                const length = Array.isArray(item) ? <span class="branch-0 cbranch-no" title="branch not covered" >item.length </span>: getLength(item);
+                const length = Array.isArray(myValue) ? <span class="branch-0 cbranch-no" title="branch not covered" >myValue.length </span>: getLength(myValue);
                 countInfo = &lt;CountInfo&gt;{length}&lt;/CountInfo&gt;;
                 <span class="missing-if-branch" title="if path not taken" >I</span>if (components.countInfo) {
 <span class="cstat-no" title="statement not covered" >                  countInfo = components.countInfo({ count: length, level, visible: expand }) || countInfo;</span>
@@ -866,7 +901,8 @@ export const RootNode = forwardRef(
                     countInfo={countInfo}
                     renderKey={renderKey}
                     keyName={key}
-                    value={item}
+                    isSet={isSet}
+                    value={myValue}
                   /&gt;
                 );
               })}
@@ -895,7 +931,7 @@ RootNode.displayName = 'JVR.RootNode';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-09T08:39:12.291Z
+                at 2023-09-12T04:08:11.046Z
             </div>
         <script src="../prettify.js"></script>
         <script>
