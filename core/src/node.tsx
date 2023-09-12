@@ -1,5 +1,5 @@
 import { FC, Fragment, PropsWithChildren, useId, cloneElement, useState, useEffect, forwardRef } from 'react';
-import { ValueView, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
+import { ValueView, Type, ValueViewProps, Colon, Label, LabelProps, Line, typeMap } from './value';
 import { TriangleArrow } from './arrow/TriangleArrow';
 import { useExpandsStatus, store } from './store';
 import { JsonViewProps } from './';
@@ -33,6 +33,8 @@ export interface RootNodeProps<T extends object> extends JsonViewProps<T> {
   keyid?: string;
   level?: number;
   parentValue?: T;
+  isSet?: boolean;
+  isMap?: boolean;
   namespace?: Array<string | number>;
   setParentValue?: React.Dispatch<React.SetStateAction<T>>;
 }
@@ -56,6 +58,8 @@ export const RootNode = forwardRef(
       keyid = 'root',
       quotes = '"',
       namespace = [],
+      isSet = false,
+      isMap = false,
       onCopied,
       onExpand,
       parentValue,
@@ -167,6 +171,8 @@ export const RootNode = forwardRef(
               <Colon />
             </Fragment>
           )}
+          {isSet && <Type type="Set" />}
+          {isMap && <Type type="Map" />}
           <Meta start isArray={isArray} level={level} render={components.braces} />
           {!expand && <Ellipsis render={components.ellipsis} count={nameKeys.length} level={level} />}
           {!expand && <Meta isArray={isArray} level={level} render={components.braces} />}
@@ -188,18 +194,23 @@ export const RootNode = forwardRef(
             {entries.length > 0 &&
               [...entries].map(([key, itemVal], idx) => {
                 const item = itemVal as T;
+                const isMySet = item instanceof Set;
+                const isMyMap = item instanceof Map;
+                let myValue = isMySet ? Array.from(item as Set<any>) : isMyMap ? Object.fromEntries(item) : item;
                 const isEmpty =
-                  (Array.isArray(item) && (item as []).length === 0) ||
-                  (typeof item === 'object' &&
-                    item &&
-                    !((item as any) instanceof Date) &&
-                    Object.keys(item).length === 0);
-                if (Array.isArray(item) && !isEmpty) {
+                  (Array.isArray(myValue) && (myValue as []).length === 0) ||
+                  (typeof myValue === 'object' &&
+                    myValue &&
+                    !((myValue as any) instanceof Date) &&
+                    Object.keys(myValue).length === 0);
+                if ((Array.isArray(myValue) || isMySet || isMyMap) && !isEmpty) {
                   const label = (isArray ? idx : key) as string;
                   return (
                     <Line key={label + idx} className="w-rjv-wrap">
                       <RootNode
-                        value={item}
+                        value={myValue}
+                        isSet={isMySet}
+                        isMap={isMyMap}
                         namespace={[...namespace, label]}
                         keyName={label}
                         keyid={keyid + subkeyid + label}
@@ -208,11 +219,11 @@ export const RootNode = forwardRef(
                     </Line>
                   );
                 }
-                if (typeof item === 'object' && item && !((item as any) instanceof Date) && !isEmpty) {
+                if (typeof myValue === 'object' && myValue && !((myValue as any) instanceof Date) && !isEmpty) {
                   return (
                     <Line key={key + '' + idx} className="w-rjv-wrap">
                       <RootNode
-                        value={item}
+                        value={myValue}
                         namespace={[...namespace, key]}
                         keyName={key}
                         keyid={keyid + subkeyid + key}
@@ -221,12 +232,12 @@ export const RootNode = forwardRef(
                     </Line>
                   );
                 }
-                if (typeof item === 'function') {
+                if (typeof myValue === 'function') {
                   return;
                 }
                 const renderKey = (
                   <Semicolon
-                    value={item}
+                    value={myValue}
                     data-keys={keyid}
                     quotes={quotes}
                     namespace={[...namespace, key]}
@@ -237,7 +248,7 @@ export const RootNode = forwardRef(
                     keyName={key}
                   />
                 );
-                const length = Array.isArray(item) ? item.length : getLength(item);
+                const length = Array.isArray(myValue) ? myValue.length : getLength(myValue);
                 countInfo = <CountInfo>{length}</CountInfo>;
                 if (components.countInfo) {
                   countInfo = components.countInfo({ count: length, level, visible: expand }) || countInfo;
@@ -251,7 +262,8 @@ export const RootNode = forwardRef(
                     countInfo={countInfo}
                     renderKey={renderKey}
                     keyName={key}
-                    value={item}
+                    isSet={isSet}
+                    value={myValue}
                   />
                 );
               })}

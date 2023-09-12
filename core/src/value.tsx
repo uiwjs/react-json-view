@@ -40,6 +40,14 @@ export const typeMap = {
     color: 'var(--w-rjv-type-null-color, #d33682)',
     label: 'null',
   },
+  Set: {
+    color: 'var(--w-rjv-type-set-color, #268bd2)',
+    label: 'Set',
+  },
+  Map: {
+    color: 'var(--w-rjv-type-map-color, #268bd2)',
+    label: 'Map',
+  },
   NaN: {
     color: 'var(--w-rjv-type-nan-color, #859900)',
     label: 'NaN',
@@ -75,6 +83,7 @@ export interface ValueViewProps<T extends object>
   displayDataTypes: boolean;
   displayObjectSize: boolean;
   enableClipboard: boolean;
+  isSet: boolean;
   indentWidth: number;
   level?: number;
   shortenTextAfterLength?: JsonViewProps<T>['shortenTextAfterLength'];
@@ -145,7 +154,6 @@ const RenderShortenTextValue: FC<PropsWithChildren<RenderStringValueProps>> = ({
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length && childrenStr.length >= length);
   const click = () => {
-    console.log(shorten);
     if (length && childrenStr.length <= length) return setShorten(false);
     setShorten(!shorten);
   };
@@ -189,6 +197,7 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
     data,
     keyName,
     indentWidth,
+    isSet,
     namespace,
     renderKey,
     components = {},
@@ -200,7 +209,6 @@ export function ValueView<T extends object>(props: ValueViewProps<T>) {
     shortenTextAfterLength,
     ...reset
   } = props;
-
   let color = '';
   let style = {} as React.CSSProperties;
 

@@ -229,9 +229,11 @@ const customTheme = {
   '--w-rjv-type-boolean-color': '#559bd4',
   '--w-rjv-type-date-color': '#586e75',
   '--w-rjv-type-url-color': '#0969da',
-  '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
+  '--w-rjv-type-null-color': '#d33682',
+  '--w-rjv-type-set-color': '#268bd2',
+  '--w-rjv-type-map-color': '#268bd2',
 };
 
 export default function Demo() {

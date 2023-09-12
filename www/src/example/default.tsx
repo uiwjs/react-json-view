@@ -23,6 +23,17 @@ export const themesData = {
   monokai: monokaiTheme,
 };
 
+const mySet = new Set();
+mySet.add(1); // Set(1) { 1 }
+mySet.add(5); // Set(2) { 1, 5 }
+mySet.add(5); // Set(2) { 1, 5 }
+mySet.add('some text'); // Set(3) { 1, 5, 'some text' }
+
+const myMap = new Map();
+
+myMap.set('www', 'foo');
+myMap.set(1, 'bar');
+
 const avatar = 'https://i.imgur.com/1bX5QH6.jpg';
 // const longArray = new Array(1000).fill(1);
 function aPlusB(a: number, b: number) {
@@ -54,6 +65,8 @@ export const example = {
   // longArray,
   string_number: '1234',
   string_empty: '',
+  mySet,
+  myMap,
 };
 
 const Label = styled.label`

@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import { styled } from 'styled-components';
 import JsonViewEditor from '@uiw/react-json-view/editor';
 import { themesData, example } from './default';
@@ -19,18 +19,18 @@ const Options = styled.div`
 export function ExampleEditor() {
   const themeKeys = Object.keys(themesData) as Array<keyof typeof themesData>;
   const [theme, setTheme] = useState<React.CSSProperties>(themesData[themeKeys[0]]);
-  const [src, setSrc] = useState({ ...example });
+  const [src] = useState({ ...example });
 
-  useEffect(() => {
-    const loop = () => {
-      setSrc((src) => ({
-        ...src,
-        timer: src.timer + 1,
-      }));
-    };
-    const id = setInterval(loop, 1000);
-    return () => clearInterval(id);
-  }, []);
+  // useEffect(() => {
+  //   const loop = () => {
+  //     setSrc((src) => ({
+  //       ...src,
+  //       timer: src.timer + 1,
+  //     }));
+  //   };
+  //   const id = setInterval(loop, 1000);
+  //   return () => clearInterval(id);
+  // }, []);
 
   return (
     <Fragment>
