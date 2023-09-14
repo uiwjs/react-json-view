@@ -670,6 +670,45 @@ export default function Demo() {
 
 ## Props
 
+Migrate from kkt v1 to v2. The new v2 version has removed the ~~`quotes`~~ and ~~`components`~~ props.
+
+```diff
+export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+-  quotes?: "'" | '"' | '';
+-  components?: {};
+}
+```
+
+```ts
+export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  /** This property contains your input JSON */
+  value?: T;
+  /** Define the root node name. @default undefined */
+  keyName?: string | number;
+  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
+  objectSortKeys?: boolean | ((a: string, b: string) => number);
+  /** Set the indent-width for nested objects @default 15 */
+  indentWidth?: number;
+  /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
+  displayObjectSize?: boolean;
+  /** When set to `true`, data type labels prefix values @default true */
+  displayDataTypes?: boolean;
+  /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
+  enableClipboard?: boolean;
+  /** Whether to highlight updates. @default true */
+  highlightUpdates?: boolean;
+  /** Callback function for when a treeNode is expanded or collapsed */
+  onExpand?: (props: {
+    expand: boolean;
+    value?: T;
+    keyid: string;
+    keyName?: string | number;
+  }) => void;
+  /** Fires event when you copy */
+  onCopied?: (text: string, value?: T) => void;
+}
+```
+
 ```ts
 import { BraceLeft } from './symbol/BraceLeft';
 import { BraceRight } from './symbol/BraceRight';
@@ -700,36 +739,7 @@ import { KeyName } from './section/KeyName';
 import { type CountInfoProps } from "./comps/CountInfo";
 import { type CopiedOption } from "./comps/Copied";
 import { type NestedOpenProps } from "./comps/NestedOpen";
-export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  /** This property contains your input JSON */
-  value?: T;
-  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
-  objectSortKeys?: boolean | ((a: string, b: string) => number);
-  /** Set the indent-width for nested objects @default 15 */
-  indentWidth?: number;
-  /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
-  displayObjectSize?: boolean;
-  /** When set to `true`, data type labels prefix values @default true */
-  displayDataTypes?: boolean;
-  /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
-  enableClipboard?: boolean;
-  /** Whether to highlight updates. @default true */
-  highlightUpdates?: boolean;
-  /** Callback function for when a treeNode is expanded or collapsed */
-  onExpand?: (props: {
-      expand: boolean;
-      value?: T;
-      keyid: string;
-      keyName?: string | number;
-  }) => void;
-  /** Fires event when you copy */
-  onCopied?: (text: string, value?: T) => void;
-  /** Redefine interface elements to re-render. */
-  components?: {
-      copied?: (props: React.SVGProps<SVGSVGElement>, opts: CopiedOption<T>) => React.ReactNode;
-      countInfoExtra?: (props: NestedOpenProps<T>) => React.ReactNode;
-  };
-}
+
 type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
   Bigint: typeof Bigint;
   Date: typeof Date;

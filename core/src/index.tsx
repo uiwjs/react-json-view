@@ -42,6 +42,8 @@ export interface JsonViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
   value?: T;
+  /** Define the root node name. @default undefined */
+  keyName?: string | number;
   /** Whether sort keys through `String.prototype.localeCompare()` @default false */
   objectSortKeys?: boolean | ((a: string, b: string) => number);
   /** Set the indent-width for nested objects @default 15 */
