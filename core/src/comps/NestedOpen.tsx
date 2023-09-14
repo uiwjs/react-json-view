@@ -3,7 +3,8 @@ import { useExpandsStore, useExpandsDispatch, useExpands } from '../store/Expand
 import { useStore } from '../store';
 import { Copied } from './Copied';
 import { CountInfo, CountInfoExtra } from './CountInfo';
-import { Ellipsis, Arrow, BracketsOpen, BracketsClose } from './ReRender/Symbols';
+import { Arrow, BracketsOpen, BracketsClose } from './ReRender/Symbols';
+import { Ellipsis } from './Ellipsis';
 import { SetComp, MapComp } from './ReRender/Types';
 
 export interface NestedOpenProps<T extends object> {

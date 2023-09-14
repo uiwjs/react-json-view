@@ -20,7 +20,6 @@ export type SymbolsElement<T extends TagType> = SymbolsElementProps<T> & Compone
 type InitialState<T extends ElementType = 'span'> = {
   Arrow?: SymbolsElement<T>;
   Colon?: SymbolsElement<T>;
-  Ellipsis?: SymbolsElement<T>;
   Quote?: SymbolsElement<T>;
   ValueQuote?: SymbolsElement<T>;
   BracketsRight?: SymbolsElement<T>;
@@ -48,16 +47,6 @@ const initialState: InitialState<TagType> = {
     },
     className: 'w-rjv-colon',
     children: ':',
-  },
-  Ellipsis: {
-    as: 'span',
-    style: {
-      cursor: 'pointer',
-      color: 'var(--w-rjv-ellipsis-color, #cb4b16)',
-      userSelect: 'none',
-    },
-    className: 'w-rjv-ellipsis',
-    children: '...',
   },
   Quote: {
     as: 'span',

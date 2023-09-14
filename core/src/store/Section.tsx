@@ -1,18 +1,6 @@
-import React, {
-  FC,
-  PropsWithChildren,
-  ElementType,
-  ComponentPropsWithoutRef,
-  createContext,
-  useContext,
-  useReducer,
-} from 'react';
+import React, { FC, PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
 import { type TagType } from './Types';
 
-// export interface SectionElementProps<T extends TagType> {
-//   as?: T;
-//   render?: (props: SectionElement<T>, result: { value: unknown; keyName: string | number; }) => React.ReactNode;
-// }
 export type SectionElementProps<T extends TagType> = {
   as?: T;
   render?: (props: SectionElement<T>, result: { value: unknown; keyName: string | number }) => React.ReactNode;
@@ -22,9 +10,10 @@ export type SectionElement<T extends TagType> = SectionElementProps<T> & Compone
 
 type InitialState<T extends TagType> = {
   Copied?: SectionElement<T>;
-  KeyName?: SectionElement<T>;
   CountInfo?: SectionElement<T>;
   CountInfoExtra?: SectionElement<T>;
+  Ellipsis?: SectionElement<T>;
+  KeyName?: SectionElement<T>;
 };
 
 type Dispatch = React.Dispatch<InitialState<TagType>>;
@@ -54,6 +43,16 @@ const initialState: InitialState<TagType> = {
     style: {
       paddingLeft: 8,
     },
+  },
+  Ellipsis: {
+    as: 'span',
+    style: {
+      cursor: 'pointer',
+      color: 'var(--w-rjv-ellipsis-color, #cb4b16)',
+      userSelect: 'none',
+    },
+    className: 'w-rjv-ellipsis',
+    children: '...',
   },
   KeyName: {
     as: 'span',

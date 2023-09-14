@@ -8,7 +8,6 @@ import { BracketsLeft } from './symbol/BracketsLeft';
 import { BracketsRight } from './symbol/BracketsRight';
 import { Arrow } from './symbol/Arrow';
 import { Colon } from './symbol/Colon';
-import { Ellipsis } from './symbol/Ellipsis';
 import { Quote } from './symbol/Quote';
 import { ValueQuote } from './symbol/ValueQuote';
 
@@ -29,9 +28,8 @@ import { Url } from './types/Url';
 import { Copied } from './section/Copied';
 import { CountInfo } from './section/CountInfo';
 import { CountInfoExtra } from './section/CountInfoExtra';
+import { Ellipsis } from './section/Ellipsis';
 import { KeyName } from './section/KeyName';
-
-import { type CopiedOption } from './comps/Copied';
 
 export * from './store';
 export * from './store/Expands';

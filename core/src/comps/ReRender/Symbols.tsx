@@ -60,18 +60,6 @@ type EllipsisProps<T extends object> = {
   value?: T;
 };
 
-export const Ellipsis = <T extends object>({ isExpanded }: EllipsisProps<T>) => {
-  const { Ellipsis: Comp = {} } = useSymbolsStore();
-  const { as, render, ...reset } = Comp;
-  if (!isExpanded) return null;
-  const Elm = as || 'span';
-  const child = render && typeof render === 'function' && render(reset);
-  if (child) return child;
-  return <Elm {...reset} />;
-};
-
-Ellipsis.displayName = 'JVR.Ellipsis';
-
 export const BracketsOpen = ({ isBrackets }: { isBrackets?: boolean }) => {
   const { BracketsLeft = {}, BraceLeft = {} } = useSymbolsStore();
   if (isBrackets) {

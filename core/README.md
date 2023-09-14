@@ -300,7 +300,7 @@ export default function Demo() {
 
 ## Render
 
-**`v2`** version allows flexible customization of each "part" by providing small sub-components for customization, including value and type components: `<Bigint />`, `<Date />`, `<False />`, `<Float />`, `<Int />`, `<Map />`, `<Nan />`, `<Null />`, `<Set />`, `<String />`, `<True />`, `<Undefined />`, `<Url />`, and symbol components: `<ValueQuote />`, `<Arrow />`, `<Colon />`, `<Quote />`, `<Ellipsis />`, `<BraceLeft />`, `<BraceRight />`, `<BracketsLeft />`, `<BracketsRight />`.
+**`v2`** version allows flexible customization of each "part" by providing small sub-components for customization, including value and type components: `<Bigint />`, `<Date />`, `<False />`, `<Float />`, `<Int />`, `<Map />`, `<Nan />`, `<Null />`, `<Set />`, `<String />`, `<True />`, `<Undefined />`, `<Url />`, and symbol components: `<ValueQuote />`, `<Arrow />`, `<Colon />`, `<Quote />`, `<BraceLeft />`, `<BraceRight />`, `<BracketsLeft />`, `<BracketsRight />`.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -361,7 +361,7 @@ export default function Demo() {
 }
 ```
 
-Supports certain partial customizations such as: `Copied`, `CountInfo`, `CountInfoExtra`
+Supports certain partial customizations such as: `<Copied />`, `<CountInfo />`, `<CountInfoExtra />`, `<Ellipsis />`, `<KeyName />`
 
 ```tsx mdx:preview
 import React, { Fragment } from 'react';
@@ -464,6 +464,8 @@ const Quote = JsonView.Quote;
 const BraceLeft = JsonView.BraceLeft;
 const BraceRight = JsonView.BraceRight;
 const CountInfo = JsonView.CountInfo;
+const Ellipsis = JsonView.Ellipsis;
+const CountInfoExtra = JsonView.CountInfoExtra;
 
 export default function Demo() {
   return (
@@ -473,6 +475,19 @@ export default function Demo() {
       enableClipboard={false}
       displayDataTypes={false}
     >
+      <Ellipsis
+        render={({ 'data-expanded': isExpanded, className, ...props }, { value }) => {
+          if (Array.isArray(value) && isExpanded) {
+            console.log('props:',value, isExpanded, props)
+            return (
+              <span className={className}>
+                {Array.from({ length: value.length }, () => 'Object').join(', ')}
+              </span>
+            )
+          }
+          return <span />;
+        }}
+      />
       <Quote>
         <span />
       </Quote>
@@ -656,29 +671,32 @@ export default function Demo() {
 ## Props
 
 ```ts
-import { BraceLeft } from "./symbol/BraceLeft";
-import { BraceRight } from "./symbol/BraceRight";
+import { BraceLeft } from './symbol/BraceLeft';
+import { BraceRight } from './symbol/BraceRight';
 import { BracketsLeft } from './symbol/BracketsLeft';
 import { BracketsRight } from './symbol/BracketsRight';
-import { Arrow } from "./symbol/Arrow";
-import { Colon } from "./symbol/Colon";
+import { Arrow } from './symbol/Arrow';
+import { Colon } from './symbol/Colon';
 import { Ellipsis } from './symbol/Ellipsis';
-import { Quote } from "./symbol/Quote";
+import { Quote } from './symbol/Quote';
 import { ValueQuote } from './symbol/ValueQuote';
-import { Bigint } from "./types/Bigint";
-import { Date } from "./types/Date";
-import { False } from "./types/False";
-import { Float } from "./types/Float";
-import { Int } from "./types/Int";
-import { Map } from "./types/Map";
-import { Nan } from "./types/Nan";
-import { Null } from "./types/Null";
-import { Set } from "./types/Set";
-import { StringText } from "./types/String";
-import { True } from "./types/True";
-import { Undefined } from "./types/Undefined";
-import { Url } from "./types/Url";
-import { CountInfo } from "./section/CountInfo";
+import { Bigint } from './types/Bigint';
+import { Date } from './types/Date';
+import { False } from './types/False';
+import { Float } from './types/Float';
+import { Int } from './types/Int';
+import { Map } from './types/Map';
+import { Nan } from './types/Nan';
+import { Null } from './types/Null';
+import { Set } from './types/Set';
+import { StringText } from './types/String';
+import { True } from './types/True';
+import { Undefined } from './types/Undefined';
+import { Url } from './types/Url';
+import { Copied } from './section/Copied';
+import { CountInfo } from './section/CountInfo';
+import { CountInfoExtra } from './section/CountInfoExtra';
+import { KeyName } from './section/KeyName';
 import { type CountInfoProps } from "./comps/CountInfo";
 import { type CopiedOption } from "./comps/Copied";
 import { type NestedOpenProps } from "./comps/NestedOpen";
@@ -735,7 +753,10 @@ type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
   Quote: typeof Quote;
   ValueQuote: typeof ValueQuote;
   Arrow: typeof Arrow;
+  Copied: typeof Copied;
   CountInfo: typeof CountInfo;
+  CountInfoExtra: typeof CountInfoExtra;
+  KeyName: typeof KeyName;
 };
 declare const JsonView: JsonViewComponent;
 export default JsonView;
