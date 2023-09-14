@@ -1,6 +1,7 @@
 export const darkTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#0184a6',
+  '--w-rjv-key-string': '#0184a6',
   '--w-rjv-background-color': '#202020',
   '--w-rjv-line-color': '#323232',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
@@ -12,6 +13,8 @@ export const darkTheme = {
 
   '--w-rjv-curlybraces-color': '#1896b6',
   '--w-rjv-brackets-color': '#1896b6',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#cb4b16',
   '--w-rjv-type-int-color': '#268bd2',

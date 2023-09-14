@@ -7,6 +7,8 @@ export function TriangleArrow(props: TriangleArrowProps) {
     cursor: 'pointer',
     height: '1em',
     width: '1em',
+    userSelect: 'none',
+    display: 'flex',
     ...style,
   };
   return (

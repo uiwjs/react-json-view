@@ -1,6 +1,7 @@
 export const lightTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#002b36',
+  '--w-rjv-key-string': '#002b36',
   '--w-rjv-background-color': '#ffffff',
   '--w-rjv-line-color': '#ebebeb',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
@@ -13,6 +14,8 @@ export const lightTheme = {
   '--w-rjv-curlybraces-color': '#236a7c',
   '--w-rjv-colon-color': '#002b36',
   '--w-rjv-brackets-color': '#236a7c',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#cb4b16',
   '--w-rjv-type-int-color': '#268bd2',

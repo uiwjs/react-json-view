@@ -26,6 +26,12 @@ A React component for displaying and editing javascript arrays and JSON objects.
 ✏️ Support editing and adding features  
 ♻️ Whether to highlight updates.
 
+The new version **v2** has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely.
+
+- [x] Complete all features of displaying JSON in v1.
+- [ ] Add editing functionality to v2.
+- [ ] Add test cases to v2.
+
 ## Quick Start
 
 ```bash
@@ -119,6 +125,7 @@ export default function Demo() {
 }
 ```
 
+
 Example of custom `vscode` theme styles: 
 
 ```tsx mdx:preview
@@ -138,31 +145,32 @@ const object = {
 const customTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-key-string': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
-  '--w-rjv-line-color': '#323232',
-  '--w-rjv-arrow-color': 'var(--w-rjv-color)',
+  '--w-rjv-line-color': '#36334280',
+  '--w-rjv-arrow-color': '#838383',
   '--w-rjv-edit-color': 'var(--w-rjv-color)',
-  '--w-rjv-add-color': 'var(--w-rjv-color)',
-  '--w-rjv-delete-color': '#dc3545',
-  '--w-rjv-info-color': '#656565',
-  '--w-rjv-update-color': '#ebcb8b',
+  '--w-rjv-info-color': '#9c9c9c7a',
+  '--w-rjv-update-color': '#9cdcfe',
   '--w-rjv-copied-color': '#9cdcfe',
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#ce9178',
-  '--w-rjv-type-int-color': '#268bd2',
-  '--w-rjv-type-float-color': '#859900',
-  '--w-rjv-type-bigint-color': '#268bd2',
-  '--w-rjv-type-boolean-color': '#559bd4',
-  '--w-rjv-type-date-color': '#586e75',
-  '--w-rjv-type-url-color': '#649bd8',
-  '--w-rjv-type-null-color': '#d33682',
+  '--w-rjv-type-int-color': '#b5cea8',
+  '--w-rjv-type-float-color': '#b5cea8',
+  '--w-rjv-type-bigint-color': '#b5cea8',
+  '--w-rjv-type-boolean-color': '#569cd6',
+  '--w-rjv-type-date-color': '#b5cea8',
+  '--w-rjv-type-url-color': '#3b89cf',
+  '--w-rjv-type-null-color': '#569cd6',
   '--w-rjv-type-nan-color': '#859900',
-  '--w-rjv-type-undefined-color': '#586e75',
+  '--w-rjv-type-undefined-color': '#569cd6',
 };
 
 export default function Demo() {
@@ -179,7 +187,7 @@ Online custom style example, please check in the [documentation website](https:/
 ```tsx mdx:preview:&title=Online Editing Theme
 import React, { useState, useEffect } from 'react';
 import Colorful from '@uiw/react-color-colorful';
-import JsonView from '@uiw/react-json-view/editor';
+import JsonView from '@uiw/react-json-view';
 
 const object = {
   avatar: 'https://i.imgur.com/MK3eW3As.jpg',
@@ -207,33 +215,32 @@ const object = {
 }
 const customTheme = {
   '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-key-string': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
-  '--w-rjv-line-color': '#323232',
-  '--w-rjv-arrow-color': '#9cdcfe',
-  '--w-rjv-edit-color': '#0184a6',
-  '--w-rjv-add-color': '#0184a6',
-  '--w-rjv-delete-color': '#dc3545',
-  '--w-rjv-info-color': '#656565',
-  '--w-rjv-update-color': '#ebcb8b',
-  '--w-rjv-copied-color': '#0184a6',
+  '--w-rjv-line-color': '#36334280',
+  '--w-rjv-arrow-color': '#838383',
+  '--w-rjv-edit-color': '#9cdcfe',
+  '--w-rjv-info-color': '#9c9c9c7a',
+  '--w-rjv-update-color': '#9cdcfe',
+  '--w-rjv-copied-color': '#9cdcfe',
   '--w-rjv-copied-success-color': '#28a745',
 
   '--w-rjv-curlybraces-color': '#d4d4d4',
-  '--w-rjv-colon-color': '#f8f8f2',
+  '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
+  '--w-rjv-quotes-color': '#9cdcfe',
+  '--w-rjv-quotes-string-color': '#ce9178',
 
   '--w-rjv-type-string-color': '#ce9178',
-  '--w-rjv-type-int-color': '#268bd2',
-  '--w-rjv-type-float-color': '#859900',
-  '--w-rjv-type-bigint-color': '#268bd2',
-  '--w-rjv-type-boolean-color': '#559bd4',
-  '--w-rjv-type-date-color': '#586e75',
-  '--w-rjv-type-url-color': '#0969da',
+  '--w-rjv-type-int-color': '#b5cea8',
+  '--w-rjv-type-float-color': '#b5cea8',
+  '--w-rjv-type-bigint-color': '#b5cea8',
+  '--w-rjv-type-boolean-color': '#569cd6',
+  '--w-rjv-type-date-color': '#b5cea8',
+  '--w-rjv-type-url-color': '#3b89cf',
+  '--w-rjv-type-null-color': '#569cd6',
   '--w-rjv-type-nan-color': '#859900',
-  '--w-rjv-type-undefined-color': '#586e75',
-  '--w-rjv-type-null-color': '#d33682',
-  '--w-rjv-type-set-color': '#268bd2',
-  '--w-rjv-type-map-color': '#268bd2',
+  '--w-rjv-type-undefined-color': '#569cd6',
 };
 
 export default function Demo() {
@@ -261,20 +268,11 @@ export default function Demo() {
   const changeEditable = (evn) => setEditable(evn.target.checked);
   return (
     <React.Fragment>
-      <label>
-        <input type="checkbox" checked={editable} onChange={changeEditable} /> Editable
-      </label>
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
         <JsonView
-          editable={editable}
+          // editable={editable}
           value={src}
           keyName="root"
-          onAdd={(keyOrValue, newValue, value, isAdd) => {
-            return isAdd;
-          }}
-          onEdit={(opts) => {
-            return true;
-          }}
           style={{ flex: 1, overflow: 'auto', ...theme }}
         />
         <div>
@@ -291,18 +289,18 @@ export default function Demo() {
           </div>
         </div>
       </div>
-      Copy the theme configuration below into your project.
-      <pre>
-        {JSON.stringify(theme, null, 2)}
+      <pre style={{ padding: 10 }}>
+        Copy the theme configuration below into your project.
+        <JsonView value={theme} displayDataTypes={false} />
       </pre>
     </React.Fragment>
-  )
+  );
 }
 ```
 
 ## Render
 
-**Preview Picture**
+**`v2`** version allows flexible customization of each "part" by providing small sub-components for customization, including value and type components: `<Bigint />`, `<Date />`, `<False />`, `<Float />`, `<Int />`, `<Map />`, `<Nan />`, `<Null />`, `<Set />`, `<String />`, `<True />`, `<Undefined />`, `<Url />`, and symbol components: `<ValueQuote />`, `<Arrow />`, `<Colon />`, `<Quote />`, `<Ellipsis />`, `<BraceLeft />`, `<BraceRight />`, `<BracketsLeft />`, `<BracketsRight />`.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -314,29 +312,29 @@ const object = {
   integer: 42,
 }
 
-function value({ type, children, value, setValue, keyName, parentValue, visible, ...props }) {
-  if (type === 'string' && /\.(jpg)$/.test(value)) {
-    return (
-      <span {...props}>
-        <img src={value} height="36" />
-      </span>
-    );
-  }
-}
-
 export default function Demo() {
   return (
     <JsonView
       value={object}
       keyName="root"
-      // quotes=""
       displayObjectSize={false}
-      displayDataTypes={false}
       style={{
         '--w-rjv-background-color': '#ffffff',
       }}
-      components={{ value }}
-    />
+    >
+      <JsonView.String
+        render={({ children, ...reset }, { type }) => {
+          const isImg = /^https?.*\.(jpg|png)$/i.test(children)
+          if (type === 'type' && isImg) {
+            return <span />
+          }
+          if (type === 'value' && isImg) {
+            return <img {...reset} height="26" src={children} />
+          }
+        }}
+      />
+      <JsonView.Colon> -&gt; </JsonView.Colon>
+    </JsonView>
   )
 }
 ```
@@ -363,23 +361,13 @@ export default function Demo() {
 }
 ```
 
-```tsx mdx:preview
-import React from 'react';
-import JsonView from '@uiw/react-json-view';
+Supports certain partial customizations such as: `Copied`, `CountInfo`, `CountInfoExtra`
 
-function value({ type, children, visible, keyName, parentValue, value, setValue, ...props }) {
-  if (value instanceof URL) {
-    return (
-      <span {...props}>
-        <a href={value.href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-        &nbsp;Open URL
-        {visible && <del>Button</del>}
-      </span>
-    );
-  }
-}
+```tsx mdx:preview
+import React, { Fragment } from 'react';
+import JsonView, { ValueQuote } from '@uiw/react-json-view';
+
+const Copied = JsonView.Copied;
 
 export default function Demo() {
   return (
@@ -389,11 +377,39 @@ export default function Demo() {
         urlStr: "https://example.com",
         github: "https://example.com",
       }}
-      components={{ value }}
       style={{
         '--w-rjv-background-color': '#ffffff',
       }}
-    />
+    >
+      <Copied
+        render={({ 'data-copied': copied, style, onClick, ...props }, { value }) => {
+          const styl = { whiteSpace: 'nowrap' }
+          if (copied) {
+            return <span style={{ ...style, ...styl }}>复制成功</span>
+          }
+          return <span style={{ ...style, ...styl }} onClick={onClick}>复制</span>
+        }}
+      />
+      <JsonView.Url
+        render={(props, { type, value }) => {
+          if (type === 'type' && value instanceof URL) {
+            return <span />
+          }
+          if (type === 'value' && value instanceof URL) {
+            return (
+              <Fragment>
+                <a href={value.href} target="_blank" {...props}>
+                  <ValueQuote />
+                  {value.href}
+                  <ValueQuote />
+                </a>
+                Open URL
+              </Fragment>
+            );
+          }
+        }}
+      />
+    </JsonView>
   )
 }
 ```
@@ -440,92 +456,58 @@ const customTheme = {
   '--w-rjv-border-left-width': 0,
   '--w-rjv-color': '#881391',
   '--w-rjv-type-int-color': '#881391',
+  '--w-rjv-key-number': '#881391',
+  '--w-rjv-key-string': '#881391',
 };
+
+const Quote = JsonView.Quote;
+const BraceLeft = JsonView.BraceLeft;
+const BraceRight = JsonView.BraceRight;
+const CountInfo = JsonView.CountInfo;
 
 export default function Demo() {
   return (
     <JsonView
       value={object}
       style={customTheme}
-      quotes=""
       enableClipboard={false}
       displayDataTypes={false}
-      components={{
-        braces: ({ level }) => level !== 1 && <span />,
-        countInfo: ({ level, count, visible }) => {
-          if (level === 1) {
-            return <span />;
-            //return visible ? <span>{Array.from({ length: 3 }, () => 'Object').join(', ')}</span> : <span />
-          }
-          return <span style={{ color: '#222' }}>Object</span>;
-        },
-        ellipsis: ({ level, count }) => {
-          if (level === 1) {
-            return <span>{Array.from({ length: 3 }, () => 'Object').join(', ')}</span>;
-          }
-          return <span />;
-        },
-      }}
-    />
+    >
+      <Quote>
+        <span />
+      </Quote>
+      <BraceLeft>
+        <span />
+      </BraceLeft>
+      <BraceRight>
+        <span />
+      </BraceRight>
+      <CountInfo
+        render={({ 'data-length': length, ...props }, { value }) => {
+          const isArray = Array.isArray(value);
+          if (isArray) return <span />;
+          return (
+            <span {...props}>Object</span>
+          );
+        }}
+      />
+    </JsonView>
   );
 }
 ```
 
-## Editor JSON
+Passing **as="tagName"** will automatically infer the type.
 
-```tsx mdx:preview
-import React, { useRef } from 'react';
-import JsonViewEditor from '@uiw/react-json-view/editor';
-import { type SemicolonProps, useHighlight } from '@uiw/react-json-view';
-
-const object = {
-  string: 'Lorem ipsum dolor sit amet',
-  integer: 42,
-  float: 114.514,
-  object: {
-    'first-child': true,
-    'second-child': false,
-    'last-child': null,
-    'child': {
-      'first': true,
-      'second': false,
-      'last': null,
-    },
-  },
-  nestedArray: [ [1, 2], [3, 4], { a: 1} ],
-}
-
-const ObjectKey: SemicolonProps['render'] = ({ value, keyName, parentName, ...props }) => {
-  const $edit = useRef<HTMLSpanElement & HTMLModElement>(null);
-  useHighlight({ value, highlightUpdates: true, highlightContainer: $edit });
-  if (keyName === 'integer' && typeof value === 'number' && value > 40) {
-    return <del {...props} ref={$edit} />;
-  }
-  return <span {...props} ref={$edit} />;
-}
-
-export default function Demo() {
-  return (
-    <JsonViewEditor
-      value={object}
-      keyName="root"
-      style={{
-        '--w-rjv-background-color': '#ffffff',
-      }}
-      onEdit={(opts) => {
-        console.log('opts:', opts)
-        // opts.namespace: ['object', 'child', 'last']
-        // opts.oldValue: null
-        // opts.type: "value"
-        // opts.value: "NULL3"
-        return true;
-      }}
-      components={{
-        objectKey: ObjectKey
-      }}
-    />
-  );
-}
+```tsx
+<JsonView.CountInfo
+  as="del"
+  render={(props, { value, keyName }) => {
+    if (keyName === 'integer' && typeof value === 'number' && value > 10) {
+      console.log('value:',  value, props)
+      return <del {...props}>{keyName}</del>;
+    }
+  }}
+/>
 ```
 
 ## Highlight Updates
@@ -603,10 +585,11 @@ export default function Demo() {
         '--w-rjv-background-color': '#ffffff',
         '--w-rjv-border-left': '1px dashed #ebebeb',
       }}
-      components={{
-        arrow: <TriangleSolidArrow />
-      }}
-    />
+    >
+      <JsonView.Arrow>
+        <TriangleSolidArrow />
+      </JsonView.Arrow>
+    </JsonView>
   )
 }
 ```
@@ -616,6 +599,8 @@ Display of custom **svg** `icon` components
 ```tsx mdx:preview
 import React from 'react';
 import JsonView from '@uiw/react-json-view';
+import { TriangleArrow } from '@uiw/react-json-view/triangle-arrow';
+import { TriangleSolidArrow } from '@uiw/react-json-view/triangle-solid-arrow';
 
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -631,29 +616,6 @@ const object = {
     [3, 4],
   ],
 }
-
-const Arrow = (props) => {
-  const { style, 'data-expand': expand, ...reset } = props;
-  const svgProps = {
-    style: { cursor: 'pointer', height: '1em', width: '1em' },
-    viewBox: '0 0 24 24',
-    fill: 'var(--w-rjv-arrow-color, currentColor)',
-    ...reset
-  }
-  if (!expand) {
-    return (
-      <svg {...svgProps}>
-        <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
-      </svg>
-    );
-  }
-  return (
-    <svg {...svgProps}>
-      <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7,13H17V11H7" />
-    </svg>
-  );
-}
-
 export default function Demo() {
   return (
     <JsonView
@@ -663,119 +625,120 @@ export default function Demo() {
         '--w-rjv-background-color': '#ffffff',
         '--w-rjv-border-left': '1px dashed #ebebeb',
       }}
-      components={{
-        arrow: <Arrow />
-      }}
-    />
-  )
+    >
+      <JsonView.Arrow
+        render={({ 'data-expanded': isExpanded, ...props }) => {
+          const svgProps = {
+            style: {
+              cursor: 'pointer', height: '1em', width: '1em', marginRight: 5, userSelect: 'none'
+            },
+            fill: "var(--w-rjv-arrow-color, currentColor)"
+          }
+          if (!isExpanded) {
+            return (
+              <svg viewBox="0 0 24 24" {...svgProps}>
+                <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+              </svg>
+            );
+          }
+          return (
+            <svg viewBox="0 0 24 24" {...svgProps}>
+              <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7,13H17V11H7" />
+            </svg>
+          );
+        }}
+      />
+    </JsonView>
+  );
 }
 ```
 
 ## Props
 
-### JsonView Props
-
 ```ts
-import React from 'react';
-import { MetaProps, SemicolonProps, EllipsisProps, ValueViewProps } from '@uiw/react-json-view';
-import type { CountInfoExtraProps } from '@uiw/react-json-view/cjs/editor/countInfoExtra';
-export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+import { BraceLeft } from "./symbol/BraceLeft";
+import { BraceRight } from "./symbol/BraceRight";
+import { BracketsLeft } from './symbol/BracketsLeft';
+import { BracketsRight } from './symbol/BracketsRight';
+import { Arrow } from "./symbol/Arrow";
+import { Colon } from "./symbol/Colon";
+import { Ellipsis } from './symbol/Ellipsis';
+import { Quote } from "./symbol/Quote";
+import { ValueQuote } from './symbol/ValueQuote';
+import { Bigint } from "./types/Bigint";
+import { Date } from "./types/Date";
+import { False } from "./types/False";
+import { Float } from "./types/Float";
+import { Int } from "./types/Int";
+import { Map } from "./types/Map";
+import { Nan } from "./types/Nan";
+import { Null } from "./types/Null";
+import { Set } from "./types/Set";
+import { StringText } from "./types/String";
+import { True } from "./types/True";
+import { Undefined } from "./types/Undefined";
+import { Url } from "./types/Url";
+import { CountInfo } from "./section/CountInfo";
+import { type CountInfoProps } from "./comps/CountInfo";
+import { type CopiedOption } from "./comps/Copied";
+import { type NestedOpenProps } from "./comps/NestedOpen";
+export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
   value?: T;
+  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
+  objectSortKeys?: boolean | ((a: string, b: string) => number);
   /** Set the indent-width for nested objects @default 15 */
   indentWidth?: number;
-  /** When set to `true`, data type labels prefix values @default true */
-  displayDataTypes?: boolean;
   /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
-  /** Shorten long JSON strings, Set to `0` to disable this feature @default 20 */
-  shortenTextAfterLength?: number;
-  /** Define the root node name. @default undefined */
-  keyName?: string | number;
+  /** When set to `true`, data type labels prefix values @default true */
+  displayDataTypes?: boolean;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
-  /** Whether sort keys through `String.prototype.localeCompare()` @default false */
-  objectSortKeys?: boolean | ((a: string, b: string) => number);
-  /** Display for quotes in object-key @default " */
-  quotes?: "'" | '"' | '';
-  /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
-  collapsed?: boolean | number;
   /** Callback function for when a treeNode is expanded or collapsed */
   onExpand?: (props: {
-    expand: boolean;
-    value: T;
-    keyid: string;
-    keyName?: string | number;
+      expand: boolean;
+      value?: T;
+      keyid: string;
+      keyName?: string | number;
   }) => void;
   /** Fires event when you copy */
-  onCopied?: CopiedProps<T>['onCopied'];
+  onCopied?: (text: string, value?: T) => void;
   /** Redefine interface elements to re-render. */
   components?: {
-    braces?: MetaProps['render'];
-    ellipsis?: EllipsisProps['render'];
-    arrow?: JSX.Element;
-    objectKey?: SemicolonProps['render'];
-    value?: (props: RenderValueProps<T>) => JSX.Element;
-    copied?: CopiedProps<T>['render'];
-    countInfo?: (props: CountInfoProps) => JSX.Element;
-    countInfoExtra?: (props: Omit<CountInfoExtraProps<T>, 'editable'>) => JSX.Element;
+      copied?: (props: React.SVGProps<SVGSVGElement>, opts: CopiedOption<T>) => React.ReactNode;
+      countInfoExtra?: (props: NestedOpenProps<T>) => React.ReactNode;
   };
 }
-interface RenderValueProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement> {
-  type: TypeProps['type'];
-  value?: unknown;
-  parentValue?: T;
-  data?: T;
-  visible?: boolean;
-  quotes?: JsonViewProps<T>['quotes'];
-  namespace?: Array<string | number>;
-  setValue?: React.Dispatch<React.SetStateAction<T>>;
-  keyName?: ValueViewProps<T>['keyName'];
-}
-declare const JsonView: React.ForwardRefExoticComponent<Omit<JsonViewProps<object>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
+  Bigint: typeof Bigint;
+  Date: typeof Date;
+  False: typeof False;
+  Float: typeof Float;
+  Int: typeof Int;
+  Map: typeof Map;
+  Nan: typeof Nan;
+  Null: typeof Null;
+  Set: typeof Set;
+  String: typeof StringText;
+  True: typeof True;
+  Undefined: typeof Undefined;
+  Url: typeof Url;
+  BraceLeft: typeof BraceLeft;
+  BraceRight: typeof BraceRight;
+  BracketsLeft: typeof BracketsLeft;
+  BracketsRight: typeof BracketsRight;
+  Colon: typeof Colon;
+  Ellipsis: typeof Ellipsis;
+  Quote: typeof Quote;
+  ValueQuote: typeof ValueQuote;
+  Arrow: typeof Arrow;
+  CountInfo: typeof CountInfo;
+};
+declare const JsonView: JsonViewComponent;
 export default JsonView;
-export interface CountInfoProps {
-  count: number;
-  level: number;
-  visible: boolean;
-}
-```
-
-### JsonView Editor Props
-
-```ts
-import { JsonViewProps } from '@uiw/react-json-view';
-import type { CountInfoExtraProps } from '@uiw/react-json-view/cjs/editor/countInfoExtra';
-export interface JsonViewEditorProps<T extends object> extends Omit<JsonViewProps<T>, 'shortenTextAfterLength'> {
-  /**
-   * When a callback function is passed in, edit functionality is enabled. The callback is invoked before edits are completed.
-   * @returns {boolean}  Returning false from onEdit will prevent the change from being made.
-   */
-  onEdit?: (option: {
-    value: unknown;
-    oldValue: unknown;
-    keyName?: string | number;
-    parentName?: string | number;
-    namespace?: Array<string | number>;
-    type?: 'value' | 'key';
-  }) => boolean;
-  /**
-   * When a callback function is passed in, add functionality is enabled. The callback is invoked before additions are completed.
-   * @returns {boolean} Returning false from onAdd will prevent the change from being made.
-   */
-  onAdd?: CountInfoExtraProps<T>['onAdd'];
-  /**
-   * When a callback function is passed in, delete functionality is enabled. The callback is invoked before deletions are completed.
-   * @returns Returning false from onDelete will prevent the change from being made.
-   */
-  onDelete?: CountInfoExtraProps<T>['onDelete'];
-  /** Whether enable edit feature. @default true */
-  editable?: boolean;
-}
-declare const JsonViewEditor: import("react").ForwardRefExoticComponent<Omit<JsonViewEditorProps<object>, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
-export default JsonViewEditor;
 ```
 
 ## Size and dependencies
