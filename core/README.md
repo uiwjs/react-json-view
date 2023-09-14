@@ -26,7 +26,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 ✏️ Support editing and adding features  
 ♻️ Whether to highlight updates.
 
-The new version **v2** has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely.
+The new version [**v2**](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html) has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely. Preview [v2 documentation](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html) and [examples](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html). 
 
 - [x] Complete all features of displaying JSON in v1.
 - [ ] Add editing functionality to v2.
