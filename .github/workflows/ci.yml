@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - v1
 
 jobs:
   build-deploy:
@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm install
@@ -46,12 +46,20 @@ jobs:
         id: tag_version
         uses: jaywcjlove/changelog-generator@main
 
+      - name: Create README.md
+        working-directory: ./www/build
+        run: |
+          cat > README.md << EOF
+          Preview of version 1 documentation is available [here](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html).
+          EOF
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
+          commit_message: ${{ github.event.head_commit.message }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./www/build
+          publish_branch: v1-docs
 
       - name: Generate Changelog
         id: changelog
