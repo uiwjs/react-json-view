@@ -78,11 +78,13 @@ export const TypeString: FC<TypeProps> = ({ children = '', expandKey, keyName })
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child || (
-        <Comp {...reset} className="w-rjv-value">
+        <Fragment>
           <ValueQuote />
-          {text}
+          <Comp {...reset} className="w-rjv-value">
+            {text}
+          </Comp>
           <ValueQuote />
-        </Comp>
+        </Fragment>
       )}
       <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>

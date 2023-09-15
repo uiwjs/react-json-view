@@ -64,11 +64,11 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
   return (
     <Fragment>
       <span ref={highlightContainer}>
-        <Quote isNumber={isNumber} />
+        <Quote isNumber={isNumber} data-placement="left" />
         <Key keyName={keyName!} value={value}>
           {keyName}
         </Key>
-        <Quote isNumber={isNumber} />
+        <Quote isNumber={isNumber} data-placement="right" />
       </span>
       <Colon />
     </Fragment>

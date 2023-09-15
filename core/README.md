@@ -7,7 +7,7 @@ react-json-view
 [![react@^18](https://shields.io/badge/react-^18-green?style=flat&logo=react)](https://github.com/facebook/react/releases)
 [![Coverage Status](https://uiwjs.github.io/react-json-view/badges.svg)](https://uiwjs.github.io/react-json-view/lcov-report/)
 
-A React component for displaying and editing javascript arrays and JSON objects.
+A React component for displaying and editing javascript arrays and JSON objects. Preview of v1 documentation is available [here](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html).
 
 <!--rehype:ignore:start-->
 <a href="https://uiwjs.github.io/react-json-view/" target="_blank">

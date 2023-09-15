@@ -2,28 +2,30 @@ import { useSymbolsStore, type SymbolsElement } from '../../store/Symbols';
 import { type TagType } from '../../store/Types';
 import { useExpandsStore } from '../../store/Expands';
 
-export const Quote = (props: { isNumber?: boolean }) => {
+export const Quote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement>) => {
   const { Quote: Comp = {} } = useSymbolsStore();
-  const { isNumber } = props;
+  const { isNumber, ...other } = props;
   if (isNumber) return null;
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
-  const child = render && typeof render === 'function' && render(reset);
+  const elmProps = { ...other, ...reset };
+  const child = render && typeof render === 'function' && render(elmProps);
   if (child) return child;
-  return <Elm {...reset} />;
+  return <Elm {...elmProps} />;
 };
 
 Quote.displayName = 'JVR.Quote';
 
-export const ValueQuote = (props: { isNumber?: boolean }) => {
+export const ValueQuote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement>) => {
   const { ValueQuote: Comp = {} } = useSymbolsStore();
-  const { isNumber } = props;
+  const { isNumber, ...other } = props;
   if (isNumber) return null;
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
-  const child = render && typeof render === 'function' && render(reset);
+  const elmProps = { ...other, ...reset };
+  const child = render && typeof render === 'function' && render(elmProps);
   if (child) return child;
-  return <Elm {...reset} />;
+  return <Elm {...elmProps} />;
 };
 
 ValueQuote.displayName = 'JVR.ValueQuote';
