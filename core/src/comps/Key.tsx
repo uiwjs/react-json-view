@@ -15,7 +15,7 @@ export const Key: FC<PropsWithChildren<KeyProps>> = (props) => {
   const { as, render, ...reset } = Comp;
   reset.style = { ...reset.style, ...style };
   const Elm = as || 'span';
-  const child = render && typeof render === 'function' && render(reset, { value, keyName });
+  const child = render && typeof render === 'function' && render({ ...reset, children }, { value, keyName });
   if (child) return child;
   return <Elm {...reset}>{children}</Elm>;
 };
