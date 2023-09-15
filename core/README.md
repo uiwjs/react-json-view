@@ -30,7 +30,7 @@ The new version [**v2**](https://raw.githack.com/uiwjs/react-json-view/v2-docs/i
 
 - [x] Complete all features of displaying JSON in v1.
 - [ ] Add editing functionality to v2.
-- [ ] Add test cases to v2.
+- [x] Add test cases to v2.
 
 ## Quick Start
 
