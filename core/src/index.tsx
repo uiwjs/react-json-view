@@ -123,7 +123,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     fontSize: 13,
     ...style,
   } as React.CSSProperties;
-  const cls = `w-json-view-container w-rjv ${className || ''}`;
+  const cls = ['w-json-view-container', 'w-rjv', className].filter(Boolean).join(' ');
   return (
     <Provider
       initialState={{
