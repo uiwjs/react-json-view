@@ -1,6 +1,4 @@
-import { useStore } from '../store';
-import { useSectionStore, type SectionElementProps } from '../store/Section';
-import { type TagType } from '../store/Types';
+import { useSectionStore } from '../store/Section';
 
 export interface CountInfoProps<T extends object> {
   value?: T;
