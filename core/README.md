@@ -32,6 +32,7 @@ The new version [**v2**](https://raw.githack.com/uiwjs/react-json-view/v2-docs/i
 - [ ] Add editing functionality to v2.
 - [x] Add test cases to v2.
 
+
 ## Quick Start
 
 ```bash
