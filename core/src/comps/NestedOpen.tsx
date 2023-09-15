@@ -44,8 +44,8 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
     <span {...reset}>
       {showArrow && <Arrow style={arrowStyle} expandKey={expandKey} />}
       {(keyName || typeof keyName === 'number') && <KayName keyName={keyName} />}
-      <SetComp isSet={initialValue instanceof Set} />
-      <MapComp isMap={initialValue instanceof Map} />
+      <SetComp value={initialValue} />
+      <MapComp value={initialValue} />
       <BracketsOpen isBrackets={isArray || isMySet} />
       <Ellipsis keyName={keyName!} value={value} isExpanded={isExpanded} />
       <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} />

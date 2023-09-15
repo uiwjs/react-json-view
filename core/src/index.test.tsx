@@ -98,13 +98,6 @@ it('renders <JsonView.String /> test case', async () => {
     field: 'bigint',
     color: 'var(--w-rjv-type-bigint-color, #268bd2)',
   },
-  // {
-  //   name: 'Date',
-  //   Comp: JsonView.Date,
-  //   value: new Date('2023/02/12'),
-  //   field: 'date',
-  //   color: 'var(--w-rjv-type-date-color, #268bd2)',
-  // },
   {
     name: 'False',
     Comp: JsonView.False,
@@ -147,6 +140,20 @@ it('renders <JsonView.String /> test case', async () => {
     field: 'undefined',
     color: 'var(--w-rjv-type-undefined-color, #586e75)',
   },
+  // {
+  //   name: 'Nan',
+  //   Comp: JsonView.Nan,
+  //   value: NaN,
+  //   field: 'NaN',
+  //   color: 'var(--w-rjv-type-nan-color, #859900)',
+  // },
+  // {
+  //   name: 'Date',
+  //   Comp: JsonView.Date,
+  //   value: new Date('2023/02/12'),
+  //   field: 'date',
+  //   color: 'var(--w-rjv-type-date-color, #268bd2)',
+  // },
   // {
   //   name: 'Url',
   //   Comp: JsonView.Url,

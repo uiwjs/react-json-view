@@ -32,6 +32,7 @@ type Dispatch = React.Dispatch<InitialState<TagType>>;
 const initialState: InitialState<TagType> = {
   Arrow: {
     as: 'span',
+    className: 'w-rjv-arrow',
     style: {
       transform: 'rotate(0deg)',
       transition: 'all 0.3s',
