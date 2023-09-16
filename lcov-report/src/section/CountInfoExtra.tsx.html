@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.36% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.33% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/15</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.05% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,43 +100,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">92x</span>
-<span class="cline-any cline-yes">92x</span>
-<span class="cline-any cline-yes">92x</span>
-<span class="cline-any cline-yes">92x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type TagType } from '../store/Types';
 import { type SectionElement, type SectionElementProps, useSectionStore } from '../store/Section';
 import { useSectionRender } from '../utils/useRender';
 &nbsp;
-export const CountInfoExtra = <span class="fstat-no" title="function not covered" >&lt;K</span> extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
-  const { CountInfoExtra: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >useSectionStore();</span>
-<span class="cstat-no" title="statement not covered" >  useSectionRender(Comp, props, 'CountInfoExtra');</span>
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+export const CountInfoExtra = &lt;K extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
+  const { CountInfoExtra: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
+  useSectionRender(Comp, props, 'CountInfoExtra');
+  return null;
 };
 &nbsp;
 CountInfoExtra.displayName = 'JVR.CountInfoExtra';
@@ -152,13 +152,13 @@ export const CountInfoExtraComps = &lt;T extends object&gt;(
   const { value = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> keyName, ...other } = props;
   const { CountInfoExtra: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
   const { as, render, ...reset } = Comp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (!render || <span class="branch-1 cbranch-no" title="branch not covered" >!reset.children)</span> return null;
-  const Elm = <span class="cstat-no" title="statement not covered" >as || 'span';</span>
-  const isRender = <span class="cstat-no" title="statement not covered" >render &amp;&amp; typeof render === 'function';</span>
-  const elmProps = <span class="cstat-no" title="statement not covered" >{ ...reset, ...other };</span>
-  const child = <span class="cstat-no" title="statement not covered" >isRender &amp;&amp; render(elmProps, { value, keyName });</span>
-<span class="cstat-no" title="statement not covered" >  if (child) <span class="cstat-no" title="statement not covered" >return child;</span></span>
-<span class="cstat-no" title="statement not covered" >  return &lt;Elm {...elmProps} /&gt;;</span>
+  if (!render &amp;&amp; !reset.children) return null;
+  const Elm = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
+  const isRender = render &amp;&amp; typeof render === 'function';
+  const elmProps = { ...reset, ...other };
+  const child = isRender &amp;&amp; render(elmProps, { value, keyName });
+  if (child) return child;
+  return &lt;Elm {...elmProps} /&gt;;
 };
 &nbsp;
 CountInfoExtraComps.displayName = 'JVR.CountInfoExtraComps';
@@ -169,7 +169,7 @@ CountInfoExtraComps.displayName = 'JVR.CountInfoExtraComps';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-16T15:28:40.166Z
+                at 2023-09-16T17:17:14.973Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
