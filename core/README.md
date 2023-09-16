@@ -671,7 +671,7 @@ export default function Demo() {
 
 ## Props
 
-Migrate from kkt v1 to v2. The new v2 version has removed the ~~`quotes`~~ and ~~`components`~~ props.
+Migrate from JSON View v1 to v2. The new v2 version has removed the ~~`quotes`~~ and ~~`components`~~ props.
 
 ```diff
 export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
