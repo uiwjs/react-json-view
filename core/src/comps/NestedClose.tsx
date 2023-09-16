@@ -1,6 +1,6 @@
 import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
-import { BracketsClose } from './ReRender/Symbols';
+import { BracketsClose } from '../symbol';
 
 interface NestedCloseProps<T extends object> {
   value?: T;

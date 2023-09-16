@@ -5,7 +5,7 @@ import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
 import { Key } from './Key';
 import { Container } from '../Container';
-import { Quote, Colon } from './ReRender/Symbols';
+import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
 
 interface KeyValuesProps<T extends object> {

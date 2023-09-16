@@ -1,8 +1,8 @@
 import { FC, Fragment, PropsWithChildren, useState } from 'react';
-import { useTypesStore } from '../../store/Types';
-import { useStore } from '../../store';
-import { ValueQuote } from './Symbols';
-import { Copied } from '../Copied';
+import { useTypesStore } from '../store/Types';
+import { useStore } from '../store';
+import { ValueQuote } from '../symbol';
+import { Copied } from '../comps/Copied';
 
 export const SetComp: FC<PropsWithChildren<{ value: unknown }>> = ({ value }) => {
   const { Set: Comp = {}, displayDataTypes } = useTypesStore();

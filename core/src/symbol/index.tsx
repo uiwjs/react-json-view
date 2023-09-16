@@ -1,6 +1,6 @@
-import { useSymbolsStore, type SymbolsElement } from '../../store/Symbols';
-import { type TagType } from '../../store/Types';
-import { useExpandsStore } from '../../store/Expands';
+import { useSymbolsStore, type SymbolsElement } from '../store/Symbols';
+import { type TagType } from '../store/Types';
+import { useExpandsStore } from '../store/Expands';
 
 export const Quote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement>) => {
   const { Quote: Comp = {} } = useSymbolsStore();

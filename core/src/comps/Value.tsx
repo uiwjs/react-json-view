@@ -10,7 +10,7 @@ import {
   TypeUndefined,
   TypeNan,
   TypeUrl,
-} from './ReRender/Types';
+} from '../types';
 
 export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
 

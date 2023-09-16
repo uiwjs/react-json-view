@@ -1,11 +1,12 @@
 import { KayName } from './KeyValues';
-import { useExpandsStore, useExpandsDispatch, useExpands } from '../store/Expands';
+import { useExpandsStore, useExpandsDispatch } from '../store/Expands';
 import { useStore } from '../store';
 import { Copied } from './Copied';
-import { CountInfo, CountInfoExtra } from './CountInfo';
-import { Arrow, BracketsOpen, BracketsClose } from './ReRender/Symbols';
+import { CountInfoExtraComps } from '../section/CountInfoExtra';
+import { CountInfoComp } from '../section/CountInfo';
+import { Arrow, BracketsOpen, BracketsClose } from '../symbol';
 import { Ellipsis } from './Ellipsis';
-import { SetComp, MapComp } from './ReRender/Types';
+import { SetComp, MapComp } from '../types';
 
 export interface NestedOpenProps<T extends object> {
   keyName?: string | number;
@@ -49,8 +50,8 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
       <BracketsOpen isBrackets={isArray || isMySet} />
       <Ellipsis keyName={keyName!} value={value} isExpanded={isExpanded} />
       <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} />
-      <CountInfo value={value} keyName={keyName!} />
-      <CountInfoExtra value={value} keyName={keyName!} />
+      <CountInfoComp value={value} keyName={keyName!} />
+      <CountInfoExtraComps value={value} keyName={keyName!} />
       <Copied keyName={keyName!} value={value} expandKey={expandKey} />
     </span>
   );

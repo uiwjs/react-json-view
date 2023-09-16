@@ -14,7 +14,7 @@ it('renders <JsonView /> Container test case', async () => {
   const { container } = render(
     <JsonView value={example} ref={divref}>
       <JsonView.Copied data-testid="copied" />
-      <JsonView.CountInfoExtra data-testid="infoExtra" />
+      <JsonView.CountInfo data-testid="countInfo" />
     </JsonView>,
   );
   expect(container.firstElementChild).toBeInstanceOf(Element);
@@ -26,8 +26,8 @@ it('renders <JsonView /> Container test case', async () => {
   expect(copied.style).toHaveProperty('vertical-align', 'middle');
   expect(copied.style).toHaveProperty('margin-left', '5px');
   await user.unhover(container.lastElementChild!);
-  const uncopied = screen.getByTestId('infoExtra');
-  expect(uncopied.nextElementSibling).toBeNull();
+  const countInfo = screen.getByTestId('countInfo');
+  expect(countInfo.nextElementSibling).toBeNull();
   await waitFor(() => {
     expect(divref.current instanceof HTMLDivElement).toBeTruthy();
   });

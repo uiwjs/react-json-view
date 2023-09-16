@@ -1,5 +1,5 @@
 import { type TagType } from '../store/Types';
-import { type SectionElement, useSectionStore } from '../store/Section';
+import { type SectionElement, type SectionElementProps, useSectionStore } from '../store/Section';
 import { useSectionRender } from '../utils/useRender';
 
 export const CountInfoExtra = <K extends TagType>(props: SectionElement<K>) => {
@@ -9,3 +9,25 @@ export const CountInfoExtra = <K extends TagType>(props: SectionElement<K>) => {
 };
 
 CountInfoExtra.displayName = 'JVR.CountInfoExtra';
+
+export interface CountInfoExtraCompsProps<T extends object> {
+  value?: T;
+  keyName: string | number;
+}
+
+export const CountInfoExtraComps = <T extends object>(
+  props: SectionElementProps<TagType> & CountInfoExtraCompsProps<T>,
+) => {
+  const { value = {}, keyName, ...other } = props;
+  const { CountInfoExtra: Comp = {} } = useSectionStore();
+  const { as, render, ...reset } = Comp;
+  if (!render || !reset.children) return null;
+  const Elm = as || 'span';
+  const isRender = render && typeof render === 'function';
+  const elmProps = { ...reset, ...other };
+  const child = isRender && render(elmProps, { value, keyName });
+  if (child) return child;
+  return <Elm {...elmProps} />;
+};
+
+CountInfoExtraComps.displayName = 'JVR.CountInfoExtraComps';

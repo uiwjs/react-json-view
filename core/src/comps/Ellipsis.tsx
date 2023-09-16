@@ -1,12 +1,12 @@
 import { useSectionStore } from '../store/Section';
 
-export interface CountInfoProps<T extends object> {
+export interface EllipsisProps<T extends object> {
   value?: T;
   keyName: string | number;
   isExpanded: boolean;
 }
 
-export const Ellipsis = <T extends object>({ isExpanded, value, keyName }: CountInfoProps<T>) => {
+export const Ellipsis = <T extends object>({ isExpanded, value, keyName }: EllipsisProps<T>) => {
   const { Ellipsis: Comp = {} } = useSectionStore();
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
