@@ -5,7 +5,7 @@ import { Copied } from './Copied';
 import { CountInfoExtraComps } from '../section/CountInfoExtra';
 import { CountInfoComp } from '../section/CountInfo';
 import { Arrow, BracketsOpen, BracketsClose } from '../symbol';
-import { Ellipsis } from './Ellipsis';
+import { EllipsisComp } from '../section/Ellipsis';
 import { SetComp, MapComp } from '../types';
 
 export interface NestedOpenProps<T extends object> {
@@ -48,7 +48,7 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
       <SetComp value={initialValue} />
       <MapComp value={initialValue} />
       <BracketsOpen isBrackets={isArray || isMySet} />
-      <Ellipsis keyName={keyName!} value={value} isExpanded={isExpanded} />
+      <EllipsisComp keyName={keyName!} value={value} isExpanded={isExpanded} />
       <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} />
       <CountInfoComp value={value} keyName={keyName!} />
       <CountInfoExtraComps value={value} keyName={keyName!} />

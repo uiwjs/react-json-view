@@ -21,7 +21,7 @@ export const CountInfoExtraComps = <T extends object>(
   const { value = {}, keyName, ...other } = props;
   const { CountInfoExtra: Comp = {} } = useSectionStore();
   const { as, render, ...reset } = Comp;
-  if (!render || !reset.children) return null;
+  if (!render && !reset.children) return null;
   const Elm = as || 'span';
   const isRender = render && typeof render === 'function';
   const elmProps = { ...reset, ...other };
