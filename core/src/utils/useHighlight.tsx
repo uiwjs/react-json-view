@@ -41,8 +41,6 @@ export function useHighlight({ value, highlightUpdates, highlightContainer }: Us
     if (value !== prevValue) {
       return true;
     }
-
-    return false;
   }, [highlightUpdates, value]);
 
   useEffect(() => {

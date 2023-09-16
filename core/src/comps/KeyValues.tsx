@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
-import { Key } from './Key';
+import { KeyNameComp } from '../section/KeyName';
 import { Container } from '../Container';
 import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
@@ -65,9 +65,9 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
     <Fragment>
       <span ref={highlightContainer}>
         <Quote isNumber={isNumber} data-placement="left" />
-        <Key keyName={keyName!} value={value}>
+        <KeyNameComp keyName={keyName!} value={value}>
           {keyName}
-        </Key>
+        </KeyNameComp>
         <Quote isNumber={isNumber} data-placement="right" />
       </span>
       <Colon />

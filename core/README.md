@@ -7,7 +7,7 @@ react-json-view
 [![react@^18](https://shields.io/badge/react-^18-green?style=flat&logo=react)](https://github.com/facebook/react/releases)
 [![Coverage Status](https://uiwjs.github.io/react-json-view/badges.svg)](https://uiwjs.github.io/react-json-view/lcov-report/)
 
-A React component for displaying and editing javascript arrays and JSON objects. Preview of v1 documentation is available [here](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html).
+A React component for displaying and editing javascript arrays and JSON objects. Preview of [**v1 documentation**](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html) is available [here](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html).
 
 <!--rehype:ignore:start-->
 <a href="https://uiwjs.github.io/react-json-view/" target="_blank">
@@ -26,7 +26,7 @@ A React component for displaying and editing javascript arrays and JSON objects.
 ✏️ Support editing and adding features  
 ♻️ Whether to highlight updates.
 
-The new version [**v2**](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html) has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely. Preview [v2 documentation](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html) and [examples](https://raw.githack.com/uiwjs/react-json-view/v2-docs/index.html). 
+The new version [**v2**](https://uiwjs.github.io/react-json-view/) has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely. Preview [v2 documentation](https://uiwjs.github.io/react-json-view/) and [examples](https://uiwjs.github.io/react-json-view/). 
 
 - [x] Complete all features of displaying JSON in v1.
 - [ ] Add editing functionality to v2.
