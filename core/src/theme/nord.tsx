@@ -1,6 +1,7 @@
 export const nordTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#88c0d0',
+  '--w-rjv-key-string': '#88c0d0',
   '--w-rjv-background-color': '#2e3440',
   '--w-rjv-line-color': '#4c566a',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
@@ -13,6 +14,8 @@ export const nordTheme = {
   '--w-rjv-curlybraces-color': '#8fbcbb',
   '--w-rjv-colon-color': '#6d9fac',
   '--w-rjv-brackets-color': '#8fbcbb',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#a3be8c',
   '--w-rjv-type-int-color': '#b48ead',

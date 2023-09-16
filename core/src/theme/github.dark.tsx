@@ -1,6 +1,7 @@
 export const githubDarkTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#79c0ff',
+  '--w-rjv-key-string': '#79c0ff',
   '--w-rjv-background-color': '#0d1117',
   '--w-rjv-line-color': '#94949480',
   '--w-rjv-arrow-color': '#ccc',
@@ -13,6 +14,8 @@ export const githubDarkTheme = {
   '--w-rjv-curlybraces-color': '#8b949e',
   '--w-rjv-colon-color': '#c9d1d9',
   '--w-rjv-brackets-color': '#8b949e',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#a5d6ff',
   '--w-rjv-type-int-color': '#79c0ff',

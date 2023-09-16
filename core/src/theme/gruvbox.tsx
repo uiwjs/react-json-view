@@ -1,6 +1,7 @@
 export const gruvboxTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#3c3836',
+  '--w-rjv-key-string': '#3c3836',
   '--w-rjv-background-color': '#fbf1c7',
   '--w-rjv-line-color': '#ebdbb2',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
@@ -13,6 +14,8 @@ export const gruvboxTheme = {
   '--w-rjv-curlybraces-color': '#236a7c',
   '--w-rjv-colon-color': '#002b36',
   '--w-rjv-brackets-color': '#236a7c',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#3c3836',
   '--w-rjv-type-int-color': '#8f3f71',

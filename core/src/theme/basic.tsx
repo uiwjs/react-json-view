@@ -1,6 +1,7 @@
 export const basicTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#b5bd68',
+  '--w-rjv-key-string': '#b5bd68',
   '--w-rjv-background-color': '#2E3235',
   '--w-rjv-line-color': '#292d30',
   '--w-rjv-arrow-color': 'var(--w-rjv-color)',
@@ -13,6 +14,8 @@ export const basicTheme = {
   '--w-rjv-curlybraces-color': '#cc99cc',
   '--w-rjv-colon-color': '#bababa',
   '--w-rjv-brackets-color': '#808080',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#b5bd68',
   '--w-rjv-type-int-color': '#fda331',

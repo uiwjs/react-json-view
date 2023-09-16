@@ -5,6 +5,7 @@ it('gruvboxTheme test case', () => {
   expect(Object.keys(gruvboxTheme)).toMatchObject([
     '--w-rjv-font-family',
     '--w-rjv-color',
+    '--w-rjv-key-string',
     '--w-rjv-background-color',
     '--w-rjv-line-color',
     '--w-rjv-arrow-color',
@@ -16,6 +17,8 @@ it('gruvboxTheme test case', () => {
     '--w-rjv-curlybraces-color',
     '--w-rjv-colon-color',
     '--w-rjv-brackets-color',
+    '--w-rjv-quotes-color',
+    '--w-rjv-quotes-string-color',
     '--w-rjv-type-string-color',
     '--w-rjv-type-int-color',
     '--w-rjv-type-float-color',

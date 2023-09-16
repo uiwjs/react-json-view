@@ -1,6 +1,7 @@
 export const vscodeTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-key-string': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#36334280',
   '--w-rjv-arrow-color': '#838383',
@@ -13,6 +14,8 @@ export const vscodeTheme = {
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#ce9178',
   '--w-rjv-type-int-color': '#b5cea8',

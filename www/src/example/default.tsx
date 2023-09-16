@@ -1,5 +1,5 @@
-import { Fragment, useState, useEffect, useRef } from 'react';
-import JsonView, { JsonViewProps, useHighlight, SemicolonProps } from '@uiw/react-json-view';
+import { Fragment, useState, useReducer, useEffect } from 'react';
+import JsonView, { JsonViewProps } from '@uiw/react-json-view';
 import { styled } from 'styled-components';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { darkTheme } from '@uiw/react-json-view/dark';
@@ -22,7 +22,6 @@ export const themesData = {
   gruvbox: gruvboxTheme,
   monokai: monokaiTheme,
 };
-
 const mySet = new Set();
 mySet.add(1); // Set(1) { 1 }
 mySet.add(5); // Set(2) { 1, 5 }
@@ -30,7 +29,6 @@ mySet.add(5); // Set(2) { 1, 5 }
 mySet.add('some text'); // Set(3) { 1, 5, 'some text' }
 
 const myMap = new Map();
-
 myMap.set('www', 'foo');
 myMap.set(1, 'bar');
 
@@ -44,8 +42,7 @@ export const example = {
   string: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
   integer: 42,
   float: 114.514,
-  // @ts-ignore
-  bigint: 10086n,
+  bigint: BigInt(10086),
   nan: NaN,
   null: null,
   undefined,
@@ -61,8 +58,9 @@ export const example = {
     'second-child': false,
     'last-child': null,
   },
+  url: new URL('https://wangchujiang.com/'),
   fn: aPlusB,
-  // longArray,
+  // // longArray,
   string_number: '1234',
   string_empty: '',
   mySet,
@@ -82,28 +80,30 @@ const Options = styled.div`
   grid-template-columns: 50% 60%;
 `;
 
-const ObjectKey: SemicolonProps['render'] = ({ value, keyName, parentName, ...props }) => {
-  const $edit = useRef<HTMLSpanElement & HTMLModElement>(null);
-  useHighlight({ value, highlightUpdates: true, highlightContainer: $edit });
-  if (keyName === 'integer' && typeof value === 'number' && value > 40) {
-    return <del {...props} ref={$edit} />;
+const initialState: Partial<
+  JsonViewProps<object> & {
+    quote: string;
+    theme: keyof typeof themesData;
   }
-  return <span {...props} ref={$edit} />;
+> = {
+  displayObjectSize: true,
+  displayDataTypes: true,
+  enableClipboard: true,
+  highlightUpdates: true,
+  objectSortKeys: false,
+  indentWidth: 15,
+  collapsed: 2,
+  quote: '"',
+  theme: 'nord',
 };
 
-export function Example() {
-  const [indentWidth, setIndentWidth] = useState(15);
-  const themeKeys = Object.keys(themesData) as Array<keyof typeof themesData>;
-  const [theme, setTheme] = useState<React.CSSProperties>(themesData[themeKeys[0]]);
-  const [displayDataTypes, setDisplayDataTypes] = useState(true);
-  const [displayObjectSize, setDisplayObjectSize] = useState(true);
-  const [highlightUpdates, setHighlightUpdates] = useState(true);
-  const [objectSortKeys, setObjectSortKeys] = useState(false);
-  const [clipboard, setClipboard] = useState(true);
-  const [quotes, setQuotes] = useState<JsonViewProps<object>['quotes']>('"');
-  const [collapsed, setCollapsed] = useState<JsonViewProps<object>['collapsed']>(true);
+const reducer = (state: typeof initialState, action: typeof initialState) => ({ ...state, ...action });
 
+export function Example() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [src, setSrc] = useState({ ...example });
+  const themeKeys = Object.keys(themesData) as Array<keyof typeof themesData>;
+
   useEffect(() => {
     const loop = () => {
       setSrc((src) => ({
@@ -119,25 +119,34 @@ export function Example() {
     <Fragment>
       <JsonView
         value={src}
-        indentWidth={indentWidth}
-        displayObjectSize={displayObjectSize}
-        displayDataTypes={displayDataTypes}
-        highlightUpdates={highlightUpdates}
-        quotes={quotes}
-        objectSortKeys={objectSortKeys}
-        enableClipboard={clipboard}
-        style={{ ...theme, padding: 6, borderRadius: 6 }}
-        collapsed={collapsed}
-        components={{
-          objectKey: ObjectKey,
-        }}
-      />
+        style={{ ...themesData[state.theme!], padding: 6, borderRadius: 6 }}
+        displayObjectSize={state.displayObjectSize}
+        displayDataTypes={state.displayDataTypes}
+        enableClipboard={state.enableClipboard}
+        highlightUpdates={state.highlightUpdates}
+        indentWidth={state.indentWidth}
+        collapsed={state.collapsed}
+        objectSortKeys={state.objectSortKeys}
+      >
+        <JsonView.KeyName
+          render={(props, { value, keyName }) => {
+            if (keyName === 'integer' && typeof value === 'number' && value > 10) {
+              return <del {...props}>{keyName}</del>;
+            }
+          }}
+        />
+        <JsonView.Quote>{state.quote}</JsonView.Quote>
+        <JsonView.ValueQuote
+          render={(props) => {
+            if (!state.quote?.trim()) return <span />;
+            return <span {...props}>{state.quote}</span>;
+          }}
+        />
+      </JsonView>
       <Options>
         <Label>
           <span>Theme:</span>
-          <select
-            onChange={(evn) => setTheme(themesData[evn.target.value as keyof typeof themesData] as React.CSSProperties)}
-          >
+          <select onChange={(evn) => dispatch({ theme: evn.target.value as keyof typeof themesData })}>
             {themeKeys.map((key) => (
               <option value={key} key={key}>
                 {key}
@@ -148,64 +157,105 @@ export function Example() {
         <Label>
           <span>Collapsed:</span>
           <select
-            value={collapsed?.toString()}
+            value={state.collapsed?.toString()}
             onChange={({ target: { value } }) => {
               const val = value === 'false' ? false : value === 'true' ? true : Number(value);
-              setCollapsed(val);
+              dispatch({ collapsed: val });
             }}
           >
             <option value="false">false</option>
             <option value="true">true</option>
             <option value="1">1</option>
             <option value="2">2</option>
+            <option value="3">3</option>
           </select>
+        </Label>
+        <Label>
+          <span>Indent:</span>
+          <input
+            type="number"
+            value={state.indentWidth}
+            onChange={(evn) =>
+              dispatch({
+                indentWidth: Number(evn.target.value),
+              })
+            }
+          />
         </Label>
         <Label>
           <span>Quotes:</span>
           <select
-            value={quotes?.toString()}
-            onChange={(evn) => setQuotes(evn.target.value as JsonViewProps<object>['quotes'])}
+            value={state.quote}
+            onChange={(evn) =>
+              dispatch({
+                quote: evn.target.value,
+              })
+            }
           >
-            <option value="">enable quotes</option>
+            <option value=" ">enable quotes</option>
             <option value={`"`}>" double quotes</option>
             <option value={`'`}>' single quotes</option>
           </select>
         </Label>
         <Label>
-          <span>Indent:</span>
-          <input type="number" value={indentWidth} onChange={(evn) => setIndentWidth(Number(evn.target.value))} />
-        </Label>
-        <Label>
           <span>Enable Clipboard:</span>
-          <input type="checkbox" checked={clipboard} onChange={(evn) => setClipboard(evn.target.checked)} />
+          <input
+            type="checkbox"
+            checked={state.enableClipboard}
+            onChange={(evn) =>
+              dispatch({
+                enableClipboard: evn.target.checked,
+              })
+            }
+          />
         </Label>
         <Label>
           <span>Display Data Types:</span>
           <input
             type="checkbox"
-            checked={displayDataTypes}
-            onChange={(evn) => setDisplayDataTypes(evn.target.checked)}
+            checked={state.displayDataTypes}
+            onChange={(evn) =>
+              dispatch({
+                displayDataTypes: evn.target.checked,
+              })
+            }
           />
         </Label>
         <Label>
           <span>Display Object Size:</span>
           <input
             type="checkbox"
-            checked={displayObjectSize}
-            onChange={(evn) => setDisplayObjectSize(evn.target.checked)}
+            checked={state.displayObjectSize}
+            onChange={(evn) =>
+              dispatch({
+                displayObjectSize: evn.target.checked,
+              })
+            }
           />
         </Label>
         <Label>
-          <span>Highlight Updates:</span>
+          <span>Display Highlight Updates:</span>
           <input
             type="checkbox"
-            checked={highlightUpdates}
-            onChange={(evn) => setHighlightUpdates(evn.target.checked)}
+            checked={state.highlightUpdates}
+            onChange={(evn) =>
+              dispatch({
+                highlightUpdates: evn.target.checked,
+              })
+            }
           />
         </Label>
         <Label>
           <span>Sort Keys Through:</span>
-          <input type="checkbox" checked={objectSortKeys} onChange={(evn) => setObjectSortKeys(evn.target.checked)} />
+          <input
+            type="checkbox"
+            checked={state.objectSortKeys as boolean}
+            onChange={(evn) =>
+              dispatch({
+                objectSortKeys: evn.target.checked,
+              })
+            }
+          />
         </Label>
       </Options>
     </Fragment>

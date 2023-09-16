@@ -1,6 +1,7 @@
 export const monokaiTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#E6DB74',
+  '--w-rjv-key-string': '#E6DB74',
   '--w-rjv-background-color': '#272822',
   '--w-rjv-line-color': '#3e3d32',
   '--w-rjv-arrow-color': '#f8f8f2',
@@ -13,6 +14,8 @@ export const monokaiTheme = {
   '--w-rjv-curlybraces-color': '#f8f8f2',
   '--w-rjv-colon-color': '#f8f8f2',
   '--w-rjv-brackets-color': '#f8f8f2',
+  '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
+  '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
   '--w-rjv-type-string-color': '#E6DB74',
   '--w-rjv-type-int-color': '#AE81FF',
