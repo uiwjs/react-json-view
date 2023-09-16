@@ -121,7 +121,8 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,34 +139,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,15 +178,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { KayName } from './KeyValues';
-import { useExpandsStore, useExpandsDispatch, useExpands } from '../store/Expands';
+import { useExpandsStore, useExpandsDispatch } from '../store/Expands';
 import { useStore } from '../store';
 import { Copied } from './Copied';
-import { CountInfo, CountInfoExtra } from './CountInfo';
-import { Arrow, BracketsOpen, BracketsClose } from './ReRender/Symbols';
+import { CountInfoExtraComps } from '../section/CountInfoExtra';
+import { CountInfoComp } from '../section/CountInfo';
+import { Arrow, BracketsOpen, BracketsClose } from '../symbol';
 import { Ellipsis } from './Ellipsis';
-import { SetComp, MapComp } from './ReRender/Types';
+import { SetComp, MapComp } from '../types';
 &nbsp;
 export interface NestedOpenProps&lt;T extends object&gt; {
   keyName?: string | number;
@@ -230,8 +233,8 @@ export const NestedOpen = &lt;T extends object&gt;(props: NestedOpenProps&lt;T&g
       &lt;BracketsOpen isBrackets={isArray || isMySet} /&gt;
       &lt;Ellipsis keyName={keyName!} value={value} isExpanded={isExpanded} /&gt;
       &lt;BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} /&gt;
-      &lt;CountInfo value={value} keyName={keyName!} /&gt;
-      &lt;CountInfoExtra value={value} keyName={keyName!} /&gt;
+      &lt;CountInfoComp value={value} keyName={keyName!} /&gt;
+      &lt;CountInfoExtraComps value={value} keyName={keyName!} /&gt;
       &lt;Copied keyName={keyName!} value={value} expandKey={expandKey} /&gt;
     &lt;/span&gt;
   );
@@ -244,7 +247,7 @@ NestedOpen.displayName = 'JVR.NestedOpen';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-16T01:55:16.098Z
+                at 2023-09-16T08:38:41.132Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
