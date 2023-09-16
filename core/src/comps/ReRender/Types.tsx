@@ -63,7 +63,6 @@ export const TypeString: FC<TypeProps> = ({ children = '', expandKey, keyName })
     };
     if (childrenStr.length > length) {
       reset.onClick = () => {
-        if (length && childrenStr.length <= length) return setShorten(false);
         setShorten(!shorten);
       };
     }
@@ -378,28 +377,3 @@ export const TypeNan: FC<TypeProps> = ({ children, expandKey, keyName }) => {
 };
 
 TypeNan.displayName = 'JVR.TypeNan';
-
-export const TypeEmptyValue: FC<TypeProps> = ({ children, expandKey, keyName }) => {
-  const { Nan = {}, displayDataTypes } = useTypesStore();
-  const { as, render, ...reset } = Nan;
-  const Comp = as || 'span';
-  const style: React.CSSProperties = {
-    ...defalutStyle,
-    ...(Nan.style || {}),
-  };
-
-  const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children });
-  const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children });
-
-  return (
-    <Fragment>
-      {displayDataTypes && (type || <Comp {...reset} style={style} />)}
-      {child}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
-    </Fragment>
-  );
-};
-
-TypeEmptyValue.displayName = 'JVR.TypeEmptyValue';

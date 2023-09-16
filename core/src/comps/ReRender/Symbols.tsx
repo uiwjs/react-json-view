@@ -16,10 +16,9 @@ export const Quote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLE
 
 Quote.displayName = 'JVR.Quote';
 
-export const ValueQuote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement>) => {
+export const ValueQuote = (props: React.HTMLAttributes<HTMLElement>) => {
   const { ValueQuote: Comp = {} } = useSymbolsStore();
-  const { isNumber, ...other } = props;
-  if (isNumber) return null;
+  const { ...other } = props;
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
   const elmProps = { ...other, ...reset };
