@@ -30,5 +30,23 @@ it('renders <JsonView.Ellipsis /> test case', async () => {
     expect(ellipsis.className).toEqual('w-rjv-ellipsis');
     expect(ellipsis.style).toHaveProperty('cursor', 'pointer');
     expect(ellipsis.style).toHaveProperty('user-select', 'none');
+    expect(ellipsis.innerHTML).toEqual('...');
+  });
+});
+
+it('renders <JsonView.Ellipsis /> children test case', async () => {
+  const user = userEvent.setup();
+  const { container } = render(
+    <JsonView value={example}>
+      <Ellipsis as="span" data-testid="ellipsis">
+        xxx
+      </Ellipsis>
+    </JsonView>,
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  await user.click(container.lastElementChild?.firstElementChild!);
+  await waitFor(() => {
+    const ellipsis = screen.getByTestId('ellipsis');
+    expect(ellipsis.innerHTML).toEqual('xxx');
   });
 });
