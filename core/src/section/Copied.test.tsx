@@ -161,6 +161,7 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
     <JsonView value={{ value: BigInt(1000) }}>
       <JsonView.Copied data-testid="copied" />
       <JsonView.Quote data-testid="quote" />
+      <JsonView.Bigint data-testid="bigint" />
     </JsonView>,
   );
   expect(container.firstElementChild).toBeInstanceOf(Element);
@@ -170,5 +171,8 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
   const copied = screen.getAllByTestId('copied')[1];
   await user.click(copied);
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('1000n');
+  fireEvent.mouseLeave(lineDom);
+  const bigint = screen.getAllByTestId('bigint')[1];
+  expect(bigint.nextElementSibling).toBeNull();
   jest.restoreAllMocks();
 });
