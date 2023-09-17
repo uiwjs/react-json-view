@@ -45,7 +45,7 @@ export interface JsonViewProps<T extends object>
   /** Define the root node name. @default undefined */
   keyName?: string | number;
   /** Whether sort keys through `String.prototype.localeCompare()` @default false */
-  objectSortKeys?: boolean | ((a: string, b: string) => number);
+  objectSortKeys?: boolean | ((keyA: string, keyB: string, valueA: T, valueB: T) => number);
   /** Set the indent-width for nested objects @default 15 */
   indentWidth?: number;
   /** When set to `true`, `objects` and `arrays` are labeled with size @default true */

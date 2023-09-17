@@ -35,7 +35,9 @@ export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
     entries =
       objectSortKeys === true
         ? entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : 0))
-        : entries.sort(([a], [b]) => (typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b) : 0));
+        : entries.sort(([a, valA], [b, valB]) =>
+            typeof a === 'string' && typeof b === 'string' ? objectSortKeys(a, b, valA, valB) : 0,
+          );
   }
 
   const style = {

@@ -1,4 +1,5 @@
 import renderer from 'react-test-renderer';
+import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import JsonView from './';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
@@ -46,4 +47,43 @@ it('renders <JsonView /> test case', () => {
   });
   expect(tree).toHaveProperty('props.onMouseEnter');
   expect(tree).toHaveProperty('props.onMouseLeave');
+});
+
+it('renders <JsonView objectSortKeys /> test case', () => {
+  render(
+    <JsonView value={{ b: 1, a: 2 }} objectSortKeys>
+      <JsonView.KeyName data-testid="keyname" />
+    </JsonView>,
+  );
+  const keyname = screen.getAllByTestId('keyname')[0];
+  expect(keyname.innerHTML).toEqual('a');
+});
+
+it('renders <JsonView objectSortKeys={false} /> test case', () => {
+  render(
+    <JsonView value={{ b: 1, a: 2 }} objectSortKeys={false}>
+      <JsonView.KeyName data-testid="keyname" />
+    </JsonView>,
+  );
+  const keyname = screen.getAllByTestId('keyname')[0];
+  expect(keyname.innerHTML).toEqual('b');
+});
+
+it('renders <JsonView objectSortKeys={() => {}} /> test case', () => {
+  render(
+    <JsonView
+      value={{ bool: 1, a: 2 }}
+      objectSortKeys={(a, b, valA, valB) => {
+        expect(a).toEqual('a');
+        expect(b).toEqual('bool');
+        expect(valA).toEqual(2);
+        expect(valB).toEqual(1);
+        return a.localeCompare(b);
+      }}
+    >
+      <JsonView.KeyName data-testid="keyname" />
+    </JsonView>,
+  );
+  const keyname = screen.getAllByTestId('keyname')[0];
+  expect(keyname.innerHTML).toEqual('a');
 });
