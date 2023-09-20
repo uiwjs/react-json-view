@@ -7,7 +7,9 @@ it('renders <JsonView.BraceRight /> test case', async () => {
   };
   const { container } = render(
     <JsonView value={demo}>
-      <JsonView.BraceRight data-testid="brace">x</JsonView.BraceRight>
+      <JsonView.BraceRight as="span" data-testid="brace">
+        x
+      </JsonView.BraceRight>
     </JsonView>,
   );
   expect(container.firstElementChild).toBeInstanceOf(Element);

@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
 import { type TagType } from './Types';
 
-export type SectionElementProps<T extends TagType> = {
+export type SectionElementProps<T extends TagType = 'span'> = {
   as?: T;
   render?: (props: SectionElement<T>, result: { value: unknown; keyName: string | number }) => React.ReactNode;
 };
 
-export type SectionElement<T extends TagType> = SectionElementProps<T> & ComponentPropsWithoutRef<T>;
+export type SectionElement<T extends TagType = 'span'> = SectionElementProps<T> & ComponentPropsWithoutRef<T>;
 
 type InitialState<T extends TagType> = {
   Copied?: SectionElement<T>;

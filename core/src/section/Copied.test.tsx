@@ -11,7 +11,6 @@ const example = {
 
 it('renders <JsonView /> Copied test case', async () => {
   const user = userEvent.setup();
-
   // Mock the necessary functions and values
   const writeTextMock = jest.fn().mockResolvedValue(undefined);
   jest.spyOn(navigator.clipboard, 'writeText').mockImplementation(writeTextMock);
@@ -87,6 +86,7 @@ it('renders <JsonView.Copied /> render test case', async () => {
   const { container } = render(
     <JsonView value={{ value: 123 }}>
       <JsonView.Copied
+        as="span"
         data-testid="copied"
         render={(props) => {
           return <span {...props}>xx</span>;

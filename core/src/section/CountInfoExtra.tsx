@@ -15,8 +15,8 @@ export interface CountInfoExtraCompsProps<T extends object> {
   keyName: string | number;
 }
 
-export const CountInfoExtraComps = <T extends object>(
-  props: SectionElementProps<TagType> & CountInfoExtraCompsProps<T>,
+export const CountInfoExtraComps = <T extends object, K extends TagType>(
+  props: SectionElementProps<K> & CountInfoExtraCompsProps<T>,
 ) => {
   const { value = {}, keyName, ...other } = props;
   const { CountInfoExtra: Comp = {} } = useSectionStore();
@@ -25,7 +25,7 @@ export const CountInfoExtraComps = <T extends object>(
   const Elm = as || 'span';
   const isRender = render && typeof render === 'function';
   const elmProps = { ...reset, ...other };
-  const child = isRender && render(elmProps, { value, keyName });
+  const child = isRender && render(elmProps as React.HTMLAttributes<K>, { value, keyName });
   if (child) return child;
   return <Elm {...elmProps} />;
 };

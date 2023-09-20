@@ -3,7 +3,11 @@ import { useSymbolsDispatch, type SymbolsElement } from '../store/Symbols';
 import { useTypesDispatch, type TagType, type TypesElement } from '../store/Types';
 import { useSectionDispatch, type SectionElement } from '../store/Section';
 
-export function useSymbolsRender(currentProps: SymbolsElement<TagType>, props: SymbolsElement<TagType>, key: string) {
+export function useSymbolsRender<K extends TagType>(
+  currentProps: SymbolsElement<TagType>,
+  props: SymbolsElement<K>,
+  key: string,
+) {
   const dispatch = useSymbolsDispatch();
   const cls = [currentProps.className, props.className].filter(Boolean).join(' ');
   const reset = {

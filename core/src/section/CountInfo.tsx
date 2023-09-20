@@ -16,8 +16,8 @@ export interface CountInfoCompProps<T extends object> {
   keyName: string | number;
 }
 
-export const CountInfoComp = <T extends object>(
-  props: SectionElementProps<TagType> & CountInfoCompProps<T> & React.HTMLAttributes<HTMLElement>,
+export const CountInfoComp = <K extends TagType, T extends object>(
+  props: SectionElementProps<K> & CountInfoCompProps<T> & React.HTMLAttributes<HTMLElement>,
 ) => {
   const { value = {}, keyName, ...other } = props;
   const { displayObjectSize } = useStore();
@@ -38,7 +38,7 @@ export const CountInfoComp = <T extends object>(
 
   const elmProps = { ...reset, ...other };
   const isRender = render && typeof render === 'function';
-  const child = isRender && render({ ...elmProps, 'data-length': len }, { value, keyName });
+  const child = isRender && render({ ...elmProps, 'data-length': len } as React.HTMLAttributes<K>, { value, keyName });
   if (child) return child;
   return <Elm {...elmProps} />;
 };

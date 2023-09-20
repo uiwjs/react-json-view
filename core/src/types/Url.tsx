@@ -1,7 +1,7 @@
 import { useTypesStore, type TagType, type TypesElement } from '../store/Types';
 import { useTypesRender } from '../utils/useRender';
 
-export const Url = (props: TypesElement<TagType>) => {
+export const Url = <K extends TagType = 'a'>(props: TypesElement<K>) => {
   const { Url: Comp = {} } = useTypesStore();
   useTypesRender(Comp, props, 'Url');
 

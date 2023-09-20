@@ -10,12 +10,12 @@ import {
 import { type TagType } from './Types';
 import { TriangleArrow } from '../arrow/TriangleArrow';
 
-type SymbolsElementProps<T extends TagType> = {
+type SymbolsElementProps<T extends TagType = 'span'> = {
   as?: T;
   render?: (props: SymbolsElement<T>) => React.ReactNode;
   'data-type'?: string;
 };
-export type SymbolsElement<T extends TagType> = SymbolsElementProps<T> & ComponentPropsWithoutRef<T>;
+export type SymbolsElement<T extends TagType = 'span'> = SymbolsElementProps<T> & ComponentPropsWithoutRef<T>;
 
 type InitialState<T extends ElementType = 'span'> = {
   Arrow?: SymbolsElement<T>;
