@@ -49,16 +49,16 @@ export const useDispatchStore = () => {
   return useContext(DispatchContext);
 };
 
-export interface ProviderProps {
+export interface ProviderProps<T extends TagType> {
   initialState?: InitialState<object>;
-  initialTypes?: InitialTypesState;
+  initialTypes?: InitialTypesState<T>;
 }
 
-export const Provider: React.FC<PropsWithChildren<ProviderProps>> = ({
+export const Provider = <T extends TagType>({
   children,
   initialState: init,
   initialTypes,
-}) => {
+}: PropsWithChildren<ProviderProps<T>>) => {
   const [state, dispatch] = useReducer(reducer, Object.assign({}, initialState, init));
   const [showTools, showToolsDispatch] = useShowTools();
   const [expands, expandsDispatch] = useExpands();

@@ -284,7 +284,7 @@ export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = (
 
   const isRender = render && typeof render === 'function';
   const type = isRender && render({ ...reset, style }, { type: 'type', value: children });
-  const childStr = children?.toString();
+  const childStr = children instanceof Date ? children.toLocaleString() : children;
   const child =
     isRender && render({ ...reset, children: childStr, className: 'w-rjv-value' }, { type: 'value', value: children });
 

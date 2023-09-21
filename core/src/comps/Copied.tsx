@@ -28,24 +28,23 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
 
   const click = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
-    let copyText = JSON.stringify(
-      value,
-      (key, value) => {
-        if (typeof value === 'bigint') {
-          return value.toString();
-        }
-        return value;
-      },
-      2,
-    );
-    if (typeof value === 'number' && value === Infinity) copyText = 'Infinity';
-    if (typeof value === 'number' && isNaN(value)) copyText = 'NaN';
-    if (typeof value === 'bigint') copyText = value + 'n';
+    let copyText = '';
+    if (typeof value === 'number' && value === Infinity) {
+      copyText = 'Infinity';
+    } else if (typeof value === 'number' && isNaN(value)) {
+      copyText = 'NaN';
+    } else if (typeof value === 'bigint') {
+      copyText = value + 'n';
+    } else if (value instanceof Date) {
+      copyText = value.toLocaleString();
+    } else {
+      copyText = JSON.stringify(value, null, 2);
+    }
+    onCopied && onCopied(copyText, value);
+    setCopied(true);
     navigator.clipboard
       .writeText(copyText)
       .then(() => {
-        onCopied && onCopied(copyText, value);
-        setCopied(true);
         const timer = setTimeout(() => {
           setCopied(false);
           clearTimeout(timer);

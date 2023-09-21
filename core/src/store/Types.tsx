@@ -1,33 +1,33 @@
-import { FC, PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
+import { PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
 
 export type TagType = React.ElementType | keyof JSX.IntrinsicElements;
 
-type TypesElementProps<T extends TagType> = {
+type TypesElementProps<T extends TagType = 'span'> = {
   as?: T;
   render?: (props: TypesElement<T>, result: { type: 'type' | 'value'; value?: unknown }) => React.ReactNode;
   'data-type'?: string;
 };
 
 export type TypesElement<T extends TagType> = TypesElementProps<T> & ComponentPropsWithoutRef<T>;
-export type InitialTypesState = {
+export type InitialTypesState<T extends TagType = 'span'> = {
   displayDataTypes?: boolean;
-  Url?: TypesElement<TagType>;
-  Str?: TypesElement<TagType>;
-  Undefined?: TypesElement<TagType>;
-  Null?: TypesElement<TagType>;
-  True?: TypesElement<TagType>;
-  False?: TypesElement<TagType>;
-  Date?: TypesElement<TagType>;
-  Float?: TypesElement<TagType>;
-  Set?: TypesElement<TagType>;
-  Int?: TypesElement<TagType>;
-  Map?: TypesElement<TagType>;
-  Nan?: TypesElement<TagType>;
-  Bigint?: TypesElement<TagType>;
+  Url?: TypesElement<T>;
+  Str?: TypesElement<T>;
+  Undefined?: TypesElement<T>;
+  Null?: TypesElement<T>;
+  True?: TypesElement<T>;
+  False?: TypesElement<T>;
+  Date?: TypesElement<T>;
+  Float?: TypesElement<T>;
+  Set?: TypesElement<T>;
+  Int?: TypesElement<T>;
+  Map?: TypesElement<T>;
+  Nan?: TypesElement<T>;
+  Bigint?: TypesElement<T>;
 };
-type Dispatch = React.Dispatch<InitialTypesState>;
+type Dispatch<T extends TagType> = React.Dispatch<InitialTypesState<T>>;
 
-const initialState: InitialTypesState = {
+const initialState: InitialTypesState<TagType | 'span'> = {
   Str: {
     as: 'span',
     'data-type': 'string',
@@ -67,6 +67,7 @@ const initialState: InitialTypesState = {
   Map: {
     style: {
       color: 'var(--w-rjv-type-map-color, #268bd2)',
+      marginRight: 3,
     },
     as: 'span',
     'data-type': 'map',
@@ -103,6 +104,7 @@ const initialState: InitialTypesState = {
   Set: {
     style: {
       color: 'var(--w-rjv-type-set-color, #268bd2)',
+      marginRight: 3,
     },
     as: 'span',
     'data-type': 'set',
@@ -146,9 +148,10 @@ const initialState: InitialTypesState = {
     children: 'date',
   },
 };
-const Context = createContext<InitialTypesState>(initialState);
 
-const reducer = (state: InitialTypesState, action: InitialTypesState) => ({
+const Context = createContext<InitialTypesState<TagType>>(initialState);
+
+const reducer = <T extends TagType>(state: InitialTypesState<T>, action: InitialTypesState<T>) => ({
   ...state,
   ...action,
 });
@@ -157,7 +160,7 @@ export const useTypesStore = () => {
   return useContext(Context);
 };
 
-const DispatchTypes = createContext<Dispatch>(() => {});
+const DispatchTypes = createContext<Dispatch<TagType>>(() => {});
 DispatchTypes.displayName = 'JVR.DispatchTypes';
 
 export function useTypes() {
@@ -168,17 +171,17 @@ export function useTypesDispatch() {
   return useContext(DispatchTypes);
 }
 
-interface TypesProps {
-  initial: InitialTypesState;
-  dispatch: Dispatch;
+interface TypesProps<T extends TagType> {
+  initial: InitialTypesState<T>;
+  dispatch: Dispatch<TagType>;
 }
 
-export const Types: FC<PropsWithChildren<TypesProps>> = ({ initial, dispatch, children }) => {
+export function Types<T extends TagType>({ initial, dispatch, children }: PropsWithChildren<TypesProps<T>>) {
   return (
-    <Context.Provider value={initial}>
+    <Context.Provider value={initial as unknown as InitialTypesState<TagType>}>
       <DispatchTypes.Provider value={dispatch}>{children}</DispatchTypes.Provider>
     </Context.Provider>
   );
-};
+}
 
 Types.displayName = 'JVR.Types';
