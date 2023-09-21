@@ -690,7 +690,7 @@ export interface JsonViewProps<T> extends React.DetailedHTMLProps<React.HTMLAttr
   displayDataTypes?: boolean;
   /** When set to `true`, `objects` and `arrays` are labeled with size @default true */
   displayObjectSize?: boolean;
-  /** Shorten long JSON strings, Set to `0` to disable this feature @default 20 */
+  /** Shorten long JSON strings, Set to `0` to disable this feature @default 30 */
   shortenTextAfterLength?: number;
   /** Define the root node name. @default undefined */
   keyName?: string | number;

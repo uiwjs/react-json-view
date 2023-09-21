@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import { Fragment, forwardRef, useMemo, useState } from 'react';
+import { Fragment, forwardRef, useMemo, useEffect, useState } from 'react';
 import { Meta } from './comps/meta';
 import { Copied } from './copied';
 import type { JsonViewProps } from './';
@@ -153,10 +153,8 @@ const RenderShortenTextValue: FC<PropsWithChildren<RenderStringValueProps>> = ({
 }) => {
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length && childrenStr.length >= length);
-  const click = () => {
-    if (length && childrenStr.length <= length) return setShorten(false);
-    setShorten(!shorten);
-  };
+  useEffect(() => setShorten(length && childrenStr.length >= length), [length]);
+  const click = () => setShorten(!shorten);
   const text = shorten ? `${childrenStr.slice(0, length)}...` : childrenStr;
   return (
     <RenderStringValue {...rest} style={{ ...style, cursor: 'pointer' }} onClick={click}>

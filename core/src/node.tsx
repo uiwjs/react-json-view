@@ -52,7 +52,7 @@ export const RootNode = forwardRef(
       highlightUpdates = true,
       objectSortKeys = false,
       indentWidth = 15,
-      shortenTextAfterLength = 20,
+      shortenTextAfterLength = 30,
       collapsed,
       level = 1,
       keyid = 'root',
