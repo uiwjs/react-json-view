@@ -4,12 +4,12 @@ on:
     branches:
       - v1
 
-permissions:
-  id-token: write
-
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
