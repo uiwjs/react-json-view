@@ -696,8 +696,12 @@ export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps
   displayDataTypes?: boolean;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
+  /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
+  collapsed?: boolean | number;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
+  /** Shorten long JSON strings, Set to `0` to disable this feature @default 30 */
+  shortenTextAfterLength?: number;
   /** Callback function for when a treeNode is expanded or collapsed */
   onExpand?: (props: {
     expand: boolean;

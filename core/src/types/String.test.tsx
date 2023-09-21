@@ -29,9 +29,9 @@ it('renders <JsonView.String /> test case', async () => {
   const value = screen.getByTestId('value');
   expect(value.className).toBe('w-rjv-value');
   expect(value.tagName).toBe('SPAN');
-  expect(value.innerHTML).toBe('Lorem ipsum dolor si...');
+  expect(value.innerHTML).toBe('Lorem ipsum dolor sit amet. Lo...');
   await user.click(value);
   expect(value.innerHTML).toBe(demo.string);
   await user.click(value);
-  expect(value.innerHTML).toBe('Lorem ipsum dolor si...');
+  expect(value.innerHTML).toBe('Lorem ipsum dolor sit amet. Lo...');
 });

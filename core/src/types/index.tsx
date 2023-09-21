@@ -1,4 +1,4 @@
-import { FC, Fragment, PropsWithChildren, useState } from 'react';
+import { FC, Fragment, PropsWithChildren, useEffect, useState } from 'react';
 import { useTypesStore } from '../store/Types';
 import { useStore } from '../store';
 import { ValueQuote } from '../symbol';
@@ -46,10 +46,11 @@ type TypeProps = PropsWithChildren<{
 
 export const TypeString: FC<TypeProps> = ({ children = '', expandKey, keyName }) => {
   const { Str = {}, displayDataTypes } = useTypesStore();
-  const { shortenTextAfterLength: length = 20 } = useStore();
+  const { shortenTextAfterLength: length = 30 } = useStore();
   const { as, render, ...reset } = Str;
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length && childrenStr.length >= length);
+  useEffect(() => setShorten(length && childrenStr.length >= length), [length]);
   const Comp = as || 'span';
   const style: React.CSSProperties = {
     ...defalutStyle,

@@ -94,6 +94,7 @@ const initialState: Partial<
   indentWidth: 15,
   collapsed: 2,
   quote: '"',
+  shortenTextAfterLength: 50,
   theme: 'nord',
 };
 
@@ -125,6 +126,7 @@ export function Example() {
         enableClipboard={state.enableClipboard}
         highlightUpdates={state.highlightUpdates}
         indentWidth={state.indentWidth}
+        shortenTextAfterLength={state.shortenTextAfterLength}
         collapsed={state.collapsed}
         objectSortKeys={state.objectSortKeys}
       >
@@ -253,6 +255,18 @@ export function Example() {
             onChange={(evn) =>
               dispatch({
                 objectSortKeys: evn.target.checked,
+              })
+            }
+          />
+        </Label>
+        <Label>
+          <div>Shorten Text After Length({state.shortenTextAfterLength})</div>
+          <input
+            type="range"
+            value={state.shortenTextAfterLength}
+            onChange={(evn) =>
+              dispatch({
+                shortenTextAfterLength: Number(evn.target.value),
               })
             }
           />

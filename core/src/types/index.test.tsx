@@ -3,7 +3,7 @@ import JsonView from '..';
 
 it('renders <JsonView.String /> test case', async () => {
   const demo = {
-    string: 'Lorem ipsum dolor sit amet',
+    string: 'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
   };
   const { container } = render(
     <JsonView value={demo}>
