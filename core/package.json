@@ -1,6 +1,6 @@
 {
   "name": "@uiw/react-json-view",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "description": "JSON viewer for react.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
