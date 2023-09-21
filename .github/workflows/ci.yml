@@ -86,4 +86,4 @@ jobs:
         continue-on-error: true
         working-directory: core
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
