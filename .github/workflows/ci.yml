@@ -4,6 +4,9 @@ on:
     branches:
       - v1
 
+permissions:
+  id-token: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
