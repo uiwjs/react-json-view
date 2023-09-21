@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -247,7 +247,10 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,6 +280,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,7 +428,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,36 +437,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
 &nbsp;
 export type TagType = React.ElementType | keyof JSX.IntrinsicElements;
 &nbsp;
-type TypesElementProps&lt;T extends TagType&gt; = {
+type TypesElementProps&lt;T extends TagType = 'span'&gt; = {
   as?: T;
   render?: (props: TypesElement&lt;T&gt;, result: { type: 'type' | 'value'; value?: unknown }) =&gt; React.ReactNode;
   'data-type'?: string;
 };
 &nbsp;
 export type TypesElement&lt;T extends TagType&gt; = TypesElementProps&lt;T&gt; &amp; ComponentPropsWithoutRef&lt;T&gt;;
-export type InitialTypesState = {
+export type InitialTypesState&lt;T extends TagType = 'span'&gt; = {
   displayDataTypes?: boolean;
-  Url?: TypesElement&lt;TagType&gt;;
-  Str?: TypesElement&lt;TagType&gt;;
-  Undefined?: TypesElement&lt;TagType&gt;;
-  Null?: TypesElement&lt;TagType&gt;;
-  True?: TypesElement&lt;TagType&gt;;
-  False?: TypesElement&lt;TagType&gt;;
-  Date?: TypesElement&lt;TagType&gt;;
-  Float?: TypesElement&lt;TagType&gt;;
-  Set?: TypesElement&lt;TagType&gt;;
-  Int?: TypesElement&lt;TagType&gt;;
-  Map?: TypesElement&lt;TagType&gt;;
-  Nan?: TypesElement&lt;TagType&gt;;
-  Bigint?: TypesElement&lt;TagType&gt;;
+  Url?: TypesElement&lt;T&gt;;
+  Str?: TypesElement&lt;T&gt;;
+  Undefined?: TypesElement&lt;T&gt;;
+  Null?: TypesElement&lt;T&gt;;
+  True?: TypesElement&lt;T&gt;;
+  False?: TypesElement&lt;T&gt;;
+  Date?: TypesElement&lt;T&gt;;
+  Float?: TypesElement&lt;T&gt;;
+  Set?: TypesElement&lt;T&gt;;
+  Int?: TypesElement&lt;T&gt;;
+  Map?: TypesElement&lt;T&gt;;
+  Nan?: TypesElement&lt;T&gt;;
+  Bigint?: TypesElement&lt;T&gt;;
 };
-type Dispatch = React.Dispatch&lt;InitialTypesState&gt;;
+type Dispatch&lt;T extends TagType&gt; = React.Dispatch&lt;InitialTypesState&lt;T&gt;&gt;;
 &nbsp;
-const initialState: InitialTypesState = {
+const initialState: InitialTypesState&lt;TagType | 'span'&gt; = {
   Str: {
     as: 'span',
     'data-type': 'string',
@@ -500,6 +506,7 @@ const initialState: InitialTypesState = {
   Map: {
     style: {
       color: 'var(--w-rjv-type-map-color, #268bd2)',
+      marginRight: 3,
     },
     as: 'span',
     'data-type': 'map',
@@ -536,6 +543,7 @@ const initialState: InitialTypesState = {
   Set: {
     style: {
       color: 'var(--w-rjv-type-set-color, #268bd2)',
+      marginRight: 3,
     },
     as: 'span',
     'data-type': 'set',
@@ -579,9 +587,10 @@ const initialState: InitialTypesState = {
     children: 'date',
   },
 };
-const Context = createContext&lt;InitialTypesState&gt;(initialState);
 &nbsp;
-const reducer = (state: InitialTypesState, action: InitialTypesState) =&gt; ({
+const Context = createContext&lt;InitialTypesState&lt;TagType&gt;&gt;(initialState);
+&nbsp;
+const reducer = &lt;T extends TagType&gt;(state: InitialTypesState&lt;T&gt;, action: InitialTypesState&lt;T&gt;) =&gt; ({
   ...state,
   ...action,
 });
@@ -590,7 +599,7 @@ export const useTypesStore = () =&gt; {
   return useContext(Context);
 };
 &nbsp;
-const DispatchTypes = createContext&lt;Dispatch&gt;(<span class="fstat-no" title="function not covered" >()</span> =&gt; {});
+const DispatchTypes = createContext&lt;Dispatch&lt;TagType&gt;&gt;(<span class="fstat-no" title="function not covered" >()</span> =&gt; {});
 DispatchTypes.displayName = 'JVR.DispatchTypes';
 &nbsp;
 export function useTypes() {
@@ -601,18 +610,18 @@ export function useTypesDispatch() {
   return useContext(DispatchTypes);
 }
 &nbsp;
-interface TypesProps {
-  initial: InitialTypesState;
-  dispatch: Dispatch;
+interface TypesProps&lt;T extends TagType&gt; {
+  initial: InitialTypesState&lt;T&gt;;
+  dispatch: Dispatch&lt;TagType&gt;;
 }
 &nbsp;
-export const Types: FC&lt;PropsWithChildren&lt;TypesProps&gt;&gt; = ({ initial, dispatch, children }) =&gt; {
+export function Types&lt;T extends TagType&gt;({ initial, dispatch, children }: PropsWithChildren&lt;TypesProps&lt;T&gt;&gt;) {
   return (
-    &lt;Context.Provider value={initial}&gt;
+    &lt;Context.Provider value={initial as unknown as InitialTypesState&lt;TagType&gt;}&gt;
       &lt;DispatchTypes.Provider value={dispatch}&gt;{children}&lt;/DispatchTypes.Provider&gt;
     &lt;/Context.Provider&gt;
   );
-};
+}
 &nbsp;
 Types.displayName = 'JVR.Types';
 &nbsp;</pre></td></tr></table></pre>
@@ -622,7 +631,7 @@ Types.displayName = 'JVR.Types';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-21T05:32:09.370Z
+                at 2023-09-21T08:00:55.287Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
