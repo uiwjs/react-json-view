@@ -81,7 +81,7 @@ jobs:
             
             ${{ steps.changelog.outputs.changelog }}
 
-      - run: npm publish --access public
+      - run: npm publish --access public --provenance --tag=legacy
         name: 📦 @uiw/react-json-view publish to NPM
         continue-on-error: true
         working-directory: core
