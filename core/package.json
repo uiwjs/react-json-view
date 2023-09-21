@@ -93,6 +93,10 @@
     "cjs",
     "esm"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "keywords": [
     "array-viewer",
     "component",
