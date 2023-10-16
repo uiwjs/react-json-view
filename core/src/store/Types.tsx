@@ -4,7 +4,10 @@ export type TagType = React.ElementType | keyof JSX.IntrinsicElements;
 
 type TypesElementProps<T extends TagType = 'span'> = {
   as?: T;
-  render?: (props: TypesElement<T>, result: { type: 'type' | 'value'; value?: unknown }) => React.ReactNode;
+  render?: (
+    props: TypesElement<T>,
+    result: { type: 'type' | 'value'; value?: unknown; keyName: string | number },
+  ) => React.ReactNode;
   'data-type'?: string;
 };
 
