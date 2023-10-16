@@ -324,13 +324,13 @@ export default function Demo() {
       }}
     >
       <JsonView.String
-        render={({ children, ...reset }, { type }) => {
-          const isImg = /^https?.*\.(jpg|png)$/i.test(children)
+        render={({ children, ...reset }, { type, value, keyName }) => {
+          const isImg = /^https?.*\.(jpg|png)$/i.test(value)
           if (type === 'type' && isImg) {
             return <span />
           }
           if (type === 'value' && isImg) {
-            return <img {...reset} height="26" src={children} />
+            return <img {...reset} height="26" src={value} />
           }
         }}
       />
