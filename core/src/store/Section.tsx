@@ -3,7 +3,10 @@ import { type TagType } from './Types';
 
 export type SectionElementProps<T extends TagType = 'span'> = {
   as?: T;
-  render?: (props: SectionElement<T>, result: { value: unknown; keyName: string | number }) => React.ReactNode;
+  render?: (
+    props: SectionElement<T>,
+    result: { value: unknown; parentValue?: unknown; keyName: string | number },
+  ) => React.ReactNode;
 };
 
 export type SectionElement<T extends TagType = 'span'> = SectionElementProps<T> & ComponentPropsWithoutRef<T>;

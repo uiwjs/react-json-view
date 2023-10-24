@@ -58,7 +58,7 @@ KeyValues.displayName = 'JVR.KeyValues';
 
 interface KayNameProps<T extends object> extends Omit<KeyValuesProps<T>, 'level'> {}
 export const KayName = <T extends object>(props: KayNameProps<T>) => {
-  const { keyName, value } = props;
+  const { keyName, parentValue, value } = props;
   const { highlightUpdates } = useStore();
   const isNumber = typeof keyName === 'number';
   const highlightContainer = useRef<HTMLSpanElement>(null);
@@ -67,7 +67,7 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
     <Fragment>
       <span ref={highlightContainer}>
         <Quote isNumber={isNumber} data-placement="left" />
-        <KeyNameComp keyName={keyName!} value={value}>
+        <KeyNameComp keyName={keyName!} value={value} parentValue={parentValue}>
           {keyName}
         </KeyNameComp>
         <Quote isNumber={isNumber} data-placement="right" />
@@ -102,7 +102,7 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   };
   return (
     <div className="w-rjv-line" {...reset}>
-      <KayName keyName={keyName} value={value} />
+      <KayName keyName={keyName} value={value} parentValue={parentValue} />
       <Value keyName={keyName!} value={value} expandKey={subkeyid} />
     </div>
   );
