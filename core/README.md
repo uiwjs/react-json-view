@@ -415,6 +415,59 @@ export default function Demo() {
 }
 ```
 
+More in-depth customization ([#19](https://github.com/uiwjs/react-json-view/issues/19))
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+
+const object = {
+  _id: "ObjectId('13212hakjdhajksd')",
+  uid: "test1",
+  attival_time: new Date('Tue Sep 13 2022 14:07:44 GMT-0500 (Central Daylight Time)'),
+  __v: 0
+}
+
+export default function Demo() {
+  return (
+    <JsonView
+      value={object}
+      // keyName="root"
+      displayObjectSize={false}
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+    >
+      <JsonView.Quote render={() => <span />}/>
+      <JsonView.String
+        render={({ children, ...reset }, { type, value, keyName }) => {
+          if (type === 'type') {
+            return <span />
+          }
+          if (type === 'value' && /ObjectId\(['"](.*?)['"]\)/.test(value)) {
+            return <span {...reset}>{children}</span>
+          }
+        }}
+      />
+      <JsonView.Date
+        render={({ children, ...reset }, { type, value, keyName }) => {
+          if (type === 'type') {
+            return <span />
+          }
+        }}
+      />
+      <JsonView.Int
+        render={({ children, ...reset }, { type, value, keyName }) => {
+          if (type === 'type') {
+            return <span />
+          }
+        }}
+      />
+    </JsonView>
+  )
+}
+```
+
 Inspector
 
 ```tsx mdx:preview
