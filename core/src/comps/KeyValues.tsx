@@ -100,6 +100,15 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
     onMouseEnter: () => dispatch({ [subkeyid]: true }),
     onMouseLeave: () => dispatch({ [subkeyid]: false }),
   };
+
+  if (keyName === '$oid') {
+    return (
+      <div className="w-rjv-line" {...reset}>
+        <span>{value?.toString()}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="w-rjv-line" {...reset}>
       <KayName keyName={keyName} value={value} parentValue={parentValue} />

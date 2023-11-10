@@ -38,6 +38,7 @@ function aPlusB(a: number, b: number) {
   return a + b;
 }
 export const example = {
+  _id: { $oid: '654e185e10b1cc30c4257c28' },
   avatar,
   string: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
   integer: 42,
