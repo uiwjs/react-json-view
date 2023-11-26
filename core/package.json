@@ -5,6 +5,7 @@
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "homepage": "https://uiwjs.github.io/react-json-view",
+  "funding": "https://jaywcjlove.github.io/#/sponsor",
   "exports": {
     "./README.md": "./README.md",
     ".": {
