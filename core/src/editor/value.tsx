@@ -110,7 +110,7 @@ export function ReValue<T extends object>(props: ReValueProps<T>) {
         typeStr = 'undefined';
       } else if (typeof text === 'string') {
         try {
-          if (text && text.length > 10 && !isNaN(Date.parse(text))) {
+          if (text && text.length > 19 && !isNaN(Date.parse(text))) {
             const dt = new Date(text);
             text = dt;
             typeStr = 'date';
