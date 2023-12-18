@@ -363,7 +363,7 @@ export default function Demo() {
 }
 ```
 
-Supports certain partial customizations such as: `<Copied />`, `<CountInfo />`, `<CountInfoExtra />`, `<Ellipsis />`, `<KeyName />`
+Supports certain partial customizations such as: `<Copied />`, `<CountInfo />`, `<CountInfoExtra />`, `<Ellipsis />`, `<KeyName />`, `<Row />`
 
 ```tsx mdx:preview
 import React, { Fragment } from 'react';
@@ -580,6 +580,52 @@ Passing **as="tagName"** will automatically infer the type.
 />
 ```
 
+Add a click event on the data row
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+
+export default function Demo() {
+  return (
+    <JsonView
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+      value={{
+        name: 'John',
+        age: 30,
+        hobbies: ['reading', 'coding', 'swimming'],
+        address: {
+            street: '123 Main St',
+            city: 'New York',
+            country: {
+                name: 'Main ',
+                codex: '123'
+            }
+        }
+      }}
+    >
+      <JsonView.Row
+        as="div"
+        render={(props, { keyName, value, parentValue }) => {
+          return (
+            <div
+              {...props}
+              onClick={() => {
+                console.log("keyName", keyName)
+                console.log("value", value)
+                console.log("parentValue", parentValue)
+              }}
+            />
+          )
+        }}
+      />
+    </JsonView>
+  )
+}
+```
+
 ## Highlight Updates
 
 ```tsx mdx:preview
@@ -777,6 +823,7 @@ import { Arrow } from './symbol/Arrow';
 import { Colon } from './symbol/Colon';
 import { Quote } from './symbol/Quote';
 import { ValueQuote } from './symbol/ValueQuote';
+
 import { Bigint } from './types/Bigint';
 import { Date } from './types/Date';
 import { False } from './types/False';
@@ -790,13 +837,24 @@ import { StringText } from './types/String';
 import { True } from './types/True';
 import { Undefined } from './types/Undefined';
 import { Url } from './types/Url';
+
 import { Copied } from './section/Copied';
 import { CountInfo } from './section/CountInfo';
 import { CountInfoExtra } from './section/CountInfoExtra';
 import { Ellipsis } from './section/Ellipsis';
 import { KeyName } from './section/KeyName';
+import { Row } from './section/Row';
 
 type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
+  BraceLeft: typeof BraceLeft;
+  BraceRight: typeof BraceRight;
+  BracketsLeft: typeof BracketsLeft;
+  BracketsRight: typeof BracketsRight;
+  Arrow: typeof Arrow;
+  Colon: typeof Colon;
+  Quote: typeof Quote;
+  ValueQuote: typeof ValueQuote;
+
   Bigint: typeof Bigint;
   Date: typeof Date;
   False: typeof False;
@@ -810,19 +868,13 @@ type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
   True: typeof True;
   Undefined: typeof Undefined;
   Url: typeof Url;
-  BraceLeft: typeof BraceLeft;
-  BraceRight: typeof BraceRight;
-  BracketsLeft: typeof BracketsLeft;
-  BracketsRight: typeof BracketsRight;
-  Colon: typeof Colon;
-  Ellipsis: typeof Ellipsis;
-  Quote: typeof Quote;
-  ValueQuote: typeof ValueQuote;
-  Arrow: typeof Arrow;
+
   Copied: typeof Copied;
   CountInfo: typeof CountInfo;
   CountInfoExtra: typeof CountInfoExtra;
+  Ellipsis: typeof Ellipsis;
   KeyName: typeof KeyName;
+  Row: typeof Row;
 };
 declare const JsonView: JsonViewComponent;
 export default JsonView;

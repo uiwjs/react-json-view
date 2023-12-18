@@ -16,6 +16,7 @@ type InitialState<T extends TagType> = {
   CountInfo?: SectionElement<T>;
   CountInfoExtra?: SectionElement<T>;
   Ellipsis?: SectionElement<T>;
+  Row?: SectionElement<T>;
   KeyName?: SectionElement<T>;
 };
 
@@ -56,6 +57,10 @@ const initialState: InitialState<TagType> = {
     },
     className: 'w-rjv-ellipsis',
     children: '...',
+  },
+  Row: {
+    as: 'div',
+    className: 'w-rjv-line',
   },
   KeyName: {
     as: 'span',

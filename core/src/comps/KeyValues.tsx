@@ -4,6 +4,7 @@ import { useExpandsStore } from '../store/Expands';
 import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
 import { KeyNameComp } from '../section/KeyName';
+import { RowComp } from '../section/Row';
 import { Container } from '../Container';
 import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
@@ -101,10 +102,10 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
     onMouseLeave: () => dispatch({ [subkeyid]: false }),
   };
   return (
-    <div className="w-rjv-line" {...reset}>
+    <RowComp className="w-rjv-line" value={value} keyName={keyName} parentValue={parentValue} {...reset}>
       <KayName keyName={keyName} value={value} parentValue={parentValue} />
       <Value keyName={keyName!} value={value} expandKey={subkeyid} />
-    </div>
+    </RowComp>
   );
 };
 
