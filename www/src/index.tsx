@@ -36,6 +36,14 @@ root.render(
     description="A React component for displaying and editing javascript arrays and JSON objects."
     version={`v${VERSION}`}
   >
+    <MarkdownPreviewExample.NavMenu
+      title="JSON View"
+      menus={[
+        <a target="_blank" href="https://jaywcjlove.github.io/#/sponsor" rel="noopener noreferrer">
+          Sponsor
+        </a>,
+      ]}
+    />
     <Github href="https://github.com/uiwjs/react-json-view" />
     <Example>
       <App />
