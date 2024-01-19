@@ -283,14 +283,22 @@ export default function Demo() {
         />
         <div>
           <Colorful color={hex} onChange={onChange} />
-          <div style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column', ...customTheme }}>
             {Object.keys(customTheme).map((varname, idx) => {
               const click = () => {
                 setCssvar(varname);
                 setHex(customTheme[varname]);
               };
               const active = cssvar === varname ? '#a8a8a8' : '';
-              return <button key={idx} style={{ background: active, border: 0,boxShadow: 'inset 0px 0px 1px #000', textAlign: 'left' }} onClick={click}>{varname}</button>
+              return (
+                <button key={idx}
+                  style={{ background: active, border: 0,boxShadow: 'inset 0px 0px 1px #000', display: 'flex', alignItems: 'center', gap: 5, padding: '1px 3px' }}
+                  onClick={click}
+                >
+                  <span style={{ display: 'inline-block', width: 12, height: 12, background: `var(${varname})` }}></span>
+                  {varname}
+                </button>
+              )
             })}
           </div>
         </div>
