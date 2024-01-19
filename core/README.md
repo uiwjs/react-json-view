@@ -147,6 +147,7 @@ const object = {
 const customTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-key-number': '#268bd2',
   '--w-rjv-key-string': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#36334280',
@@ -160,6 +161,7 @@ const customTheme = {
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
+  '--w-rjv-ellipsis-color': '#cb4b16',
   '--w-rjv-quotes-color': 'var(--w-rjv-key-string)',
   '--w-rjv-quotes-string-color': 'var(--w-rjv-type-string-color)',
 
@@ -217,6 +219,7 @@ const object = {
 }
 const customTheme = {
   '--w-rjv-color': '#9cdcfe',
+  '--w-rjv-key-number': '#268bd2',
   '--w-rjv-key-string': '#9cdcfe',
   '--w-rjv-background-color': '#1e1e1e',
   '--w-rjv-line-color': '#36334280',
@@ -230,6 +233,7 @@ const customTheme = {
   '--w-rjv-curlybraces-color': '#d4d4d4',
   '--w-rjv-colon-color': '#d4d4d4',
   '--w-rjv-brackets-color': '#d4d4d4',
+  '--w-rjv-ellipsis-color': '#cb4b16',
   '--w-rjv-quotes-color': '#9cdcfe',
   '--w-rjv-quotes-string-color': '#ce9178',
 
@@ -291,9 +295,11 @@ export default function Demo() {
           </div>
         </div>
       </div>
-      <pre style={{ padding: 10 }}>
+      <div>
         Copy the theme configuration below into your project.
-        <JsonView value={theme} displayDataTypes={false} />
+      </div>
+      <pre style={{ padding: 10 }}>
+        {JSON.stringify(theme, null, 2)}
       </pre>
     </React.Fragment>
   );
