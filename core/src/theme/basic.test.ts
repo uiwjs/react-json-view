@@ -5,6 +5,7 @@ it('basicTheme test case', () => {
   expect(Object.keys(basicTheme)).toMatchObject([
     '--w-rjv-font-family',
     '--w-rjv-color',
+    '--w-rjv-key-number',
     '--w-rjv-key-string',
     '--w-rjv-background-color',
     '--w-rjv-line-color',
@@ -17,6 +18,7 @@ it('basicTheme test case', () => {
     '--w-rjv-curlybraces-color',
     '--w-rjv-colon-color',
     '--w-rjv-brackets-color',
+    '--w-rjv-ellipsis-color',
     '--w-rjv-quotes-color',
     '--w-rjv-quotes-string-color',
     '--w-rjv-type-string-color',
