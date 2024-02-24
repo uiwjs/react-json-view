@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.36% </span>
+                <span class="strong">83.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/41</span>
+                <span class='fraction'>36/43</span>
             </div>
         
             
@@ -175,9 +175,14 @@
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,6 +237,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,6 +278,13 @@
 <span class="cline-any cline-yes">1148x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,20 +308,18 @@ import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
 import { KeyNameComp } from '../section/KeyName';
 import { RowComp } from '../section/Row';
-import { Container } from '../Container';
+import { Container, type ContainerProps } from '../Container';
 import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
+import { type SectionElementResult } from '../store/Section';
 &nbsp;
-interface KeyValuesProps&lt;T extends object&gt; {
-  keyName?: string | number;
-  value?: T;
-  parentValue?: T;
+interface KeyValuesProps&lt;T extends object&gt; extends SectionElementResult&lt;T&gt; {
   expandKey?: string;
   level: number;
 }
 &nbsp;
 export const KeyValues = &lt;T extends object&gt;(props: KeyValuesProps&lt;T&gt;) =&gt; {
-  const { value, expandKey = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> level } = props;
+  const { value, expandKey = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> level, keys = [] } = props;
   const expands = useExpandsStore();
   const { objectSortKeys, indentWidth, collapsed } = useStore();
   const isMyArray = Array.isArray(value);
@@ -338,7 +350,9 @@ export const KeyValues = &lt;T extends object&gt;(props: KeyValuesProps&lt;T&gt;
   return (
     &lt;div className="w-rjv-wrap" style={style}&gt;
       {entries.map(([key, val], idx) =&gt; {
-        return &lt;KeyValuesItem parentValue={value} keyName={key} value={val} key={idx} level={level} /&gt;;
+        return (
+          &lt;KeyValuesItem parentValue={value} keyName={key} keys={[...keys, key]} value={val} key={idx} level={level} /&gt;
+        );
       })}
     &lt;/div&gt;
   );
@@ -370,7 +384,7 @@ export const KayName = &lt;T extends object&gt;(props: KayNameProps&lt;T&gt;) =&
 KayName.displayName = 'JVR.KayName';
 &nbsp;
 export const KeyValuesItem = &lt;T extends object&gt;(props: KeyValuesProps&lt;T&gt;) =&gt; {
-  const { keyName, value, parentValue, level = <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>} = props;
+  const { keyName, value, parentValue, level = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> keys = <span class="branch-0 cbranch-no" title="branch not covered" >[] </span>} = props;
   const dispatch = useShowToolsDispatch();
   const subkeyid = useId();
   const isMyArray = Array.isArray(value);
@@ -383,7 +397,14 @@ export const KeyValuesItem = &lt;T extends object&gt;(props: KeyValuesProps&lt;T
   if (isNested) {
     const myValue = isMySet ? Array.from(value as Set&lt;any&gt;) : isMyMap ? Object.fromEntries(value) : value;
     return (
-      &lt;Container keyName={keyName} value={myValue} parentValue={parentValue} initialValue={value} level={level + 1} /&gt;
+      &lt;Container
+        keyName={keyName}
+        value={myValue}
+        parentValue={parentValue}
+        initialValue={value}
+        keys={keys}
+        level={level + 1}
+      /&gt;
     );
   }
   const reset: React.HTMLAttributes&lt;HTMLDivElement&gt; = {
@@ -391,7 +412,7 @@ export const KeyValuesItem = &lt;T extends object&gt;(props: KeyValuesProps&lt;T
     onMouseLeave: () =&gt; dispatch({ [subkeyid]: false }),
   };
   return (
-    &lt;RowComp className="w-rjv-line" value={value} keyName={keyName} parentValue={parentValue} {...reset}&gt;
+    &lt;RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}&gt;
       &lt;KayName keyName={keyName} value={value} parentValue={parentValue} /&gt;
       &lt;Value keyName={keyName!} value={value} expandKey={subkeyid} /&gt;
     &lt;/RowComp&gt;
@@ -406,7 +427,7 @@ KeyValuesItem.displayName = 'JVR.KeyValuesItem';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-24T21:20:57.955Z
+                at 2024-02-24T22:55:48.604Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
@@ -96,13 +96,8 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,22 +111,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-yes">1130x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,6 +132,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type TagType } from '../store/Types';
 import { type SectionElement, useSectionStore } from '../store/Section';
 import { useSectionRender } from '../utils/useRender';
+import { type SectionElementResult } from '../store/Section';
 &nbsp;
 export const Row = <span class="fstat-no" title="function not covered" >&lt;K</span> extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
   const { Row: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >useSectionStore();</span>
@@ -153,24 +142,17 @@ export const Row = <span class="fstat-no" title="function not covered" >&lt;K</s
 &nbsp;
 Row.displayName = 'JVR.Row';
 &nbsp;
-export interface RowCompProps&lt;T extends object&gt; extends React.HTMLAttributes&lt;HTMLDivElement&gt; {
-  value?: T;
-  keyName?: string | number;
-  parentValue?: unknown;
-}
+export interface RowCompProps&lt;T extends object&gt; extends React.HTMLAttributes&lt;HTMLDivElement&gt;, SectionElementResult&lt;T&gt; {}
 &nbsp;
-export const RowComp = &lt;T extends object&gt;({
-  children,
-  value,
-  keyName = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span>
-  parentValue,
-  ...other
-}: React.PropsWithChildren&lt;RowCompProps&lt;T&gt;&gt;) =&gt; {
+export const RowComp = &lt;T extends object&gt;(props: React.PropsWithChildren&lt;RowCompProps&lt;T&gt;&gt;) =&gt; {
+  const { children, value, parentValue, keyName, keys, ...other } = props;
   const { Row: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
   const { as, render, children: _, ...reset } = Comp;
   const Elm = as || <span class="branch-1 cbranch-no" title="branch not covered" >'div';</span>
   const child =
-    render &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof render === 'function' </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >render({ ...other, ...reset, children }, { value, keyName, parentValue });</span>
+    render &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >    typeof render === 'function' </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >    render({ ...other, ...reset, children }, { value, keyName, parentValue, keys });</span>
   <span class="missing-if-branch" title="if path not taken" >I</span>if (child) <span class="cstat-no" title="statement not covered" >return child;</span>
   return (
     &lt;Elm {...other} {...reset}&gt;
@@ -187,7 +169,7 @@ RowComp.displayName = 'JVR.RowComp';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-24T21:20:57.955Z
+                at 2024-02-24T22:55:48.604Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
