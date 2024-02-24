@@ -1,6 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import { SectionElementProps } from '../store/Section';
 import { useStore } from './store';
+import { type SectionElementResult } from '../store/Section';
 
 export const KeyNameRender: SectionElementProps['render'] = (
   { children, ...reset },
@@ -16,13 +17,9 @@ export const KeyNameRender: SectionElementProps['render'] = (
   );
 };
 
-interface ChildProps extends React.HTMLAttributes<HTMLSpanElement> {
-  value: unknown;
-  parentValue?: unknown;
-  keyName: string | number;
-}
+interface ChildProps<T extends object> extends React.HTMLAttributes<HTMLSpanElement>, SectionElementResult<T> {}
 
-const Child: FC<ChildProps> = (props) => {
+const Child = <T extends object>(props: ChildProps<T>) => {
   const { value, parentValue, keyName, ...reset } = props;
   const $dom = useRef<HTMLElement>(null);
   const [currentValue, setCurrentValue] = useState(props.children);

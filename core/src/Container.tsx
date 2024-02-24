@@ -11,9 +11,22 @@ export interface ContainerProps<T extends object> extends React.HTMLAttributes<H
   level?: number;
   value?: T;
   initialValue?: T;
+  /** Index of the parent `keyName` */
+  keys?: (string | number)[];
 }
 export const Container = forwardRef(<T extends object>(props: ContainerProps<T>, ref: React.Ref<HTMLDivElement>) => {
-  const { className = '', children, parentValue, keyid, level = 1, value, initialValue, keyName, ...elmProps } = props;
+  const {
+    className = '',
+    children,
+    parentValue,
+    keyid,
+    level = 1,
+    value,
+    initialValue,
+    keys,
+    keyName,
+    ...elmProps
+  } = props;
   const dispatch = useShowToolsDispatch();
   const subkeyid = useId();
   const defaultClassNames = [className, 'w-rjv-inner'].filter(Boolean).join(' ');
@@ -24,7 +37,7 @@ export const Container = forwardRef(<T extends object>(props: ContainerProps<T>,
   return (
     <div className={defaultClassNames} ref={ref} {...elmProps} {...reset}>
       <NestedOpen expandKey={subkeyid} value={value} level={level} keyName={keyName} initialValue={initialValue} />
-      <KeyValues expandKey={subkeyid} value={value} level={level} />
+      <KeyValues expandKey={subkeyid} value={value} level={level} keys={keys} />
       <NestedClose expandKey={subkeyid} value={value} level={level} />
     </div>
   );

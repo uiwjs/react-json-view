@@ -1,12 +1,17 @@
 import React, { FC, PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
 import { type TagType } from './Types';
 
+export interface SectionElementResult<T extends object, K = string | number> {
+  value?: T;
+  parentValue?: T;
+  keyName?: K;
+  /** Index of the parent `keyName` */
+  keys?: K[];
+}
+
 export type SectionElementProps<T extends TagType = 'span'> = {
   as?: T;
-  render?: (
-    props: SectionElement<T>,
-    result: { value: unknown; parentValue?: unknown; keyName: string | number },
-  ) => React.ReactNode;
+  render?: (props: SectionElement<T>, result: SectionElementResult<object>) => React.ReactNode;
 };
 
 export type SectionElement<T extends TagType = 'span'> = SectionElementProps<T> & ComponentPropsWithoutRef<T>;

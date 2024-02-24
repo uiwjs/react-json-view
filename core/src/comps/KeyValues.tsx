@@ -5,20 +5,18 @@ import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
 import { KeyNameComp } from '../section/KeyName';
 import { RowComp } from '../section/Row';
-import { Container } from '../Container';
+import { Container, type ContainerProps } from '../Container';
 import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
+import { type SectionElementResult } from '../store/Section';
 
-interface KeyValuesProps<T extends object> {
-  keyName?: string | number;
-  value?: T;
-  parentValue?: T;
+interface KeyValuesProps<T extends object> extends SectionElementResult<T> {
   expandKey?: string;
   level: number;
 }
 
 export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
-  const { value, expandKey = '', level } = props;
+  const { value, expandKey = '', level, keys = [] } = props;
   const expands = useExpandsStore();
   const { objectSortKeys, indentWidth, collapsed } = useStore();
   const isMyArray = Array.isArray(value);
@@ -49,7 +47,9 @@ export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
   return (
     <div className="w-rjv-wrap" style={style}>
       {entries.map(([key, val], idx) => {
-        return <KeyValuesItem parentValue={value} keyName={key} value={val} key={idx} level={level} />;
+        return (
+          <KeyValuesItem parentValue={value} keyName={key} keys={[...keys, key]} value={val} key={idx} level={level} />
+        );
       })}
     </div>
   );
@@ -81,7 +81,7 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
 KayName.displayName = 'JVR.KayName';
 
 export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
-  const { keyName, value, parentValue, level = 0 } = props;
+  const { keyName, value, parentValue, level = 0, keys = [] } = props;
   const dispatch = useShowToolsDispatch();
   const subkeyid = useId();
   const isMyArray = Array.isArray(value);
@@ -94,7 +94,14 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   if (isNested) {
     const myValue = isMySet ? Array.from(value as Set<any>) : isMyMap ? Object.fromEntries(value) : value;
     return (
-      <Container keyName={keyName} value={myValue} parentValue={parentValue} initialValue={value} level={level + 1} />
+      <Container
+        keyName={keyName}
+        value={myValue}
+        parentValue={parentValue}
+        initialValue={value}
+        keys={keys}
+        level={level + 1}
+      />
     );
   }
   const reset: React.HTMLAttributes<HTMLDivElement> = {
@@ -102,7 +109,7 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
     onMouseLeave: () => dispatch({ [subkeyid]: false }),
   };
   return (
-    <RowComp className="w-rjv-line" value={value} keyName={keyName} parentValue={parentValue} {...reset}>
+    <RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}>
       <KayName keyName={keyName} value={value} parentValue={parentValue} />
       <Value keyName={keyName!} value={value} expandKey={subkeyid} />
     </RowComp>

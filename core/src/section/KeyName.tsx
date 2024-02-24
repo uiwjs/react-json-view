@@ -1,7 +1,8 @@
-import { type FC, type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { type TagType } from '../store/Types';
 import { type SectionElement, useSectionStore } from '../store/Section';
 import { useSectionRender } from '../utils/useRender';
+import { type SectionElementResult } from '../store/Section';
 
 export const KeyName = <K extends TagType>(props: SectionElement<K>) => {
   const { KeyName: Comp = {} } = useSectionStore();
@@ -11,14 +12,12 @@ export const KeyName = <K extends TagType>(props: SectionElement<K>) => {
 
 KeyName.displayName = 'JVR.KeyName';
 
-type KeyNameCompProps = {
-  keyName: string | number;
-  value?: unknown;
-  parentValue?: unknown;
-};
+export interface KeyNameCompProps<T extends object>
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    SectionElementResult<T> {}
 
-export const KeyNameComp: FC<PropsWithChildren<KeyNameCompProps>> = (props) => {
-  const { children, value, parentValue, keyName } = props;
+export const KeyNameComp = <T extends object>(props: PropsWithChildren<KeyNameCompProps<T>>) => {
+  const { children, value, parentValue, keyName, keys } = props;
   const isNumber = typeof children === 'number';
   const style: React.CSSProperties = {
     color: isNumber ? 'var(--w-rjv-key-number, #268bd2)' : 'var(--w-rjv-key-string, #002b36)',
@@ -28,7 +27,7 @@ export const KeyNameComp: FC<PropsWithChildren<KeyNameCompProps>> = (props) => {
   reset.style = { ...reset.style, ...style };
   const Elm = as || 'span';
   const child =
-    render && typeof render === 'function' && render({ ...reset, children }, { value, parentValue, keyName });
+    render && typeof render === 'function' && render({ ...reset, children }, { value, parentValue, keyName, keys });
   if (child) return child;
   return <Elm {...reset}>{children}</Elm>;
 };
