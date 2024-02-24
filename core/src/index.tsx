@@ -115,6 +115,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     displayDataTypes = true,
     objectSortKeys = false,
     onExpand,
+    onCopied,
     ...elmProps
   } = props;
   const defaultStyle = {
@@ -137,6 +138,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
         enableClipboard,
         shortenTextAfterLength,
         highlightUpdates,
+        onCopied,
         onExpand,
       }}
       initialTypes={{ displayDataTypes }}
