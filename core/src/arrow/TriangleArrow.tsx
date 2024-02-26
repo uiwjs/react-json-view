@@ -8,7 +8,7 @@ export function TriangleArrow(props: TriangleArrowProps) {
     height: '1em',
     width: '1em',
     userSelect: 'none',
-    display: 'flex',
+    display: 'inline-flex',
     ...style,
   };
   return (

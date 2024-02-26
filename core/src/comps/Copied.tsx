@@ -53,6 +53,7 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
       .catch((error) => {});
   };
   const svgProps: React.SVGProps<SVGSVGElement> = {
+    display: 'inline-flex',
     fill: copied ? 'var(--w-rjv-copied-success-color, #28a745)' : 'var(--w-rjv-copied-color, currentColor)',
     onClick: click,
   };
