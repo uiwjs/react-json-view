@@ -16,7 +16,7 @@ it('renders <TriangleArrow /> test case', () => {
       cursor: 'pointer',
       height: '1em',
       width: '1em',
-      display: 'flex',
+      display: 'inline-flex',
       userSelect: 'none',
     },
   });
