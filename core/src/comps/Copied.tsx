@@ -62,8 +62,8 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
   const elmProps: React.SVGProps<SVGSVGElement> = {
     ...reset,
     ...other,
-    style: { ...reset.other, ...reset.style, ...svgProps.style },
     ...svgProps,
+    style: { ...reset.style, ...other.style, ...svgProps.style },
   } as React.SVGProps<SVGSVGElement>;
   const isRender = render && typeof render === 'function';
   const child =
