@@ -1,5 +1,4 @@
 import { PropsWithChildren, ComponentPropsWithoutRef, createContext, useContext, useReducer } from 'react';
-
 export type TagType = React.ElementType | keyof JSX.IntrinsicElements;
 
 type TypesElementProps<T extends TagType = 'span'> = {

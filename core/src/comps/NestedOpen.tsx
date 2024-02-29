@@ -7,17 +7,16 @@ import { CountInfoComp } from '../section/CountInfo';
 import { Arrow, BracketsOpen, BracketsClose } from '../symbol';
 import { EllipsisComp } from '../section/Ellipsis';
 import { SetComp, MapComp } from '../types';
+import { type SectionElementResult } from '../store/Section';
 
-export interface NestedOpenProps<T extends object> {
-  keyName?: string | number;
-  value?: T;
+export interface NestedOpenProps<T extends object> extends SectionElementResult<T> {
   initialValue?: T;
   expandKey: string;
   level: number;
 }
 
 export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
-  const { keyName, expandKey, initialValue, value, level } = props;
+  const { keyName, expandKey, keys, initialValue, value, parentValue, level } = props;
   const expands = useExpandsStore();
   const dispatchExpands = useExpandsDispatch();
   const { onExpand, collapsed } = useStore();
@@ -52,7 +51,7 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
       <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} />
       <CountInfoComp value={value} keyName={keyName!} />
       <CountInfoExtraComps value={value} keyName={keyName!} />
-      <Copied keyName={keyName!} value={value} expandKey={expandKey} />
+      <Copied keyName={keyName!} value={value} expandKey={expandKey} parentValue={parentValue} keys={keys} />
     </span>
   );
 };

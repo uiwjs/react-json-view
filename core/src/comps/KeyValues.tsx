@@ -5,10 +5,11 @@ import { useShowToolsDispatch } from '../store/ShowTools';
 import { Value } from './Value';
 import { KeyNameComp } from '../section/KeyName';
 import { RowComp } from '../section/Row';
-import { Container, type ContainerProps } from '../Container';
+import { Container } from '../Container';
 import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
 import { type SectionElementResult } from '../store/Section';
+import { Copied } from '../comps/Copied';
 
 interface KeyValuesProps<T extends object> extends SectionElementResult<T> {
   expandKey?: string;
@@ -59,7 +60,7 @@ KeyValues.displayName = 'JVR.KeyValues';
 
 interface KayNameProps<T extends object> extends Omit<KeyValuesProps<T>, 'level'> {}
 export const KayName = <T extends object>(props: KayNameProps<T>) => {
-  const { keyName, parentValue, value } = props;
+  const { keyName, parentValue, keys, value } = props;
   const { highlightUpdates } = useStore();
   const isNumber = typeof keyName === 'number';
   const highlightContainer = useRef<HTMLSpanElement>(null);
@@ -68,7 +69,7 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
     <Fragment>
       <span ref={highlightContainer}>
         <Quote isNumber={isNumber} data-placement="left" />
-        <KeyNameComp keyName={keyName!} value={value} parentValue={parentValue}>
+        <KeyNameComp keyName={keyName!} value={value} keys={keys} parentValue={parentValue}>
           {keyName}
         </KeyNameComp>
         <Quote isNumber={isNumber} data-placement="right" />
@@ -110,8 +111,9 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   };
   return (
     <RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}>
-      <KayName keyName={keyName} value={value} parentValue={parentValue} />
-      <Value keyName={keyName!} value={value} expandKey={subkeyid} />
+      <KayName keyName={keyName} value={value} keys={keys} parentValue={parentValue} />
+      <Value keyName={keyName!} value={value} />
+      <Copied keyName={keyName} value={value as object} keys={keys} parentValue={parentValue} expandKey={subkeyid} />
     </RowComp>
   );
 };

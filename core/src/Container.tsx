@@ -36,8 +36,23 @@ export const Container = forwardRef(<T extends object>(props: ContainerProps<T>,
   };
   return (
     <div className={defaultClassNames} ref={ref} {...elmProps} {...reset}>
-      <NestedOpen expandKey={subkeyid} value={value} level={level} keyName={keyName} initialValue={initialValue} />
-      <KeyValues expandKey={subkeyid} value={value} level={level} keys={keys} />
+      <NestedOpen
+        expandKey={subkeyid}
+        value={value}
+        level={level}
+        keys={keys}
+        parentValue={parentValue}
+        keyName={keyName}
+        initialValue={initialValue}
+      />
+      <KeyValues
+        expandKey={subkeyid}
+        value={value}
+        level={level}
+        keys={keys}
+        parentValue={parentValue}
+        keyName={keyName}
+      />
       <NestedClose expandKey={subkeyid} value={value} level={level} />
     </div>
   );

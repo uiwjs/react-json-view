@@ -1,5 +1,5 @@
-import { FC, useRef, useState } from 'react';
-import { SectionElementProps } from '../store/Section';
+import { useRef, useState } from 'react';
+import { type SectionElementProps } from '../store/Section';
 import { useStore } from './store';
 import { type SectionElementResult } from '../store/Section';
 

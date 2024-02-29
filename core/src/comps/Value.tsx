@@ -11,18 +11,16 @@ import {
   TypeNan,
   TypeUrl,
 } from '../types';
-
 export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(n);
 
 interface ValueProps {
-  value?: unknown;
+  value: unknown;
   keyName: string | number;
-  expandKey: string;
 }
 
 export const Value = (props: ValueProps) => {
-  const { value, keyName, expandKey } = props;
-  const reset = { keyName, expandKey };
+  const { value, keyName } = props;
+  const reset = { keyName };
   if (value instanceof URL) {
     return <TypeUrl {...reset}>{value}</TypeUrl>;
   }
@@ -35,7 +33,6 @@ export const Value = (props: ValueProps) => {
   if (value === false) {
     return <TypeFalse {...reset}>{value}</TypeFalse>;
   }
-
   if (value === null) {
     return <TypeNull {...reset}>{value}</TypeNull>;
   }

@@ -3,6 +3,7 @@ import { useStore } from '../store';
 import { useShowToolsStore } from '../store/ShowTools';
 import { useSectionStore } from '../store/Section';
 import { type TagType } from '../store/Types';
+import { type SectionElementResult } from '../store/Section';
 
 export type CopiedOption<T extends object> = {
   value?: T;
@@ -10,14 +11,12 @@ export type CopiedOption<T extends object> = {
   setCopied: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export interface CopiedProps<T extends object> extends React.SVGProps<SVGSVGElement> {
-  value?: T;
-  keyName: string | number;
+export interface CopiedProps<T extends object> extends React.SVGProps<SVGSVGElement>, SectionElementResult<T> {
   expandKey: string;
 }
 
 export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T>) => {
-  const { keyName, value, expandKey, ...other } = props;
+  const { keyName, value, parentValue, expandKey, keys, ...other } = props;
   const { onCopied, enableClipboard } = useStore();
   const showTools = useShowToolsStore();
   const isShowTools = showTools[expandKey];
@@ -67,7 +66,8 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
   } as React.SVGProps<SVGSVGElement>;
   const isRender = render && typeof render === 'function';
   const child =
-    isRender && render({ ...elmProps, 'data-copied': copied } as React.HTMLAttributes<K>, { value, keyName });
+    isRender &&
+    render({ ...elmProps, 'data-copied': copied } as React.HTMLAttributes<K>, { value, keyName, keys, parentValue });
   if (child) return child;
   if (copied) {
     return (

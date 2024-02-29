@@ -40,11 +40,10 @@ const defalutStyle: React.CSSProperties = {
 };
 
 type TypeProps = PropsWithChildren<{
-  expandKey: string;
   keyName: string | number;
 }>;
 
-export const TypeString: FC<TypeProps> = ({ children = '', expandKey, keyName }) => {
+export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
   const { Str = {}, displayDataTypes } = useTypesStore();
   const { shortenTextAfterLength: length = 30 } = useStore();
   const { as, render, ...reset } = Str;
@@ -87,14 +86,13 @@ export const TypeString: FC<TypeProps> = ({ children = '', expandKey, keyName })
           <ValueQuote />
         </Fragment>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeString.displayName = 'JVR.TypeString';
 
-export const TypeTrue: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeTrue: FC<TypeProps> = ({ children, keyName }) => {
   const { True = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = True;
   const Comp = as || 'span';
@@ -115,14 +113,13 @@ export const TypeTrue: FC<TypeProps> = ({ children, expandKey, keyName }) => {
           {children?.toString()}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeTrue.displayName = 'JVR.TypeTrue';
 
-export const TypeFalse: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeFalse: FC<TypeProps> = ({ children, keyName }) => {
   const { False = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = False;
   const Comp = as || 'span';
@@ -144,14 +141,13 @@ export const TypeFalse: FC<TypeProps> = ({ children, expandKey, keyName }) => {
           {children?.toString()}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeFalse.displayName = 'JVR.TypeFalse';
 
-export const TypeFloat: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeFloat: FC<TypeProps> = ({ children, keyName }) => {
   const { Float = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Float;
   const Comp = as || 'span';
@@ -173,14 +169,13 @@ export const TypeFloat: FC<TypeProps> = ({ children, expandKey, keyName }) => {
           {children?.toString()}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeFloat.displayName = 'JVR.TypeFloat';
 
-export const TypeInt: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeInt: FC<TypeProps> = ({ children, keyName }) => {
   const { Int = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Int;
   const Comp = as || 'span';
@@ -202,18 +197,13 @@ export const TypeInt: FC<TypeProps> = ({ children, expandKey, keyName }) => {
           {children?.toString()}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeInt.displayName = 'JVR.TypeInt';
 
-export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>> = ({
-  children,
-  expandKey,
-  keyName,
-}) => {
+export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
   const { Bigint: CompBigint = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompBigint;
   const Comp = as || 'span';
@@ -235,14 +225,13 @@ export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>>
           {children?.toString() + 'n'}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeBigint.displayName = 'JVR.TypeFloat';
 
-export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ children, expandKey, keyName }) => {
+export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
   const { Url = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Url;
   const Comp = as || 'span';
@@ -270,14 +259,13 @@ export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ 
           <ValueQuote />
         </a>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeUrl.displayName = 'JVR.TypeUrl';
 
-export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = ({ children, expandKey, keyName }) => {
+export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
   const { Date: CompData = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompData;
   const Comp = as || 'span';
@@ -301,14 +289,13 @@ export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = (
           {childStr}
         </Comp>
       )}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeDate.displayName = 'JVR.TypeDate';
 
-export const TypeUndefined: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeUndefined: FC<TypeProps> = ({ children, keyName }) => {
   const { Undefined = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Undefined;
   const Comp = as || 'span';
@@ -326,14 +313,13 @@ export const TypeUndefined: FC<TypeProps> = ({ children, expandKey, keyName }) =
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeUndefined.displayName = 'JVR.TypeUndefined';
 
-export const TypeNull: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeNull: FC<TypeProps> = ({ children, keyName }) => {
   const { Null = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Null;
   const Comp = as || 'span';
@@ -351,14 +337,13 @@ export const TypeNull: FC<TypeProps> = ({ children, expandKey, keyName }) => {
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
 
 TypeNull.displayName = 'JVR.TypeNull';
 
-export const TypeNan: FC<TypeProps> = ({ children, expandKey, keyName }) => {
+export const TypeNan: FC<TypeProps> = ({ children, keyName }) => {
   const { Nan = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Nan;
   const Comp = as || 'span';
@@ -380,7 +365,6 @@ export const TypeNan: FC<TypeProps> = ({ children, expandKey, keyName }) => {
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child}
-      <Copied keyName={keyName} value={children as object} expandKey={expandKey} />
     </Fragment>
   );
 };
