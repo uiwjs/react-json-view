@@ -166,18 +166,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1293x</span>
-<span class="cline-any cline-yes">1293x</span>
-<span class="cline-any cline-yes">1293x</span>
-<span class="cline-any cline-yes">1293x</span>
-<span class="cline-any cline-yes">1293x</span>
-<span class="cline-any cline-yes">1293x</span>
+<span class="cline-any cline-yes">1291x</span>
+<span class="cline-any cline-yes">1291x</span>
+<span class="cline-any cline-yes">1291x</span>
+<span class="cline-any cline-yes">1291x</span>
+<span class="cline-any cline-yes">1291x</span>
+<span class="cline-any cline-yes">1291x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1293x</span>
+<span class="cline-any cline-yes">1291x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -203,31 +202,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,6 +240,7 @@ import { useStore } from '../store';
 import { useShowToolsStore } from '../store/ShowTools';
 import { useSectionStore } from '../store/Section';
 import { type TagType } from '../store/Types';
+import { type SectionElementResult } from '../store/Section';
 &nbsp;
 export type CopiedOption&lt;T extends object&gt; = {
   value?: T;
@@ -247,14 +248,12 @@ export type CopiedOption&lt;T extends object&gt; = {
   setCopied: React.Dispatch&lt;React.SetStateAction&lt;boolean&gt;&gt;;
 };
 &nbsp;
-export interface CopiedProps&lt;T extends object&gt; extends React.SVGProps&lt;SVGSVGElement&gt; {
-  value?: T;
-  keyName: string | number;
+export interface CopiedProps&lt;T extends object&gt; extends React.SVGProps&lt;SVGSVGElement&gt;, SectionElementResult&lt;T&gt; {
   expandKey: string;
 }
 &nbsp;
 export const Copied = &lt;T extends object, K extends TagType&gt;(props: CopiedProps&lt;T&gt;) =&gt; {
-  const { keyName, value, expandKey, ...other } = props;
+  const { keyName, value, parentValue, expandKey, keys, ...other } = props;
   const { onCopied, enableClipboard } = useStore();
   const showTools = useShowToolsStore();
   const isShowTools = showTools[expandKey];
@@ -304,7 +303,8 @@ export const Copied = &lt;T extends object, K extends TagType&gt;(props: CopiedP
   } as React.SVGProps&lt;SVGSVGElement&gt;;
   const isRender = render &amp;&amp; typeof render === 'function';
   const child =
-    isRender &amp;&amp; render({ ...elmProps, 'data-copied': copied } as React.HTMLAttributes&lt;K&gt;, { value, keyName });
+    isRender &amp;&amp;
+    render({ ...elmProps, 'data-copied': copied } as React.HTMLAttributes&lt;K&gt;, { value, keyName, keys, parentValue });
   if (child) return child;
   if (copied) {
     return (
@@ -328,7 +328,7 @@ Copied.displayName = 'JVR.Copied';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T05:10:55.321Z
+                at 2024-02-29T08:53:45.489Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
