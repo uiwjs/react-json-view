@@ -86,9 +86,15 @@
     "react-dom": ">=18.0.0"
   },
   "files": [
-    "editor.d.ts",
+    "basic.d.ts",
     "dark.d.ts",
+    "editor.d.ts",
+    "githubDark.d.ts",
+    "githubLight.d.ts",
+    "gruvbox.d.ts",
     "light.d.ts",
+    "monokai.d.ts",
+    "nord.d.ts",
     "triangle-arrow.d.ts",
     "triangle-solid-arrow.d.ts",
     "cjs",
