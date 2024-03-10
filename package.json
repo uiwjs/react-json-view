@@ -8,7 +8,7 @@
     "type-check": "lerna exec \"tsc --noEmit\" --scope @uiw/* --stream",
     "test": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom",
     "coverage": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom --coverage --bail",
-    "prepare": "husky install",
+    "prepare": "husky",
     "publish": "lerna publish from-package --yes --no-verify-access",
     "version": "lerna version --exact --force-publish --no-push --no-git-tag-version",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
@@ -27,7 +27,7 @@
     "typescript": "^5.1.3"
   },
   "devDependencies": {
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "lint-staged": "^14.0.0",
     "lerna": "^8.0.0",
     "prettier": "^3.0.0",
