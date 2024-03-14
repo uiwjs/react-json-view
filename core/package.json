@@ -97,6 +97,7 @@
     "nord.d.ts",
     "triangle-arrow.d.ts",
     "triangle-solid-arrow.d.ts",
+    "vscode.d.ts",
     "cjs",
     "esm"
   ],
