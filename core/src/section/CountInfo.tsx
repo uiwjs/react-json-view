@@ -33,7 +33,7 @@ export const CountInfoComp = <K extends TagType, T extends object>(
 
   const len = Object.keys(value).length;
   if (!reset.children) {
-    reset.children = `${len} items`;
+    reset.children = `${len} item${len === 1 ? '' : 's'}`;
   }
 
   const elmProps = { ...reset, ...other };
