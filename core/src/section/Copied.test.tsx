@@ -9,7 +9,7 @@ const example = {
   avatar,
 };
 
-it('renders <JsonView /> Copied test case', async () => {
+it('renders <JsonView /> Copied String test case', async () => {
   const user = userEvent.setup();
   // Mock the necessary functions and values
   const writeTextMock = jest.fn().mockResolvedValue(undefined);
@@ -151,7 +151,7 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView.Copied /> copy Infinity test case', async () => {
+it('renders <JsonView.Copied /> copy BigInt test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -174,5 +174,38 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
   fireEvent.mouseLeave(lineDom);
   const bigint = screen.getAllByTestId('bigint')[1];
   expect(bigint.nextElementSibling).toBeNull();
+  jest.restoreAllMocks();
+});
+
+const exampleWithBigInt = {
+  avatar,
+  bigint: BigInt(1000),
+};
+
+const exampleWithBigIntAnswer = {
+  avatar,
+  bigint: BigInt(1000).toString() + 'n',
+};
+
+it('renders <JsonView.Copied /> copy Object with BigInt test case', async () => {
+  const user = userEvent.setup();
+
+  // Mock the necessary functions and values
+  const writeTextMock = jest.fn().mockResolvedValue(undefined);
+  jest.spyOn(navigator.clipboard, 'writeText').mockImplementation(writeTextMock);
+  const { container, debug } = render(
+    <JsonView value={exampleWithBigInt}>
+      <JsonView.Copied data-testid="copied" />
+      <JsonView.CountInfo data-testid="countInfo" />
+    </JsonView>,
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  fireEvent.mouseEnter(container.lastElementChild!);
+  const copied = screen.getByTestId('copied');
+  await user.click(copied);
+  // Assertions
+  expect(navigator.clipboard.writeText).toHaveBeenCalledWith(JSON.stringify(exampleWithBigIntAnswer, null, 2));
+  await user.unhover(container.lastElementChild!);
+  // Restore the original implementation
   jest.restoreAllMocks();
 });
