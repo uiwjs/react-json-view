@@ -8,8 +8,18 @@ const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
 const example = {
   avatar,
 };
+const exampleWithBigInt = {
+  avatar,
+  bigint: BigInt(1000),
+};
 
-it('renders <JsonView /> Copied test case', async () => {
+// BigInt(1000) should render to '1000n'
+const exampleWithBigIntAnswer = {
+  avatar,
+  bigint: BigInt(1000).toString() + 'n',
+};
+
+it('render <JsonView />, copy String test case', async () => {
   const user = userEvent.setup();
   // Mock the necessary functions and values
   const writeTextMock = jest.fn().mockResolvedValue(undefined);
@@ -54,7 +64,7 @@ it('renders <JsonView /> Copied test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView /> Copy number test case', async () => {
+it('render <JsonView />, copy Number test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -77,7 +87,7 @@ it('renders <JsonView /> Copy number test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView.Copied /> render test case', async () => {
+it('render <JsonView.Copied />, copy Number test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -107,7 +117,7 @@ it('renders <JsonView.Copied /> render test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView.Copied /> copy NaN test case', async () => {
+it('render <JsonView.Copied />, copy NaN test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -129,7 +139,7 @@ it('renders <JsonView.Copied /> copy NaN test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView.Copied /> copy Infinity test case', async () => {
+it('render <JsonView.Copied />, copy Infinity test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -151,7 +161,7 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
   jest.restoreAllMocks();
 });
 
-it('renders <JsonView.Copied /> copy Infinity test case', async () => {
+it('render <JsonView.Copied />, copy BigInt test case', async () => {
   const user = userEvent.setup();
 
   // Mock the necessary functions and values
@@ -174,5 +184,28 @@ it('renders <JsonView.Copied /> copy Infinity test case', async () => {
   fireEvent.mouseLeave(lineDom);
   const bigint = screen.getAllByTestId('bigint')[1];
   expect(bigint.nextElementSibling).toBeNull();
+  jest.restoreAllMocks();
+});
+
+it('render <JsonView.Copied />, copy Object with BigInt test case', async () => {
+  const user = userEvent.setup();
+
+  // Mock the necessary functions and values
+  const writeTextMock = jest.fn().mockResolvedValue(undefined);
+  jest.spyOn(navigator.clipboard, 'writeText').mockImplementation(writeTextMock);
+  const { container, debug } = render(
+    <JsonView value={exampleWithBigInt}>
+      <JsonView.Copied data-testid="copied" />
+      <JsonView.CountInfo data-testid="countInfo" />
+    </JsonView>,
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  fireEvent.mouseEnter(container.lastElementChild!);
+  const copied = screen.getByTestId('copied');
+  await user.click(copied);
+  // Assertions
+  expect(navigator.clipboard.writeText).toHaveBeenCalledWith(JSON.stringify(exampleWithBigIntAnswer, null, 2));
+  await user.unhover(container.lastElementChild!);
+  // Restore the original implementation
   jest.restoreAllMocks();
 });

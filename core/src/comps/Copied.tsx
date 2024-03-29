@@ -37,7 +37,7 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
     } else if (value instanceof Date) {
       copyText = value.toLocaleString();
     } else {
-      copyText = JSON.stringify(value, null, 2);
+      copyText = JSON.stringify(value, (_, v) => (typeof v === 'bigint' ? v + 'n' : v), 2);
     }
     onCopied && onCopied(copyText, value);
     setCopied(true);
