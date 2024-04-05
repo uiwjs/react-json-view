@@ -18,6 +18,7 @@
   "license": "MIT",
   "workspaces": [
     "core",
+    "example",
     "www"
   ],
   "engines": {
