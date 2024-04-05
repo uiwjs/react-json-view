@@ -27,7 +27,9 @@ export const KeyNameComp = <T extends object>(props: PropsWithChildren<KeyNameCo
   reset.style = { ...reset.style, ...style };
   const Elm = as || 'span';
   const child =
-    render && typeof render === 'function' && render({ ...reset, children }, { value, parentValue, keyName, keys });
+    render &&
+    typeof render === 'function' &&
+    render({ ...reset, children }, { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) });
   if (child) return child;
   return <Elm {...reset}>{children}</Elm>;
 };
