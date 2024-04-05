@@ -1,8 +1,20 @@
 import { FC, Fragment, PropsWithChildren, useEffect, useState } from 'react';
-import { useTypesStore } from '../store/Types';
 import { useStore } from '../store';
+import { useTypesStore } from '../store/Types';
 import { ValueQuote } from '../symbol';
-import { Copied } from '../comps/Copied';
+
+export const bigIntToString = (bi?: BigInt | string) => {
+  if (bi === undefined) {
+    return '0n';
+  } else if (typeof bi === 'string') {
+    try {
+      bi = BigInt(bi);
+    } catch (e) {
+      return '0n';
+    }
+  }
+  return bi ? bi.toString() + 'n' : '0n';
+};
 
 export const SetComp: FC<PropsWithChildren<{ value: unknown; keyName: string | number }>> = ({ value, keyName }) => {
   const { Set: Comp = {}, displayDataTypes } = useTypesStore();
@@ -222,7 +234,7 @@ export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child || (
         <Comp {...reset} className="w-rjv-value">
-          {children?.toString() + 'n'}
+          {bigIntToString(children?.toString())}
         </Comp>
       )}
     </Fragment>

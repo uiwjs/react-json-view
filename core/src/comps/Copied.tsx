@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useStore } from '../store';
+import { useSectionStore, type SectionElementResult } from '../store/Section';
 import { useShowToolsStore } from '../store/ShowTools';
-import { useSectionStore } from '../store/Section';
 import { type TagType } from '../store/Types';
-import { type SectionElementResult } from '../store/Section';
+import { bigIntToString } from '../types';
 
 export type CopiedOption<T extends object> = {
   value?: T;
@@ -33,11 +33,11 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
     } else if (typeof value === 'number' && isNaN(value)) {
       copyText = 'NaN';
     } else if (typeof value === 'bigint') {
-      copyText = value + 'n';
+      copyText = bigIntToString(value);
     } else if (value instanceof Date) {
       copyText = value.toLocaleString();
     } else {
-      copyText = JSON.stringify(value, (_, v) => (typeof v === 'bigint' ? v + 'n' : v), 2);
+      copyText = JSON.stringify(value, (_, v) => (typeof v === 'bigint' ? bigIntToString(v) : v), 2);
     }
     onCopied && onCopied(copyText, value);
     setCopied(true);
