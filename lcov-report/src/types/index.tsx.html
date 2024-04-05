@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">98.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>149/149</span>
+                <span class='fraction'>155/157</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.95% </span>
+                <span class="strong">80.55% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>170/210</span>
+                <span class='fraction'>174/216</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">98.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>144/144</span>
+                <span class='fraction'>150/152</span>
             </div>
         
             
@@ -435,10 +435,34 @@
 <a name='L370'></a><a href='#L370'>370</a>
 <a name='L371'></a><a href='#L371'>371</a>
 <a name='L372'></a><a href='#L372'>372</a>
-<a name='L373'></a><a href='#L373'>373</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
@@ -808,10 +832,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, Fragment, PropsWithChildren, useEffect, useState } from 'react';
-import { useTypesStore } from '../store/Types';
 import { useStore } from '../store';
+import { useTypesStore } from '../store/Types';
 import { ValueQuote } from '../symbol';
-import { Copied } from '../comps/Copied';
+&nbsp;
+export const bigIntToString = (bi?: BigInt | string) =&gt; {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (bi === undefined) {
+<span class="cstat-no" title="statement not covered" >    return '0n';</span>
+  } else if (typeof bi === 'string') {
+    try {
+      bi = BigInt(bi);
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      return '0n';</span>
+    }
+  }
+  return bi ? bi.toString() + 'n' : <span class="branch-1 cbranch-no" title="branch not covered" >'0n';</span>
+};
 &nbsp;
 export const SetComp: FC&lt;PropsWithChildren&lt;{ value: unknown; keyName: string | number }&gt;&gt; = ({ value, keyName }) =&gt; {
   const { Set: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
@@ -1031,7 +1067,7 @@ export const TypeBigint: FC&lt;{ children?: BigInt } &amp; Omit&lt;TypeProps, 'c
       {displayDataTypes &amp;&amp; (type || &lt;Comp {...reset} style={style} /&gt;)}
       {child || (
         &lt;Comp {...reset} className="w-rjv-value"&gt;
-          {children?.toString() + 'n'}
+          {bigIntToString(children?.toString())}
         &lt;/Comp&gt;
       )}
     &lt;/Fragment&gt;
@@ -1186,7 +1222,7 @@ TypeNan.displayName = 'JVR.TypeNan';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-05T05:23:23.222Z
+                at 2024-04-05T06:28:29.409Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
