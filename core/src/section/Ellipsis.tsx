@@ -23,7 +23,8 @@ export const EllipsisComp = <T extends object>({ isExpanded, value, keyName }: E
   const child =
     render && typeof render === 'function' && render({ ...reset, 'data-expanded': isExpanded }, { value, keyName });
   if (child) return child;
-  if (!isExpanded) return null;
+
+  if (!isExpanded || (typeof value === 'object' && Object.keys(value).length == 0)) return null;
   return <Elm {...reset} />;
 };
 
