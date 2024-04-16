@@ -1,13 +1,13 @@
 {
   "name": "example",
-  "version": "2.0.0-alpha.23",
+  "version": "2.0.0-alpha.24",
   "preview": true,
   "scripts": {
     "build": "kkt build",
     "start": "kkt start"
   },
   "dependencies": {
-    "@uiw/react-json-view": "2.0.0-alpha.23",
+    "@uiw/react-json-view": "2.0.0-alpha.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
