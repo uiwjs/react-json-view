@@ -60,8 +60,8 @@ export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
   const { shortenTextAfterLength: length = 30 } = useStore();
   const { as, render, ...reset } = Str;
   const childrenStr = children as string;
-  const [shorten, setShorten] = useState(length && childrenStr.length >= length);
-  useEffect(() => setShorten(length && childrenStr.length >= length), [length]);
+  const [shorten, setShorten] = useState(length && childrenStr.length > length);
+  useEffect(() => setShorten(length && childrenStr.length > length), [length]);
   const Comp = as || 'span';
   const style: React.CSSProperties = {
     ...defalutStyle,
