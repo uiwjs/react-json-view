@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">71.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/39</span>
+                <span class='fraction'>37/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.32% </span>
+                <span class="strong">82.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>28/31</span>
+                <span class='fraction'>29/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">69.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/36</span>
+                <span class='fraction'>34/49</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -149,7 +149,28 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,6 +213,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -278,7 +320,28 @@ export const Copied = &lt;T extends object, K extends TagType&gt;(props: CopiedP
     }
     onCopied &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >onCopied(copyText, value);</span>
     setCopied(true);
-    navigator.clipboard
+&nbsp;
+    const _clipboard = navigator.clipboard || <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
+<span class="fstat-no" title="function not covered" >      wr</span>iteText(text: string) {
+<span class="cstat-no" title="statement not covered" >        return new Promise(<span class="fstat-no" title="function not covered" >(r</span>eslove, reject) =&gt; {</span>
+          const textarea = <span class="cstat-no" title="statement not covered" >document.createElement('textarea');</span>
+<span class="cstat-no" title="statement not covered" >          textarea.style.position = 'absolute';</span>
+<span class="cstat-no" title="statement not covered" >          textarea.style.opacity = '0';</span>
+<span class="cstat-no" title="statement not covered" >          textarea.style.left = '-99999999px';</span>
+<span class="cstat-no" title="statement not covered" >          textarea.value = text;</span>
+<span class="cstat-no" title="statement not covered" >          document.body.appendChild(textarea);</span>
+<span class="cstat-no" title="statement not covered" >          textarea.select();</span>
+<span class="cstat-no" title="statement not covered" >          if (!document.execCommand('copy')) {</span>
+<span class="cstat-no" title="statement not covered" >            reject();</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            reslove();</span>
+          }
+<span class="cstat-no" title="statement not covered" >          textarea.remove();</span>
+        });
+      },
+    };
+&nbsp;
+    _clipboard
       .writeText(copyText)
       .then(() =&gt; {
         const timer = setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
@@ -328,7 +391,7 @@ Copied.displayName = 'JVR.Copied';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-14T16:34:30.893Z
+                at 2024-08-06T02:05:03.992Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
