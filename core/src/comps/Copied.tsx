@@ -41,7 +41,28 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
     }
     onCopied && onCopied(copyText, value);
     setCopied(true);
-    navigator.clipboard
+
+    const _clipboard = navigator.clipboard || {
+      writeText(text: string) {
+        return new Promise((reslove, reject) => {
+          const textarea = document.createElement('textarea');
+          textarea.style.position = 'absolute';
+          textarea.style.opacity = '0';
+          textarea.style.left = '-99999999px';
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          if (!document.execCommand('copy')) {
+            reject();
+          } else {
+            reslove();
+          }
+          textarea.remove();
+        });
+      },
+    };
+
+    _clipboard
       .writeText(copyText)
       .then(() => {
         const timer = setTimeout(() => {
