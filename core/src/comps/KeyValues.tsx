@@ -1,4 +1,4 @@
-import { Fragment, useId, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { useShowToolsDispatch } from '../store/ShowTools';
@@ -10,6 +10,7 @@ import { Quote, Colon } from '../symbol';
 import { useHighlight } from '../utils/useHighlight';
 import { type SectionElementResult } from '../store/Section';
 import { Copied } from '../comps/Copied';
+import { useIdCompat } from '../comps/useIdCompat';
 
 interface KeyValuesProps<T extends object> extends SectionElementResult<T> {
   expandKey?: string;
@@ -84,7 +85,7 @@ KayName.displayName = 'JVR.KayName';
 export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   const { keyName, value, parentValue, level = 0, keys = [] } = props;
   const dispatch = useShowToolsDispatch();
-  const subkeyid = useId();
+  const subkeyid = useIdCompat();
   const isMyArray = Array.isArray(value);
   const isMySet = value instanceof Set;
   const isMyMap = value instanceof Map;
