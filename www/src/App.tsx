@@ -38,7 +38,7 @@ export default function App() {
           Editor
         </Button> */}
       </TabItem>
-      {/* {tabs === 'preview' && <Example />} */}
+      {tabs === 'preview' && <Example />}
       {/* {tabs === 'editor' && <ExampleEditor />} */}
     </ExampleWrapper>
   );
