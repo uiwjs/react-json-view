@@ -66,16 +66,15 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
   const isNumber = typeof keyName === 'number';
   const highlightContainer = useRef<HTMLSpanElement>(null);
   useHighlight({ value, highlightUpdates, highlightContainer });
+  const compProps = { keyName, value, keys, parentValue };
   return (
     <Fragment>
       <span ref={highlightContainer}>
-        <Quote isNumber={isNumber} data-placement="left" />
-        <KeyNameComp keyName={keyName!} value={value} keys={keys} parentValue={parentValue}>
-          {keyName}
-        </KeyNameComp>
-        <Quote isNumber={isNumber} data-placement="right" />
+        <Quote isNumber={isNumber} data-placement="left" {...compProps} />
+        <KeyNameComp {...compProps}>{keyName}</KeyNameComp>
+        <Quote isNumber={isNumber} data-placement="right" {...compProps} />
       </span>
-      <Colon />
+      <Colon {...compProps} />
     </Fragment>
   );
 };

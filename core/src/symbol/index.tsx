@@ -1,15 +1,18 @@
-import { useSymbolsStore, type SymbolsElement } from '../store/Symbols';
+import { useSymbolsStore, type SymbolsElement, type SymbolsElementResult } from '../store/Symbols';
 import { type TagType } from '../store/Types';
 import { useExpandsStore } from '../store/Expands';
 
-export const Quote = (props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement>) => {
+export const Quote = <T extends object>(
+  props: { isNumber?: boolean } & React.HTMLAttributes<HTMLElement> & SymbolsElementResult<T>,
+) => {
   const { Quote: Comp = {} } = useSymbolsStore();
-  const { isNumber, ...other } = props;
+  const { isNumber, value, parentValue, keyName, keys, ...other } = props;
   if (isNumber) return null;
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
   const elmProps = { ...other, ...reset };
-  const child = render && typeof render === 'function' && render(elmProps);
+  let result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
+  const child = render && typeof render === 'function' && render(elmProps, result);
   if (child) return child;
   return <Elm {...elmProps} />;
 };
@@ -22,59 +25,68 @@ export const ValueQuote = (props: React.HTMLAttributes<HTMLElement>) => {
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
   const elmProps = { ...other, ...reset };
-  const child = render && typeof render === 'function' && render(elmProps);
+  const child = render && typeof render === 'function' && render(elmProps, {});
   if (child) return child;
   return <Elm {...elmProps} />;
 };
 
 ValueQuote.displayName = 'JVR.ValueQuote';
 
-export const Colon = () => {
+export const Colon = <T extends object>(props: SymbolsElementResult<T>) => {
+  const { value, parentValue, keyName, keys } = props;
   const { Colon: Comp = {} } = useSymbolsStore();
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
-  const child = render && typeof render === 'function' && render(reset);
+  const child =
+    render &&
+    typeof render === 'function' &&
+    render(reset, {
+      value,
+      parentValue,
+      keyName,
+      keys: keys || (keyName ? [keyName] : []),
+    });
   if (child) return child;
   return <Elm {...reset} />;
 };
 
 Colon.displayName = 'JVR.Colon';
 
-export const Arrow = <T extends TagType>(props: SymbolsElement<T> & { expandKey: string }) => {
+export const Arrow = <T extends TagType, K extends object>(
+  props: SymbolsElement<T> & { expandKey: string } & SymbolsElementResult<K>,
+) => {
   const { Arrow: Comp = {} } = useSymbolsStore();
   const expands = useExpandsStore();
-  const { expandKey } = props;
+  const { expandKey, style: resetStyle, value, parentValue, keyName, keys } = props;
   const isExpanded = !!expands[expandKey];
   const { as, style, render, ...reset } = Comp;
   const Elm = as || 'span';
   const isRender = render && typeof render === 'function';
-  const child = isRender && render({ ...reset, 'data-expanded': isExpanded, style: { ...style, ...props.style } });
+  const elmProps = { ...reset, 'data-expanded': isExpanded, style: { ...style, ...resetStyle } };
+  const result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
+  const child = isRender && render(elmProps, result);
   if (child) return child;
-  return <Elm {...reset} style={{ ...style, ...props.style }} />;
+  return <Elm {...reset} style={{ ...style, ...resetStyle }} />;
 };
 
 Arrow.displayName = 'JVR.Arrow';
 
-type EllipsisProps<T extends object> = {
-  isExpanded?: boolean;
-  keyName: string | number;
-  value?: T;
-};
-
-export const BracketsOpen = ({ isBrackets }: { isBrackets?: boolean }) => {
+export const BracketsOpen = <K extends object>(props: { isBrackets?: boolean } & SymbolsElementResult<K>) => {
+  const { isBrackets, value, parentValue, keyName, keys } = props;
   const { BracketsLeft = {}, BraceLeft = {} } = useSymbolsStore();
+  const result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
   if (isBrackets) {
     const { as, render, ...reset } = BracketsLeft;
     const BracketsLeftComp = as || 'span';
-    const child = render && typeof render === 'function' && render(reset);
+    const child = render && typeof render === 'function' && render(reset, result);
     if (child) return child;
     return <BracketsLeftComp {...reset} />;
   }
-  const { as: elm, render, ...props } = BraceLeft;
+  const { as: elm, render, ...resetProps } = BraceLeft;
   const BraceLeftComp = elm || 'span';
-  const child = render && typeof render === 'function' && render(props);
+  const child = render && typeof render === 'function' && render(resetProps, result);
   if (child) return child;
-  return <BraceLeftComp {...props} />;
+  return <BraceLeftComp {...resetProps} />;
 };
 
 BracketsOpen.displayName = 'JVR.BracketsOpen';
@@ -84,19 +96,21 @@ type BracketsCloseProps = {
   isVisiable?: boolean;
 };
 
-export const BracketsClose = ({ isBrackets, isVisiable }: BracketsCloseProps) => {
+export const BracketsClose = <K extends object>(props: BracketsCloseProps & SymbolsElementResult<K>) => {
+  const { isBrackets, isVisiable, value, parentValue, keyName, keys } = props;
+  const result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
   if (!isVisiable) return null;
   const { BracketsRight = {}, BraceRight = {} } = useSymbolsStore();
   if (isBrackets) {
     const { as, render, ...reset } = BracketsRight;
     const BracketsRightComp = as || 'span';
-    const child = render && typeof render === 'function' && render(reset);
+    const child = render && typeof render === 'function' && render(reset, result);
     if (child) return child;
     return <BracketsRightComp {...reset} />;
   }
   const { as: elm, render, ...reset } = BraceRight;
   const BraceRightComp = elm || 'span';
-  const child = render && typeof render === 'function' && render(reset);
+  const child = render && typeof render === 'function' && render(reset, result);
   if (child) return child;
   return <BraceRightComp {...reset} />;
 };

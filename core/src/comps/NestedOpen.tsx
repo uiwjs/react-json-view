@@ -40,15 +40,16 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   if (showArrow) {
     reset.onClick = click;
   }
+  const compProps = { keyName, value, keys, parentValue };
   return (
     <span {...reset}>
-      {showArrow && <Arrow style={arrowStyle} expandKey={expandKey} />}
+      {showArrow && <Arrow style={arrowStyle} expandKey={expandKey} {...compProps} />}
       {(keyName || typeof keyName === 'number') && <KayName keyName={keyName} />}
       <SetComp value={initialValue} keyName={keyName!} />
       <MapComp value={initialValue} keyName={keyName!} />
-      <BracketsOpen isBrackets={isArray || isMySet} />
+      <BracketsOpen isBrackets={isArray || isMySet} {...compProps} />
       <EllipsisComp keyName={keyName!} value={value} isExpanded={isExpanded} />
-      <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} />
+      <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} {...compProps} />
       <CountInfoComp value={value} keyName={keyName!} />
       <CountInfoExtraComps value={value} keyName={keyName!} />
       <Copied keyName={keyName!} value={value} expandKey={expandKey} parentValue={parentValue} keys={keys} />

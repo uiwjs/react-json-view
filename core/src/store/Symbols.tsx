@@ -10,9 +10,17 @@ import {
 import { type TagType } from './Types';
 import { TriangleArrow } from '../arrow/TriangleArrow';
 
+export interface SymbolsElementResult<T extends object, K = string | number> {
+  value?: T;
+  parentValue?: T;
+  keyName?: K;
+  /** Index of the parent `keyName` */
+  keys?: K[];
+}
+
 type SymbolsElementProps<T extends TagType = 'span'> = {
   as?: T;
-  render?: (props: SymbolsElement<T>) => React.ReactNode;
+  render?: (props: SymbolsElement<T>, result: SymbolsElementResult<object>) => React.ReactNode;
   'data-type'?: string;
 };
 export type SymbolsElement<T extends TagType = 'span'> = SymbolsElementProps<T> & ComponentPropsWithoutRef<T>;

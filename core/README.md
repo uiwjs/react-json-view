@@ -127,7 +127,6 @@ export default function Demo() {
 }
 ```
 
-
 Example of custom `vscode` theme styles: 
 
 ```tsx mdx:preview
@@ -681,6 +680,35 @@ export default function Demo() {
 ```
 
 This feature can be disabled with `highlightUpdates={false}`, and the default color can be changed with `--w-rjv-update-color`.
+
+## Do not display array index
+
+```tsx mdx:preview
+import React, { Fragment } from 'react';
+import JsonView from '@uiw/react-json-view';
+
+export default function Demo() {
+  const value = { data: ["123", 23] }
+  return (
+    <JsonView value={value} style={{ '--w-rjv-background-color': '#ffffff' }}>
+        <JsonView.Colon render={(props, { parentValue, value, keyName }) => {
+            if (Array.isArray(parentValue) && props.children == ":") {
+              return <span />
+            }
+            return <span {...props} />
+        }}/>
+        <JsonView.KeyName 
+          render={({ ...props }, { type, parentValue, value, keyName }) => {
+            if (Array.isArray(parentValue) && Number.isFinite( props.children)) {
+              return <span />
+            }
+            return <span {...props} />
+          }}
+        />
+    </JsonView>
+  )
+}
+```
 
 ## Modify Icon Style
 
