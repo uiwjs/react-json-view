@@ -6,18 +6,26 @@ interface NestedCloseProps<T extends object> {
   value?: T;
   expandKey: string;
   level: number;
+  keys?: (string | number)[];
 }
 
 export const NestedClose = <T extends object>(props: NestedCloseProps<T>) => {
-  const { value, expandKey, level } = props;
+  const { value, expandKey, level, keys = [] } = props;
   const expands = useExpandsStore();
   const isArray = Array.isArray(value);
-  const { collapsed } = useStore();
+  const { collapsed, shouldExpandNodeInitially } = useStore();
   const isMySet = value instanceof Set;
-  const isExpanded =
-    expands[expandKey] ??
-    (typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false);
+  const defaultExpanded =
+    typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
+  const isExpanded = expands[expandKey] ?? defaultExpanded;
   const len = Object.keys(value!).length;
+  if (
+    expands[expandKey] === undefined &&
+    shouldExpandNodeInitially &&
+    shouldExpandNodeInitially(isExpanded, { value, keys, level })
+  ) {
+    return null;
+  }
   if (isExpanded || len === 0) {
     return null;
   }

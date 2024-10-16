@@ -57,6 +57,11 @@ export interface JsonViewProps<T extends object>
   enableClipboard?: boolean;
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
   collapsed?: boolean | number;
+  /** Determine whether the node should be expanded on the first render, or you can use collapsed to control the level of expansion (by default, the root is expanded). */
+  shouldExpandNodeInitially?: (
+    isExpanded: boolean,
+    props: { value?: T; keys: (number | string)[]; level: number },
+  ) => boolean;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
   /** Shorten long JSON strings, Set to `0` to disable this feature @default 30 */
@@ -107,6 +112,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     value,
     children,
     collapsed,
+    shouldExpandNodeInitially,
     indentWidth = 15,
     displayObjectSize = true,
     shortenTextAfterLength = 30,
@@ -133,6 +139,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
         value,
         objectSortKeys,
         indentWidth,
+        shouldExpandNodeInitially,
         displayObjectSize,
         collapsed,
         enableClipboard,

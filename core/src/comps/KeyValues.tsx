@@ -20,11 +20,18 @@ interface KeyValuesProps<T extends object> extends SectionElementResult<T> {
 export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
   const { value, expandKey = '', level, keys = [] } = props;
   const expands = useExpandsStore();
-  const { objectSortKeys, indentWidth, collapsed } = useStore();
+  const { objectSortKeys, indentWidth, collapsed, shouldExpandNodeInitially } = useStore();
   const isMyArray = Array.isArray(value);
-  const isExpanded =
-    expands[expandKey] ??
-    (typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false);
+  const defaultExpanded =
+    typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
+  const isExpanded = expands[expandKey] ?? defaultExpanded;
+  if (
+    expands[expandKey] === undefined &&
+    shouldExpandNodeInitially &&
+    shouldExpandNodeInitially(isExpanded, { value, keys, level })
+  ) {
+    return null;
+  }
   if (isExpanded) {
     return null;
   }

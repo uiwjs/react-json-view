@@ -18,6 +18,7 @@ export interface InitialState<T extends object> {
   enableClipboard?: JsonViewProps<T>['enableClipboard'];
   highlightUpdates?: JsonViewProps<T>['highlightUpdates'];
   collapsed?: JsonViewProps<T>['collapsed'];
+  shouldExpandNodeInitially?: JsonViewProps<T>['shouldExpandNodeInitially'];
   indentWidth?: number;
 }
 

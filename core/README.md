@@ -710,6 +710,45 @@ export default function Demo() {
 }
 ```
 
+## Default Collapse/Expand
+
+```tsx mdx:preview
+import React from 'react';
+import JsonView from '@uiw/react-json-view';
+const object = {
+  string: 'Lorem ipsum dolor sit amet',
+  integer: 42,
+  float: 114.514,
+  object: {
+    'first-child': true,
+    'second-child': false,
+    'last-child': null,
+  },
+  nestedArray: [
+    [1, 2],
+    [3, 4],
+  ],
+}
+export default function Demo() {
+  return (
+    <JsonView
+      value={object}
+      collapsed={2}
+      shouldExpandNodeInitially={(isExpanded, { value, keys, level }) => {
+        if (keys.length > 0 && keys[0] == "object") {
+          return true
+        }
+        return isExpanded
+      }}
+      style={{
+        '--w-rjv-background-color': '#ffffff',
+      }}
+    >
+    </JsonView>
+  )
+}
+```
+
 ## Modify Icon Style
 
 Use built-in default icons.

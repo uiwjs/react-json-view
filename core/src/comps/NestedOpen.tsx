@@ -16,16 +16,20 @@ export interface NestedOpenProps<T extends object> extends SectionElementResult<
 }
 
 export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
-  const { keyName, expandKey, keys, initialValue, value, parentValue, level } = props;
+  const { keyName, expandKey, keys = [], initialValue, value, parentValue, level } = props;
   const expands = useExpandsStore();
   const dispatchExpands = useExpandsDispatch();
-  const { onExpand, collapsed } = useStore();
+  const { onExpand, collapsed, shouldExpandNodeInitially } = useStore();
   const isArray = Array.isArray(value);
   const isMySet = value instanceof Set;
-  const isExpanded =
-    expands[expandKey] ??
-    (typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false);
+  const defaultExpanded =
+    typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
   const isObject = typeof value === 'object';
+  let isExpanded = expands[expandKey] ?? defaultExpanded;
+  const shouldExpand = shouldExpandNodeInitially && shouldExpandNodeInitially(isExpanded, { value, keys, level });
+  if (expands[expandKey] === undefined && shouldExpand !== undefined) {
+    isExpanded = shouldExpand;
+  }
   const click = () => {
     const opt = { expand: !isExpanded, value, keyid: expandKey, keyName };
     onExpand && onExpand(opt);
