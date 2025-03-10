@@ -19,20 +19,19 @@ A React component for displaying and editing javascript arrays and JSON objects.
 
 ## Features
 
-📚 Use Typescript to write, better code hints.  
-🎨 Support theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme) theme  
-🌒 Support dark/light mode  
-📦 Zero dependencies  
-📋 Copy to Clipboard  
-✏️ Support editing and adding features  
-♻️ Whether to highlight updates.
+🚀 **Improved with TypeScript** – Better code hints for a smoother development experience.  
+🎨 **Customizable Themes** – Supports theme customization & [`online editing`](https://uiwjs.github.io/react-json-view/#online-editing-theme).  
+🌒 **Dark/Light Mode** – Seamless switching between themes.  
+📦 **Zero Dependencies** – Lightweight and efficient.  
+📋 **Clipboard Support** – Easily copy JSON data.  
+✏️ **Editable & Extendable** – Supports editing and adding new properties.  
+♻️ **Update Highlighting** – Option to highlight changes.  
 
-The new version [**v2**](https://uiwjs.github.io/react-json-view/) has redesigned the API to make the code more maintainable and introduced a simpler and more flexible component customization rendering API. Each component can now have custom rendering, and the new API resembles React more closely. Preview [v2 documentation](https://uiwjs.github.io/react-json-view/) and [examples](https://uiwjs.github.io/react-json-view/). 
+The latest version [**v2**](https://uiwjs.github.io/react-json-view/) features a redesigned API for better maintainability, a more flexible component customization system, and fully customizable rendering, making it more aligned with React’s component model. 📖 Check out the [v2 documentation](https://uiwjs.github.io/react-json-view/) and [examples](https://uiwjs.github.io/react-json-view/).  
 
-- [x] Complete all features of displaying JSON in v1.
-- [ ] Add editing functionality to v2.
-- [x] Add test cases to v2.
-
+- [x] Fully implemented all v1 JSON display features.  
+- [ ] Adding editing functionality to v2.  
+- [x] Added comprehensive test cases for v2.  
 
 ## Quick Start
 
