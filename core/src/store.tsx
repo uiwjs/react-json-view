@@ -15,6 +15,7 @@ export interface InitialState<T extends object> {
   objectSortKeys?: JsonViewProps<T>['objectSortKeys'];
   displayObjectSize?: JsonViewProps<T>['displayObjectSize'];
   shortenTextAfterLength?: JsonViewProps<T>['shortenTextAfterLength'];
+  stringEllipsis?: JsonViewProps<T>['stringEllipsis'];
   enableClipboard?: JsonViewProps<T>['enableClipboard'];
   highlightUpdates?: JsonViewProps<T>['highlightUpdates'];
   collapsed?: JsonViewProps<T>['collapsed'];

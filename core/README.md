@@ -887,6 +887,8 @@ export interface JsonViewProps<T extends object> extends React.DetailedHTMLProps
   highlightUpdates?: boolean;
   /** Shorten long JSON strings, Set to `0` to disable this feature @default 30 */
   shortenTextAfterLength?: number;
+  /** When the text exceeds the length, `...` will be displayed. Currently, this `...` can be customized. @default "..." */
+  stringEllipsis?: number;
   /** Callback function for when a treeNode is expanded or collapsed */
   onExpand?: (props: { expand: boolean; value?: T; keyid: string; keyName?: string | number }) => void;
   /** Fires event when you copy */

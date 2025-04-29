@@ -57,7 +57,7 @@ type TypeProps = PropsWithChildren<{
 
 export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
   const { Str = {}, displayDataTypes } = useTypesStore();
-  const { shortenTextAfterLength: length = 30 } = useStore();
+  const { shortenTextAfterLength: length = 30, stringEllipsis = '...' } = useStore();
   const { as, render, ...reset } = Str;
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length && childrenStr.length > length);
@@ -79,20 +79,20 @@ export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
       };
     }
   }
-  const text = shorten ? `${childrenStr.slice(0, length)}...` : childrenStr;
+  const text = shorten ? `${childrenStr.slice(0, length)}${stringEllipsis}` : childrenStr;
 
   const isRender = render && typeof render === 'function';
   const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const cls = shorten ? 'w-rjv-value w-rjv-value-short' : 'w-rjv-value';
   const child =
-    isRender &&
-    render({ ...reset, children: text, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender && render({ ...reset, children: text, className: cls }, { type: 'value', value: children, keyName });
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
       {child || (
         <Fragment>
           <ValueQuote />
-          <Comp {...reset} className="w-rjv-value">
+          <Comp {...reset} className={cls}>
             {text}
           </Comp>
           <ValueQuote />
