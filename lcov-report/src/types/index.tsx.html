@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.72% </span>
+                <span class="strong">98.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>155/157</span>
+                <span class='fraction'>156/158</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.55% </span>
+                <span class="strong">80.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>174/216</span>
+                <span class='fraction'>177/219</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.68% </span>
+                <span class="strong">98.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>150/152</span>
+                <span class='fraction'>151/153</span>
             </div>
         
             
@@ -505,37 +505,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -890,7 +890,7 @@ type TypeProps = PropsWithChildren&lt;{
 &nbsp;
 export const TypeString: FC&lt;TypeProps&gt; = ({ children = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> keyName }) =&gt; {
   const { Str = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
-  const { shortenTextAfterLength: length = <span class="branch-0 cbranch-no" title="branch not covered" >30 </span>} = useStore();
+  const { shortenTextAfterLength: length = <span class="branch-0 cbranch-no" title="branch not covered" >30,</span> stringEllipsis = '...' } = useStore();
   const { as, render, ...reset } = Str;
   const childrenStr = children as string;
   const [shorten, setShorten] = useState(length &amp;&amp; childrenStr.length &gt; length);
@@ -912,20 +912,20 @@ export const TypeString: FC&lt;TypeProps&gt; = ({ children = <span class="branch
       };
     }
   }
-  const text = shorten ? `${childrenStr.slice(0, length)}...` : childrenStr;
+  const text = shorten ? `${childrenStr.slice(0, length)}${stringEllipsis}` : childrenStr;
 &nbsp;
   const isRender = render &amp;&amp; typeof render === 'function';
   const type = isRender &amp;&amp; render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const cls = shorten ? 'w-rjv-value w-rjv-value-short' : 'w-rjv-value';
   const child =
-    isRender &amp;&amp;
-    render({ ...reset, children: text, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &amp;&amp; render({ ...reset, children: text, className: cls }, { type: 'value', value: children, keyName });
   return (
     &lt;Fragment&gt;
       {displayDataTypes &amp;&amp; (type || &lt;Comp {...reset} style={style} /&gt;)}
       {child || (
         &lt;Fragment&gt;
           &lt;ValueQuote /&gt;
-          &lt;Comp {...reset} className="w-rjv-value"&gt;
+          &lt;Comp {...reset} className={cls}&gt;
             {text}
           &lt;/Comp&gt;
           &lt;ValueQuote /&gt;
@@ -1222,7 +1222,7 @@ TypeNan.displayName = 'JVR.TypeNan';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-10T15:37:50.248Z
+                at 2025-04-30T08:26:19.628Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
