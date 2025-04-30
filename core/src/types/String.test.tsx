@@ -1,5 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { screen, render } from '@testing-library/react';
+import { act } from 'react';
 import JsonView from '..';
 
 it('renders <JsonView.String /> test case', async () => {
@@ -27,11 +28,15 @@ it('renders <JsonView.String /> test case', async () => {
   expect(type.tagName).toBe('SPAN');
   expect(type.innerHTML).toBe('string');
   const value = screen.getByTestId('value');
-  expect(value.className).toBe('w-rjv-value');
+  expect(value.className).toBe('w-rjv-value w-rjv-value-short');
   expect(value.tagName).toBe('SPAN');
   expect(value.innerHTML).toBe('Lorem ipsum dolor sit amet. Lo...');
-  await user.click(value);
+  await act(async () => {
+    await user.click(value);
+  });
   expect(value.innerHTML).toBe(demo.string);
-  await user.click(value);
+  await act(async () => {
+    await user.click(value);
+  });
   expect(value.innerHTML).toBe('Lorem ipsum dolor sit amet. Lo...');
 });

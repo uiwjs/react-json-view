@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import JsonView from '../';
 import React from 'react';
-import { act } from 'react-test-renderer';
+import { act } from 'react';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
 const example = {
@@ -48,13 +48,15 @@ it('render <JsonView />, copy String test case', async () => {
   expect(copied.style).toHaveProperty('margin-left', '5px');
   expect(copied.getAttribute('fill')).toEqual('var(--w-rjv-copied-color, currentColor)');
   expect(copied.tagName).toEqual('svg');
-  await user.click(copied);
-  act(() => {
-    expect(copied.getAttribute('fill')).toEqual('var(--w-rjv-copied-success-color, #28a745)');
+  await act(async () => {
+    await user.click(copied);
   });
+  expect(copied.getAttribute('fill')).toEqual('var(--w-rjv-copied-success-color, #28a745)');
   // Assertions
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith(JSON.stringify(example, null, 2));
-  await user.unhover(container.lastElementChild!);
+  await act(async () => {
+    await user.unhover(container.lastElementChild!);
+  });
   const countInfo = screen.getByTestId('countInfo');
   expect(countInfo.nextElementSibling).toBeNull();
   await waitFor(() => {
@@ -82,7 +84,9 @@ it('render <JsonView />, copy Number test case', async () => {
   fireEvent.mouseEnter(lineDom);
   const copied = screen.getAllByTestId('copied')[1];
   expect(copied.tagName).toEqual('svg');
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('123');
   jest.restoreAllMocks();
 });
@@ -112,7 +116,9 @@ it('render <JsonView.Copied />, copy Number test case', async () => {
   const copied = screen.getAllByTestId('copied')[1];
   expect(copied.tagName).toEqual('SPAN');
   expect(copied.innerHTML).toEqual('xx');
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('123');
   jest.restoreAllMocks();
 });
@@ -134,7 +140,9 @@ it('render <JsonView.Copied />, copy NaN test case', async () => {
   const lineDom = quote.parentElement?.parentElement!;
   fireEvent.mouseEnter(lineDom);
   const copied = screen.getAllByTestId('copied')[1];
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('NaN');
   jest.restoreAllMocks();
 });
@@ -156,7 +164,9 @@ it('render <JsonView.Copied />, copy Infinity test case', async () => {
   const lineDom = quote.parentElement?.parentElement!;
   fireEvent.mouseEnter(lineDom);
   const copied = screen.getAllByTestId('copied')[1];
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Infinity');
   jest.restoreAllMocks();
 });
@@ -179,7 +189,9 @@ it('render <JsonView.Copied />, copy BigInt test case', async () => {
   const lineDom = quote.parentElement?.parentElement!;
   fireEvent.mouseEnter(lineDom);
   const copied = screen.getAllByTestId('copied')[1];
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith('1000n');
   fireEvent.mouseLeave(lineDom);
   const bigint = screen.getAllByTestId('bigint')[1];
@@ -202,10 +214,14 @@ it('render <JsonView.Copied />, copy Object with BigInt test case', async () => 
   expect(container.firstElementChild).toBeInstanceOf(Element);
   fireEvent.mouseEnter(container.lastElementChild!);
   const copied = screen.getByTestId('copied');
-  await user.click(copied);
+  await waitFor(async () => {
+    await user.click(copied);
+  });
   // Assertions
   expect(navigator.clipboard.writeText).toHaveBeenCalledWith(JSON.stringify(exampleWithBigIntAnswer, null, 2));
-  await user.unhover(container.lastElementChild!);
+  await waitFor(async () => {
+    await user.unhover(container.lastElementChild!);
+  });
   // Restore the original implementation
   jest.restoreAllMocks();
 });

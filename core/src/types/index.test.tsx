@@ -25,7 +25,7 @@ it('renders <JsonView.String /> test case', async () => {
     expect(type.tagName).toBe('EM');
     expect(type.innerHTML).toBe('string');
     const value = screen.getByTestId('str-value');
-    expect(value.className).toBe('w-rjv-value');
+    expect(value.className).toBe('w-rjv-value w-rjv-value-short');
     expect(value.tagName).toBe('SPAN');
     expect(value).toHaveProperty('style.cursor', 'pointer');
   });

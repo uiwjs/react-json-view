@@ -1,4 +1,5 @@
 import userEvent from '@testing-library/user-event';
+import { act } from 'react';
 import { screen, render, waitFor } from '@testing-library/react';
 import JsonView from '../';
 import { Ellipsis } from './Ellipsis';
@@ -24,13 +25,15 @@ it('renders <JsonView.Ellipsis /> test case', async () => {
     </JsonView>,
   );
   expect(container.firstElementChild).toBeInstanceOf(Element);
-  await user.click(container.lastElementChild?.firstElementChild!);
-  await waitFor(() => {
-    const ellipsis = screen.getByTestId('ellipsis');
-    expect(ellipsis.className).toEqual('w-rjv-ellipsis');
-    expect(ellipsis.style).toHaveProperty('cursor', 'pointer');
-    expect(ellipsis.style).toHaveProperty('user-select', 'none');
-    expect(ellipsis.innerHTML).toEqual('...');
+  await act(async () => {
+    await user.click(container.lastElementChild?.firstElementChild!);
+    await waitFor(() => {
+      const ellipsis = screen.getByTestId('ellipsis');
+      expect(ellipsis.className).toEqual('w-rjv-ellipsis');
+      expect(ellipsis.style).toHaveProperty('cursor', 'pointer');
+      expect(ellipsis.style).toHaveProperty('user-select', 'none');
+      expect(ellipsis.innerHTML).toEqual('...');
+    });
   });
 });
 
@@ -44,7 +47,9 @@ it('renders <JsonView.Ellipsis /> children test case', async () => {
     </JsonView>,
   );
   expect(container.firstElementChild).toBeInstanceOf(Element);
-  await user.click(container.lastElementChild?.firstElementChild!);
+  await act(async () => {
+    await user.click(container.lastElementChild?.firstElementChild!);
+  });
   await waitFor(() => {
     const ellipsis = screen.getByTestId('ellipsis');
     expect(ellipsis.innerHTML).toEqual('xxx');
