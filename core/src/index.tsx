@@ -37,7 +37,7 @@ export * from './store/Expands';
 export * from './store/ShowTools';
 export * from './store/Symbols';
 export * from './store/Types';
-export * from './symbol';
+export * from './symbol/';
 
 export interface JsonViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

@@ -6,7 +6,7 @@ import { Value } from './Value';
 import { KeyNameComp } from '../section/KeyName';
 import { RowComp } from '../section/Row';
 import { Container } from '../Container';
-import { Quote, Colon } from '../symbol';
+import { Quote, Colon } from '../symbol/';
 import { useHighlight } from '../utils/useHighlight';
 import { type SectionElementResult } from '../store/Section';
 import { Copied } from '../comps/Copied';

@@ -4,9 +4,9 @@ import { useStore } from '../store';
 import { Copied } from './Copied';
 import { CountInfoExtraComps } from '../section/CountInfoExtra';
 import { CountInfoComp } from '../section/CountInfo';
-import { Arrow, BracketsOpen, BracketsClose } from '../symbol';
+import { Arrow, BracketsOpen, BracketsClose } from '../symbol/';
 import { EllipsisComp } from '../section/Ellipsis';
-import { SetComp, MapComp } from '../types';
+import { SetComp, MapComp } from '../types/';
 import { type SectionElementResult } from '../store/Section';
 
 export interface NestedOpenProps<T extends object> extends SectionElementResult<T> {

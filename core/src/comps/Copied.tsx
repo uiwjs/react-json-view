@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import { useSectionStore, type SectionElementResult } from '../store/Section';
 import { useShowToolsStore } from '../store/ShowTools';
 import { type TagType } from '../store/Types';
-import { bigIntToString } from '../types';
+import { bigIntToString } from '../types/';
 
 export type CopiedOption<T extends object> = {
   value?: T;
