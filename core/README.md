@@ -735,7 +735,7 @@ export default function Demo() {
       collapsed={2}
       shouldExpandNodeInitially={(isExpanded, { value, keys, level }) => {
         if (keys.length > 0 && keys[0] == "object") {
-          return true
+          return false
         }
         return isExpanded
       }}
