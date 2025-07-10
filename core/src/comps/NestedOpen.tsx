@@ -27,7 +27,7 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   const isObject = typeof value === 'object';
   let isExpanded = expands[expandKey] ?? defaultExpanded;
   const shouldExpand = shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level });
-  if (expands[expandKey] === undefined && !shouldExpand) {
+  if (expands[expandKey] === undefined && shouldExpandNodeInitially && !shouldExpand) {
     isExpanded = !shouldExpand;
   }
   const click = () => {
