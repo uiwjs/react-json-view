@@ -16,11 +16,12 @@ export const isFloat = (n: number) => (Number(n) === n && n % 1 !== 0) || isNaN(
 interface ValueProps {
   value: unknown;
   keyName: string | number;
+  keys?: (string | number)[];
 }
 
 export const Value = (props: ValueProps) => {
-  const { value, keyName } = props;
-  const reset = { keyName };
+  const { value, keyName, keys } = props;
+  const reset = { keyName, keys };
   if (value instanceof URL) {
     return <TypeUrl {...reset}>{value}</TypeUrl>;
   }
