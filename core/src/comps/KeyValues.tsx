@@ -25,8 +25,11 @@ export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
   const defaultExpanded =
     typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
   const isExpanded = expands[expandKey] ?? defaultExpanded;
-  const shouldExpand = shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level });
-  if (expands[expandKey] === undefined && shouldExpandNodeInitially && !shouldExpand) {
+  if (
+    expands[expandKey] === undefined &&
+    shouldExpandNodeInitially &&
+    shouldExpandNodeInitially(isExpanded, { value, keys, level })
+  ) {
     return null;
   }
   if (isExpanded) {
@@ -116,7 +119,7 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   return (
     <RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}>
       <KayName keyName={keyName} value={value} keys={keys} parentValue={parentValue} />
-      <Value keyName={keyName!} value={value} />
+      <Value keyName={keyName!} value={value} keys={keys} />
       <Copied keyName={keyName} value={value as object} keys={keys} parentValue={parentValue} expandKey={subkeyid} />
     </RowComp>
   );

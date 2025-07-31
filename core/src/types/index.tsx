@@ -53,9 +53,10 @@ const defalutStyle: React.CSSProperties = {
 
 type TypeProps = PropsWithChildren<{
   keyName: string | number;
+  keys?: (string | number)[];
 }>;
 
-export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
+export const TypeString: FC<TypeProps> = ({ children = '', keyName, keys }) => {
   const { Str = {}, displayDataTypes } = useTypesStore();
   const { shortenTextAfterLength: length = 30, stringEllipsis = '...' } = useStore();
   const { as, render, ...reset } = Str;
@@ -82,10 +83,10 @@ export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
   const text = shorten ? `${childrenStr.slice(0, length)}${stringEllipsis}` : childrenStr;
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const cls = shorten ? 'w-rjv-value w-rjv-value-short' : 'w-rjv-value';
   const child =
-    isRender && render({ ...reset, children: text, className: cls }, { type: 'value', value: children, keyName });
+    isRender && render({ ...reset, children: text, className: cls }, { type: 'value', value: children, keyName, keys });
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
@@ -104,7 +105,7 @@ export const TypeString: FC<TypeProps> = ({ children = '', keyName }) => {
 
 TypeString.displayName = 'JVR.TypeString';
 
-export const TypeTrue: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeTrue: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { True = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = True;
   const Comp = as || 'span';
@@ -114,9 +115,10 @@ export const TypeTrue: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
@@ -131,7 +133,7 @@ export const TypeTrue: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeTrue.displayName = 'JVR.TypeTrue';
 
-export const TypeFalse: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeFalse: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { False = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = False;
   const Comp = as || 'span';
@@ -141,9 +143,10 @@ export const TypeFalse: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -159,7 +162,7 @@ export const TypeFalse: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeFalse.displayName = 'JVR.TypeFalse';
 
-export const TypeFloat: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeFloat: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Float = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Float;
   const Comp = as || 'span';
@@ -169,9 +172,10 @@ export const TypeFloat: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -187,7 +191,7 @@ export const TypeFloat: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeFloat.displayName = 'JVR.TypeFloat';
 
-export const TypeInt: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeInt: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Int = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Int;
   const Comp = as || 'span';
@@ -197,9 +201,10 @@ export const TypeInt: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -215,7 +220,7 @@ export const TypeInt: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeInt.displayName = 'JVR.TypeInt';
 
-export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
+export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>> = ({ children, keyName, keys }) => {
   const { Bigint: CompBigint = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompBigint;
   const Comp = as || 'span';
@@ -225,9 +230,10 @@ export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>>
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -243,7 +249,7 @@ export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>>
 
 TypeBigint.displayName = 'JVR.TypeFloat';
 
-export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
+export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ children, keyName, keys }) => {
   const { Url = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Url;
   const Comp = as || 'span';
@@ -253,12 +259,12 @@ export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ 
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
     isRender &&
     render(
       { ...reset, children: children?.href, className: 'w-rjv-value' },
-      { type: 'value', value: children, keyName },
+      { type: 'value', value: children, keyName, keys },
     );
 
   return (
@@ -277,7 +283,7 @@ export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ 
 
 TypeUrl.displayName = 'JVR.TypeUrl';
 
-export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = ({ children, keyName }) => {
+export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = ({ children, keyName, keys }) => {
   const { Date: CompData = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompData;
   const Comp = as || 'span';
@@ -287,11 +293,14 @@ export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = (
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const childStr = children instanceof Date ? children.toLocaleString() : children;
   const child =
     isRender &&
-    render({ ...reset, children: childStr, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    render(
+      { ...reset, children: childStr, className: 'w-rjv-value' },
+      { type: 'value', value: children, keyName, keys },
+    );
 
   return (
     <Fragment>
@@ -307,7 +316,7 @@ export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = (
 
 TypeDate.displayName = 'JVR.TypeDate';
 
-export const TypeUndefined: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeUndefined: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Undefined = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Undefined;
   const Comp = as || 'span';
@@ -317,9 +326,10 @@ export const TypeUndefined: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -331,7 +341,7 @@ export const TypeUndefined: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeUndefined.displayName = 'JVR.TypeUndefined';
 
-export const TypeNull: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeNull: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Null = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Null;
   const Comp = as || 'span';
@@ -341,9 +351,10 @@ export const TypeNull: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
-    isRender && render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName });
+    isRender &&
+    render({ ...reset, children, className: 'w-rjv-value' }, { type: 'value', value: children, keyName, keys });
 
   return (
     <Fragment>
@@ -355,7 +366,7 @@ export const TypeNull: FC<TypeProps> = ({ children, keyName }) => {
 
 TypeNull.displayName = 'JVR.TypeNull';
 
-export const TypeNan: FC<TypeProps> = ({ children, keyName }) => {
+export const TypeNan: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Nan = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Nan;
   const Comp = as || 'span';
@@ -365,12 +376,12 @@ export const TypeNan: FC<TypeProps> = ({ children, keyName }) => {
   };
 
   const isRender = render && typeof render === 'function';
-  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName });
+  const type = isRender && render({ ...reset, style }, { type: 'type', value: children, keyName, keys });
   const child =
     isRender &&
     render(
       { ...reset, children: children?.toString(), className: 'w-rjv-value' },
-      { type: 'value', value: children, keyName },
+      { type: 'value', value: children, keyName, keys },
     );
 
   return (
