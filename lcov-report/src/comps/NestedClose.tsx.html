@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.11% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">78.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>15/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.11% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -102,8 +102,8 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,22 +117,24 @@
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,37 +146,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { BracketsClose } from '../symbol/';
+import { type SectionElementResult } from '../store/Section';
 &nbsp;
-interface NestedCloseProps&lt;T extends object&gt; {
-  value?: T;
+interface NestedCloseProps&lt;T extends object&gt; extends SectionElementResult&lt;T&gt; {
   expandKey: string;
   level: number;
-  keys?: (string | number)[];
 }
 &nbsp;
 export const NestedClose = &lt;T extends object&gt;(props: NestedCloseProps&lt;T&gt;) =&gt; {
-  const { value, expandKey, level, keys = [] } = props;
+  const { keyName, value, expandKey, parentValue, level, keys = [] } = props;
   const expands = useExpandsStore();
-  const isArray = Array.isArray(value);
   const { collapsed, shouldExpandNodeInitially } = useStore();
-  const isMySet = value instanceof Set;
   const defaultExpanded =
     typeof collapsed === 'boolean' ? <span class="branch-0 cbranch-no" title="branch not covered" >collapsed </span>: typeof collapsed === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >level &gt; collapsed </span>: false;
   const isExpanded = expands[expandKey] ?? defaultExpanded;
-  const len = Object.keys(value!).length;
-  const shouldExpand = shouldExpandNodeInitially &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >shouldExpandNodeInitially(!isExpanded, { value, keys, level });</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (expands[expandKey] === undefined &amp;&amp; shouldExpandNodeInitially &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!shouldExpand)</span> {
+  const shouldExpand =
+    shouldExpandNodeInitially &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >shouldExpandNodeInitially(isExpanded, { value, keys, level, keyName, parentValue });</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (expands[expandKey] === undefined &amp;&amp; !!shouldExpand) {
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   }
+  const len = Object.keys(value!).length;
   if (isExpanded || len === 0) {
     return null;
   }
   const style: React.CSSProperties = {
     paddingLeft: 4,
   };
+  const compProps = { keyName, value, keys, parentValue };
+  const isArray = Array.isArray(value);
+  const isMySet = value instanceof Set;
   return (
     &lt;div style={style}&gt;
-      &lt;BracketsClose isBrackets={isArray || isMySet} isVisiable={true} /&gt;
+      &lt;BracketsClose isBrackets={isArray || isMySet} {...compProps} isVisiable={true} /&gt;
     &lt;/div&gt;
   );
 };
@@ -187,7 +190,7 @@ NestedClose.displayName = 'JVR.NestedClose';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-31T17:49:27.534Z
+                at 2025-08-16T04:11:52.160Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

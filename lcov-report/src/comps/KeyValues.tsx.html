@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.95% </span>
+                <span class="strong">98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/49</span>
+                <span class='fraction'>49/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">81.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>39/48</span>
+                <span class='fraction'>40/49</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.95% </span>
+                <span class="strong">98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/49</span>
+                <span class='fraction'>49/50</span>
             </div>
         
             
@@ -189,9 +189,7 @@
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,20 +212,18 @@
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-yes">1025x</span>
@@ -339,23 +335,21 @@ interface KeyValuesProps&lt;T extends object&gt; extends SectionElementResult&lt
 }
 &nbsp;
 export const KeyValues = &lt;T extends object&gt;(props: KeyValuesProps&lt;T&gt;) =&gt; {
-  const { value, expandKey = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> level, keys = [] } = props;
+  const { keyName, value, expandKey = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> level, keys = [], parentValue } = props;
   const expands = useExpandsStore();
   const { objectSortKeys, indentWidth, collapsed, shouldExpandNodeInitially } = useStore();
-  const isMyArray = Array.isArray(value);
   const defaultExpanded =
     typeof collapsed === 'boolean' ? <span class="branch-0 cbranch-no" title="branch not covered" >collapsed </span>: typeof collapsed === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >level &gt; collapsed </span>: false;
   const isExpanded = expands[expandKey] ?? defaultExpanded;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (
-    expands[expandKey] === undefined &amp;&amp;
-    shouldExpandNodeInitially &amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >    shouldExpandNodeInitially(isExpanded, { value, keys, level })</span>
-  ) {
+  const shouldExpand =
+    shouldExpandNodeInitially &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >shouldExpandNodeInitially(isExpanded, { value, keys, level, keyName, parentValue });</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (expands[expandKey] === undefined &amp;&amp; !!shouldExpand) {
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   }
   if (isExpanded) {
     return null;
   }
+  const isMyArray = Array.isArray(value);
   // object
   let entries: [key: string | number, value: T][] = isMyArray
     ? Object.entries(value).map((m) =&gt; [Number(m[0]), m[1]])
@@ -454,7 +448,7 @@ KeyValuesItem.displayName = 'JVR.KeyValuesItem';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-31T17:49:27.534Z
+                at 2025-08-16T04:11:52.160Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
