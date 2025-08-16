@@ -20,15 +20,13 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   const expands = useExpandsStore();
   const dispatchExpands = useExpandsDispatch();
   const { onExpand, collapsed, shouldExpandNodeInitially } = useStore();
-  const isArray = Array.isArray(value);
-  const isMySet = value instanceof Set;
   const defaultExpanded =
     typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
-  const isObject = typeof value === 'object';
   let isExpanded = expands[expandKey] ?? defaultExpanded;
-  const shouldExpand = shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level });
-  if (expands[expandKey] === undefined && shouldExpandNodeInitially && !shouldExpand) {
-    isExpanded = !shouldExpand;
+  const shouldExpand =
+    shouldExpandNodeInitially && shouldExpandNodeInitially(isExpanded, { value, keys, level, keyName, parentValue });
+  if (expands[expandKey] === undefined && shouldExpandNodeInitially) {
+    isExpanded = !!shouldExpand;
   }
   const click = () => {
     const opt = { expand: !isExpanded, value, keyid: expandKey, keyName };
@@ -39,6 +37,9 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   const style: React.CSSProperties = { display: 'inline-flex', alignItems: 'center' };
   const arrowStyle = { transform: `rotate(${!isExpanded ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
   const len = Object.keys(value!).length;
+  const isObject = typeof value === 'object';
+  const isArray = Array.isArray(value);
+  const isMySet = value instanceof Set;
   const showArrow = len !== 0 && (isArray || isMySet || isObject);
   const reset: React.HTMLAttributes<HTMLDivElement> = { style };
   if (showArrow) {

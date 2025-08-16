@@ -91,12 +91,12 @@ export const BracketsOpen = <K extends object>(props: { isBrackets?: boolean } &
 
 BracketsOpen.displayName = 'JVR.BracketsOpen';
 
-type BracketsCloseProps = {
+type BracketsProps = {
   isBrackets?: boolean;
   isVisiable?: boolean;
 };
 
-export const BracketsClose = <K extends object>(props: BracketsCloseProps & SymbolsElementResult<K>) => {
+export const BracketsClose = <K extends object>(props: BracketsProps & SymbolsElementResult<K>) => {
   const { isBrackets, isVisiable, value, parentValue, keyName, keys } = props;
   const result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
   if (!isVisiable) return null;

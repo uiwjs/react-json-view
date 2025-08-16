@@ -1,23 +1,49 @@
-import JsonView from '@uiw/react-json-view';
+import JsonView, { ShouldExpandNodeInitially } from '@uiw/react-json-view';
 
+const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
+const tpl = {
+  avatar,
+  string: 'Lorem ipsum dolor sit amet',
+  integer: 42,
+  string_number: '1234',
+};
+const longArray = new Array(10).fill(tpl);
 const example = {
-  nestedArray: [],
-  object: {},
-  data: {
-    value: 1,
+  longArray,
+  array2: new Array(2).fill(tpl),
+  // nestedArray: [],
+  // object: {},
+  // data: {
+  //   value: 1,
+  // },
+  level1: {
+    level2: {
+      level3: {
+        level4: {
+          level5: {
+            message: 'This is deeply nested and will be collapsed',
+            value: 42,
+          },
+        },
+      },
+    },
   },
 };
 
+const shouldExpandNodeInitially: ShouldExpandNodeInitially<object> = (isExpanded, props) => {
+  const { value, level, keyName, parentValue, keys } = props;
+  console.log('~~~~:', keyName, level, parentValue, keys);
+  const isArray = Array.isArray(value);
+  const isObject = typeof value === 'object' && !isArray;
+  if (isArray) {
+    return isExpanded || value.length > 5;
+  }
+  if (isObject && level > 3) {
+    return isExpanded || true; // Expand if it's an object and level is greater than 3
+  }
+  return isExpanded;
+};
+
 export default function App() {
-  return (
-    <JsonView value={example}>
-      <JsonView.KeyName
-        as="span"
-        render={({ style, onClick, ...props }, { keyName, keys }) => {
-          console.log('~~:', keyName, keys); // keys undefined
-          return <span {...props} style={{ ...style, backgroundColor: 'red' }} />;
-        }}
-      />
-    </JsonView>
-  );
+  return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={shouldExpandNodeInitially} />;
 }

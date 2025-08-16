@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useReducer } from 'react';
-import { JsonViewProps } from './';
+import React, { type PropsWithChildren, createContext, useContext, useEffect, useReducer } from 'react';
+import { type JsonViewProps } from './';
 import { useShowTools, ShowTools } from './store/ShowTools';
 import { useExpands, Expands } from './store/Expands';
 import { useTypes, Types, type InitialTypesState, type TagType } from './store/Types';

@@ -39,6 +39,11 @@ export * from './store/Symbols';
 export * from './store/Types';
 export * from './symbol/';
 
+export type ShouldExpandNodeInitially<T extends object> = (
+  isExpanded: boolean,
+  props: { keyName?: string | number; value?: T; parentValue?: T; keys: (number | string)[]; level: number },
+) => boolean;
+
 export interface JsonViewProps<T extends object>
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** This property contains your input JSON */
@@ -58,10 +63,7 @@ export interface JsonViewProps<T extends object>
   /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
   collapsed?: boolean | number;
   /** Determine whether the node should be expanded on the first render, or you can use collapsed to control the level of expansion (by default, the root is expanded). */
-  shouldExpandNodeInitially?: (
-    isExpanded: boolean,
-    props: { value?: T; keys: (number | string)[]; level: number },
-  ) => boolean;
+  shouldExpandNodeInitially?: ShouldExpandNodeInitially<T>;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
   /** Shorten long JSON strings, Set to `0` to disable this feature @default 30 */

@@ -1,37 +1,38 @@
 import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { BracketsClose } from '../symbol/';
+import { type SectionElementResult } from '../store/Section';
 
-interface NestedCloseProps<T extends object> {
-  value?: T;
+interface NestedCloseProps<T extends object> extends SectionElementResult<T> {
   expandKey: string;
   level: number;
-  keys?: (string | number)[];
 }
 
 export const NestedClose = <T extends object>(props: NestedCloseProps<T>) => {
-  const { value, expandKey, level, keys = [] } = props;
+  const { keyName, value, expandKey, parentValue, level, keys = [] } = props;
   const expands = useExpandsStore();
-  const isArray = Array.isArray(value);
   const { collapsed, shouldExpandNodeInitially } = useStore();
-  const isMySet = value instanceof Set;
   const defaultExpanded =
     typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
   const isExpanded = expands[expandKey] ?? defaultExpanded;
-  const len = Object.keys(value!).length;
-  const shouldExpand = shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level });
-  if (expands[expandKey] === undefined && shouldExpandNodeInitially && !shouldExpand) {
+  const shouldExpand =
+    shouldExpandNodeInitially && shouldExpandNodeInitially(isExpanded, { value, keys, level, keyName, parentValue });
+  if (expands[expandKey] === undefined && !!shouldExpand) {
     return null;
   }
+  const len = Object.keys(value!).length;
   if (isExpanded || len === 0) {
     return null;
   }
   const style: React.CSSProperties = {
     paddingLeft: 4,
   };
+  const compProps = { keyName, value, keys, parentValue };
+  const isArray = Array.isArray(value);
+  const isMySet = value instanceof Set;
   return (
     <div style={style}>
-      <BracketsClose isBrackets={isArray || isMySet} isVisiable={true} />
+      <BracketsClose isBrackets={isArray || isMySet} {...compProps} isVisiable={true} />
     </div>
   );
 };
