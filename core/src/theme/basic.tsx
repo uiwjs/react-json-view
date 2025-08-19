@@ -1,4 +1,6 @@
-export const basicTheme = {
+import type * as CSS from 'csstype';
+
+export const basicTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#b5bd68',
   '--w-rjv-key-number': '#002b36',
@@ -29,4 +31,4 @@ export const basicTheme = {
   '--w-rjv-type-null-color': '#8abeb7',
   '--w-rjv-type-nan-color': '#8abeb7',
   '--w-rjv-type-undefined-color': '#8abeb7',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

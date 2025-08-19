@@ -1,4 +1,6 @@
-export const vscodeTheme = {
+import type * as CSS from 'csstype';
+
+export const vscodeTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#9cdcfe',
   '--w-rjv-key-string': '#9cdcfe',
@@ -27,4 +29,4 @@ export const vscodeTheme = {
   '--w-rjv-type-null-color': '#569cd6',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#569cd6',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

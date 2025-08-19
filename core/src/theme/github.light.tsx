@@ -1,4 +1,6 @@
-export const githubLightTheme = {
+import type * as CSS from 'csstype';
+
+export const githubLightTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#6f42c1',
   '--w-rjv-key-string': '#6f42c1',
@@ -27,4 +29,4 @@ export const githubLightTheme = {
   '--w-rjv-type-null-color': '#d73a49',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#005cc5',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

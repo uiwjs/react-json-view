@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/light' {
-  export const lightTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const lightTheme: CSS.Properties<string | number>;
 }

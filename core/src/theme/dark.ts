@@ -1,4 +1,6 @@
-export const darkTheme = {
+import type * as CSS from 'csstype';
+
+export const darkTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#0184a6',
   '--w-rjv-key-string': '#0184a6',
@@ -26,4 +28,4 @@ export const darkTheme = {
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#076678',
   '--w-rjv-type-undefined-color': '#586e75',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

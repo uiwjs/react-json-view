@@ -2,6 +2,7 @@ import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { BracketsClose } from '../symbol/';
 import { type SectionElementResult } from '../store/Section';
+import type * as CSS from 'csstype';
 
 interface NestedCloseProps<T extends object> extends SectionElementResult<T> {
   expandKey: string;
@@ -24,7 +25,7 @@ export const NestedClose = <T extends object>(props: NestedCloseProps<T>) => {
   if (isExpanded || len === 0) {
     return null;
   }
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     paddingLeft: 4,
   };
   const compProps = { keyName, value, keys, parentValue };

@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/githubDark' {
-  export const githubDarkTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const githubDarkTheme: CSS.Properties<string | number>;
 }

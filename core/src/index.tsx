@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import type * as CSS from 'csstype';
 import { Provider } from './store';
 import { Container } from './Container';
 
@@ -129,14 +130,14 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     onCopied,
     ...elmProps
   } = props;
-  const defaultStyle = {
+  const defaultStyle: CSS.Properties<string | number> = {
     lineHeight: 1.4,
     fontFamily: 'var(--w-rjv-font-family, Menlo, monospace)',
     color: 'var(--w-rjv-color, #002b36)',
     backgroundColor: 'var(--w-rjv-background-color, #00000000)',
     fontSize: 13,
     ...style,
-  } as React.CSSProperties;
+  };
   const cls = ['w-json-view-container', 'w-rjv', className].filter(Boolean).join(' ');
   return (
     <Provider

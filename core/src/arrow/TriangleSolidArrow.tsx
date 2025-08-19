@@ -1,9 +1,10 @@
 import React from 'react';
+import type * as CSS from 'csstype';
 
 export interface TriangleSolidArrowProps extends React.SVGProps<SVGSVGElement> {}
 export function TriangleSolidArrow(props: TriangleSolidArrowProps) {
   const { style, ...reset } = props;
-  const defaultStyle: React.CSSProperties = {
+  const defaultStyle: CSS.Properties<string | number> = {
     cursor: 'pointer',
     height: '1em',
     width: '1em',

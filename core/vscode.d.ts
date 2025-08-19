@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/vscode' {
-  export const vscodeTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const vscodeTheme: CSS.Properties<string | number>;
 }

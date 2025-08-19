@@ -1,3 +1,5 @@
+import type * as CSS from 'csstype';
+
 export const lightTheme = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#002b36',
@@ -27,4 +29,4 @@ export const lightTheme = {
   '--w-rjv-type-null-color': '#d33682',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

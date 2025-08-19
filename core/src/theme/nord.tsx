@@ -1,4 +1,6 @@
-export const nordTheme = {
+import type * as CSS from 'csstype';
+
+export const nordTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#88c0d0',
   '--w-rjv-key-string': '#88c0d0',
@@ -27,4 +29,4 @@ export const nordTheme = {
   '--w-rjv-type-null-color': '#5e81ac',
   '--w-rjv-type-nan-color': '#859900',
   '--w-rjv-type-undefined-color': '#586e75',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

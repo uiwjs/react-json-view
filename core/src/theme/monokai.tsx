@@ -1,4 +1,6 @@
-export const monokaiTheme = {
+import type * as CSS from 'csstype';
+
+export const monokaiTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#E6DB74',
   '--w-rjv-key-string': '#E6DB74',
@@ -27,4 +29,4 @@ export const monokaiTheme = {
   '--w-rjv-type-null-color': '#FA2672',
   '--w-rjv-type-nan-color': '#FD971F',
   '--w-rjv-type-undefined-color': '#FD971F',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;

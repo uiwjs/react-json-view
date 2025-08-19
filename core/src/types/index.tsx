@@ -1,4 +1,5 @@
-import { FC, Fragment, PropsWithChildren, useEffect, useState } from 'react';
+import { type FC, Fragment, type PropsWithChildren, useEffect, useState } from 'react';
+import type * as CSS from 'csstype';
 import { useStore } from '../store';
 import { useTypesStore } from '../store/Types';
 import { ValueQuote } from '../symbol/';
@@ -46,7 +47,7 @@ export const MapComp: FC<PropsWithChildren<{ value: unknown; keyName: string | n
 
 MapComp.displayName = 'JVR.MapComp';
 
-const defalutStyle: React.CSSProperties = {
+const defalutStyle: CSS.Properties<string | number> = {
   opacity: 0.75,
   paddingRight: 4,
 };
@@ -64,7 +65,7 @@ export const TypeString: FC<TypeProps> = ({ children = '', keyName, keys }) => {
   const [shorten, setShorten] = useState(length && childrenStr.length > length);
   useEffect(() => setShorten(length && childrenStr.length > length), [length]);
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Str.style || {}),
   };
@@ -109,7 +110,7 @@ export const TypeTrue: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { True = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = True;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(True.style || {}),
   };
@@ -137,7 +138,7 @@ export const TypeFalse: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { False = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = False;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(False.style || {}),
   };
@@ -166,7 +167,7 @@ export const TypeFloat: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Float = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Float;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Float.style || {}),
   };
@@ -195,7 +196,7 @@ export const TypeInt: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Int = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Int;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Int.style || {}),
   };
@@ -224,7 +225,7 @@ export const TypeBigint: FC<{ children?: BigInt } & Omit<TypeProps, 'children'>>
   const { Bigint: CompBigint = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompBigint;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(CompBigint.style || {}),
   };
@@ -253,7 +254,7 @@ export const TypeUrl: FC<{ children?: URL } & Omit<TypeProps, 'children'>> = ({ 
   const { Url = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Url;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...Url.style,
   };
@@ -287,7 +288,7 @@ export const TypeDate: FC<{ children?: Date } & Omit<TypeProps, 'children'>> = (
   const { Date: CompData = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompData;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(CompData.style || {}),
   };
@@ -320,7 +321,7 @@ export const TypeUndefined: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Undefined = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Undefined;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Undefined.style || {}),
   };
@@ -345,7 +346,7 @@ export const TypeNull: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Null = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Null;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Null.style || {}),
   };
@@ -370,7 +371,7 @@ export const TypeNan: FC<TypeProps> = ({ children, keyName, keys }) => {
   const { Nan = {}, displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Nan;
   const Comp = as || 'span';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     ...defalutStyle,
     ...(Nan.style || {}),
   };

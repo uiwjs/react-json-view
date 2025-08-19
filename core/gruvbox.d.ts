@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/gruvbox' {
-  export const gruvboxTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const gruvboxTheme: CSS.Properties<string | number>;
 }

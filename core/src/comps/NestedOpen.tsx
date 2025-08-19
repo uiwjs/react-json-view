@@ -1,3 +1,4 @@
+import type * as CSS from 'csstype';
 import { KayName } from './KeyValues';
 import { useExpandsStore, useExpandsDispatch } from '../store/Expands';
 import { useStore } from '../store';
@@ -34,8 +35,11 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
     dispatchExpands({ [expandKey]: opt.expand });
   };
 
-  const style: React.CSSProperties = { display: 'inline-flex', alignItems: 'center' };
-  const arrowStyle = { transform: `rotate(${!isExpanded ? '0' : '-90'}deg)`, transition: 'all 0.3s' };
+  const style: CSS.Properties<string | number> = { display: 'inline-flex', alignItems: 'center' };
+  const arrowStyle: CSS.Properties<string | number> = {
+    transform: `rotate(${!isExpanded ? '0' : '-90'}deg)`,
+    transition: 'all 0.3s',
+  };
   const len = Object.keys(value!).length;
   const isObject = typeof value === 'object';
   const isArray = Array.isArray(value);

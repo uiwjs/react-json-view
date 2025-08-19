@@ -1,3 +1,4 @@
+import type * as CSS from 'csstype';
 import { type PropsWithChildren } from 'react';
 import { type TagType } from '../store/Types';
 import { type SectionElement, useSectionStore } from '../store/Section';
@@ -19,7 +20,7 @@ export interface KeyNameCompProps<T extends object>
 export const KeyNameComp = <T extends object>(props: PropsWithChildren<KeyNameCompProps<T>>) => {
   const { children, value, parentValue, keyName, keys } = props;
   const isNumber = typeof children === 'number';
-  const style: React.CSSProperties = {
+  const style: CSS.Properties<string | number> = {
     color: isNumber ? 'var(--w-rjv-key-number, #268bd2)' : 'var(--w-rjv-key-string, #002b36)',
   };
   const { KeyName: Comp = {} } = useSectionStore();

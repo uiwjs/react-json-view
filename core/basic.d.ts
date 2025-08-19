@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/basic' {
-  export const basicTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const basicTheme: CSS.Properties<string | number>;
 }

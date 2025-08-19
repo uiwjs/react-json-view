@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/githubLight' {
-  export const githubLightTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const githubLightTheme: CSS.Properties<string | number>;
 }

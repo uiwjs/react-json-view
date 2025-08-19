@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/monokai' {
-  export const monokaiTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const monokaiTheme: CSS.Properties<string | number>;
 }

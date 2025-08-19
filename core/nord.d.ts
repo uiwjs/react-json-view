@@ -1,3 +1,4 @@
 declare module '@uiw/react-json-view/nord' {
-  export const nordTheme: import('react').CSSProperties;
+  import type * as CSS from 'csstype';
+  export const nordTheme: CSS.Properties<string | number>;
 }

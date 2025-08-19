@@ -1,4 +1,6 @@
-export const gruvboxTheme = {
+import type * as CSS from 'csstype';
+
+export const gruvboxTheme: CSS.Properties<string | number> = {
   '--w-rjv-font-family': 'monospace',
   '--w-rjv-color': '#3c3836',
   '--w-rjv-key-string': '#3c3836',
@@ -27,4 +29,4 @@ export const gruvboxTheme = {
   '--w-rjv-type-null-color': '#076678',
   '--w-rjv-type-nan-color': '#076678',
   '--w-rjv-type-undefined-color': '#076678',
-} as React.CSSProperties;
+} as CSS.Properties<string | number>;
