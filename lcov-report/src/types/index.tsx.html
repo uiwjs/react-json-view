@@ -458,7 +458,9 @@
 <a name='L393'></a><a href='#L393'>393</a>
 <a name='L394'></a><a href='#L394'>394</a>
 <a name='L395'></a><a href='#L395'>395</a>
-<a name='L396'></a><a href='#L396'>396</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -853,7 +855,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, Fragment, PropsWithChildren, useEffect, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type FC, Fragment, type PropsWithChildren, useEffect, useState } from 'react';
+import type * as CSS from 'csstype';
 import { useStore } from '../store';
 import { useTypesStore } from '../store/Types';
 import { ValueQuote } from '../symbol/';
@@ -901,7 +904,7 @@ export const MapComp: FC&lt;PropsWithChildren&lt;{ value: unknown; keyName: stri
 &nbsp;
 MapComp.displayName = 'JVR.MapComp';
 &nbsp;
-const defalutStyle: React.CSSProperties = {
+const defalutStyle: CSS.Properties&lt;string | number&gt; = {
   opacity: 0.75,
   paddingRight: 4,
 };
@@ -919,7 +922,7 @@ export const TypeString: FC&lt;TypeProps&gt; = ({ children = <span class="branch
   const [shorten, setShorten] = useState(length &amp;&amp; childrenStr.length &gt; length);
   useEffect(() =&gt; setShorten(length &amp;&amp; childrenStr.length &gt; length), [length]);
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Str.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -964,7 +967,7 @@ export const TypeTrue: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt;
   const { True = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = True;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(True.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -992,7 +995,7 @@ export const TypeFalse: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt
   const { False = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = False;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(False.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1021,7 +1024,7 @@ export const TypeFloat: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt
   const { Float = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Float;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Float.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1050,7 +1053,7 @@ export const TypeInt: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt; 
   const { Int = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Int;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Int.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1079,7 +1082,7 @@ export const TypeBigint: FC&lt;{ children?: BigInt } &amp; Omit&lt;TypeProps, 'c
   const { Bigint: CompBigint = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompBigint;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(CompBigint.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1108,7 +1111,7 @@ export const TypeUrl: FC&lt;{ children?: URL } &amp; Omit&lt;TypeProps, 'childre
   const { Url = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Url;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...Url.style,
   };
@@ -1142,7 +1145,7 @@ export const TypeDate: FC&lt;{ children?: Date } &amp; Omit&lt;TypeProps, 'child
   const { Date: CompData = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = CompData;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(CompData.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1175,7 +1178,7 @@ export const TypeUndefined: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) 
   const { Undefined = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Undefined;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Undefined.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1200,7 +1203,7 @@ export const TypeNull: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt;
   const { Null = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Null;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Null.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1225,7 +1228,7 @@ export const TypeNan: FC&lt;TypeProps&gt; = ({ children, keyName, keys }) =&gt; 
   const { Nan = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> displayDataTypes } = useTypesStore();
   const { as, render, ...reset } = Nan;
   const Comp = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
-  const style: React.CSSProperties = {
+  const style: CSS.Properties&lt;string | number&gt; = {
     ...defalutStyle,
     ...(Nan.style || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
   };
@@ -1255,7 +1258,7 @@ TypeNan.displayName = 'JVR.TypeNan';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-16T04:16:13.065Z
+                at 2025-08-19T08:46:40.372Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
