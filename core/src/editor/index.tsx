@@ -25,7 +25,7 @@ const JsonViewEditor = forwardRef<HTMLDivElement, JsonViewEditorProps<object>>((
   return (
     <Context.Provider value={state}>
       <Dispatch.Provider value={dispatch}>
-        <JsonView {...reset} shortenTextAfterLength={0} ref={ref}>
+        <JsonView {...reset} ref={ref}>
           {editable && <JsonView.KeyName render={KeyNameRender} />}
           {children}
         </JsonView>
