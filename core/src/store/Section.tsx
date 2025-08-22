@@ -5,6 +5,7 @@ export interface SectionElementResult<T extends object, K = string | number> {
   value?: T;
   parentValue?: T;
   keyName?: K;
+  expandKey?: string;
   /** Index of the parent `keyName` */
   keys?: K[];
 }

@@ -11,7 +11,6 @@ export function ExampleEditor() {
     <>
       <JsonViewEditor
         value={example}
-        keyName="root"
         onEdit={({ value }) => {
           console.log(':value:', value);
         }}
