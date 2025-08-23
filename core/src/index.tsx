@@ -32,6 +32,7 @@ import { CountInfoExtra } from './section/CountInfoExtra';
 import { Ellipsis } from './section/Ellipsis';
 import { KeyName } from './section/KeyName';
 import { Row } from './section/Row';
+import { ValueExtra } from './section/ValueExtra';
 
 export * from './store';
 export * from './store/Expands';
@@ -107,6 +108,7 @@ type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
   CountInfo: typeof CountInfo;
   CountInfoExtra: typeof CountInfoExtra;
   KeyName: typeof KeyName;
+  ValueExtra: typeof ValueExtra;
   Row: typeof Row;
 };
 
@@ -191,6 +193,7 @@ JsonView.Copied = Copied;
 JsonView.CountInfo = CountInfo;
 JsonView.CountInfoExtra = CountInfoExtra;
 JsonView.KeyName = KeyName;
+JsonView.ValueExtra = ValueExtra;
 JsonView.Row = Row;
 
 JsonView.displayName = 'JVR.JsonView';

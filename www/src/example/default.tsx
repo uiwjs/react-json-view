@@ -67,7 +67,7 @@ export const example = {
   myMap,
 };
 
-const Label = styled.label`
+export const Label = styled.label`
   margin-top: 0.83rem;
   display: block;
   span {
@@ -75,12 +75,12 @@ const Label = styled.label`
   }
 `;
 
-const Options = styled.div`
+export const Options = styled.div`
   display: grid;
   grid-template-columns: 50% 60%;
 `;
 
-const initialState: Partial<
+export const initialState: Partial<
   JsonViewProps<object> & {
     quote: string;
     theme: keyof typeof themesData;
