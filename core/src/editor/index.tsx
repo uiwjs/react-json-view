@@ -3,6 +3,7 @@ import JsonView, { type JsonViewProps } from '../';
 import { KeyNameRender } from './KeyName';
 import { CountInfoExtraRender } from './CountInfoExtra';
 import { Context, Dispatch, useStoreReducer } from './store';
+import { ValueExtraRender } from './ValueExtra';
 
 export interface JsonViewEditorProps<T extends object> extends Omit<JsonViewProps<T>, 'shortenTextAfterLength'> {
   /**
@@ -29,6 +30,7 @@ const JsonViewEditor = forwardRef<HTMLDivElement, JsonViewEditorProps<object>>((
         <JsonView {...reset} ref={ref}>
           {editable && <JsonView.KeyName render={KeyNameRender} />}
           {editable && <JsonView.CountInfoExtra render={CountInfoExtraRender} />}
+          {editable && <JsonView.ValueExtra render={ValueExtraRender} />}
           {children}
         </JsonView>
       </Dispatch.Provider>

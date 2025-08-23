@@ -11,6 +11,7 @@ import { useHighlight } from '../utils/useHighlight';
 import { type SectionElementResult } from '../store/Section';
 import { Copied } from '../comps/Copied';
 import { useIdCompat } from '../comps/useIdCompat';
+import { ValueExtraComp } from '../section/ValueExtra';
 
 interface KeyValuesProps<T extends object> extends SectionElementResult<T> {
   expandKey?: string;
@@ -118,6 +119,7 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
     <RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}>
       <KayName keyName={keyName} value={value} keys={keys} parentValue={parentValue} />
       <Value keyName={keyName!} value={value} keys={keys} />
+      <ValueExtraComp keyName={keyName!} value={value} keys={keys} expandKey={subkeyid} />
       <Copied keyName={keyName} value={value as object} keys={keys} parentValue={parentValue} expandKey={subkeyid} />
     </RowComp>
   );
