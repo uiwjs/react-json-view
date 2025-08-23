@@ -1,5 +1,5 @@
 import { type SectionElementProps } from '../store/Section';
-import { useStore } from './store';
+import { useKeyValueItem, useStore } from './store';
 import { EditIcon } from './icon/edit';
 import { DeleteIcon } from './icon/delete';
 import { useShowToolsStore } from '../store/ShowTools';
@@ -9,6 +9,7 @@ export const ValueExtraRender: SectionElementProps['render'] = (
   { value, parentValue, keyName, expandKey },
 ) => {
   const { onEdit } = useStore();
+  const { setEditable } = useKeyValueItem()
 
   const showTools = useShowToolsStore();
   const isShowTools = expandKey && showTools[expandKey];
@@ -16,6 +17,7 @@ export const ValueExtraRender: SectionElementProps['render'] = (
 
   const click = (evn: React.MouseEvent<SVGElement, MouseEvent>) => {
     evn.stopPropagation();
+    setEditable?.(true);
   };
 
   const deleteHandle = async (evn: React.MouseEvent<SVGSVGElement, MouseEvent>) => {

@@ -17,6 +17,7 @@ type Dispatch = React.Dispatch<InitialState>;
 
 const initialState: InitialState = {};
 export const Context = createContext<InitialState>(initialState);
+export const KeyValueItemContext = createContext<{ editable: boolean, setEditable: (b: boolean) => void }>({ editable: false, setEditable: () => { } });
 
 const reducer = (state: InitialState, action: InitialState) => ({
   ...state,
@@ -28,6 +29,10 @@ Dispatch.displayName = 'JVR.Editor.Dispatch';
 
 export const useStore = () => {
   return useContext(Context);
+};
+
+export const useKeyValueItem = () => {
+  return useContext(KeyValueItemContext);
 };
 
 export function useStoreReducer(initialState: InitialState) {
