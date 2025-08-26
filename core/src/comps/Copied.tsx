@@ -13,15 +13,24 @@ export type CopiedOption<T extends object> = {
 
 export interface CopiedProps<T extends object> extends React.SVGProps<SVGSVGElement>, SectionElementResult<T> {
   expandKey: string;
+  beforeCopy?: (
+    copyText: string,
+    keyName?: string | number,
+    value?: T,
+    parentValue?: T,
+    expandKey?: string,
+    keys?: (number | string)[],
+  ) => string;
 }
 
 export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T>) => {
-  const { keyName, value, parentValue, expandKey, keys, ...other } = props;
-  const { onCopied, enableClipboard } = useStore();
+  const { keyName, value, parentValue, expandKey, keys, beforeCopy, ...other } = props;
+  const { onCopied, enableClipboard, beforeCopy: globalBeforeCopy } = useStore();
   const showTools = useShowToolsStore();
   const isShowTools = showTools[expandKey];
   const [copied, setCopied] = useState(false);
   const { Copied: Comp = {} } = useSectionStore();
+  const sectionBeforeCopy = Comp?.beforeCopy;
 
   if (enableClipboard === false || !isShowTools) return null;
 
@@ -39,6 +48,14 @@ export const Copied = <T extends object, K extends TagType>(props: CopiedProps<T
     } else {
       copyText = JSON.stringify(value, (_, v) => (typeof v === 'bigint' ? bigIntToString(v) : v), 2);
     }
+
+    // Apply beforeCopy transformation if provided
+    // Priority: component prop > section prop > global prop
+    const finalBeforeCopy = beforeCopy || sectionBeforeCopy || globalBeforeCopy;
+    if (finalBeforeCopy && typeof finalBeforeCopy === 'function') {
+      copyText = finalBeforeCopy(copyText, keyName, value, parentValue, expandKey, keys);
+    }
+
     onCopied && onCopied(copyText, value);
     setCopied(true);
 

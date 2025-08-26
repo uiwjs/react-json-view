@@ -12,6 +12,7 @@ export interface InitialState<T extends object> {
   value?: object;
   onExpand?: JsonViewProps<object>['onExpand'];
   onCopied?: JsonViewProps<object>['onCopied'];
+  beforeCopy?: JsonViewProps<T>['beforeCopy'];
   objectSortKeys?: JsonViewProps<T>['objectSortKeys'];
   displayObjectSize?: JsonViewProps<T>['displayObjectSize'];
   shortenTextAfterLength?: JsonViewProps<T>['shortenTextAfterLength'];

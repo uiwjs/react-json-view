@@ -75,6 +75,15 @@ export interface JsonViewProps<T extends object>
   onExpand?: (props: { expand: boolean; value?: T; keyid: string; keyName?: string | number }) => void;
   /** Fires event when you copy */
   onCopied?: (text: string, value?: T) => void;
+  /** Transform the text before copying to clipboard */
+  beforeCopy?: (
+    copyText: string,
+    keyName?: string | number,
+    value?: T,
+    parentValue?: T,
+    expandKey?: string,
+    keys?: (number | string)[],
+  ) => string;
 }
 
 type JsonViewComponent = React.FC<React.PropsWithRef<JsonViewProps<object>>> & {
@@ -128,6 +137,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     objectSortKeys = false,
     onExpand,
     onCopied,
+    beforeCopy,
     ...elmProps
   } = props;
   const defaultStyle: CSS.Properties<string | number> = {
@@ -154,6 +164,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
         highlightUpdates,
         onCopied,
         onExpand,
+        beforeCopy,
       }}
       initialTypes={{ displayDataTypes }}
     >

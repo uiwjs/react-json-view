@@ -32,7 +32,6 @@ const example = {
 
 const shouldExpandNodeInitially: ShouldExpandNodeInitially<object> = (isExpanded, props) => {
   const { value, level, keyName, parentValue, keys } = props;
-  console.log('~~~~:', keyName, level, parentValue, keys);
   const isArray = Array.isArray(value);
   const isObject = typeof value === 'object' && !isArray;
   if (isArray) {
