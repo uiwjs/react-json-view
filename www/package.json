@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "2.0.0-alpha.36",
+  "version": "2.0.0-alpha.37",
   "preview": true,
   "scripts": {
     "build": "kkt build",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@uiw/react-color-colorful": "^2.0.0",
-    "@uiw/react-json-view": "2.0.0-alpha.36",
+    "@uiw/react-json-view": "2.0.0-alpha.37",
     "@uiw/react-markdown-preview-example": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
