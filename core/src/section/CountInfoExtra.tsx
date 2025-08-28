@@ -12,20 +12,22 @@ CountInfoExtra.displayName = 'JVR.CountInfoExtra';
 
 export interface CountInfoExtraCompsProps<T extends object> {
   value?: T;
+  parentValue?: T;
   keyName: string | number;
+  expandKey?: string;
 }
 
 export const CountInfoExtraComps = <T extends object, K extends TagType>(
   props: SectionElementProps<K> & CountInfoExtraCompsProps<T>,
 ) => {
-  const { value = {}, keyName, ...other } = props;
+  const { value = {}, parentValue, keyName, expandKey, ...other } = props;
   const { CountInfoExtra: Comp = {} } = useSectionStore();
   const { as, render, ...reset } = Comp;
   if (!render && !reset.children) return null;
   const Elm = as || 'span';
   const isRender = render && typeof render === 'function';
   const elmProps = { ...reset, ...other };
-  const child = isRender && render(elmProps as React.HTMLAttributes<K>, { value, keyName });
+  const child = isRender && render(elmProps as React.HTMLAttributes<K>, { value, keyName, parentValue, expandKey });
   if (child) return child;
   return <Elm {...elmProps} />;
 };
