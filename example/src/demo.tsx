@@ -31,18 +31,20 @@ const example = {
 };
 
 const shouldExpandNodeInitially: ShouldExpandNodeInitially<object> = (isExpanded, props) => {
-  const { value, level, keyName, parentValue, keys } = props;
+  const { value, level } = props;
   const isArray = Array.isArray(value);
   const isObject = typeof value === 'object' && !isArray;
   if (isArray) {
-    return isExpanded || value.length > 5;
+    return value.length < 5;
   }
   if (isObject && level > 3) {
-    return isExpanded || true; // Expand if it's an object and level is greater than 3
+    return false;
   }
   return isExpanded;
 };
 
 export default function App() {
   return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={shouldExpandNodeInitially} />;
+  // return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => true} collapsed={true} />;
+  // return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => false} />;
 }
