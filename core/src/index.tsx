@@ -61,9 +61,17 @@ export interface JsonViewProps<T extends object>
   displayDataTypes?: boolean;
   /** The user can copy objects and arrays to clipboard by clicking on the clipboard icon. @default true */
   enableClipboard?: boolean;
-  /** When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a particular depth. @default false */
+  /**
+   * When set to true, all nodes will be collapsed by default. Use an integer value to collapse at a specific depth. @default false
+   * collapsed takes precedence over shouldExpandNodeInitially.
+   * @see {@link shouldExpandNodeInitially} for more details on how the initial expansion works.
+   */
   collapsed?: boolean | number;
-  /** Determine whether the node should be expanded on the first render, or you can use collapsed to control the level of expansion (by default, the root is expanded). */
+  /**
+   * Determines whether the node should be expanded on the first render, or you can use collapsed to control the level of expansion (by default, the root is expanded).
+   * If both collapsed and shouldExpandNodeInitially are set, the value of collapsed takes precedence.
+   * @see {@link collapsed} for more details on how this works.
+   */
   shouldExpandNodeInitially?: ShouldExpandNodeInitially<T>;
   /** Whether to highlight updates. @default true */
   highlightUpdates?: boolean;
