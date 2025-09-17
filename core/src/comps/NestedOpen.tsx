@@ -23,9 +23,10 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   const { onExpand, collapsed, shouldExpandNodeInitially } = useStore();
   const defaultExpanded =
     typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
-  let isExpanded = expands[expandKey] ?? defaultExpanded;
+  let isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
     shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
+  console.log('NestedOpen', expands[expandKey], defaultExpanded, shouldExpand, !shouldExpand);
   if (expands[expandKey] === undefined && shouldExpandNodeInitially) {
     isExpanded = !shouldExpand;
   }

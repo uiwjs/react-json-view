@@ -23,9 +23,11 @@ export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
   const { objectSortKeys, indentWidth, collapsed, shouldExpandNodeInitially } = useStore();
   const defaultExpanded =
     typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level > collapsed : false;
-  const isExpanded = expands[expandKey] ?? defaultExpanded;
+  const isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
     shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
+
+  console.log('KeyValues', expands[expandKey], defaultExpanded, !shouldExpand, shouldExpand, isExpanded);
   if (expands[expandKey] === undefined && !shouldExpand) {
     return null;
   }

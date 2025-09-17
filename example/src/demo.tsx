@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import JsonView, { ShouldExpandNodeInitially } from '@uiw/react-json-view';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
@@ -44,7 +45,35 @@ const shouldExpandNodeInitially: ShouldExpandNodeInitially<object> = (isExpanded
 };
 
 export default function App() {
-  return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={shouldExpandNodeInitially} />;
-  // return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => true} collapsed={true} />;
-  // return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => false} />;
+  const [collapsed, setCollapsed] = useState(true);
+  // return <JsonView value={example} />;
+  return (
+    <div>
+      <JsonView
+        value={example}
+        displayObjectSize={false}
+        shouldExpandNodeInitially={shouldExpandNodeInitially}
+        collapsed={collapsed}
+      />
+      <button style={{ marginTop: 12 }} onClick={() => setCollapsed(!collapsed)}>
+        {collapsed ? 'Expand All' : 'Collapse All'}
+      </button>
+    </div>
+  );
+  return (
+    <JsonView
+      value={example}
+      displayObjectSize={false}
+      shouldExpandNodeInitially={shouldExpandNodeInitially}
+      collapsed={true}
+    />
+  );
+  return <JsonView value={example} displayObjectSize={false} collapsed={true} />;
+  return <JsonView value={example} displayObjectSize={false} collapsed={false} />;
+  return (
+    <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => true} collapsed={false} />
+  );
+  return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => true} collapsed={true} />;
+  return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => true} />;
+  return <JsonView value={example} displayObjectSize={false} shouldExpandNodeInitially={() => false} />;
 }
