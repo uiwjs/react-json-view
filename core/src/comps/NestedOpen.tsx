@@ -26,7 +26,6 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
   let isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
     shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
-  console.log('NestedOpen', expands[expandKey], defaultExpanded, shouldExpand, !shouldExpand);
   if (expands[expandKey] === undefined && shouldExpandNodeInitially) {
     isExpanded = !shouldExpand;
   }
