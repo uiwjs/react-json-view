@@ -5,6 +5,7 @@ export interface SectionElementResult<T extends object, K = string | number> {
   value?: T;
   parentValue?: T;
   keyName?: K;
+  expandKey?: string;
   /** Index of the parent `keyName` */
   keys?: K[];
 }
@@ -23,6 +24,7 @@ type InitialState<T extends TagType> = {
   Ellipsis?: SectionElement<T>;
   Row?: SectionElement<T>;
   KeyName?: SectionElement<T>;
+  ValueExtra?: SectionElement<T>;
 };
 
 type Dispatch = React.Dispatch<InitialState<TagType>>;
@@ -70,6 +72,13 @@ const initialState: InitialState<TagType> = {
   KeyName: {
     as: 'span',
     className: 'w-rjv-object-key',
+  },
+  ValueExtra: {
+    as: 'span',
+    className: 'w-rjv-object-extra',
+    style: {
+      paddingLeft: 8,
+    },
   },
 };
 
