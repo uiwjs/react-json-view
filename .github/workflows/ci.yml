@@ -11,10 +11,10 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
       - run: node -v
@@ -85,10 +85,10 @@ jobs:
             ```
             
             ${{ steps.changelog.outputs.changelog }}
-
+      
+      # node@v24.0.0+ 
+      # https://gist.github.com/jaywcjlove/a178278521a6f72c74525d3f1d9c4bf9
       - run: npm publish --access public --provenance
         name: 📦 @uiw/react-json-view publish to NPM
         continue-on-error: true
         working-directory: core
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
