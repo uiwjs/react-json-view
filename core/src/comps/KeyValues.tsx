@@ -26,9 +26,14 @@ export const KeyValues = <T extends object>(props: KeyValuesProps<T>) => {
   const isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
     shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
-
-  if (expands[expandKey] === undefined && !shouldExpand) {
-    return null;
+  if (shouldExpandNodeInitially && collapsed === false) {
+    if (expands[expandKey] === undefined && !shouldExpand) {
+      return null;
+    }
+  } else {
+    if (expands[expandKey] === undefined && shouldExpand) {
+      return null;
+    }
   }
   if (isExpanded) {
     return null;

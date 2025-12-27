@@ -747,8 +747,11 @@ export default function Demo() {
 
 ## Default Collapse/Expand
 
+Determines whether the node should be expanded on the first render. The default value of `collapsed` is `false`.
+If both `collapsed` and `shouldExpandNodeInitially` are set, `collapsed` takes precedence; `shouldExpandNodeInitially` only takes effect when `collapsed` is `false`.
+
 ```tsx mdx:preview
-import React from 'react';
+import React, { useState } from 'react';
 import JsonView from '@uiw/react-json-view';
 const object = {
   string: 'Lorem ipsum dolor sit amet',
@@ -765,21 +768,26 @@ const object = {
   ],
 }
 export default function Demo() {
+  const [collapsed, setCollapsed] = useState(false)
   return (
-    <JsonView
-      value={object}
-      collapsed={2}
-      shouldExpandNodeInitially={(isExpanded, { value, keys, level }) => {
-        if (keys.length > 0 && keys[0] == "object") {
-          return false
-        }
-        return isExpanded
-      }}
-      style={{
-        '--w-rjv-background-color': '#ffffff',
-      }}
-    >
-    </JsonView>
+    <>
+      <input type="checkbox" id="collapsed" checked={collapsed} onChange={(e) => setCollapsed(e.target.checked)} />
+      <label for="collapsed"> collapsed={collapsed == true ? "false" : "2"} </label>
+      <JsonView
+        value={object}
+        collapsed={collapsed == true ? false : 2}
+        shouldExpandNodeInitially={(isExpanded, { value, keys, level }) => {
+          if (keys.length > 0 && keys[0] == "object") {
+            return false
+          }
+          return isExpanded
+        }}
+        style={{
+          '--w-rjv-background-color': '#ffffff',
+        }}
+      >
+      </JsonView>
+    </>
   )
 }
 ```
@@ -869,13 +877,13 @@ export default function Demo() {
           if (!isExpanded) {
             return (
               <svg viewBox="0 0 24 24" {...svgProps}>
-                <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7,13H17V11H7" />
               </svg>
             );
           }
           return (
             <svg viewBox="0 0 24 24" {...svgProps}>
-              <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7,13H17V11H7" />
+              <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
             </svg>
           );
         }}

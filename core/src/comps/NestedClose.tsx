@@ -18,8 +18,14 @@ export const NestedClose = <T extends object>(props: NestedCloseProps<T>) => {
   const isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
     shouldExpandNodeInitially && shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
-  if (expands[expandKey] === undefined && !shouldExpand) {
-    return null;
+  if (shouldExpandNodeInitially && collapsed === false) {
+    if (expands[expandKey] === undefined && !shouldExpand) {
+      return null;
+    }
+  } else {
+    if (expands[expandKey] === undefined && shouldExpand) {
+      return null;
+    }
   }
   const len = Object.keys(value!).length;
   if (isExpanded || len === 0) {
