@@ -88,7 +88,7 @@ jobs:
       
       # node@v24.0.0+ 
       # https://gist.github.com/jaywcjlove/a178278521a6f72c74525d3f1d9c4bf9
-      - run: npm publish --access public --provenance
+      - run: npm publish --access public --provenance --tag latest
         name: 📦 @uiw/react-json-view publish to NPM
         continue-on-error: true
         working-directory: core
