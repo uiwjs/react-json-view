@@ -119,7 +119,7 @@ const example = {
 
 ## Theme
 
-By default, the `lightTheme` light theme is used, and a `darkTheme` dark theme configuration is built in
+By default, the `lightTheme` light theme is used, and a `darkTheme` dark theme configuration is built in. The library provides multiple built-in themes including dark, light, nord, github themes, gruvbox, vscode, monokai, and basic themes.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -163,7 +163,7 @@ export default function Demo() {
 }
 ```
 
-Example of custom `vscode` theme styles: 
+Example of custom `vscode` theme styles using CSS custom properties: 
 
 ```tsx mdx:preview
 import React from 'react';
@@ -221,7 +221,7 @@ export default function Demo() {
 
 ## Online Editing Theme
 
-Online custom style example, please check in the [documentation website](https://uiwjs.github.io/react-json-view/)
+Interactive theme customization example with real-time color picker. You can modify theme colors and see changes instantly. Check the full interactive editor in the [documentation website](https://uiwjs.github.io/react-json-view/)
 
 ```tsx mdx:preview:&title=Online Editing Theme
 import React, { useState, useEffect } from 'react';
@@ -349,9 +349,9 @@ export default function Demo() {
 }
 ```
 
-## Render
+## Custom Rendering
 
-**`v2`** version allows flexible customization of each "part" by providing small sub-components for customization, including value and type components: `<Bigint />`, `<Date />`, `<False />`, `<Float />`, `<Int />`, `<Map />`, `<Nan />`, `<Null />`, `<Set />`, `<String />`, `<True />`, `<Undefined />`, `<Url />`, and symbol components: `<ValueQuote />`, `<Arrow />`, `<Colon />`, `<Quote />`, `<BraceLeft />`, `<BraceRight />`, `<BracketsLeft />`, `<BracketsRight />`.
+**`v2`** version allows flexible customization of each "part" by providing small sub-components for customization, including value and type components: `<Bigint />`, `<Date />`, `<False />`, `<Float />`, `<Int />`, `<Map />`, `<Nan />`, `<Null />`, `<Set />`, `<String />`, `<True />`, `<Undefined />`, `<Url />`, and symbol components: `<ValueQuote />`, `<Arrow />`, `<Colon />`, `<Quote />`, `<BraceLeft />`, `<BraceRight />`, `<BracketsLeft />`, `<BracketsRight />`. This example shows custom rendering of string values as images and custom colon symbols.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -390,7 +390,7 @@ export default function Demo() {
 }
 ```
 
-**Support for the URL(opens in a new tab) API.**
+**URL Type Support** - Automatic recognition and display of URL objects with proper styling.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -412,7 +412,7 @@ export default function Demo() {
 }
 ```
 
-Supports certain partial customizations such as: `<Copied />`, `<CountInfo />`, `<CountInfoExtra />`, `<Ellipsis />`, `<KeyName />`, `<Row />`
+**Component Customization** - Example showing custom copy functionality and URL rendering with clickable links. Supports partial customizations such as: `<Copied />`, `<CountInfo />`, `<CountInfoExtra />`, `<Ellipsis />`, `<KeyName />`, `<Row />`
 
 ```tsx mdx:preview
 import React, { Fragment } from 'react';
@@ -465,7 +465,7 @@ export default function Demo() {
 }
 ```
 
-More in-depth customization ([#19](https://github.com/uiwjs/react-json-view/issues/19))
+**Advanced Customization** - Deep customization example showing how to hide type indicators and quotes for a cleaner MongoDB-like object display ([#19](https://github.com/uiwjs/react-json-view/issues/19))
 
 ```tsx mdx:preview
 import React from 'react';
@@ -518,7 +518,7 @@ export default function Demo() {
 }
 ```
 
-Inspector
+**Array Inspector Style** - Example showing how to create a table-like inspector view for arrays, similar to browser DevTools object inspection.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -615,7 +615,7 @@ export default function Demo() {
 }
 ```
 
-Passing **as="tagName"** will automatically infer the type.
+**Component Type Inference** - Passing **as="tagName"** will automatically infer the TypeScript type for better type safety.
 
 ```tsx
 <JsonView.CountInfo
@@ -629,7 +629,7 @@ Passing **as="tagName"** will automatically infer the type.
 />
 ```
 
-Add a click event on the data row
+**Row Click Events** - Example showing how to add click event handlers to data rows for interactive functionality.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -677,6 +677,8 @@ export default function Demo() {
 
 ## Highlight Updates
 
+Demonstration of automatic highlighting when JSON values change. The timer value updates every second and gets highlighted to show the change.
+
 ```tsx mdx:preview
 import React, { useState, useEffect } from 'react';
 import JsonView from '@uiw/react-json-view';
@@ -717,7 +719,9 @@ export default function Demo() {
 
 This feature can be disabled with `highlightUpdates={false}`, and the default color can be changed with `--w-rjv-update-color`.
 
-## Do not display array index
+## Hide Array Indices
+
+Example showing how to hide array indices for a cleaner display by customizing the Colon and KeyName components.
 
 ```tsx mdx:preview
 import React, { Fragment } from 'react';
@@ -746,10 +750,9 @@ export default function Demo() {
 }
 ```
 
-## Default Collapse/Expand
+## Control Collapse/Expand State
 
-Determines whether the node should be expanded on the first render. The default value of `collapsed` is `false`.
-If both `collapsed` and `shouldExpandNodeInitially` are set, `collapsed` takes precedence; `shouldExpandNodeInitially` only takes effect when `collapsed` is `false`.
+Controls the initial expand/collapse state of JSON nodes. Demonstrates both the `collapsed` prop and `shouldExpandNodeInitially` callback. The default value of `collapsed` is `false`. If both `collapsed` and `shouldExpandNodeInitially` are set, `collapsed` takes precedence; `shouldExpandNodeInitially` only takes effect when `collapsed` is `false`.
 
 ```tsx mdx:preview
 import React, { useState } from 'react';
@@ -793,9 +796,9 @@ export default function Demo() {
 }
 ```
 
-## Modify Icon Style
+## Custom Arrow Icons
 
-Use built-in default icons.
+Example showing how to customize expand/collapse arrow icons using built-in icon components.
 
 ```tsx mdx:preview
 import React from 'react';
@@ -835,7 +838,7 @@ export default function Demo() {
 }
 ```
 
-Display of custom **svg** `icon` components
+**Custom SVG Icons** - Example showing how to implement completely custom SVG icons for expand/collapse arrows with plus/minus symbols.
 
 ```tsx mdx:preview
 import React from 'react';
