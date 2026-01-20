@@ -11,6 +11,13 @@ export const Quote = <T extends object>(
   const { as, render, ...reset } = Comp;
   const Elm = as || 'span';
   const elmProps = { ...other, ...reset };
+  // Trim the leading and trailing spaces in children,
+  // and set it to undefined if it's an empty string or contains only spaces.
+  // https://github.com/uiwjs/react-json-view/issues/86
+  if (typeof elmProps.children === 'string') {
+    const trimmed = elmProps.children.trim();
+    elmProps.children = trimmed || undefined;
+  }
   let result = { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) };
   const child = render && typeof render === 'function' && render(elmProps, result);
   if (child) return child;
