@@ -1,6 +1,6 @@
 {
   "name": "@uiw/react-json-view",
-  "version": "2.0.0-alpha.40",
+  "version": "2.0.0-alpha.41",
   "description": "JSON viewer for react.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -76,7 +76,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/uiwjs/react-json-view.git"
+    "url": "git+https://github.com/uiwjs/react-json-view.git"
   },
   "author": "Kenny Wang<wowohoo@qq.com>",
   "license": "MIT",
