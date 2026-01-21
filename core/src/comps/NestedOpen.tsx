@@ -60,7 +60,7 @@ export const NestedOpen = <T extends object>(props: NestedOpenProps<T>) => {
       <EllipsisComp keyName={keyName!} value={value} isExpanded={isExpanded} />
       <BracketsClose isVisiable={isExpanded || !showArrow} isBrackets={isArray || isMySet} {...compProps} />
       <CountInfoComp value={value} keyName={keyName!} />
-      <CountInfoExtraComps value={value} keyName={keyName!} />
+      <CountInfoExtraComps value={value} keyName={keyName!} expandKey={expandKey} parentValue={parentValue} />
       <Copied keyName={keyName!} value={value} expandKey={expandKey} parentValue={parentValue} keys={keys} />
     </span>
   );

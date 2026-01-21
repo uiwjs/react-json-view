@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Example } from './example/default';
+import { ExampleEditor } from './example/editor';
 
 const ExampleWrapper = styled.div`
   max-width: 630px;
@@ -33,12 +34,12 @@ export default function App() {
         <Button $active={tabs === 'preview'} onClick={() => setTabs('preview')}>
           Preview
         </Button>
-        {/* <Button $active={tabs === 'editor'} onClick={() => setTabs('editor')}>
+        <Button $active={tabs === 'editor'} onClick={() => setTabs('editor')}>
           Editor
-        </Button> */}
+        </Button>
       </TabItem>
       {tabs === 'preview' && <Example />}
-      {/* {tabs === 'editor' && <ExampleEditor />} */}
+      {tabs === 'editor' && <ExampleEditor />}
     </ExampleWrapper>
   );
 }
