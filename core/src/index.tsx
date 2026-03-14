@@ -214,4 +214,31 @@ JsonView.Row = Row;
 
 JsonView.displayName = 'JVR.JsonView';
 
+// Named exports for better import flexibility
+export { JsonView };
+export type { JsonViewComponent };
+
+// Named exports for type components
+export {
+  Bigint,
+  Date as JsonDate,
+  False,
+  Float,
+  Int,
+  Map as JsonMap,
+  Nan,
+  Null,
+  Set as JsonSet,
+  StringText as JsonString,
+  True,
+  Undefined,
+  Url,
+};
+
+// Named exports for symbol components
+export { BraceLeft, BraceRight, BracketsLeft, BracketsRight, Arrow, Colon, Quote, ValueQuote };
+
+// Named exports for section components
+export { Copied, CountInfo, CountInfoExtra, Ellipsis, KeyName, Row };
+
 export default JsonView;
