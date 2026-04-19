@@ -335,7 +335,11 @@ export const TypeUndefined: FC<TypeProps> = ({ children, keyName, keys }) => {
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
-      {child}
+      {child || (
+        <Comp {...reset} className="w-rjv-value">
+          undefined
+        </Comp>
+      )}
     </Fragment>
   );
 };
@@ -360,7 +364,11 @@ export const TypeNull: FC<TypeProps> = ({ children, keyName, keys }) => {
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
-      {child}
+      {child || (
+        <Comp {...reset} className="w-rjv-value">
+          null
+        </Comp>
+      )}
     </Fragment>
   );
 };
@@ -388,7 +396,11 @@ export const TypeNan: FC<TypeProps> = ({ children, keyName, keys }) => {
   return (
     <Fragment>
       {displayDataTypes && (type || <Comp {...reset} style={style} />)}
-      {child}
+      {child || (
+        <Comp {...reset} className="w-rjv-value">
+          NaN
+        </Comp>
+      )}
     </Fragment>
   );
 };

@@ -87,3 +87,14 @@ it('renders <JsonView objectSortKeys={() => {}} /> test case', () => {
   const keyname = screen.getAllByTestId('keyname')[0];
   expect(keyname.innerHTML).toEqual('a');
 });
+
+it('renders null, undefined and NaN values when displayDataTypes={false}', () => {
+  render(<JsonView value={{ null: null, undefined, nan: NaN }} displayDataTypes={false} />);
+
+  const values = Array.from(document.querySelectorAll('.w-rjv-value')).map((elm) => elm.textContent);
+  expect(values).toEqual(['null', 'undefined', 'NaN']);
+  expect(screen.queryByText('float')).toBeNull();
+  expect(screen.queryByText('undefined', { selector: '.w-rjv-type' })).toBeNull();
+  expect(screen.queryByText('null', { selector: '.w-rjv-type' })).toBeNull();
+  expect(screen.queryByText('NaN', { selector: '.w-rjv-type' })).toBeNull();
+});
