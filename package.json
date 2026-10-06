@@ -2,10 +2,11 @@
   "private": true,
   "scripts": {
     "watch": "lerna exec --scope @uiw/react-json-view -- tsbb watch \"src/*.{ts,tsx}\" --use-babel --cjs cjs",
-    "build": "lerna exec --scope @uiw/react-json-view -- tsbb build \"src/*.{ts,tsx}\" --use-babel --cjs cjs",
+    "build": "lerna exec --scope @uiw/react-json-view -- tsbb build \"src/*.{ts,tsx}\" --use-babel --cjs cjs && npm run test:types",
     "start": "lerna exec --scope website -- npm run start",
     "doc": "lerna exec --scope website -- npm run build",
     "type-check": "lerna exec \"tsc --noEmit\" --scope @uiw/* --stream",
+    "test:types": "tsc --project core/type-tests/tsconfig.json",
     "test": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom",
     "coverage": "lerna exec --scope @uiw/react-json-view -- tsbb test --env=jsdom --coverage --bail",
     "prepare": "husky",

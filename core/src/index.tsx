@@ -39,6 +39,8 @@ export * from './store/ShowTools';
 export * from './store/Symbols';
 export * from './store/Types';
 export * from './symbol/';
+export type { SectionElement } from './store/Section';
+export type { CopiedSectionElement } from './section/Copied';
 
 export type ShouldExpandNodeInitially<T extends object> = (
   isExpanded: boolean,
