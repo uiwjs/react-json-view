@@ -98,3 +98,17 @@ it('renders null, undefined and NaN values when displayDataTypes={false}', () =>
   expect(screen.queryByText('null', { selector: '.w-rjv-type' })).toBeNull();
   expect(screen.queryByText('NaN', { selector: '.w-rjv-type' })).toBeNull();
 });
+
+it('renders root-level Set and Map values like nested ones', () => {
+  const { container, rerender } = render(<JsonView value={new Set(['read', 'write'])} />);
+  expect(container.textContent).toContain('read');
+  expect(container.textContent).toContain('write');
+  expect(container.textContent).toContain('Set');
+  expect(container.textContent).toContain('2 items');
+
+  rerender(<JsonView value={new Map([['role', 'admin']])} />);
+  expect(container.textContent).toContain('role');
+  expect(container.textContent).toContain('admin');
+  expect(container.textContent).toContain('Map');
+  expect(container.textContent).toContain('1 item');
+});
