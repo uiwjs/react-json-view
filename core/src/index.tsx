@@ -158,6 +158,12 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
     fontSize: 13,
     ...style,
   };
+  const rootValue =
+    value instanceof globalThis.Set
+      ? Array.from(value)
+      : value instanceof globalThis.Map
+        ? Object.fromEntries(value)
+        : value;
   const cls = ['w-json-view-container', 'w-rjv', className].filter(Boolean).join(' ');
   return (
     <Provider
@@ -178,7 +184,7 @@ const JsonView: JsonViewComponent = forwardRef<HTMLDivElement, JsonViewProps<obj
       }}
       initialTypes={{ displayDataTypes }}
     >
-      <Container value={value} {...elmProps} ref={ref} className={cls} style={defaultStyle} />
+      <Container value={rootValue} initialValue={value} {...elmProps} ref={ref} className={cls} style={defaultStyle} />
       {children}
     </Provider>
   );
