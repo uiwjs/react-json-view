@@ -116,3 +116,37 @@ it('renders <JsonView /> useHighlight Object test case', async () => {
   // Initial render should not trigger animation
   expect(highlightContainerRef.current.animate).not.toHaveBeenCalled();
 });
+
+it('highlights a changed number and skips an unchanged string', () => {
+  const numberRef = { current: { animate: jest.fn() } } as any;
+  const numbers = renderHook(
+    ({ value }) => useHighlight({ value, highlightUpdates: true, highlightContainer: numberRef }),
+    { initialProps: { value: 1 } },
+  );
+  act(() => {
+    numbers.rerender({ value: 2 });
+  });
+  expect(numberRef.current.animate).toHaveBeenCalled();
+
+  const stringRef = { current: { animate: jest.fn() } } as any;
+  const strings = renderHook(
+    ({ highlightUpdates }) => useHighlight({ value: 'same', highlightUpdates, highlightContainer: stringRef }),
+    { initialProps: { highlightUpdates: false } },
+  );
+  act(() => {
+    strings.rerender({ highlightUpdates: true });
+  });
+  expect(stringRef.current.animate).not.toHaveBeenCalled();
+});
+
+it('does not highlight when both numbers are NaN', () => {
+  const highlightContainerRef = { current: { animate: jest.fn() } } as any;
+  const { rerender } = renderHook(
+    ({ highlightUpdates }) => useHighlight({ value: NaN, highlightUpdates, highlightContainer: highlightContainerRef }),
+    { initialProps: { highlightUpdates: false } },
+  );
+  act(() => {
+    rerender({ highlightUpdates: true });
+  });
+  expect(highlightContainerRef.current.animate).not.toHaveBeenCalled();
+});

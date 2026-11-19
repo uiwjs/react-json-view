@@ -225,3 +225,112 @@ it('render <JsonView.Copied />, copy Object with BigInt test case', async () => 
   // Restore the original implementation
   jest.restoreAllMocks();
 });
+
+it('copies a Date with onCopied and beforeCopy', async () => {
+  const writeText = jest.fn().mockResolvedValue(undefined);
+  jest.spyOn(navigator.clipboard, 'writeText').mockImplementation(writeText);
+  const date = new Date('2020-01-02T00:00:00.000Z');
+  const onCopied = jest.fn();
+  const { container } = render(
+    <JsonView
+      value={{ value: date }}
+      onCopied={onCopied}
+      beforeCopy={(text, keyName, value, _parent, _expandKey, keys) => {
+        expect(keyName).toBe('value');
+        expect(value).toBe(date);
+        expect(keys).toEqual(['value']);
+        return `date:${text}`;
+      }}
+    >
+      <JsonView.Copied data-testid="copied" />
+      <JsonView.Quote data-testid="quote" />
+    </JsonView>,
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  const quote = screen.getAllByTestId('quote')[0];
+  const lineDom = quote.parentElement?.parentElement!;
+  fireEvent.mouseEnter(lineDom);
+  const copied = screen.getAllByTestId('copied')[1];
+  await act(async () => {
+    fireEvent.click(copied);
+    await Promise.resolve();
+  });
+  expect(writeText).toHaveBeenCalledWith(`date:${date.toLocaleString()}`);
+  expect(onCopied).toHaveBeenCalledWith(`date:${date.toLocaleString()}`, date);
+  jest.restoreAllMocks();
+});
+
+it('leaves copied text unchanged when beforeCopy is not a function', async () => {
+  const writeText = jest.fn().mockResolvedValue(undefined);
+  jest.spyOn(navigator.clipboard, 'writeText').mockImplementation(writeText);
+  const { container } = render(
+    <JsonView value={{ value: 123 }} beforeCopy={'raw' as unknown as () => string}>
+      <JsonView.Copied data-testid="copied" />
+      <JsonView.Quote data-testid="quote" />
+    </JsonView>,
+  );
+  expect(container.firstElementChild).toBeInstanceOf(Element);
+  const quote = screen.getAllByTestId('quote')[0];
+  fireEvent.mouseEnter(quote.parentElement?.parentElement!);
+  await act(async () => {
+    fireEvent.click(screen.getAllByTestId('copied')[1]);
+    await Promise.resolve();
+  });
+  expect(writeText).toHaveBeenCalledWith('123');
+  jest.restoreAllMocks();
+});
+
+it('swallows clipboard rejections', async () => {
+  jest.spyOn(navigator.clipboard, 'writeText').mockRejectedValue(new Error('denied'));
+  const { container } = render(
+    <JsonView value={{ a: 1 }}>
+      <JsonView.Copied data-testid="copied" />
+    </JsonView>,
+  );
+  fireEvent.mouseEnter(container.firstElementChild!);
+  await act(async () => {
+    fireEvent.click(screen.getByTestId('copied'));
+    await Promise.resolve();
+  });
+  expect(navigator.clipboard.writeText).toHaveBeenCalled();
+  jest.restoreAllMocks();
+});
+
+it('falls back to execCommand and clears the copied state', async () => {
+  jest.useFakeTimers();
+  const exec = jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false);
+  const originalExec = document.execCommand;
+  document.execCommand = exec as typeof document.execCommand;
+  const descriptor = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+  Object.defineProperty(navigator, 'clipboard', { configurable: true, writable: true, value: undefined });
+  try {
+    const { container } = render(
+      <JsonView value={{ a: 1 }}>
+        <JsonView.Copied data-testid="copied" />
+      </JsonView>,
+    );
+    fireEvent.mouseEnter(container.firstElementChild!);
+    const copied = screen.getByTestId('copied');
+    await act(async () => {
+      fireEvent.click(copied);
+      await Promise.resolve();
+    });
+    expect(exec).toHaveBeenCalledWith('copy');
+    expect(copied.getAttribute('fill')).toBe('var(--w-rjv-copied-success-color, #28a745)');
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+    expect(copied.getAttribute('fill')).toBe('var(--w-rjv-copied-color, currentColor)');
+    await act(async () => {
+      fireEvent.click(copied);
+      await Promise.resolve();
+    });
+    expect(exec).toHaveBeenCalledTimes(2);
+  } finally {
+    document.execCommand = originalExec;
+    if (descriptor) {
+      Object.defineProperty(navigator, 'clipboard', descriptor);
+    }
+    jest.useRealTimers();
+  }
+});

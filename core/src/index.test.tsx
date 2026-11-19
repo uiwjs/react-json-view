@@ -1,6 +1,9 @@
 import renderer from 'react-test-renderer';
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import JsonView from './';
+import { Provider } from './store';
+import { Container } from './Container';
+import { KeyValues, KeyValuesItem } from './comps/KeyValues';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
 const longArray = new Array(1000).fill(1);
@@ -111,4 +114,82 @@ it('renders root-level Set and Map values like nested ones', () => {
   expect(container.textContent).toContain('admin');
   expect(container.textContent).toContain('Map');
   expect(container.textContent).toContain('1 item');
+});
+
+it('collapses nodes past a numeric depth and notifies onExpand', () => {
+  const onExpand = jest.fn();
+  const { container } = render(
+    <JsonView value={{ l1: { l2: { l3: { msg: 'deep-secret' } } } }} collapsed={2} onExpand={onExpand} />,
+  );
+  expect(screen.getByText('l1')).toBeTruthy();
+  expect(screen.getByText('l2')).toBeTruthy();
+  expect(screen.queryByText('deep-secret')).toBeNull();
+  fireEvent.click(container.querySelector('.w-rjv-arrow')!);
+  expect(onExpand).toHaveBeenCalledWith(expect.objectContaining({ expand: true, keyName: undefined }));
+});
+
+it('shows every level when collapsed is neither boolean nor number', () => {
+  render(
+    <Provider initialState={{ collapsed: undefined }}>
+      <Container value={{ a: 1 }} />
+      <KeyValues value={{ z: 9 }} level={1} />
+      <KeyValuesItem keyName="solo" value="x" />
+    </Provider>,
+  );
+  expect(screen.getByText('a')).toBeTruthy();
+  expect(screen.getByText('z')).toBeTruthy();
+  expect(screen.getByText('solo')).toBeTruthy();
+});
+
+it('hides children when shouldExpandNodeInitially returns false', () => {
+  render(<JsonView value={{ a: { b: 2 }, c: 3 }} shouldExpandNodeInitially={() => false} />);
+  expect(screen.queryByText('b')).toBeNull();
+  expect(screen.queryByText('c')).toBeNull();
+});
+
+it('shows children when shouldExpandNodeInitially returns true', () => {
+  render(<JsonView value={{ a: { b: 2 } }} shouldExpandNodeInitially={() => true} />);
+  expect(screen.getByText('b')).toBeTruthy();
+});
+
+it('lets collapsed override shouldExpandNodeInitially', () => {
+  render(<JsonView value={{ a: 1 }} collapsed shouldExpandNodeInitially={() => false} />);
+  expect(screen.queryByText('a')).toBeNull();
+});
+
+it('hides a collapsed node when the stored callback asks to expand it', () => {
+  const { rerender } = render(
+    <Provider initialState={{ collapsed: true, shouldExpandNodeInitially: () => true }}>
+      <Container value={{ a: 1 }} />
+    </Provider>,
+  );
+  expect(screen.queryByText('a')).toBeNull();
+  rerender(
+    <Provider initialState={{ collapsed: true, shouldExpandNodeInitially: () => false }}>
+      <Container value={{ kept: 1 }} />
+    </Provider>,
+  );
+  expect(screen.getByText('kept')).toBeTruthy();
+});
+
+it('renders empty objects and non-json values', () => {
+  render(<JsonView value={{ empty: {}, run: () => 1 }} />);
+  expect(screen.getByText('empty')).toBeTruthy();
+  expect(screen.getByText('run')).toBeTruthy();
+});
+
+it('does not shorten strings when shortenTextAfterLength is 0', () => {
+  const text = 'x'.repeat(40);
+  render(<JsonView value={{ text }} shortenTextAfterLength={0} />);
+  expect(screen.getByText(text)).toBeTruthy();
+});
+
+it('leaves numeric keys unsorted', () => {
+  const sort = jest.fn().mockReturnValue(0);
+  const { container, rerender } = render(<JsonView value={{ nums: [3, 1, 2] }} objectSortKeys={sort} />);
+  const readValues = () => Array.from(container.querySelectorAll('.w-rjv-value')).map((elm) => elm.textContent);
+  expect(readValues()).toEqual(['3', '1', '2']);
+  expect(sort).not.toHaveBeenCalled();
+  rerender(<JsonView value={{ nums: [3, 1, 2] }} objectSortKeys />);
+  expect(readValues()).toEqual(['3', '1', '2']);
 });

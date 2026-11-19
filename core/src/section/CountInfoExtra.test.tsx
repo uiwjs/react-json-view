@@ -1,4 +1,4 @@
-import { screen, render } from '@testing-library/react';
+import { screen, render, waitFor } from '@testing-library/react';
 import JsonView from '../';
 
 const avatar = 'https://i.imgur.com/MK3eW3As.jpg';
@@ -34,4 +34,19 @@ it('renders <JsonView.CountInfoExtra /> test case', async () => {
   expect(countInfo.className).toEqual('w-rjv-object-extra');
   expect(countInfo.style).toHaveProperty('padding-left', '8px');
   expect(countInfo.innerHTML).toEqual('xx');
+});
+
+it('falls back to a span when CountInfoExtra as is empty', async () => {
+  render(
+    <JsonView value={example}>
+      <JsonView.CountInfoExtra data-testid="countInfo" as={'' as 'span'}>
+        xx
+      </JsonView.CountInfoExtra>
+    </JsonView>,
+  );
+  await waitFor(() => {
+    const countInfo = screen.getByTestId('countInfo');
+    expect(countInfo.tagName).toBe('SPAN');
+    expect(countInfo.textContent).toBe('xx');
+  });
 });

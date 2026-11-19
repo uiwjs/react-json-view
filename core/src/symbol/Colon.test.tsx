@@ -1,5 +1,6 @@
 import { screen, render, waitFor } from '@testing-library/react';
 import JsonView from '..';
+import { Colon } from './index';
 
 it('renders <JsonView.Colon /> test case', async () => {
   const demo = {
@@ -39,5 +40,24 @@ it('renders <JsonView.Colon render /> test case', async () => {
     expect(elm.tagName).toBe('SPAN');
     expect(elm.className).toBe('w-rjv-colon');
     expect(elm.innerHTML).toBe('.......');
+  });
+});
+
+it('supplies colon keys when the caller omits them', async () => {
+  const seen: Array<(string | number)[] | undefined> = [];
+  render(
+    <JsonView value={{ value: 123 }}>
+      <JsonView.Colon
+        render={(_props, result) => {
+          seen.push(result.keys as (string | number)[]);
+          return null;
+        }}
+      />
+      <Colon />
+      <Colon keyName="k" />
+    </JsonView>,
+  );
+  await waitFor(() => {
+    expect(seen).toEqual(expect.arrayContaining([[], ['k']]));
   });
 });

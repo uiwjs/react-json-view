@@ -49,3 +49,14 @@ it('renders <JsonView.CountInfo /> displayObjectSize test case', async () => {
   const brace = screen.getByTestId('brace');
   expect(brace.nextElementSibling).toBeNull();
 });
+
+it('renders custom CountInfo children', async () => {
+  render(
+    <JsonView value={{ a: 1 }}>
+      <JsonView.CountInfo data-testid="count">kept</JsonView.CountInfo>
+    </JsonView>,
+  );
+  await waitFor(() => {
+    expect(screen.getByTestId('count').textContent).toBe('kept');
+  });
+});
