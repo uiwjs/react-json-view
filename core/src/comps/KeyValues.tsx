@@ -92,7 +92,13 @@ export const KayName = <T extends object>(props: KayNameProps<T>) => {
 
 KayName.displayName = 'JVR.KayName';
 
-export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
+interface KeyValuesItemProps<T extends object> extends Omit<KeyValuesProps<T>, 'value' | 'level'> {
+  /** Nested nodes are objects; leaves are primitives such as string, number, or bigint. */
+  value?: unknown;
+  level?: number;
+}
+
+export const KeyValuesItem = <T extends object>(props: KeyValuesItemProps<T>) => {
   const { keyName, value, parentValue, level = 0, keys = [] } = props;
   const dispatch = useShowToolsDispatch();
   const subkeyid = useIdCompat();
@@ -104,13 +110,17 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
   const isMyObject = value && typeof value === 'object' && !isMyArray && !isMySet && !isMyMap && !isDate && !isUrl;
   const isNested = isMyObject || isMyArray || isMySet || isMyMap;
   if (isNested) {
-    const myValue = isMySet ? Array.from(value as Set<any>) : isMyMap ? Object.fromEntries(value) : value;
+    const myValue = isMySet
+      ? Array.from(value as Set<any>)
+      : isMyMap
+        ? Object.fromEntries(value as Map<any, any>)
+        : value;
     return (
       <Container
         keyName={keyName}
-        value={myValue}
+        value={myValue as T}
         parentValue={parentValue}
-        initialValue={value}
+        initialValue={value as T}
         keys={keys}
         level={level + 1}
       />
@@ -121,10 +131,17 @@ export const KeyValuesItem = <T extends object>(props: KeyValuesProps<T>) => {
     onMouseLeave: () => dispatch({ [subkeyid]: false }),
   };
   return (
-    <RowComp className="w-rjv-line" value={value} keyName={keyName} keys={keys} parentValue={parentValue} {...reset}>
-      <KayName keyName={keyName} value={value} keys={keys} parentValue={parentValue} />
+    <RowComp
+      className="w-rjv-line"
+      value={value as T}
+      keyName={keyName}
+      keys={keys}
+      parentValue={parentValue}
+      {...reset}
+    >
+      <KayName keyName={keyName} value={value as T} keys={keys} parentValue={parentValue} />
       <Value keyName={keyName!} value={value} keys={keys} />
-      <Copied keyName={keyName} value={value as object} keys={keys} parentValue={parentValue} expandKey={subkeyid} />
+      <Copied keyName={keyName} value={value as T} keys={keys} parentValue={parentValue} expandKey={subkeyid} />
     </RowComp>
   );
 };

@@ -23,7 +23,7 @@ const rich = {
   nan: NaN,
   date: new Date('2020-01-01T00:00:00.000Z'),
   url: new URL('https://example.com'),
-  bi: 10n,
+  bi: BigInt(10),
   set: new Set(['read']),
   map: new Map([['role', 'admin']]),
   arr: [1],
@@ -149,7 +149,7 @@ it('formats bigint edge values', () => {
   expect(bigIntToString(undefined)).toBe('0n');
   expect(bigIntToString('nope')).toBe('0n');
   expect(bigIntToString('')).toBe('0n');
-  expect(bigIntToString(0n)).toBe('0n');
+  expect(bigIntToString(BigInt(0))).toBe('0n');
   expect(bigIntToString('0')).toBe('0n');
   expect(bigIntToString('12')).toBe('12n');
 });
