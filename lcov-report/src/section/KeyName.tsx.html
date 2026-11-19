@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -108,37 +108,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1164x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1276x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1164x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1276x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1164x</span>
-<span class="cline-any cline-yes">1163x</span>
+<span class="cline-any cline-yes">1276x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1276x</span>
+<span class="cline-any cline-yes">1267x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type * as CSS from 'csstype';
 import { type PropsWithChildren } from 'react';
 import { type TagType } from '../store/Types';
@@ -147,7 +147,7 @@ import { useSectionRender } from '../utils/useRender';
 import { type SectionElementResult } from '../store/Section';
 &nbsp;
 export const KeyName = &lt;K extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
-  const { KeyName: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
+  const { KeyName: Comp = {} } = useSectionStore();
   useSectionRender(Comp, props, 'KeyName');
   return null;
 };
@@ -164,14 +164,14 @@ export const KeyNameComp = &lt;T extends object&gt;(props: PropsWithChildren&lt;
   const style: CSS.Properties&lt;string | number&gt; = {
     color: isNumber ? 'var(--w-rjv-key-number, #268bd2)' : 'var(--w-rjv-key-string, #002b36)',
   };
-  const { KeyName: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
+  const { KeyName: Comp = {} } = useSectionStore();
   const { as, render, ...reset } = Comp;
   reset.style = { ...reset.style, ...style };
-  const Elm = as || <span class="branch-1 cbranch-no" title="branch not covered" >'span';</span>
+  const Elm = as || 'span';
   const child =
     render &amp;&amp;
     typeof render === 'function' &amp;&amp;
-    render({ ...reset, children }, { value, parentValue, keyName, keys: keys || (<span class="branch-1 cbranch-no" title="branch not covered" >keyName ? [keyName] : [])</span> });
+    render({ ...reset, children }, { value, parentValue, keyName, keys: keys || (keyName ? [keyName] : []) });
   if (child) return child;
   return &lt;Elm {...reset}&gt;{children}&lt;/Elm&gt;;
 };
@@ -184,7 +184,7 @@ KeyNameComp.displayName = 'JVR.KeyNameComp';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-19T10:55:38.788Z
+                at 2026-11-19T12:27:34.273Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

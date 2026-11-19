@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,43 +101,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1146x</span>
-<span class="cline-any cline-yes">1146x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1232x</span>
+<span class="cline-any cline-yes">1231x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type TagType } from '../store/Types';
 import { type SectionElement, useSectionStore } from '../store/Section';
 import { useSectionRender } from '../utils/useRender';
 import { type SectionElementResult } from '../store/Section';
 &nbsp;
-export const Row = <span class="fstat-no" title="function not covered" >&lt;K</span> extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
-  const { Row: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >useSectionStore();</span>
-<span class="cstat-no" title="statement not covered" >  useSectionRender(Comp, props, 'Row');</span>
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+export const Row = &lt;K extends TagType&gt;(props: SectionElement&lt;K&gt;) =&gt; {
+  const { Row: Comp = {} } = useSectionStore();
+  useSectionRender(Comp, props, 'Row');
+  return null;
 };
 &nbsp;
 Row.displayName = 'JVR.Row';
@@ -146,14 +146,14 @@ export interface RowCompProps&lt;T extends object&gt; extends React.HTMLAttribut
 &nbsp;
 export const RowComp = &lt;T extends object&gt;(props: React.PropsWithChildren&lt;RowCompProps&lt;T&gt;&gt;) =&gt; {
   const { children, value, parentValue, keyName, keys, ...other } = props;
-  const { Row: Comp = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = useSectionStore();
+  const { Row: Comp = {} } = useSectionStore();
   const { as, render, children: _, ...reset } = Comp;
-  const Elm = as || <span class="branch-1 cbranch-no" title="branch not covered" >'div';</span>
+  const Elm = as || 'div';
   const child =
     render &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >    typeof render === 'function' </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >    render({ ...other, ...reset, children }, { value, keyName, parentValue, keys });</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (child) <span class="cstat-no" title="statement not covered" >return child;</span>
+    typeof render === 'function' &amp;&amp;
+    render({ ...other, ...reset, children }, { value, keyName, parentValue, keys });
+  if (child) return child;
   return (
     &lt;Elm {...other} {...reset}&gt;
       {children}
@@ -169,7 +169,7 @@ RowComp.displayName = 'JVR.RowComp';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-19T10:55:38.788Z
+                at 2026-11-19T12:27:34.273Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

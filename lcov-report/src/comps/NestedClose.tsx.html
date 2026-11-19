@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.62% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -121,42 +121,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">204x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">204x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">125x</span>
-<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">123x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">198x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">123x</span>
-<span class="cline-any cline-yes">123x</span>
-<span class="cline-any cline-yes">123x</span>
-<span class="cline-any cline-yes">123x</span>
+<span class="cline-any cline-yes">199x</span>
+<span class="cline-any cline-yes">199x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-yes">188x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useStore } from '../store';
 import { useExpandsStore } from '../store/Expands';
 import { BracketsClose } from '../symbol/';
@@ -173,17 +173,17 @@ export const NestedClose = &lt;T extends object&gt;(props: NestedCloseProps&lt;T
   const expands = useExpandsStore();
   const { collapsed, shouldExpandNodeInitially } = useStore();
   const defaultExpanded =
-    typeof collapsed === 'boolean' ? collapsed : <span class="branch-1 cbranch-no" title="branch not covered" >typeof collapsed === 'number' ? level &gt; collapsed : false;</span>
-  const isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? <span class="branch-0 cbranch-no" title="branch not covered" >false </span>: defaultExpanded);
+    typeof collapsed === 'boolean' ? collapsed : typeof collapsed === 'number' ? level &gt; collapsed : false;
+  const isExpanded = expands[expandKey] ?? (shouldExpandNodeInitially ? false : defaultExpanded);
   const shouldExpand =
-    shouldExpandNodeInitially &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (shouldExpandNodeInitially &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >collapsed === false)</span> {
-<span class="cstat-no" title="statement not covered" >    if (expands[expandKey] === undefined &amp;&amp; !shouldExpand) {</span>
-<span class="cstat-no" title="statement not covered" >      return null;</span>
+    shouldExpandNodeInitially &amp;&amp; shouldExpandNodeInitially(!isExpanded, { value, keys, level, keyName, parentValue });
+  if (shouldExpandNodeInitially &amp;&amp; collapsed === false) {
+    if (expands[expandKey] === undefined &amp;&amp; !shouldExpand) {
+      return null;
     }
   } else {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (expands[expandKey] === undefined &amp;&amp; shouldExpand) {
-<span class="cstat-no" title="statement not covered" >      return null;</span>
+    if (expands[expandKey] === undefined &amp;&amp; shouldExpand) {
+      return null;
     }
   }
   const len = Object.keys(value!).length;
@@ -211,7 +211,7 @@ NestedClose.displayName = 'JVR.NestedClose';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-19T10:55:38.788Z
+                at 2026-11-19T12:27:34.273Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
